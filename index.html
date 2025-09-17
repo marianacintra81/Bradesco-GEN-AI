@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard de Maturidade GenAI - Bradesco_v1</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Executivo - Impacto GenAI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --card-bg-alt: #1a2234;
+      --accent-color: #3b82f6;
+      --accent-hover: #60a5fa;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #f97316; /* Alterado de vermelho para laranja */
+      --border-color: rgba(148, 163, 184, 0.2);
+      --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --highlight: rgba(59, 130, 246, 0.1);
+      --pilot-color: #60a5fa; /* Alterado para azul mais claro */
+      --production-color: #10b981;
+      --pilot-bg: rgba(96, 165, 250, 0.7); /* Alterado para azul mais claro */
+      --production-bg: rgba(16, 185, 129, 0.7);
+      --max-width: 1200px;
+      --retrabalho-color: #f97316; /* Cor para retrabalho (laranja) */
+      --retrabalho-bg: rgba(249, 115, 22, 0.2); /* Fundo para badges de retrabalho */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      line-height: 1.5;
+      padding: 10px;
+    }
+
+    /* Layout principal */
+    .dashboard {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Cabeçalho */
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-title {
+      text-align: center;
+      width: 100%;
+    }
+
+    .header-title h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 2px;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Timeline para mostrar evolução */
+    .timeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      padding: 10px 0;
+    }
+
+    .timeline-phase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+    }
+
+    .timeline-phase.pilot .timeline-dot {
+      background-color: var(--pilot-color);
+      box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2); /* Azul claro */
+    }
+
+    .timeline-phase.production .timeline-dot {
+      background-color: var(--production-color);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+
+    .timeline-phase.active .timeline-dot {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.3);
+    }
+
+    .timeline-label {
+      font-size: 12px;
+      text-align: center;
+      color: var(--text-primary); /* Alterado para branco */
+      width: 120px;
+    }
+
+    .timeline-label span {
+      font-size: 11px;
+      color: var(--accent-color);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .timeline-label .phase-desc {
+      font-size: 10px;
+      color: var(--text-primary); /* Alterado para branco */
+      font-style: italic;
+    }
+
+    .timeline-line {
+      height: 2px;
+      background: linear-gradient(90deg, var(--pilot-color), var(--production-color));
+      width: 100px;
+      margin: 0 10px;
+      position: relative;
+      top: -10px;
+    }
+
+    .timeline-arrow {
+      position: absolute;
+      right: -5px;
+      top: -8px;
+      color: var(--production-color);
+      font-size: 18px;
+    }
+
+    /* Seções */
+    .summary-section,
+    .impact-section,
+    .chart-section,
+    .conclusion-section,
+    .next-phase-section,
+    .projects-section {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 15px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .summary-section h2,
+    .chart-section h2,
+    .conclusion-section h2,
+    .next-phase-section h2,
+    .projects-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary); /* Alterado para branco */
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-section h2 i,
+    .chart-section h2 i,
+    .conclusion-section h2 i,
+    .next-phase-section h2 i,
+    .projects-section h2 i {
+      color: var(--accent-color);
+    }
+
+    /* Estilos para o toggle do impacto */
+    .impact-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .impact-section h2:hover {
+      color: var(--accent-color);
+    }
+
+    .impact-section h2 i:first-child {
+      color: var(--success);
+    }
+
+    #impact-content {
+      transition: all 0.5s ease;
+      max-height: 500px;
+      overflow: hidden;
+    }
+
+    #impact-content.collapsed {
+      max-height: 0;
+      margin-top: 0;
+      opacity: 0;
+    }
+
+    #impact-toggle {
+      transition: transform 0.3s ease;
+    }
+
+    #impact-toggle.collapsed {
+      transform: rotate(180deg);
+    }
+
+    /* Grids */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .impact-grid.horizontal,
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    /* Cards de resumo */
+    .summary-card {
+      background-color: var(--card-bg-alt);
+      border-radius: 8px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      border-left: none; /* Removida a borda colorida */
+    }
+
+    /* Indicadores de maturidade */
+    .maturity-indicator {
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .maturity-label {
+      font-size: 10px;
+      color: var(--text-primary); /* Alterado para branco */
+      margin-bottom: 4px;
+    }
+
+    .maturity-bar {
+      height: 4px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .summary-card.pilot .maturity-progress {
+      height: 100%;
+      background-color: var(--pilot-color);
+      border-radius: 2px;
+    }
+
+    .summary-card.production .maturity-progress {
+      height: 100%;
+      background-color: var(--production-color);
+      border-radius: 2px;
+    }
+
+    .summary-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-primary); /* Alterado para branco */
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .metric {
+      text-align: center;
+      position: relative;
+      padding-top: 8px;
+    }
+
+    .metric-icon {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+    }
+
+    .metric.improved .metric-icon {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .metric.worsened .metric-icon {
+      background-color: var(--retrabalho-color); /* Alterado para laranja */
+      color: white;
+    }
+
+    .metric-value {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .metric.improved .metric-value {
+      color: var(--success);
+    }
+
+    .metric.worsened .metric-value {
+      color: var(--retrabalho-color); /* Alterado para laranja */
+    }
+
+    .metric-label {
+      font-size: 10px;
+      color: var(--text-primary); /* Alterado para branco */
+    }
+
+    .metric-change {
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .metric.improved .metric-change {
+      color: var(--success);
+    }
+
+    .metric.worsened .metric-change {
+      color: var(--retrabalho-color); /* Alterado para laranja */
+    }
+
+    /* Cards de impacto */
+    .impact-card {
+      background-color: var(--card-bg-alt);
+      border-radius: 8px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    .impact-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-color), var(--success));
+    }
+
+    .impact-card.negative::after {
+      background: linear-gradient(90deg, var(--accent-color), var(--retrabalho-color)); /* Alterado para laranja */
+    }
+
+    .impact-value {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--success);
+    }
+
+    .impact-value.negative {
+      color: var(--retrabalho-color); /* Alterado para laranja */
+    }
+
+    .impact-content {
+      width: 100%;
+    }
+
+    .impact-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary); /* Alterado para branco */
+    }
+
+    .impact-desc {
+      font-size: 11px;
+      color: var(--text-primary); /* Alterado para branco */
+      line-height: 1.4;
+    }
+
+    /* Cards de ação */
+    .action-card {
+      background-color: var(--card-bg-alt);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 3px solid var(--accent-color);
+      height: 100%;
+    }
+
+    .action-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background-color: rgba(59, 130, 246, 0.1);
+      color: var(--accent-color);
+      margin: 0 auto 6px;
+    }
+
+    .action-content {
+      flex: 1;
+      text-align: center;
+    }
+
+    .action-content h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary); /* Alterado para branco */
+    }
+
+    .action-content p {
+      font-size: 11px;
+      color: var(--text-primary); /* Alterado para branco */
+      line-height: 1.4;
+    }
+
+    /* Projetos */
+    .projects-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Rodapé */
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* Animações */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .metric.worsened {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .summary-section,
+    .impact-section,
+    .chart-section,
+    .conclusion-section,
+    .next-phase-section,
+    .projects-section {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    .summary-section { animation-delay: 0.1s; }
+    .impact-section { animation-delay: 0.2s; }
+    .chart-section { animation-delay: 0.3s; }
+    .conclusion-section { animation-delay: 0.4s; }
+    .next-phase-section { animation-delay: 0.5s; }
+    .projects-section { animation-delay: 0.6s; }
+
+    /* Responsividade */
+    @media (max-width: 1200px) {
+      .dashboard {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .impact-grid.horizontal,
+      .insight-grid,
+      .action-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .summary-grid,
+      .impact-grid.horizontal,
+      .insight-grid,
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .timeline-line {
+        width: 50px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .timeline {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .timeline-line {
+        width: 2px;
+        height: 30px;
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="header">
+      <div class="header-title">
+        <h1>Dashboard de Maturidade GenAI - Bradesco</h1>
+        <div class="timeline">
+          <div class="timeline-phase pilot">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Piloto GenAI<br><span>Abr-Jun/2025</span><br><span class="phase-desc">Implementação inicial</span></div>
+          </div>
+          <div class="timeline-line">
+            <div class="timeline-arrow">→</div>
+          </div>
+          <div class="timeline-phase production active">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Produção GenAI<br><span>Jul-Set/2025</span><br><span class="phase-desc">Evolução e maturidade</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="summary-section">
+      <h2><i class="fas fa-chart-pie"></i> Plataforma SAFER</h2>
+      <div class="summary-grid">
+        <div class="summary-card pilot">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase Inicial</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 100%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">92.4</div>
+              <div class="metric-label">Lead Time (dias)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">32.3</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.28%</div>
+              <div class="metric-label">Retrabalho</div>
+            </div>
+          </div>
+        </div>
+        <div class="summary-card production">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase de Evolução</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 95%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">64</div>
+              <div class="metric-label">Lead Time (dias)</div>
+              <div class="metric-change">-30.7%</div>
+            </div>
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">30.2</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+              <div class="metric-change">-6.5%</div>
+            </div>
+            <div class="metric worsened">
+              <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+              <div class="metric-value">0.78%</div>
+              <div class="metric-label">Retrabalho</div>
+              <div class="metric-change">+179%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-section">
+      <h2 onclick="toggleImpactSection()">
+        <i class="fas fa-rocket"></i> Resultados Consolidados
+        <span id="impact-toggle">
+          <i class="fas fa-chevron-up"></i>
+        </span>
+      </h2>
+      <div id="impact-content" class="impact-grid horizontal">
+        <div class="impact-card">
+          <div class="impact-value">30.7%</div>
+          <div class="impact-content">
+            <div class="impact-label">Redução no Lead Time</div>
+            <div class="impact-desc">De 92.4 para 64 dias em média.</div>
+          </div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-value">6.5%</div>
+          <div class="impact-content">
+            <div class="impact-label">Redução em Horas/PF</div>
+            <div class="impact-desc">De 32.3 para 30.2 horas por ponto de função.</div>
+          </div>
+        </div>
+        <div class="impact-card negative">
+          <div class="impact-value negative">179%</div>
+          <div class="impact-content">
+            <div class="impact-label">Aumento de Retrabalho</div>
+            <div class="impact-desc">De 0.28% para 0.78%.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-section">
+      <h2><i class="fas fa-chart-pie"></i> OPEN FINANCE </h2>
+      <div class="summary-grid">
+        <div class="summary-card pilot">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase Inicial</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 100%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">95.2</div>
+              <div class="metric-label">Lead Time (dias)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">35.8</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.32%</div>
+              <div class="metric-label">Retrabalho</div>
+            </div>
+          </div>
+        </div>
+        <div class="summary-card production">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase de Evolução</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 95%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">64.4</div>
+              <div class="metric-label">Lead Time (dias)</div>
+              <div class="metric-change">-32.4%</div>
+            </div>
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">29.3</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+              <div class="metric-change">-18.2%</div>
+            </div>
+            <div class="metric worsened">
+              <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+              <div class="metric-value">0.59%</div>
+              <div class="metric-label">Retrabalho</div>
+              <div class="metric-change">+84.4%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-section">
+      <h2><i class="fas fa-chart-pie"></i> BRADESCO GLOBAL SOLUTIONS </h2>
+      <div class="summary-grid">
+        <div class="summary-card pilot">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase Inicial</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 100%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">97.3</div>
+              <div class="metric-label">Lead Time (dias)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">38.5</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.25%</div>
+              <div class="metric-label">Retrabalho</div>
+            </div>
+          </div>
+        </div>
+        <div class="summary-card production">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase de Evolução</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 95%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">63.2</div>
+              <div class="metric-label">Lead Time (dias)</div>
+              <div class="metric-change">-35.0%</div>
+            </div>
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">29.8</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+              <div class="metric-change">-22.6%</div>
+            </div>
+            <div class="metric worsened">
+              <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+              <div class="metric-value">0.42%</div>
+              <div class="metric-label">Retrabalho</div>
+              <div class="metric-change">+68.0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-section">
+      <h2><i class="fas fa-chart-pie"></i> PIX </h2>
+      <div class="summary-grid">
+        <div class="summary-card pilot">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase Inicial</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 100%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
+          <div class="metrics-grid">
+              <div class="metric">
+              <div class="metric-value">96.8</div>
+              <div class="metric-label">Lead Time (dias)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">38.2</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.26%</div>
+              <div class="metric-label">Retrabalho</div>
+            </div>
+          </div>
+        </div>
+        <div class="summary-card production">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase de Evolução</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 95%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">66.1</div>
+              <div class="metric-label">Lead Time (dias)</div>
+              <div class="metric-change">-31.7%</div>
+            </div>
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">31.1</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+              <div class="metric-change">-18.6%</div>
+            </div>
+            <div class="metric worsened">
+              <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+              <div class="metric-value">0.61%</div>
+              <div class="metric-label">Retrabalho</div>
+              <div class="metric-change">+134.6%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-section">
+      <h2><i class="fas fa-chart-pie"></i> SEGUROS AUTO </h2>
+      <div class="summary-grid">
+        <div class="summary-card pilot">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase Inicial</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 100%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">94.5</div>
+              <div class="metric-label">Lead Time (dias)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">36.5</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.29%</div>
+              <div class="metric-label">Retrabalho</div>
+            </div>
+          </div>
+        </div>
+        <div class="summary-card production">
+          <div class="maturity-indicator">
+            <div class="maturity-label">Fase de Evolução</div>
+            <div class="maturity-bar">
+              <div class="maturity-progress" style="width: 95%;"></div>
+            </div>
+          </div>
+          <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
+          <div class="metrics-grid">
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">67.8</div>
+              <div class="metric-label">Lead Time (dias)</div>
+              <div class="metric-change">-28.3%</div>
+            </div>
+            <div class="metric improved">
+              <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-value">31.0</div>
+              <div class="metric-label">Produtividade (h/PF)</div>
+              <div class="metric-change">-15.2%</div>
+            </div>
+            <div class="metric worsened">
+              <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+              <div class="metric-value">0.56%</div>
+              <div class="metric-label">Retrabalho</div>
+              <div class="metric-change">+92.1%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="next-phase-section">
+      <h2><i class="fas fa-lightbulb"></i> Próximas Iniciativas GEN AI (Set-Dez/25)</h2>
+      
+      <div class="action-grid">
+        <div class="action-card">
+          <div class="action-icon">
+            <i class="fas fa-vial"></i>
+          </div>
+          <div class="action-content">
+            <h3>Testes Unitários com Agentes</h3>
+            <p>Automatizar geração e manutenção de testes unitários assistidos por agentes, reduzindo em até 40% o retrabalho através de detecção preventiva de problemas.</p>
+          </div>
+        </div>
+        
+        <div class="action-card">
+          <div class="action-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="action-content">
+            <h3>Testes Automatizados com Agentes</h3>
+            <p>E2E e regressão assistidos por agentes para acelerar QA e identificar problemas antes da entrega.</p>
+          </div>
+        </div>
+        
+        <div class="action-card">
+          <div class="action-icon">
+            <i class="fas fa-code-branch"></i>
+          </div>
+          <div class="action-content">
+            <h3>Code Review com Agentes</h3>
+            <p>Agentes suportando revisão estática e sugestões de refatoração, reduzindo em até 40% o retrabalho através de detecção preventiva de problemas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </div>
+        <div class="action-content">
+          <h3>Expandir</h3>
+          <p>Levar a GenAI para novos squads e áreas, garantindo escala.</p>
+        </div>
+      </div>
+      
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-tachometer-alt"></i>
+        </div>
+        <div class="action-content">
+          <h3>Métricas de Qualidade</h3>
+          <p>Estabelecer KPIs específicos para monitorar o impacto da GenAI na qualidade do código, com foco em indicadores preditivos de retrabalho.</p>
+        </div>
+      </div>
+      
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="action-content">
+          <h3>Biblioteca de Prompts</h3>
+          <p>Criar acervo de prompts específicos para os Projetos, incluindo prompts validados para redução de erros comuns e melhoria de qualidade.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="action-content">
+          <h3>Mentoria</h3>
+          <p>Continuidade dos treinamentos, reciclagens e suporte às dúvidas dos times.</p>
+        </div>
+      </div>
+      
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-chart-bar"></i>
+        </div>
+        <div class="action-content">
+          <h3>Portal de Conhecimento</h3>
+          <p>Implementar monitoramento contínuo de maturidade GenAI.</p>
+        </div>
+      </div>
+      
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-bolt"></i>
+        </div>
+        <div class="action-content">
+          <h3>Aceleradores</h3>
+          <p>Desenvolver componentes para automatizar tarefas repetitivas.</p>
+        </div>
+      </div>
+    </div>
+
+  
+  </div>
+
+  <script>
+    // Função para alternar a visibilidade da seção de impacto
+    function toggleImpactSection() {
+      const content = document.getElementById('impact-content');
+      const toggle = document.getElementById('impact-toggle');
+      
+      if (content.classList.contains('collapsed')) {
+        // Expandir
+        content.classList.remove('collapsed');
+        toggle.classList.remove('collapsed');
+      } else {
+        // Colapsar
+        content.classList.add('collapsed');
+        toggle.classList.add('collapsed');
+      }
+    }
+    
+    // Interatividade para os cards de impacto
+    document.querySelectorAll('.impact-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+        this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+        this.style.transition = 'all 0.3s ease';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '';
+      });
+    });
+    
+    // Interatividade para os cards de ação
+    document.querySelectorAll('.action-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px)';
+        this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+        this.style.transition = 'all 0.3s ease';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '';
+      });
+    });
+    
+    // Função para calcular médias e atualizar valores dinâmicos
+    function calcularMedias() {
+      // Valores fixos conforme os dados fornecidos
+      const leadTimeAntes = 92.4;
+      const leadTimeDepois = 64;
+      
+      const prodAntes = 32.3;
+      const prodDepois = 30.2;
+      
+      const reworkAntes = 0.28;
+      const reworkDepois = 0.78;
+      
+      // Calcular variação percentual
+      const variacaoLeadTime = ((leadTimeAntes - leadTimeDepois) / leadTimeAntes) * 100;
+      const variacaoProd = ((prodAntes - prodDepois) / prodAntes) * 100;
+      const variacaoRework = ((reworkDepois - reworkAntes) / reworkAntes) * 100;
+      
+      // Atualizar valor no card de impacto (primeiro card - lead time)
+      const impactoLeadTimeCard = document.querySelectorAll('.impact-card')[0];
+      if (impactoLeadTimeCard) {
+        const impactoLeadTimeValue = impactoLeadTimeCard.querySelector('.impact-value');
+        if (impactoLeadTimeValue) {
+          impactoLeadTimeValue.textContent = '30.7%';
+        }
+      }
+      
+      // Atualizar valor no card de impacto (segundo card - produtividade)
+      const impactoProdCard = document.querySelectorAll('.impact-card')[1];
+      if (impactoProdCard) {
+        const impactoProdValue = impactoProdCard.querySelector('.impact-value');
+        if (impactoProdValue) {
+          impactoProdValue.textContent = '6.5%';
+        }
+      }
+      
+      // Atualizar valor no card de impacto (terceiro card - retrabalho)
+      const impactoReworkCard = document.querySelectorAll('.impact-card')[2];
+      if (impactoReworkCard) {
+        const impactoReworkValue = impactoReworkCard.querySelector('.impact-value');
+        if (impactoReworkValue) {
+          impactoReworkValue.textContent = '179%';
+        }
+      }
+    }
+    
+   // Executar cálculo quando o DOM estiver carregado
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(calcularMedias, 500); // Pequeno delay para garantir que os elementos estejam renderizados
+    });
+    
+    // Adicionar tooltips personalizados para os cards de impacto
+    const impactCards = document.querySelectorAll('.impact-card');
+    
+    // Tooltip para Lead Time
+    if (impactCards[0]) {
+      impactCards[0].setAttribute('title', 'A redução no lead time representa o ganho mais expressivo da implementação da GenAI, com impacto direto na velocidade de entrega.');
+    }
+    
+    // Tooltip para Produtividade
+    if (impactCards[1]) {
+      impactCards[1].setAttribute('title', 'A produtividade mostra uma leve melhoria, com grande variação entre squads. Algumas equipes tiveram ganhos expressivos enquanto outras enfrentaram desafios de adaptação.');
+    }
+    
+    // Tooltip para Retrabalho
+    if (impactCards[2]) {
+      impactCards[2].setAttribute('title', 'O aumento no retrabalho é um ponto de atenção, especialmente nas squads Tank e Babilonia. Recomenda-se revisão dos processos de validação de código gerado por IA.');
+    }
+    
+    // Adicionar efeito de destaque para o indicador de retrabalho
+    function destacarRetrabalho() {
+      const reworkMetrics = document.querySelectorAll('.metric.worsened');
+      reworkMetrics.forEach(reworkMetric => {
+        if (reworkMetric) {
+          // Adicionar um efeito de brilho temporário
+          const highlight = document.createElement('div');
+          highlight.style.position = 'absolute';
+          highlight.style.top = '0';
+          highlight.style.left = '0';
+          highlight.style.width = '100%';
+          highlight.style.height = '100%';
+          highlight.style.backgroundColor = 'rgba(249, 115, 22, 0.2)'; // Laranja transparente
+          highlight.style.borderRadius = '8px';
+          highlight.style.animation = 'fadeOut 2s forwards';
+          
+          // Adicionar estilo para animação
+          const style = document.createElement('style');
+          style.textContent = `
+            @keyframes fadeOut {
+              0% { opacity: 0.8; }
+              100% { opacity: 0; }
+            }
+          `;
+          document.head.appendChild(style);
+          
+          reworkMetric.style.position = 'relative';
+          reworkMetric.appendChild(highlight);
+          
+          // Remover o elemento após a animação
+          setTimeout(() => {
+            if (highlight.parentNode === reworkMetric) {
+              reworkMetric.removeChild(highlight);
+            }
+          }, 2000);
+        }
+      });
+    }
+    
+    // Executar o destaque do retrabalho após carregar a página
+    setTimeout(destacarRetrabalho, 1500);
+    
+    // Animar a linha do tempo
+    function animateTimeline() {
+      const timeline = document.querySelector('.timeline');
+      if (timeline) {
+        timeline.style.opacity = '0';
+        timeline.style.transform = 'translateY(20px)';
+        timeline.style.transition = 'all 0s';
+        
+        setTimeout(() => {
+          timeline.style.opacity = '1';
+          timeline.style.transform = 'translateY(0)';
+          timeline.style.transition = 'all 0.8s ease-out';
+        }, 300);
+      }
+    }
+    
+    // Animar as barras de progresso de maturidade
+    function animateMaturityBars() {
+      const progressBars = document.querySelectorAll('.maturity-progress');
+      progressBars.forEach(bar => {
+        const targetWidth = bar.style.width;
+        bar.style.width = '0%';
+        
+        setTimeout(() => {
+          bar.style.width = targetWidth;
+          bar.style.transition = 'width 1s ease-out';
+        }, 500);
+      });
+    }
+    
+    // Executar animações quando a página carregar
+    document.addEventListener('DOMContentLoaded', function() {
+      animateTimeline();
+      animateMaturityBars();
+      
+      // Destacar a fase atual na linha do tempo
+      const productionPhase = document.querySelector('.timeline-phase.production');
+      if (productionPhase) {
+        setTimeout(() => {
+          productionPhase.style.transform = 'scale(1.05)';
+          productionPhase.style.transition = 'transform 0.5s ease';
+        }, 1200);
+      }
+    });
+  </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
