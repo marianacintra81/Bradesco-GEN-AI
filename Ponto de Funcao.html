@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Pesquisa Ponto de Função_V1</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard PromptX</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+            margin: 0;
+            padding: 20px;
+        }
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            grid-column: span 12;
+            text-align: center;
+            padding: 20px;
+            background-color: #16213e;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .kpi-card {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+        }
+        .kpi-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #4cc9f0;
+        }
+        .kpi-title {
+            font-size: 1em;
+            color: #b8b8b8;
+        }
+        .chart-container {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .testimonial {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .testimonial-author {
+            text-align: right;
+            font-weight: bold;
+            color: #4cc9f0;
+        }
+        .highlight {
+            color: #4cc9f0;
+        }
+        .time-saved {
+            grid-column: span 4;
+        }
+        .satisfaction {
+            grid-column: span 4;
+        }
+        .recommendation {
+            grid-column: span 4;
+        }
+        .time-comparison {
+            grid-column: span 6;
+        }
+        .benefits {
+            grid-column: span 6;
+        }
+        .testimonials {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        .footer {
+            grid-column: span 12;
+            text-align: center;
+            margin-top: 20px;
+            color: #b8b8b8;
+        }
+        h1, h2, h3 {
+            color: #4cc9f0;
+        }
+        .logo {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        .benefits-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .benefits-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #2a2a4a;
+            display: flex;
+            align-items: center;
+        }
+        .benefits-list li:before {
+            content: "✓";
+            color: #4cc9f0;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .action-button {
+            background-color: #4cc9f0;
+            color: #16213e;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .action-button:hover {
+            background-color: #7dd8f7;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+   
+            <h1>PromptX: Revolucionando a Contagem de Pontos de Função com IA</h1>
+            <p>Resultados baseados em feedback de profissionais de Análise de Pontos de Função</p>
+        </div>
+
+        <div class="kpi-card time-saved">
+            <div class="kpi-title">Redução Média no Tempo de Contagem</div>
+            <div class="kpi-value">60%</div>
+            <div>Economia significativa de tempo </div>
+        </div>
+
+        <div class="kpi-card satisfaction">
+            <div class="kpi-title">Satisfação dos Usuários</div>
+            <div class="kpi-value">100%</div>
+            <div>Usuários consideram a ferramenta eficaz e alinhada às diretrizes</div>
+        </div>
+
+        <div class="kpi-card recommendation">
+            <div class="kpi-title">Taxa de Recomendação</div>
+            <div class="kpi-value">100%</div>
+            <div>Todos os usuários recomendam o PromptX para outras equipes</div>
+        </div>
+
+        <div class="chart-container time-comparison">
+            <h3>Tempo Médio de Contagem (em horas)</h3>
+            <canvas id="timeComparisonChart"></canvas>
+        </div>
+
+        <div class="chart-container benefits">
+            <h3>Principais Benefícios do PromptX</h3>
+            <ul class="benefits-list">
+                <li>Identificação precisa e classificação dos tipos de função</li>
+                <li>Reescrita inteligente de histórias conforme diretrizes do cliente</li>
+                <li>Recuperação de pontos de função potencialmente perdidos</li>
+                <li>Argumentação técnica para justificar pontuações</li>
+                <li>Interface intuitiva que facilita a adoção pela equipe</li>
+            </ul>
+        
+        </div>
+
+        <div class="testimonials">
+            <div class="testimonial">
+                <div class="testimonial-text">"Consegui recuperar muitos pontos e identificar oportunidades de melhoria nas histórias. O PromptX transformou nossa abordagem de contagem."</div>
+                <div class="testimonial-author">- Sofia P.</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">"Tive a oportunidade de apoiar as validações do PromptX. A sugestão para reescrever histórias com base no PRD já foi implementada e trouxe resultados excelentes."</div>
+                <div class="testimonial-author">- Marcella S.</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">"Consegui apoiar em diversas revisões que antes não era possível. O ganho de tempo e a facilidade de uso fazem toda a diferença."</div>
+                <div class="testimonial-author">- Roger G.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>PromptX © 2025 | Desenvolvido por Capgemini | Transformando a análise de pontos de função com IA</p>
+        </div>
+    </div>
+
+    <script>
+        // Tempo médio de contagem
+        const timeCtx = document.getElementById('timeComparisonChart').getContext('2d');
+        const timeChart = new Chart(timeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Método Tradicional', 'Com PromptX'],
+                datasets: [{
+                    label: 'Horas por Sprint',
+                    data: [2.25, 0.9],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(76, 201, 240, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(76, 201, 240, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Horas',
+                            color: '#e6e6e6'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#e6e6e6'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#e6e6e6'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e6e6e6'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
