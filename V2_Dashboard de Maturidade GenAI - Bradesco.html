@@ -1043,7 +1043,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
           <div class="promptx-section">
             <div class="promptx-header">
               <div class="promptx-title">
-                <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX - Plataforma SAFER
+                <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX 
               </div>
               <div class="promptx-badge">1449 interações no Q3</div>
             </div>
@@ -1051,7 +1051,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
           <!-- Gráfico de evolução das interações e impacto nos KPIs - VERSÃO COMPACTA -->
           <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
             <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-              <i class="fas fa-chart-line" style="color: var(--promptx-color);"></i> Evolução Trimestral e Impacto nos KPIs
+              <i class="fas fa-chart-line" style="color: var(--promptx-color);"></i> Evolução Trimestral por total de interações
             </h4>
             
             <!-- Visualização compacta de evolução de interações -->
@@ -1093,42 +1093,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
               </div>
             </div>
           </div>
-            
-            <!-- Impacto por tipo de caso de uso -->
-            <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-              <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-                <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
-              </h4>
-              
-              <!-- Card único de Cenários de Teste com tamanho aumentado -->
-              <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; position: relative;">
-                <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--promptx-color); font-size: 16px;">
-                  <i class="fas fa-vial"></i>
-                </div>
-                <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
-                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-                  Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
-                </p>
-                <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 10px;">
-                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">-24%</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Lead Time</div>
-                  </div>
-                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 10px;">
-                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">-18%</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Produtividade</div>
-                  </div>
-                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
-                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">+42%</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Cobertura de Testes</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-            
-         
-      <!-- Seção de Resultados Consolidados (inicialmente visível) -->
+              <!-- Seção de Resultados Consolidados (inicialmente visível) -->
       <section class="impact-section" id="impact-section">
         <h2 onclick="toggleImpactSection()">
           <i class="fas fa-rocket"></i> Resultados Consolidados
@@ -1156,8 +1121,8 @@ Parte 3 - Estilos para cabeçalho e timeline:
             <div class="impact-content">
               <div class="impact-label">Aumento de Retrabalho</div>
               <div class="impact-desc">De 0.62% para 0.78%.</div>
-            </div>
-          </div>
+          
+       
         </div>
       </section>
         </div>
@@ -1165,6 +1130,54 @@ Parte 3 - Estilos para cabeçalho e timeline:
     </div>
 
 
+<!-- Impacto por tipo de caso de uso -->
+<div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+  <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+    <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
+  </h4>
+  
+  <!-- Card único de Cenários de Teste com tamanho aumentado -->
+  <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; position: relative;">
+    <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--promptx-color); font-size: 16px;">
+      <i class="fas fa-vial"></i>
+    </div>
+    <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
+    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+      Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">+65%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários gerados</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">3x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais rápido na criação</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">95%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Precisão nos cenários</div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">2x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários revisados/dia</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">85%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Funcionalidades cobertas</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">-45%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Redução media do tempo </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+         
+    
     <!-- Acordeão para SALA CORE -->
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
