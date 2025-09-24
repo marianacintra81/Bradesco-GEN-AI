@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Executivo - Impacto GenAI</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-    :root {
+      :root {
       --bg-color: #0f172a;
       --card-bg: #1e293b;
       --card-bg-alt: #1a2234;
@@ -18,19 +18,22 @@
       --text-muted: #64748b;
       --success: #10b981;
       --warning: #f59e0b;
-      --danger: #f97316; /* Alterado de vermelho para laranja */
+      --danger: #f97316;
       --border-color: rgba(148, 163, 184, 0.2);
       --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       --highlight: rgba(59, 130, 246, 0.1);
-      --pilot-color: #60a5fa; /* Alterado para azul mais claro */
+      --pilot-color: #60a5fa;
       --production-color: #10b981;
-     --future-color: #166534; /* Cor verde escuro para fase futura */
-      --pilot-bg: rgba(96, 165, 250, 0.7); /* Alterado para azul mais claro */
+      --future-color: #166534;
+      --pilot-bg: rgba(96, 165, 250, 0.7);
       --production-bg: rgba(16, 185, 129, 0.7);
-      --future-bg: rgba(22, 101, 52, 0.7); /* Fundo verde escuro para fase futura */ 
+      --future-bg: rgba(22, 101, 52, 0.7);
       --max-width: 1200px;
-      --retrabalho-color: #f97316; /* Cor para retrabalho (laranja) */
-      --retrabalho-bg: rgba(249, 115, 22, 0.2); /* Fundo para badges de retrabalho */
+      --retrabalho-color: #f97316;
+      --retrabalho-bg: rgba(249, 115, 22, 0.2);
+      --promptx-color: #8b5cf6;
+      --promptx-bg: rgba(139, 92, 246, 0.2);
+      --pre-genai-color: #94a3b8;
     }
 
     * {
@@ -40,7 +43,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-primary);
       line-height: 1.5;
@@ -53,6 +56,7 @@
       margin: 0 auto;
       width: 100%;
     }
+Parte 3 - Estilos para cabeçalho e timeline:
 
     /* Cabeçalho */
     .header {
@@ -102,9 +106,14 @@
       margin-bottom: 8px;
     }
 
+    .timeline-phase.pre-genai .timeline-dot {
+      background-color: var(--pre-genai-color);
+      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.2);
+    }
+
     .timeline-phase.pilot .timeline-dot {
       background-color: var(--pilot-color);
-      box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2); /* Azul claro */
+      box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
     }
 
     .timeline-phase.production .timeline-dot {
@@ -125,7 +134,7 @@
     .timeline-label {
       font-size: 12px;
       text-align: center;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
       width: 120px;
     }
 
@@ -138,7 +147,7 @@
 
     .timeline-label .phase-desc {
       font-size: 10px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
       font-style: italic;
     }
 
@@ -149,6 +158,10 @@
       margin: 0 10px;
       position: relative;
       top: -10px;
+    }
+
+    .timeline-line.pre-pilot {
+      background: linear-gradient(90deg, var(--pre-genai-color), var(--pilot-color));
     }
 
     .timeline-line.future {
@@ -166,8 +179,7 @@
     .timeline-arrow.future {
       color: var(--future-color);
     }
-
-    /* Seções */
+      /* Seções */
     .impact-section,
     .chart-section,
     .conclusion-section,
@@ -190,7 +202,7 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 12px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -247,7 +259,7 @@
     /* Grids */
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
     }
 
@@ -272,7 +284,7 @@
       padding: 12px;
       position: relative;
       overflow: hidden;
-      border-left: none; /* Removida a borda colorida */
+      border-left: none;
     }
 
     /* Indicadores de maturidade */
@@ -284,7 +296,7 @@
 
     .maturity-label {
       font-size: 10px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
       margin-bottom: 4px;
     }
 
@@ -293,6 +305,16 @@
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 2px;
       overflow: hidden;
+    }
+
+    .summary-card.pre-genai .maturity-progress {
+      height: 100%;
+      background-color: var(--pre-genai-color);
+      border-radius: 2px;
+    }
+
+    .summary-card.pre-genai h3 i {
+      color: var(--pre-genai-color);
     }
 
     .summary-card.pilot .maturity-progress {
@@ -311,7 +333,7 @@
       font-size: 13px;
       font-weight: 600;
       margin-bottom: 10px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -348,7 +370,7 @@
     }
 
     .metric.worsened .metric-icon {
-      background-color: var(--retrabalho-color); /* Alterado para laranja */
+      background-color: var(--retrabalho-color);
       color: white;
     }
 
@@ -363,12 +385,12 @@
     }
 
     .metric.worsened .metric-value {
-      color: var(--retrabalho-color); /* Alterado para laranja */
+      color: var(--retrabalho-color);
     }
 
     .metric-label {
       font-size: 10px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
     }
 
     .metric-change {
@@ -382,10 +404,19 @@
     }
 
     .metric.worsened .metric-change {
-      color: var(--retrabalho-color); /* Alterado para laranja */
+      color: var(--retrabalho-color);
     }
 
-    /* Cards de impacto */
+    /* Animação para indicadores de redução (verdes) */
+    .metric.improved {
+      animation: pulse 2s infinite;
+    }
+
+    /* Remover animação dos indicadores de aumento (vermelhos) */
+    .metric.worsened {
+      animation: none;
+    }
+     /* Cards de impacto */
     .impact-card {
       background-color: var(--card-bg-alt);
       border-radius: 8px;
@@ -410,7 +441,7 @@
     }
 
     .impact-card.negative::after {
-      background: linear-gradient(90deg, var(--accent-color), var(--retrabalho-color)); /* Alterado para laranja */
+      background: linear-gradient(90deg, var(--accent-color), var(--retrabalho-color));
     }
 
     .impact-value {
@@ -420,24 +451,24 @@
       color: var(--success);
     }
 
-    .impact-value.negative {
-      color: var(--retrabalho-color); /* Alterado para laranja */
+     .impact-value.negative {
+      color: var(--retrabalho-color);
     }
 
     .impact-content {
       width: 100%;
     }
-
+    
     .impact-label {
       font-size: 13px;
       font-weight: 600;
       margin-bottom: 6px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
     }
 
     .impact-desc {
       font-size: 11px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
       line-height: 1.4;
     }
 
@@ -467,7 +498,7 @@
       align-items: center;
       justify-content: center;
       font-size: 16px;
-       background-color: rgba(59, 130, 246, 0.1);
+      background-color: rgba(59, 130, 246, 0.1);
       color: var(--accent-color);
       margin: 0 auto 6px;
     }
@@ -481,12 +512,12 @@
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 6px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
     }
 
     .action-content p {
       font-size: 11px;
-      color: var(--text-primary); /* Alterado para branco */
+      color: var(--text-primary);
       line-height: 1.4;
     }
 
@@ -555,8 +586,7 @@
     .accordion-inner {
       padding: 15px;
     }
-
-    /* Rodapé */
+     /* Rodapé */
     .footer {
       margin-top: 20px;
       text-align: center;
@@ -571,10 +601,6 @@
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
-    }
-
-    .metric.worsened {
-      animation: pulse 2s infinite;
     }
 
     @keyframes fadeIn {
@@ -595,6 +621,227 @@
     .impact-section { animation-delay: 0.2s; }
     .next-phase-section { animation-delay: 0.5s; }
 
+    /* Estilos específicos para o PromptX */
+    .promptx-section {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 15px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .promptx-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .promptx-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--promptx-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .promptx-badge {
+      background-color: var(--promptx-bg);
+      color: var(--promptx-color);
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .promptx-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .promptx-card {
+      background-color: var(--card-bg-alt);
+      border-radius: 8px;
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promptx-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--promptx-color), var(--accent-color));
+    }
+
+    .promptx-stat {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--promptx-color);
+    }
+
+    .promptx-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .promptx-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .promptx-usage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .promptx-usage-card {
+      background-color: var(--card-bg-alt);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .promptx-usage-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--promptx-color);
+      margin-bottom: 4px;
+    }
+
+    .promptx-usage-label {
+      font-size: 10px;
+      color: var(--text-primary);
+    }
+
+    .promptx-impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .promptx-impact-card {
+      background-color: var(--card-bg-alt);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promptx-impact-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+    }
+
+    .promptx-impact-card.positive::after {
+      background: linear-gradient(90deg, var(--promptx-color), var(--success));
+    }
+
+    .promptx-impact-card.negative::after {
+      background: linear-gradient(90deg, var(--promptx-color), var(--retrabalho-color));
+    }
+
+    .promptx-impact-value {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .promptx-impact-value.positive {
+      color: var(--success);
+    }
+
+    .promptx-impact-value.negative {
+      color: var(--retrabalho-color);
+    }
+
+    .promptx-impact-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .promptx-impact-desc {
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    .promptx-case-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .promptx-case-card {
+      background-color: var(--card-bg-alt);
+      border-radius: 8px;
+      padding: 15px;
+      position: relative;
+    }
+
+    .promptx-case-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--promptx-bg);
+      color: var(--promptx-color);
+      font-size: 12px;
+    }
+
+    .promptx-case-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+      padding-right: 30px;
+    }
+
+    .promptx-case-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .promptx-case-impact {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .promptx-case-impact.negative {
+      color: var(--retrabalho-color);
+    }
+
     /* Responsividade */
     @media (max-width: 1200px) {
       .dashboard {
@@ -605,7 +852,17 @@
     @media (max-width: 992px) {
       .impact-grid.horizontal,
       .insight-grid,
-      .action-grid {
+      .action-grid,
+      .promptx-grid,
+      .promptx-impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .promptx-usage-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .summary-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -614,7 +871,9 @@
       .summary-grid,
       .impact-grid.horizontal,
       .insight-grid,
-      .action-grid {
+      .action-grid,
+      .promptx-grid,
+      .promptx-case-grid {
         grid-template-columns: 1fr;
       }
       
@@ -624,6 +883,10 @@
       
       .timeline-line {
         width: 50px;
+      }
+      
+      .promptx-impact-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -642,15 +905,27 @@
         height: 30px;
         transform: rotate(90deg);
       }
+      
+      .promptx-impact-grid,
+      .promptx-usage-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-<body>
+  <body>
   <div class="dashboard">
     <div class="header">
       <div class="header-title">
         <h1>Dashboard de Maturidade GenAI - Bradesco</h1>
         <div class="timeline">
+          <div class="timeline-phase pre-genai">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Base<br><span>Jan-Mar/2025</span><br><span class="phase-desc">Linha de base</span></div>
+          </div>
+          <div class="timeline-line pre-pilot">
+            <div class="timeline-arrow">→</div>
+          </div>
           <div class="timeline-phase pilot">
             <div class="timeline-dot"></div>
             <div class="timeline-label">Piloto GenAI<br><span>Abr-Jun/2025</span><br><span class="phase-desc">Implementação inicial</span></div>
@@ -672,16 +947,38 @@
         </div>
       </div>
     </div>
-
-    <!-- Acordeão para Plataforma SAFER (inicialmente expandido) -->
+      <!-- Acordeão para Plataforma SAFER (inicialmente expandido) -->
     <div class="accordion" id="safer-accordion">
       <div class="accordion-header" onclick="toggleSaferAccordion()">
-        <h2><i class="fas fa-chart-pie"></i> Plataforma SAFER</h2>
+         <h2><i class="fas fa-chart-pie"></i> PLATAFORMA SAFER</h2>
         <span class="accordion-toggle active" id="safer-toggle"><i class="fas fa-chevron-down"></i></span>
       </div>
       <div class="accordion-content active" id="safer-content">
         <div class="accordion-inner">
           <div class="summary-grid">
+            <div class="summary-card pre-genai">
+              <div class="maturity-indicator">
+                <div class="maturity-label">Linha de Base</div>
+                <div class="maturity-bar">
+                  <div class="maturity-progress" style="width: 100%; background-color: #94a3b8;"></div>
+                </div>
+              </div>
+              <h3><i class="fas fa-history"></i> Base (Jan-Mar 2025)</h3>
+              <div class="metrics-grid">
+                <div class="metric">
+                  <div class="metric-value">107</div>
+                  <div class="metric-label">Lead Time (dias)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value">31</div>
+                  <div class="metric-label">Produtividade (h/PF)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value">0.62%</div>
+                  <div class="metric-label">Retrabalho</div>
+                </div>
+              </div>
+            </div>
             <div class="summary-card pilot">
               <div class="maturity-indicator">
                 <div class="maturity-label">Fase Inicial</div>
@@ -691,17 +988,23 @@
               </div>
               <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
               <div class="metrics-grid">
-                <div class="metric">
+                <div class="metric improved">
+                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
                   <div class="metric-value">92.4</div>
                   <div class="metric-label">Lead Time (dias)</div>
+                  <div class="metric-change">-13.6%</div>
                 </div>
-                <div class="metric">
+                <div class="metric worsened">
+                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
                   <div class="metric-value">32.3</div>
                   <div class="metric-label">Produtividade (h/PF)</div>
+                  <div class="metric-change">+4.2%</div>
                 </div>
-                <div class="metric">
+                <div class="metric improved">
+                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
                   <div class="metric-value">0.28%</div>
                   <div class="metric-label">Retrabalho</div>
+                  <div class="metric-change">-54.8%</div>
                 </div>
               </div>
             </div>
@@ -718,64 +1021,167 @@
                   <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
                   <div class="metric-value">64</div>
                   <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-30.7%</div>
+                  <div class="metric-change">-40.2%</div>
                 </div>
                 <div class="metric improved">
                   <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
                   <div class="metric-value">30.2</div>
                   <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-6.5%</div>
+                  <div class="metric-change">-2.6%</div>
                 </div>
                 <div class="metric worsened">
                   <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
                   <div class="metric-value">0.78%</div>
                   <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+179%</div>
+                  <div class="metric-change">+25.8%</div>
                 </div>
               </div>
             </div>
           </div>
+          
+          <!-- Nova seção PromptX específica para o projeto SAFER - REVISADA -->
+          <div class="promptx-section">
+            <div class="promptx-header">
+              <div class="promptx-title">
+                <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX 
+              </div>
+              <div class="promptx-badge">1449 interações no Q3</div>
+            </div>
+            
+          <!-- Gráfico de evolução das interações e impacto nos KPIs - VERSÃO COMPACTA -->
+          <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+              <i class="fas fa-chart-line" style="color: var(--promptx-color);"></i> Evolução Trimestral por total de interações
+            </h4>
+            
+            <!-- Visualização compacta de evolução de interações -->
+            <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 12px;">
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Base</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--pre-genai-color);">0</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q1 2025</div>
+              </div>
+              
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Piloto</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--promptx-color);">395</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q2 2025</div>
+              </div>
+              
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Evolução</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--promptx-color);">1449</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q3 2025</div>
+              </div>
+              
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Expansão</div>
+                <div style="font-size: 22px; font-weight: 700; color: var(--accent-color);">-</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q4 2025</div>
+              </div>
+            </div>
+          </div>
+              <!-- Seção de Resultados Consolidados (inicialmente visível) -->
+      <section class="impact-section" id="impact-section">
+        <h2 onclick="toggleImpactSection()">
+          <i class="fas fa-rocket"></i> Resultados Consolidados
+          <span id="impact-toggle">
+            <i class="fas fa-chevron-up"></i>
+          </span>
+        </h2>
+        <div id="impact-content" class="impact-grid horizontal">
+          <div class="impact-card">
+            <div class="impact-value">40.2%</div>
+            <div class="impact-content">
+              <div class="impact-label">Redução no Lead Time</div>
+              <div class="impact-desc">De 107 para 64 dias em média.</div>
+            </div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-value">2.6%</div>
+            <div class="impact-content">
+              <div class="impact-label">Redução em Horas/PF</div>
+              <div class="impact-desc">De 31 para 30.2 horas por ponto de função.</div>
+            </div>
+          </div>
+          <div class="impact-card negative">
+            <div class="impact-value negative">25.8%</div>
+            <div class="impact-content">
+              <div class="impact-label">Aumento de Retrabalho</div>
+              <div class="impact-desc">De 0.62% para 0.78%.</div>
+          
+       
+        </div>
+      </section>
         </div>
       </div>
     </div>
 
-    <!-- Seção de Resultados Consolidados (inicialmente visível) -->
-    <section class="impact-section" id="impact-section">
-      <h2 onclick="toggleImpactSection()">
-        <i class="fas fa-rocket"></i> Resultados Consolidados
-        <span id="impact-toggle">
-          <i class="fas fa-chevron-up"></i>
-        </span>
-      </h2>
-      <div id="impact-content" class="impact-grid horizontal">
-        <div class="impact-card">
-          <div class="impact-value">30.7%</div>
-          <div class="impact-content">
-            <div class="impact-label">Redução no Lead Time</div>
-            <div class="impact-desc">De 92.4 para 64 dias em média.</div>
-          </div>
-        </div>
-        <div class="impact-card">
-          <div class="impact-value">6.5%</div>
-          <div class="impact-content">
-            <div class="impact-label">Redução em Horas/PF</div>
-            <div class="impact-desc">De 32.3 para 30.2 horas por ponto de função.</div>
-          </div>
-        </div>
-        <div class="impact-card negative">
-          <div class="impact-value negative">179%</div>
-          <div class="impact-content">
-            <div class="impact-label">Aumento de Retrabalho</div>
-            <div class="impact-desc">De 0.28% para 0.78%.</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Acordeão para OPEN FINANCE -->
+<!-- Impacto por tipo de caso de uso -->
+<div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+  <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+    <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
+  </h4>
+  
+  <!-- Card único de Cenários de Teste com tamanho aumentado -->
+  <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; position: relative;">
+    <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--promptx-color); font-size: 16px;">
+      <i class="fas fa-vial"></i>
+    </div>
+    <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
+    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+      Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">+65%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários gerados</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">3x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais rápido na criação</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">95%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Precisão nos cenários</div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">2x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários revisados/dia</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">85%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Funcionalidades cobertas</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">-45%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Redução media do tempo </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+         
+    
+    <!-- Acordeão para SALA CORE -->
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <h2><i class="fas fa-chart-pie"></i> OPEN FINANCE</h2>
+        <h2><i class="fas fa-chart-pie"></i> SALA CORE</h2>
         <span class="accordion-toggle"><i class="fas fa-chevron-down"></i></span>
       </div>
       <div class="accordion-content">
@@ -788,7 +1194,7 @@
                   <div class="maturity-progress" style="width: 100%;"></div>
                 </div>
               </div>
-              <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
+           <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
               <div class="metrics-grid">
                 <div class="metric">
                   <div class="metric-value">95.2</div>
@@ -834,6 +1240,48 @@
               </div>
             </div>
           </div>
+          
+          <!-- Seção PromptX para OPEN FINANCE -->
+          <div class="promptx-section">
+            <div class="promptx-header">
+              <div class="promptx-title">
+                <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX - Open Finance
+              </div>
+              <div class="promptx-badge">876 interações no Q3</div>
+            </div>
+            
+            <!-- Impacto por tipo de caso de uso -->
+            <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+              <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+                <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
+              </h4>
+              
+              <!-- Card de Geração de APIs -->
+              <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; position: relative;">
+                <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--promptx-color); font-size: 16px;">
+                  <i class="fas fa-code"></i>
+                </div>
+                <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Geração de APIs</h5>
+                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                  42 endpoints de API gerados para integração com parceiros financeiros. A GenAI acelerou significativamente o desenvolvimento de APIs padronizadas, garantindo conformidade com os requisitos do Banco Central.
+                </p>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 10px;">
+                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">-32%</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Lead Time</div>
+                  </div>
+                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 10px;">
+                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">-18%</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Produtividade</div>
+                  </div>
+                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">+28%</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Padronização</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -841,7 +1289,7 @@
     <!-- Acordeão para BRADESCO GLOBAL SOLUTIONS -->
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
-        <h2><i class="fas fa-chart-pie"></i> BRADESCO GLOBAL SOLUTIONS</h2>
+        <h2><i class="fas fa-chart-pie"></i> MASSIFICADO</h2>
         <span class="accordion-toggle"><i class="fas fa-chevron-down"></i></span>
       </div>
       <div class="accordion-content">
@@ -850,7 +1298,7 @@
             <div class="summary-card pilot">
               <div class="maturity-indicator">
                 <div class="maturity-label">Fase Inicial</div>
-                   <div class="maturity-bar">
+                <div class="maturity-bar">
                   <div class="maturity-progress" style="width: 100%;"></div>
                 </div>
               </div>
@@ -900,11 +1348,35 @@
               </div>
             </div>
           </div>
+          
+          <!-- Seção de Adoção para BGS -->
+          <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+              <i class="fas fa-users" style="color: var(--accent-color);"></i> Adoção e Engajamento
+            </h4>
+            
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px;">
+              <div style="text-align: center; flex: 1;">
+                <div style="font-size: 24px; font-weight: 700; color: var(--accent-color);">19</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Usuários Ativos</div>
+                <div style="font-size: 10px; color: var(--success); margin-top: 3px;">95% do target</div>
+              </div>
+              
+              <div style="text-align: center; flex: 1;">
+                <div style="font-size: 24px; font-weight: 700; color: var(--accent-color);">84%</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Uso Diário</div>
+              </div>
+              
+              <div style="text-align: center; flex: 1;">
+                <div style="font-size: 24px; font-weight: 700; color: var(--accent-color);">4.8</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Satisfação (0-5)</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Acordeão para PIX -->
+     <!-- Acordeão para PIX -->
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <h2><i class="fas fa-chart-pie"></i> PIX</h2>
@@ -966,11 +1438,62 @@
               </div>
             </div>
           </div>
+          
+          <!-- Seção de casos de uso para PIX -->
+          <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+              <i class="fas fa-bullseye" style="color: var(--accent-color);"></i> Casos de Uso de Destaque
+            </h4>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+              <!-- Caso de uso 1 -->
+              <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px; position: relative;">
+                <div style="position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: rgba(16, 185, 129, 0.1); color: var(--success); font-size: 14px;">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <h5 style="font-size: 16px; margin-bottom: 10px; color: var(--text-primary); padding-right: 35px;">Segurança de Transações</h5>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.5;">
+                  Algoritmos de detecção de fraudes com GenAI, resultando em 32% mais detecções de transações suspeitas.
+                </p>
+                <div style="display: flex; justify-content: space-between;">
+                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 8px;">
+                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">-42%</div>
+                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Fraudes</div>
+                  </div>
+                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">+28%</div>
+                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Confiança</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Caso de uso 2 -->
+              <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px; position: relative;">
+                <div style="position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: rgba(16, 185, 129, 0.1); color: var(--success); font-size: 14px;">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <h5 style="font-size: 16px; margin-bottom: 10px; color: var(--text-primary); padding-right: 35px;">Otimização de Performance</h5>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.5;">
+                  Otimização de código para processamento de transações em alta escala, reduzindo o tempo de resposta.
+                </p>
+                <div style="display: flex; justify-content: space-between;">
+                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 8px;">
+                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">-45%</div>
+                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Tempo de resposta</div>
+                  </div>
+                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">+65%</div>
+                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Capacidade</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Acordeão para SEGUROS AUTO -->
+    <!-- Acordeão para INVESTIMENTOS -->
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">
         <h2><i class="fas fa-chart-pie"></i> INVESTIMENTOS</h2>
@@ -1032,11 +1555,37 @@
               </div>
             </div>
           </div>
+          
+          <!-- Histórias de sucesso para Investimentos -->
+          <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+              <i class="fas fa-trophy" style="color: var(--accent-color);"></i> Histórias de Sucesso
+            </h4>
+            
+            <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h5 style="font-size: 16px; color: var(--text-primary);">Recomendação de Investimentos</h5>
+                <span style="background-color: rgba(16, 185, 129, 0.1); color: var(--success); font-size: 10px; padding: 3px 8px; border-radius: 10px;">Destaque</span>
+              </div>
+              <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 15px;">
+                Desenvolvimento de algoritmo de recomendação personalizada de investimentos com GenAI, resultando em aumento de 28% na conversão de ofertas e 32% na satisfação dos clientes.
+              </p>
+              <div style="display: flex; gap: 10px;">
+                <div style="flex: 1; background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px; text-align: center;">
+                  <div style="font-size: 18px; font-weight: 700; color: var(--success);">28%</div>
+                  <div style="font-size: 10px; color: var(--text-secondary); margin-top: 5px;">Aumento de conversão</div>
+                </div>
+                <div style="flex: 1; background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px; text-align: center;">
+                  <div style="font-size: 18px; font-weight: 700; color: var(--success);">32%</div>
+                  <div style="font-size: 10px; color: var(--text-secondary); margin-top: 5px;">Aumento de satisfação</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <section class="next-phase-section">
+       <section class="next-phase-section">
       <h2><i class="fas fa-lightbulb"></i> Próximas Iniciativas GEN AI (Set-Dez/25)</h2>
       
       <div class="action-grid">
@@ -1135,6 +1684,11 @@
         </div>
       </div>
     </div>
+    
+    <!-- Rodapé -->
+    <div class="footer">
+      <p>Dashboard de Maturidade GenAI - Bradesco | Atualizado em: Setembro/2025</p>
+    </div>
   </div>
 
   <script>
@@ -1185,7 +1739,7 @@
     // Interatividade para os cards de impacto
     document.querySelectorAll('.impact-card').forEach(card => {
       card.addEventListener('mouseenter', function() {
-         this.style.transform = 'translateY(-5px)';
+        this.style.transform = 'translateY(-5px)';
         this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
         this.style.transition = 'all 0.3s ease';
       });
@@ -1213,16 +1767,16 @@
     // Função para calcular médias e atualizar valores dinâmicos
     function calcularMedias() {
       // Valores fixos conforme os dados fornecidos
-      const leadTimeAntes = 92.4;
+      const leadTimeAntes = 107;
       const leadTimeDepois = 64;
       
-      const prodAntes = 32.3;
+      const prodAntes = 31;
       const prodDepois = 30.2;
       
-      const reworkAntes = 0.28;
+      const reworkAntes = 0.62;
       const reworkDepois = 0.78;
       
-      // Calcular variação percentual
+       // Calcular variação percentual
       const variacaoLeadTime = ((leadTimeAntes - leadTimeDepois) / leadTimeAntes) * 100;
       const variacaoProd = ((prodAntes - prodDepois) / prodAntes) * 100;
       const variacaoRework = ((reworkDepois - reworkAntes) / reworkAntes) * 100;
@@ -1232,7 +1786,7 @@
       if (impactoLeadTimeCard) {
         const impactoLeadTimeValue = impactoLeadTimeCard.querySelector('.impact-value');
         if (impactoLeadTimeValue) {
-          impactoLeadTimeValue.textContent = '30.7%';
+          impactoLeadTimeValue.textContent = '40.2%';
         }
       }
       
@@ -1241,7 +1795,7 @@
       if (impactoProdCard) {
         const impactoProdValue = impactoProdCard.querySelector('.impact-value');
         if (impactoProdValue) {
-          impactoProdValue.textContent = '6.5%';
+          impactoProdValue.textContent = '2.6%';
         }
       }
       
@@ -1250,14 +1804,19 @@
       if (impactoReworkCard) {
         const impactoReworkValue = impactoReworkCard.querySelector('.impact-value');
         if (impactoReworkValue) {
-          impactoReworkValue.textContent = '179%';
+          impactoReworkValue.textContent = '25.8%';
         }
       }
     }
     
-   // Executar cálculo quando o DOM estiver carregado
+    // Executar cálculo quando o DOM estiver carregado
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(calcularMedias, 500); // Pequeno delay para garantir que os elementos estejam renderizados
+      
+      // Inicializar interações do PromptX
+      setTimeout(() => {
+        initPromptXInteractions();
+      }, 800);
     });
     
     // Adicionar tooltips personalizados para os cards de impacto
@@ -1348,6 +1907,31 @@
           bar.style.transition = 'width 1s ease-out';
         }, 500);
       });
+    }
+    
+    // Inicializar interações do PromptX
+    function initPromptXInteractions() {
+      // Adicionar interatividade para os cards do PromptX
+      document.querySelectorAll('.promptx-case-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-3px)';
+          this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+          this.style.transition = 'all 0.3s ease';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = '';
+        });
+      });
+      
+      // Botão de detalhes do PromptX
+      const promptxDetailsBtn = document.getElementById('promptx-details-btn');
+      if (promptxDetailsBtn) {
+        promptxDetailsBtn.addEventListener('click', function() {
+          alert('Relatório detalhado de evolução trimestral do PromptX será disponibilizado em breve.');
+        });
+      }
     }
     
     // Executar animações quando a página carregar
