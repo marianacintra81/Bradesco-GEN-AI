@@ -473,7 +473,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
     }
 
     /* Cards de ação */
-    .action-card {
+   .action-card {
       background-color: var(--card-bg-alt);
       border-radius: 8px;
       padding: 12px;
@@ -962,7 +962,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
                 <div class="maturity-bar">
                   <div class="maturity-progress" style="width: 100%; background-color: #94a3b8;"></div>
                 </div>
-              </div>
+                    </div>
               <h3><i class="fas fa-history"></i> Base (Jan-Mar 2025)</h3>
               <div class="metrics-grid">
                 <div class="metric">
@@ -1040,7 +1040,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
           </div>
           
           <!-- Nova seção PromptX específica para o projeto SAFER - REVISADA -->
-          <div class="promptx-section">
+          <div class="promptx-section" id="safer-promptx-section">
             <div class="promptx-header">
               <div class="promptx-title">
                 <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX 
@@ -1121,8 +1121,8 @@ Parte 3 - Estilos para cabeçalho e timeline:
             <div class="impact-content">
               <div class="impact-label">Aumento de Retrabalho</div>
               <div class="impact-desc">De 0.62% para 0.78%.</div>
-          
-       
+            </div>
+          </div>
         </div>
       </section>
         </div>
@@ -1131,7 +1131,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
 
 
 <!-- Impacto por tipo de caso de uso -->
-<div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+<div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;" id="safer-use-case-section">
   <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
     <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
   </h4>
@@ -1189,7 +1189,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
           <div class="summary-grid">
             <div class="summary-card pilot">
               <div class="maturity-indicator">
-                <div class="maturity-label">Fase Inicial</div>
+             <div class="maturity-label">Fase Inicial</div>
                 <div class="maturity-bar">
                   <div class="maturity-progress" style="width: 100%;"></div>
                 </div>
@@ -1442,7 +1442,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
           <!-- Seção de casos de uso para PIX -->
           <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
             <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-              <i class="fas fa-bullseye" style="color: var(--accent-color);"></i> Casos de Uso de Destaque
+                 <i class="fas fa-bullseye" style="color: var(--accent-color);"></i> Casos de Uso de Destaque
             </h4>
             
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
@@ -1692,7 +1692,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
   </div>
 
   <script>
-    // Função para alternar a visibilidade da seção de impacto
+     // Função para alternar a visibilidade da seção de impacto
     function toggleImpactSection() {
       const content = document.getElementById('impact-content');
       const toggle = document.getElementById('impact-toggle');
@@ -1708,23 +1708,26 @@ Parte 3 - Estilos para cabeçalho e timeline:
       }
     }
     
-    // Função para alternar o acordeão SAFER e a seção de impacto juntos
-    function toggleSaferAccordion() {
-      const saferContent = document.getElementById('safer-content');
-      const saferToggle = document.getElementById('safer-toggle');
-      const impactSection = document.getElementById('impact-section');
-      
-      // Alterna o conteúdo do SAFER
-      saferContent.classList.toggle('active');
-      saferToggle.classList.toggle('active');
-      
-      // Se o SAFER estiver sendo fechado, esconde também a seção de impacto
-      if (!saferContent.classList.contains('active')) {
-        impactSection.style.display = 'none';
-      } else {
-        impactSection.style.display = 'block';
-      }
-    }
+  // Função para alternar o acordeão SAFER e a seção de impacto juntos
+function toggleSaferAccordion() {
+  const saferContent = document.getElementById('safer-content');
+  const saferToggle = document.getElementById('safer-toggle');
+  const impactSection = document.getElementById('impact-section');
+  const useCaseSection = document.getElementById('safer-use-case-section');
+  
+  // Alterna o conteúdo do SAFER
+  saferContent.classList.toggle('active');
+  saferToggle.classList.toggle('active');
+  
+  // Se o SAFER estiver sendo fechado, esconde também a seção de impacto e o Impacto por Caso de Uso
+  if (!saferContent.classList.contains('active')) {
+    impactSection.style.display = 'none';
+    useCaseSection.style.display = 'none';
+  } else {
+    impactSection.style.display = 'block';
+    useCaseSection.style.display = 'block';
+  }
+}
     
     // Função para alternar os outros acordeões
     function toggleAccordion(header) {
