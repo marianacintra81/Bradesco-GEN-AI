@@ -56,7 +56,6 @@
       margin: 0 auto;
       width: 100%;
     }
-Parte 3 - Estilos para cabeçalho e timeline:
 
     /* Cabeçalho */
     .header {
@@ -473,7 +472,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
     }
 
     /* Cards de ação */
-   .action-card {
+  .action-card {
       background-color: var(--card-bg-alt);
       border-radius: 8px;
       padding: 12px;
@@ -485,7 +484,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
       height: 100%;
     }
 
-    .action-card:hover {
+       .action-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
@@ -969,7 +968,7 @@ Parte 3 - Estilos para cabeçalho e timeline:
                   <div class="metric-value">107</div>
                   <div class="metric-label">Lead Time (dias)</div>
                 </div>
-                <div class="metric">
+                 <div class="metric">
                   <div class="metric-value">31</div>
                   <div class="metric-label">Produtividade (h/PF)</div>
                 </div>
@@ -1179,34 +1178,63 @@ Parte 3 - Estilos para cabeçalho e timeline:
          
     
     <!-- Acordeão para SALA CORE -->
-    <div class="accordion">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
+    <div class="accordion" id="sala-core-accordion">
+      <div class="accordion-header" onclick="toggleSalaCoreAccordion()">
         <h2><i class="fas fa-chart-pie"></i> SALA CORE</h2>
-        <span class="accordion-toggle"><i class="fas fa-chevron-down"></i></span>
+         <span class="accordion-toggle" id="sala-core-toggle"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="accordion-content">
+      <div class="accordion-content" id="sala-core-content">
         <div class="accordion-inner">
           <div class="summary-grid">
+            <div class="summary-card pre-genai">
+              <div class="maturity-indicator">
+                <div class="maturity-label">Linha de Base</div>
+                <div class="maturity-bar">
+                  <div class="maturity-progress" style="width: 100%; background-color: #94a3b8;"></div>
+                </div>
+                   </div>
+                <h3><i class="fas fa-history"></i> Base (Jan-Mar 2025)</h3>
+              <div class="metrics-grid">
+                <div class="metric">
+                  <div class="metric-value">168.9</div>
+                  <div class="metric-label">Lead Time (dias)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value">20.1</div>
+                  <div class="metric-label">Produtividade (h/PF)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value">6.78%</div>
+                  <div class="metric-label">Retrabalho</div>
+                </div>
+              </div>
+            </div>
             <div class="summary-card pilot">
               <div class="maturity-indicator">
-             <div class="maturity-label">Fase Inicial</div>
+                <div class="maturity-label">Fase Inicial</div>
                 <div class="maturity-bar">
                   <div class="maturity-progress" style="width: 100%;"></div>
                 </div>
               </div>
-           <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
+              <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
               <div class="metrics-grid">
-                <div class="metric">
-                  <div class="metric-value">95.2</div>
+                <div class="metric improved">
+                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+                  <div class="metric-value">146.0</div>
                   <div class="metric-label">Lead Time (dias)</div>
+                  <div class="metric-change">-13.6%</div>
                 </div>
-                <div class="metric">
-                  <div class="metric-value">35.8</div>
+                <div class="metric worsened">
+                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+                  <div class="metric-value">21.0</div>
                   <div class="metric-label">Produtividade (h/PF)</div>
+                  <div class="metric-change">+4.2%</div>
                 </div>
-                <div class="metric">
-                  <div class="metric-value">0.32%</div>
+                <div class="metric improved">
+                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+                  <div class="metric-value">3.06%</div>
                   <div class="metric-label">Retrabalho</div>
+                  <div class="metric-change">-54.8%</div>
                 </div>
               </div>
             </div>
@@ -1221,80 +1249,195 @@ Parte 3 - Estilos para cabeçalho e timeline:
               <div class="metrics-grid">
                 <div class="metric improved">
                   <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">64.4</div>
+                  <div class="metric-value">101.0</div>
                   <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-32.4%</div>
+                  <div class="metric-change">-40.2%</div>
                 </div>
                 <div class="metric improved">
                   <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">29.3</div>
+                  <div class="metric-value">19.6</div>
                   <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-18.2%</div>
+                  <div class="metric-change">-2.6%</div>
                 </div>
                 <div class="metric worsened">
                   <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">0.59%</div>
+                  <div class="metric-value">8.53%</div>
                   <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+84.4%</div>
+                  <div class="metric-change">+25.8%</div>
                 </div>
               </div>
             </div>
           </div>
           
-          <!-- Seção PromptX para OPEN FINANCE -->
-          <div class="promptx-section">
+          <!-- Nova seção PromptX específica para o projeto SALA CORE - REVISADA -->
+          <div class="promptx-section" id="sala-core-promptx-section">
             <div class="promptx-header">
               <div class="promptx-title">
-                <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX - Open Finance
+                <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX 
               </div>
-              <div class="promptx-badge">876 interações no Q3</div>
+              <div class="promptx-badge">215 interações no Q3</div>
             </div>
             
-            <!-- Impacto por tipo de caso de uso -->
-            <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-              <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-                <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
-              </h4>
+          <!-- Gráfico de evolução das interações e impacto nos KPIs - VERSÃO COMPACTA -->
+          <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+              <i class="fas fa-chart-line" style="color: var(--promptx-color);"></i> Evolução Trimestral por total de interações
+            </h4>
+            
+            <!-- Visualização compacta de evolução de interações -->
+            <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 12px;">
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Base</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--pre-genai-color);">0</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q1 2025</div>
+              </div>
               
-              <!-- Card de Geração de APIs -->
-              <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; position: relative;">
-                <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--promptx-color); font-size: 16px;">
-                  <i class="fas fa-code"></i>
-                </div>
-                <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Geração de APIs</h5>
-                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-                  42 endpoints de API gerados para integração com parceiros financeiros. A GenAI acelerou significativamente o desenvolvimento de APIs padronizadas, garantindo conformidade com os requisitos do Banco Central.
-                </p>
-                <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 10px;">
-                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">-32%</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Lead Time</div>
-                  </div>
-                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 10px;">
-                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">-18%</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Produtividade</div>
-                  </div>
-                  <div style="text-align: center; flex: 1; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
-                    <div style="font-size: 24px; font-weight: 700; color: var(--success);">+28%</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Padronização</div>
-                  </div>
-                </div>
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Piloto</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--promptx-color);">0</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q2 2025</div>
+              </div>
+              
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Evolução</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--promptx-color);">215</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q3 2025</div>
+              </div>
+              
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Expansão</div>
+                <div style="font-size: 22px; font-weight: 700; color: var(--accent-color);">-</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q4 2025</div>
               </div>
             </div>
           </div>
+              <!-- Seção de Resultados Consolidados (inicialmente visível) -->
+      <section class="impact-section" id="sala-core-impact-section">
+        <h2 onclick="toggleSalaCoreImpactSection()">
+          <i class="fas fa-rocket"></i> Resultados Consolidados
+          <span id="sala-core-impact-toggle">
+            <i class="fas fa-chevron-up"></i>
+          </span>
+        </h2>
+        <div id="sala-core-impact-content" class="impact-grid horizontal">
+          <div class="impact-card">
+            <div class="impact-value">40.2%</div>
+            <div class="impact-content">
+              <div class="impact-label">Redução no Lead Time</div>
+              <div class="impact-desc">De 168.9 para 101.0 dias em média.</div>
+            </div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-value">2.6%</div>
+            <div class="impact-content">
+              <div class="impact-label">Redução em Horas/PF</div>
+              <div class="impact-desc">De 20.1 para 19.6 horas por ponto de função.</div>
+            </div>
+          </div>
+          <div class="impact-card negative">
+            <div class="impact-value negative">25.8%</div>
+            <div class="impact-content">
+              <div class="impact-label">Aumento de Retrabalho</div>
+              <div class="impact-desc">De 6.78% para 8.53%.</div>
+            </div>
+          </div>
+        </div>
+      </section>
         </div>
       </div>
     </div>
 
-    <!-- Acordeão para BRADESCO GLOBAL SOLUTIONS -->
-    <div class="accordion">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
+
+<!-- Impacto por tipo de caso de uso para SALA CORE -->
+<div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;" id="sala-core-use-case-section">
+  <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+    <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
+  </h4>
+  
+  <!-- Card único de Cenários de Teste com tamanho aumentado -->
+  <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; position: relative;">
+    <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--promptx-color); font-size: 16px;">
+      <i class="fas fa-vial"></i>
+    </div>
+    <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
+    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+      Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">+65%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários gerados</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">3x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais rápido na criação</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">95%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Precisão nos cenários</div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">2x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários revisados/dia</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">85%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Funcionalidades atingidas</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+           <div style="font-size: 24px; font-weight: 700; color: var(--success);">-45%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Redução media do tempo </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+    <!-- Acordeão para MASSIFICADO -->
+    <div class="accordion" id="massificado-accordion">
+      <div class="accordion-header" onclick="toggleMassificadoAccordion()">
         <h2><i class="fas fa-chart-pie"></i> MASSIFICADO</h2>
-        <span class="accordion-toggle"><i class="fas fa-chevron-down"></i></span>
+        <span class="accordion-toggle" id="massificado-toggle"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="accordion-content">
-        <div class="accordion-inner">
+        <div class="accordion-content" id="massificado-content">
+          <div class="accordion-inner">
           <div class="summary-grid">
+            <div class="summary-card pre-genai">
+              <div class="maturity-indicator">
+                <div class="maturity-label">Linha de Base</div>
+                <div class="maturity-bar">
+                  <div class="maturity-progress" style="width: 100%; background-color: #94a3b8;"></div>
+                </div>
+              </div>
+              <h3><i class="fas fa-history"></i> Base (Jan-Mar 2025)</h3>
+              <div class="metrics-grid">
+                <div class="metric">
+                  <div class="metric-value">190.1</div>
+                  <div class="metric-label">Lead Time (dias)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value">13.5</div>
+                  <div class="metric-label">Produtividade (h/PF)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value">7.41%</div>
+                  <div class="metric-label">Retrabalho</div>
+                </div>
+              </div>
+            </div>
             <div class="summary-card pilot">
               <div class="maturity-indicator">
                 <div class="maturity-label">Fase Inicial</div>
@@ -1304,17 +1447,23 @@ Parte 3 - Estilos para cabeçalho e timeline:
               </div>
               <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
               <div class="metrics-grid">
-                <div class="metric">
-                  <div class="metric-value">97.3</div>
+                <div class="metric improved">
+                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+                  <div class="metric-value">164.2</div>
                   <div class="metric-label">Lead Time (dias)</div>
+                  <div class="metric-change">-13.6%</div>
                 </div>
-                <div class="metric">
-                  <div class="metric-value">38.5</div>
+                <div class="metric worsened">
+                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+                  <div class="metric-value">14.1</div>
                   <div class="metric-label">Produtividade (h/PF)</div>
+                  <div class="metric-change">+4.2%</div>
                 </div>
-                <div class="metric">
-                  <div class="metric-value">0.25%</div>
+                <div class="metric improved">
+                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+                  <div class="metric-value">3.35%</div>
                   <div class="metric-label">Retrabalho</div>
+                  <div class="metric-change">-54.8%</div>
                 </div>
               </div>
             </div>
@@ -1329,298 +1478,200 @@ Parte 3 - Estilos para cabeçalho e timeline:
               <div class="metrics-grid">
                 <div class="metric improved">
                   <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">63.2</div>
+                  <div class="metric-value">113.7</div>
                   <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-35.0%</div>
+                  <div class="metric-change">-40.2%</div>
                 </div>
                 <div class="metric improved">
                   <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">29.8</div>
+                  <div class="metric-value">13.2</div>
                   <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-22.6%</div>
+                  <div class="metric-change">-2.6%</div>
                 </div>
                 <div class="metric worsened">
                   <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">0.42%</div>
+                  <div class="metric-value">9.32%</div>
                   <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+68.0%</div>
+                  <div class="metric-change">+25.8%</div>
                 </div>
               </div>
             </div>
           </div>
           
-          <!-- Seção de Adoção para BGS -->
+          <!-- Nova seção PromptX específica para o projeto MASSIFICADO - REVISADA -->
+          <div class="promptx-section" id="massificado-promptx-section">
+            <div class="promptx-header">
+              <div class="promptx-title">
+                <i class="fas fa-microphone-alt" style="color: var(--promptx-color);"></i> Impacto do PromptX 
+              </div>
+              <div class="promptx-badge">243 interações no Q3</div>
+            </div>
+            
+          <!-- Gráfico de evolução das interações e impacto nos KPIs - VERSÃO COMPACTA -->
           <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
             <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-              <i class="fas fa-users" style="color: var(--accent-color);"></i> Adoção e Engajamento
+              <i class="fas fa-chart-line" style="color: var(--promptx-color);"></i> Evolução Trimestral por total de interações
             </h4>
             
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px;">
-              <div style="text-align: center; flex: 1;">
-                <div style="font-size: 24px; font-weight: 700; color: var(--accent-color);">19</div>
-                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Usuários Ativos</div>
-                <div style="font-size: 10px; color: var(--success); margin-top: 3px;">95% do target</div>
+            <!-- Visualização compacta de evolução de interações -->
+            <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 12px;">
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Base</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--pre-genai-color);">0</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q1 2025</div>
               </div>
               
-              <div style="text-align: center; flex: 1;">
-                <div style="font-size: 24px; font-weight: 700; color: var(--accent-color);">84%</div>
-                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Uso Diário</div>
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
               </div>
               
-              <div style="text-align: center; flex: 1;">
-                <div style="font-size: 24px; font-weight: 700; color: var(--accent-color);">4.8</div>
-                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Satisfação (0-5)</div>
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Piloto</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--promptx-color);">0</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q2 2025</div>
               </div>
+              
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Evolução</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--promptx-color);">243</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q3 2025</div>
+              </div>
+              
+              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-arrow-right" style="color: var(--text-muted); font-size: 14px;"></i>
+              </div>
+              
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Expansão</div>
+                <div style="font-size: 22px; font-weight: 700; color: var(--accent-color);">-</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Q4 2025</div>
+              </div>
+            </div>
+          </div>
+              <!-- Seção de Resultados Consolidados (inicialmente visível) -->
+      <section class="impact-section" id="massificado-impact-section">
+        <h2 onclick="toggleMassificadoImpactSection()">
+          <i class="fas fa-rocket"></i> Resultados Consolidados
+          <span id="massificado-impact-toggle">
+            <i class="fas fa-chevron-up"></i>
+          </span>
+        </h2>
+        <div id="massificado-impact-content" class="impact-grid horizontal">
+          <div class="impact-card">
+            <div class="impact-value">40.2%</div>
+            <div class="impact-content">
+              <div class="impact-label">Redução no Lead Time</div>
+              <div class="impact-desc">De 190.1 para 113.7 dias em média.</div>
+            </div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-value">2.6%</div>
+            <div class="impact-content">
+              <div class="impact-label">Redução em Horas/PF</div>
+              <div class="impact-desc">De 13.5 para 13.2 horas por ponto de função.</div>
+            </div>
+          </div>
+          <div class="impact-card negative">
+            <div class="impact-value negative">25.8%</div>
+            <div class="impact-content">
+              <div class="impact-label">Aumento de Retrabalho</div>
+              <div class="impact-desc">De 7.41% para 9.32%.</div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-     <!-- Acordeão para PIX -->
-    <div class="accordion">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <h2><i class="fas fa-chart-pie"></i> PIX</h2>
-        <span class="accordion-toggle"><i class="fas fa-chevron-down"></i></span>
-      </div>
-      <div class="accordion-content">
-        <div class="accordion-inner">
-          <div class="summary-grid">
-            <div class="summary-card pilot">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase Inicial</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric">
-                  <div class="metric-value">96.8</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">38.2</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">0.26%</div>
-                  <div class="metric-label">Retrabalho</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card production">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase de Evolução</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 95%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">66.1</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-31.7%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">31.1</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-18.6%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">0.61%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+134.6%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Seção de casos de uso para PIX -->
-          <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-                 <i class="fas fa-bullseye" style="color: var(--accent-color);"></i> Casos de Uso de Destaque
-            </h4>
-            
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
-              <!-- Caso de uso 1 -->
-              <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px; position: relative;">
-                <div style="position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: rgba(16, 185, 129, 0.1); color: var(--success); font-size: 14px;">
-                  <i class="fas fa-shield-alt"></i>
-                </div>
-                <h5 style="font-size: 16px; margin-bottom: 10px; color: var(--text-primary); padding-right: 35px;">Segurança de Transações</h5>
-                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.5;">
-                  Algoritmos de detecção de fraudes com GenAI, resultando em 32% mais detecções de transações suspeitas.
-                </p>
-                <div style="display: flex; justify-content: space-between;">
-                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 8px;">
-                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">-42%</div>
-                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Fraudes</div>
-                  </div>
-                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
-                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">+28%</div>
-                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Confiança</div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Caso de uso 2 -->
-              <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px; position: relative;">
-                <div style="position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: rgba(16, 185, 129, 0.1); color: var(--success); font-size: 14px;">
-                  <i class="fas fa-bolt"></i>
-                </div>
-                <h5 style="font-size: 16px; margin-bottom: 10px; color: var(--text-primary); padding-right: 35px;">Otimização de Performance</h5>
-                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px; line-height: 1.5;">
-                  Otimização de código para processamento de transações em alta escala, reduzindo o tempo de resposta.
-                </p>
-                <div style="display: flex; justify-content: space-between;">
-                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-right: 8px;">
-                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">-45%</div>
-                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Tempo de resposta</div>
-                  </div>
-                  <div style="text-align: center; flex: 1; padding: 10px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
-                    <div style="font-size: 18px; font-weight: 700; color: var(--success);">+65%</div>
-                    <div style="font-size: 10px; color: var(--text-secondary); margin-top: 3px;">Capacidade</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      </section>
         </div>
       </div>
     </div>
 
-    <!-- Acordeão para INVESTIMENTOS -->
-    <div class="accordion">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <h2><i class="fas fa-chart-pie"></i> INVESTIMENTOS</h2>
-        <span class="accordion-toggle"><i class="fas fa-chevron-down"></i></span>
+
+<!-- Impacto por tipo de caso de uso para MASSIFICADO -->
+<div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;" id="massificado-use-case-section">
+  <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
+    <i class="fas fa-bullseye" style="color: var(--promptx-color);"></i> Impacto por Caso de Uso
+  </h4>
+  
+  <!-- Card único de Cenários de Teste com tamanho aumentado -->
+  <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; position: relative;">
+    <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--promptx-color); font-size: 16px;">
+      <i class="fas fa-vial"></i>
+    </div>
+    <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
+    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+      Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">+65%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários gerados</div>
       </div>
-      <div class="accordion-content">
-        <div class="accordion-inner">
-          <div class="summary-grid">
-            <div class="summary-card pilot">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase Inicial</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric">
-                  <div class="metric-value">94.5</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">36.5</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">0.29%</div>
-                  <div class="metric-label">Retrabalho</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card production">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase de Evolução</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 95%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">67.8</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-28.3%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">31.0</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-15.2%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">0.56%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+92.1%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Histórias de sucesso para Investimentos -->
-          <div style="background-color: var(--card-bg-alt); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-              <i class="fas fa-trophy" style="color: var(--accent-color);"></i> Histórias de Sucesso
-            </h4>
-            
-            <div style="background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <h5 style="font-size: 16px; color: var(--text-primary);">Recomendação de Investimentos</h5>
-                <span style="background-color: rgba(16, 185, 129, 0.1); color: var(--success); font-size: 10px; padding: 3px 8px; border-radius: 10px;">Destaque</span>
-              </div>
-              <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 15px;">
-                Desenvolvimento de algoritmo de recomendação personalizada de investimentos com GenAI, resultando em aumento de 28% na conversão de ofertas e 32% na satisfação dos clientes.
-              </p>
-              <div style="display: flex; gap: 10px;">
-                <div style="flex: 1; background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px; text-align: center;">
-                  <div style="font-size: 18px; font-weight: 700; color: var(--success);">28%</div>
-                  <div style="font-size: 10px; color: var(--text-secondary); margin-top: 5px;">Aumento de conversão</div>
-                </div>
-                <div style="flex: 1; background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 10px; text-align: center;">
-                  <div style="font-size: 18px; font-weight: 700; color: var(--success);">32%</div>
-                  <div style="font-size: 10px; color: var(--text-secondary); margin-top: 5px;">Aumento de satisfação</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">3x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais rápido na criação</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">95%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Precisão nos cenários</div>
       </div>
     </div>
-       <section class="next-phase-section">
-      <h2><i class="fas fa-lightbulb"></i> Próximas Iniciativas GEN AI (Set-Dez/25)</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">2x</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários revisados/dia</div>
+      </div>
+     <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">85%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Funcionalidades atingidas</div>
+      </div>
+      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+        <div style="font-size: 24px; font-weight: 700; color: var(--success);">-45%</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Redução media do tempo </div>
+      </div>
+    </div>
+      </div>
+</div>
+
+<!-- SEÇÃO DE PRÓXIMAS INICIATIVAS (SEMPRE VISÍVEL) -->
+<div id="next-initiatives-section">
+  <section class="next-phase-section">
+    <h2><i class="fas fa-lightbulb"></i> Próximas Iniciativas GEN AI (Set-Dez/25)</h2>
+    
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-vial"></i>
+        </div>
+        <div class="action-content">
+          <h3>Testes Unitários com Agentes</h3>
+          <p>Automatizar geração e manutenção de testes unitários assistidos por agentes, reduzindo em até 25% o retrabalho através de detecção preventiva de problemas.</p>
+        </div>
+      </div>
       
-      <div class="action-grid">
-        <div class="action-card">
-          <div class="action-icon">
-            <i class="fas fa-vial"></i>
-          </div>
-          <div class="action-content">
-            <h3>Testes Unitários com Agentes</h3>
-            <p>Automatizar geração e manutenção de testes unitários assistidos por agentes, reduzindo em até 25% o retrabalho através de detecção preventiva de problemas.</p>
-          </div>
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-robot"></i>
         </div>
-        
-        <div class="action-card">
-          <div class="action-icon">
-            <i class="fas fa-robot"></i>
-          </div>
-          <div class="action-content">
-            <h3>Testes Automatizados com Agentes</h3>
-            <p>E2E e regressão assistidos por agentes para acelerar QA e identificar problemas antes da entrega.</p>
-          </div>
-        </div>
-        
-        <div class="action-card">
-          <div class="action-icon">
-            <i class="fas fa-code-branch"></i>
-          </div>
-          <div class="action-content">
-            <h3>Code Review com Agentes</h3>
-            <p>Agentes suportando revisão estática e sugestões de refatoração, reduzindo em até 20% o retrabalho através de detecção preventiva de problemas.</p>
-          </div>
+        <div class="action-content">
+          <h3>Testes Automatizados com Agentes</h3>
+           <p>E2E e regressão assistidos por agentes para acelerar QA e identificar problemas antes da entrega.</p>
         </div>
       </div>
-    </section>
-
+      
+      <div class="action-card">
+        <div class="action-icon">
+          <i class="fas fa-code-branch"></i>
+        </div>
+        <div class="action-content">
+          <h3>Code Review com Agentes</h3>
+          <p>Agentes suportando revisão estática e sugestões de refatoração, reduzindo em até 20% o retrabalho através de detecção preventiva de problemas.</p>
+        </div>
+      </div>
+    </div>
+  
     <div class="action-grid">
       <div class="action-card">
         <div class="action-icon">
@@ -1684,18 +1735,75 @@ Parte 3 - Estilos para cabeçalho e timeline:
         </div>
       </div>
     </div>
+  </section>
+</div>
     
-    <!-- Rodapé -->
-    <div class="footer">
-      <p>Dashboard de Maturidade GenAI - Bradesco | Atualizado em: Setembro/2025</p>
-    </div>
-  </div>
+<!-- Rodapé -->
+<div class="footer">
+  <p>Dashboard de Maturidade GenAI - Bradesco | Atualizado em: <span id="data-atualizacao"></span></p>
+</div>
 
   <script>
+    // Função para formatar a data atual
+  function atualizarDataRodape() {
+    const dataAtual = new Date();
+    
+    // Array com os nomes dos meses em português
+    const meses = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    
+    // Obtém o mês e ano
+    const mes = meses[dataAtual.getMonth()];
+    const ano = dataAtual.getFullYear();
+    
+    // Formata a data no padrão desejado
+    const dataFormatada = `${mes}/${ano}`;
+    
+    // Atualiza o elemento no rodapé
+    document.getElementById('data-atualizacao').textContent = dataFormatada;
+  }
+  
+  // Adiciona a chamada da função quando o DOM estiver carregado
+  document.addEventListener('DOMContentLoaded', atualizarDataRodape);
+  
      // Função para alternar a visibilidade da seção de impacto
     function toggleImpactSection() {
       const content = document.getElementById('impact-content');
       const toggle = document.getElementById('impact-toggle');
+      
+      if (content.classList.contains('collapsed')) {
+        // Expandir
+        content.classList.remove('collapsed');
+        toggle.classList.remove('collapsed');
+      } else {
+        // Colapsar
+        content.classList.add('collapsed');
+        toggle.classList.add('collapsed');
+      }
+    }
+    
+    // Função para alternar a visibilidade da seção de impacto do SALA CORE
+    function toggleSalaCoreImpactSection() {
+      const content = document.getElementById('sala-core-impact-content');
+      const toggle = document.getElementById('sala-core-impact-toggle');
+      
+      if (content.classList.contains('collapsed')) {
+        // Expandir
+        content.classList.remove('collapsed');
+        toggle.classList.remove('collapsed');
+      } else {
+        // Colapsar
+        content.classList.add('collapsed');
+        toggle.classList.add('collapsed');
+      }
+    }
+    
+    // Função para alternar a visibilidade da seção de impacto do MASSIFICADO
+    function toggleMassificadoImpactSection() {
+      const content = document.getElementById('massificado-impact-content');
+      const toggle = document.getElementById('massificado-impact-toggle');
       
       if (content.classList.contains('collapsed')) {
         // Expandir
@@ -1726,6 +1834,48 @@ function toggleSaferAccordion() {
   } else {
     impactSection.style.display = 'block';
     useCaseSection.style.display = 'block';
+  }
+}
+
+// Função para alternar o acordeão SALA CORE e a seção de impacto juntos
+function toggleSalaCoreAccordion() {
+  const salaCoreContent = document.getElementById('sala-core-content');
+  const salaCoreToggle = document.getElementById('sala-core-toggle');
+  const impactSection = document.getElementById('sala-core-impact-section');
+  const useCaseSection = document.getElementById('sala-core-use-case-section');
+  
+  // Alterna o conteúdo do SALA CORE
+  salaCoreContent.classList.toggle('active');
+  salaCoreToggle.classList.toggle('active');
+  
+  // Se o SALA CORE estiver sendo fechado, esconde também a seção de impacto e o Impacto por Caso de Uso
+  if (!salaCoreContent.classList.contains('active')) {
+    if (impactSection) impactSection.style.display = 'none';
+    if (useCaseSection) useCaseSection.style.display = 'none';
+  } else {
+    if (impactSection) impactSection.style.display = 'block';
+    if (useCaseSection) useCaseSection.style.display = 'block';
+  }
+}
+
+// Função para alternar o acordeão MASSIFICADO e a seção de impacto juntos
+function toggleMassificadoAccordion() {
+  const massificadoContent = document.getElementById('massificado-content');
+  const massificadoToggle = document.getElementById('massificado-toggle');
+  const impactSection = document.getElementById('massificado-impact-section');
+  const useCaseSection = document.getElementById('massificado-use-case-section');
+  
+  // Alterna o conteúdo do MASSIFICADO
+  massificadoContent.classList.toggle('active');
+  massificadoToggle.classList.toggle('active');
+  
+  // Se o MASSIFICADO estiver sendo fechado, esconde também a seção de impacto e o Impacto por Caso de Uso
+  if (!massificadoContent.classList.contains('active')) {
+    if (impactSection) impactSection.style.display = 'none';
+    if (useCaseSection) useCaseSection.style.display = 'none';
+  } else {
+    if (impactSection) impactSection.style.display = 'block';
+    if (useCaseSection) useCaseSection.style.display = 'block';
   }
 }
     
@@ -1802,7 +1952,7 @@ function toggleSaferAccordion() {
         }
       }
       
-      // Atualizar valor no card de impacto (terceiro card - retrabalho)
+    // Atualizar valor no card de impacto (terceiro card - retrabalho)
       const impactoReworkCard = document.querySelectorAll('.impact-card')[2];
       if (impactoReworkCard) {
         const impactoReworkValue = impactoReworkCard.querySelector('.impact-value');
@@ -1820,9 +1970,22 @@ function toggleSaferAccordion() {
       setTimeout(() => {
         initPromptXInteractions();
       }, 800);
+      
+      // Esconder inicialmente as seções de caso de uso para SALA CORE e MASSIFICADO
+      const salaCoreUseCaseSection = document.getElementById('sala-core-use-case-section');
+      const massificadoUseCaseSection = document.getElementById('massificado-use-case-section');
+      
+      if (salaCoreUseCaseSection) salaCoreUseCaseSection.style.display = 'none';
+      if (massificadoUseCaseSection) massificadoUseCaseSection.style.display = 'none';
+      
+      // Garantir que a seção de próximas iniciativas esteja sempre visível
+      const nextInitiativesSection = document.getElementById('next-initiatives-section');
+      if (nextInitiativesSection) {
+        nextInitiativesSection.style.display = 'block';
+      }
     });
     
-    // Adicionar tooltips personalizados para os cards de impacto
+      // Adicionar tooltips personalizados para os cards de impacto
     const impactCards = document.querySelectorAll('.impact-card');
     
     // Tooltip para Lead Time
@@ -1950,6 +2113,58 @@ function toggleSaferAccordion() {
           productionPhase.style.transition = 'transform 0.5s ease';
         }, 1200);
       }
+      
+      // Função para atualizar os valores do SALA CORE
+      function atualizarValoresSalaCore() {
+        // Valores da linha de base
+        document.querySelector('#sala-core-content .summary-card.pre-genai .metric:nth-child(1) .metric-value').textContent = '168.9';
+        document.querySelector('#sala-core-content .summary-card.pre-genai .metric:nth-child(2) .metric-value').textContent = '20.1';
+        document.querySelector('#sala-core-content .summary-card.pre-genai .metric:nth-child(3) .metric-value').textContent = '6.78%';
+        
+        // Valores da fase piloto
+        document.querySelector('#sala-core-content .summary-card.pilot .metric:nth-child(1) .metric-value').textContent = '146.0';
+        document.querySelector('#sala-core-content .summary-card.pilot .metric:nth-child(2) .metric-value').textContent = '21.0';
+        document.querySelector('#sala-core-content .summary-card.pilot .metric:nth-child(3) .metric-value').textContent = '3.06%';
+        
+        // Valores da fase de produção
+        document.querySelector('#sala-core-content .summary-card.production .metric:nth-child(1) .metric-value').textContent = '101.0';
+        document.querySelector('#sala-core-content .summary-card.production .metric:nth-child(2) .metric-value').textContent = '19.6';
+        document.querySelector('#sala-core-content .summary-card.production .metric:nth-child(3) .metric-value').textContent = '8.53%';
+        
+        // Resultados consolidados
+        document.querySelector('#sala-core-impact-content .impact-card:nth-child(1) .impact-desc').textContent = 'De 168.9 para 101.0 dias em média.';
+        document.querySelector('#sala-core-impact-content .impact-card:nth-child(2) .impact-desc').textContent = 'De 20.1 para 19.6 horas por ponto de função.';
+        document.querySelector('#sala-core-impact-content .impact-card:nth-child(3) .impact-desc').textContent = 'De 6.78% para 8.53%.';
+      }
+
+      // Função para atualizar os valores do MASSIFICADO
+      function atualizarValoresMassificado() {
+        // Valores da linha de base
+        document.querySelector('#massificado-content .summary-card.pre-genai .metric:nth-child(1) .metric-value').textContent = '190.1';
+        document.querySelector('#massificado-content .summary-card.pre-genai .metric:nth-child(2) .metric-value').textContent = '13.5';
+        document.querySelector('#massificado-content .summary-card.pre-genai .metric:nth-child(3) .metric-value').textContent = '7.41%';
+        
+        // Valores da fase piloto
+        document.querySelector('#massificado-content .summary-card.pilot .metric:nth-child(1) .metric-value').textContent = '164.2';
+        document.querySelector('#massificado-content .summary-card.pilot .metric:nth-child(2) .metric-value').textContent = '14.1';
+        document.querySelector('#massificado-content .summary-card.pilot .metric:nth-child(3) .metric-value').textContent = '3.35%';
+        
+        // Valores da fase de produção
+        document.querySelector('#massificado-content .summary-card.production .metric:nth-child(1) .metric-value').textContent = '113.7';
+        document.querySelector('#massificado-content .summary-card.production .metric:nth-child(2) .metric-value').textContent = '13.2';
+        document.querySelector('#massificado-content .summary-card.production .metric:nth-child(3) .metric-value').textContent = '9.32%';
+        
+        // Resultados consolidados
+        document.querySelector('#massificado-impact-content .impact-card:nth-child(1) .impact-desc').textContent = 'De 190.1 para 113.7 dias em média.';
+        document.querySelector('#massificado-impact-content .impact-card:nth-child(2) .impact-desc').textContent = 'De 13.5 para 13.2 horas por ponto de função.';
+        document.querySelector('#massificado-impact-content .impact-card:nth-child(3) .impact-desc').textContent = 'De 7.41% para 9.32%.';
+      }
+      
+      // Executar as funções de atualização
+      setTimeout(() => {
+        atualizarValoresSalaCore();
+        atualizarValoresMassificado();
+      }, 500);
     });
   </script>
 </body>
