@@ -7,6 +7,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* Adicione estes estilos ao seu CSS existente */
+
+/* Efeito de clique nos textos dentro dos cards */
+.card-title, .card-description {
+  transition: transform 0.2s, color 0.2s;
+}
+
+.card:active .card-title,
+.card:active .card-description {
+  transform: scale(0.98);
+  color: var(--accent-cyan) !important;
+}
+
+/* Garantir que o card inteiro seja clicável */
+.card {
+  position: relative;
+  z-index: 1;
+}
+
+/* Efeito de feedback ao clicar no card */
+.card:active {
+  transform: scale(0.98);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Melhorar a transição ao clicar */
+.card {
+  transition: all 0.3s ease, transform 0.1s ease;
+}
     :root {
       --bg-primary: #0c0e14;
       --bg-secondary: #151823;
