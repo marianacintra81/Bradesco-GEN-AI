@@ -7,32 +7,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        /* Estilo do botão voltar - Melhorado */
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #0033A0; /* Azul Bradesco */
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0.7rem 1.2rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-        }
+  /* Botão Voltar */
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #0033A0, #7B68EE);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #7B68EE, #0033A0);
+}
         
-        .back-button:hover {
-            background-color: #7B68EE; /* Cor intermediária */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-        }
         
         .back-button i {
             font-size: 1.1rem;
@@ -408,9 +409,9 @@
     <section class="title-section">
         <div class="container">
             <!-- Botão Voltar -->
-            <button class="back-button" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i> Voltar
-            </button>
+      <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+  <i class="fas fa-arrow-left"></i>
+</a>
             
             <h1>Casos de Uso PromptX</h1>
             <p>Descubra como a IA pode transformar seu fluxo de trabalho e aumentar a produtividade</p>
