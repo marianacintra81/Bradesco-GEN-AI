@@ -10,6 +10,33 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
   <style>
+      /* Estilo do botão voltar */
+  .back-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #0033A0; /* Azul Bradesco */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #7B68EE; /* Cor intermediária */
+  }
+  
+  /* Certifique-se de que o cabeçalho tenha position: relative */
+  header {
+    position: relative;
+  }
     :root{
       --background:#272936;
       --card-bg:#2e303e;
@@ -112,7 +139,10 @@
         <h1>Adoção GEN AI Bradesco</h1>
       </div>
     </header>
-
+<!-- Adicione este botão dentro do elemento <header> da página -->
+<button class="back-button" onclick="goBack()">
+  <i class="fas fa-arrow-left"></i> Voltar
+</button>
     <!-- KPIs (atualizados) -->
     <section class="kpis">
       <div class="kpi kpi--total">
@@ -569,6 +599,9 @@
       // Chamar updateAllMetrics() também no início para garantir que todos os valores estejam atualizados
       updateAllMetrics();
     });
+     function goBack() {
+    window.location.href = 'https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html';
+  }
   </script>
 </body>
 </html>
