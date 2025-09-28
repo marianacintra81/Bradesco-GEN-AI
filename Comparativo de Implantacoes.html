@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>v3_Comparativo de Implantações</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -247,7 +236,7 @@
             <div class="icon"><i class="fas fa-chart-pie" style="color:var(--wave3)"></i></div>
             <div class="val">85,2%</div><div class="lbl">Taxa de Adoção</div>
           <div class="sub"><span class="tag wave3">69 de 81 ativos</span></div>
-        </div>
+          </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave3)"></i></div>
           <div class="val" id="v_inter_w3">642</div><div class="lbl">Interações</div>
@@ -274,10 +263,59 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
       Chart.register(ChartDataLabels);
       Chart.defaults.color = '#ffffff';
       Chart.defaults.font.family = 'Inter, sans-serif';
+
+      // Função para atualizar todas as métricas
+      function updateAllMetrics() {
+        // Valores fixos conforme solicitado
+        const totalProjetos = 38;
+        const totalUsuarios = 222;
+        const usuariosSemInteracao = 14;
+        
+        // Calcular valores derivados
+        const usuariosAtivos = totalUsuarios - usuariosSemInteracao;
+        const taxaAdocao = ((usuariosAtivos / totalUsuarios) * 100).toFixed(1);
+        
+        // Contar projetos com usuários sem interação
+        let projetosComSemInteracao = 0;
+        for (let i = 0; i < projects.length; i++) {
+          if (projects[i].sem > 0) {
+            projetosComSemInteracao++;
+          }
+        }
+        
+        // Atualizar KPIs
+        document.getElementById('k_total').textContent = totalUsuarios;
+        document.getElementById('k_ativos').textContent = usuariosAtivos;
+        document.getElementById('k_sem').textContent = usuariosSemInteracao;
+        document.getElementById('k_sem_pct').textContent = ((usuariosSemInteracao / totalUsuarios) * 100).toFixed(1) + '%';
+        document.getElementById('k_adocao').textContent = taxaAdocao + '%';
+        document.getElementById('k_taxa_v').textContent = taxaAdocao + '%';
+        document.getElementById('k_taxa_desc').textContent = `${usuariosAtivos} de ${totalUsuarios} usuários ativos`;
+        
+        // Atualizar texto do gráfico de projetos
+        document.getElementById('projetos_sem_interacao').textContent = projetosComSemInteracao;
+        document.getElementById('total_projetos').textContent = totalProjetos;
+        
+        // 3. Calcular total de interações (somando os valores dos cards)
+        const interPiloto = parseInt(document.getElementById('v_inter_piloto').textContent) || 0;
+        const interW1 = parseInt(document.getElementById('v_inter_w1').textContent) || 0;
+        const interW2 = parseInt(document.getElementById('v_inter_w2').textContent) || 0;
+        const interW3 = parseInt(document.getElementById('v_inter_w3').textContent) || 0;
+        
+        const totalInteracoes = interPiloto + interW1 + interW2 + interW3;
+        document.getElementById('k_inter').textContent = totalInteracoes;
+        
+        // Média global de interações
+        const mediaGlobal = (totalInteracoes / usuariosAtivos).toFixed(1);
+        document.getElementById('k_media_global').textContent = `Média: ${mediaGlobal} por usuário ativo`;
+        
+        // Atualizar o número total de projetos
+        document.getElementById('k_proj_total').textContent = totalProjetos;
+      }
 
       /* ====== GRÁFICO 1: Média de interações por projeto ====== */
       const RAW_WAVE = [
@@ -454,19 +492,10 @@
         const dataSem = sortedProjects.map(p => p.sem);
         const dataCom = sortedProjects.map(p => Math.max(p.total - p.sem, 0));
 
-        // Contar manualmente os projetos com usuários sem interação
-        let projetosComSemInteracao = 0;
-        for (let i = 0; i < projects.length; i++) {
-          if (projects[i].sem > 0) {
-            projetosComSemInteracao++;
-          }
-        }
-        
-        // Atualizar os elementos no DOM
-        document.getElementById('projetos_sem_interacao').textContent = projetosComSemInteracao;
-        document.getElementById('total_projetos').textContent = projects.length;
+        // Atualizar todas as métricas
+        updateAllMetrics();
 
-        const okColor  = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim();
+        const okColor = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim();
         const attColor = getComputedStyle(document.documentElement).getPropertyValue('--att').trim();
 
         new Chart(document.getElementById('projectsInteractionStacked'), {
@@ -475,7 +504,7 @@
             labels,
             datasets: [
               { 
-                label: 'Com interação', 
+                   label: 'Com interação', 
                 data: dataCom, 
                 backgroundColor: okColor,  
                 borderRadius: 4, 
@@ -531,16 +560,15 @@
                   label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} usuário(s)`
                 }
               },
-             datalabels: { color: '#ffffff', font: { size: 11 } }
+              datalabels: { color: '#ffffff', font: { size: 11 } }
             }
           }
         });
       })();
+
+      // Chamar updateAllMetrics() também no início para garantir que todos os valores estejam atualizados
+      updateAllMetrics();
     });
   </script>
 </body>
-</html>
-    
-  </body>
-  
 </html>
