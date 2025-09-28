@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Casos de Uso PromptX</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casos de Uso PromptX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Cores de Fundo */
+            --bg-primary: #0c0e14;
+            --bg-secondary: #151823;
+            --bg-card: #1e2130;
+            --bg-card-hover: #272936;
+            
+            /* Cores de Destaque */
+            --red-bradesco: #cc0000;
+            --blue-bradesco: #0033A0;
+            --purple-highlight: #7B68EE;
+            --cyan-highlight: #00e5ff;
+            
+            /* Cores de Texto */
+            --text-primary: #ffffff;
+            --text-secondary: #a3a8c3;
+            
+            /* Outras variáveis */
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.4;
+            overflow-x: hidden;
+            font-size: 14px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%),
+                radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            padding: 40px 0 20px;
+            position: relative;
+            background-color: var(--bg-secondary);
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .title-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
+        }
+        
+        .title-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background: var(--bg-card);
+            border: none;
+            color: var(--text-primary);
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--red-bradesco));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .filter-btn:hover::before {
+            opacity: 0.1;
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--red-bradesco));
+            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
+        }
+        
+        /* Use Cases Grid */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .use-case-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+        }
+        
+        .use-case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-header {
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(0, 51, 160, 0.2), rgba(204, 0, 0, 0.2));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--cyan-highlight);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .use-case-card:hover .card-icon {
+            transform: rotateY(180deg);
+            color: var(--red-bradesco);
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            margin: 0;
+            color: var(--text-primary);
+            flex-grow: 1;
+        }
+        
+        .card-category {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--red-bradesco));
+            padding: 1px 4px;
+            border-radius: 8px;
+            font-size: 0.60rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-description {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        .card-benefits {
+            margin-top: auto;
+        }
+        
+        .benefit-tag {
+            display: inline-block;
+            background: rgba(0, 51, 160, 0.1);
+            color: var(--cyan-highlight);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .use-case-card:hover .benefit-tag {
+            background: rgba(0, 51, 160, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .card-footer {
+            padding: 10px 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .target-audience {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards;
+        }
+        
+        /* Pulse animation for card click */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.3s ease-in-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .use-cases-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .title-section h1 {
+                font-size: 2rem;
+            }
+            
+            .title-section p {
+                font-size: 1rem;
+            }
+            
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                padding: 12px;
+            }
+            
+            .card-category {
+                position: static;
+                display: inline-block;
+                margin-top: 5px;
+            }
+            
+            .filter-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Title Section -->
+    <section class="title-section">
+        <div class="container">
+            <h1>Casos de Uso PromptX</h1>
+            <p>Descubra como a IA pode transformar seu fluxo de trabalho e aumentar a produtividade</p>
+            
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="qualidade">Qualidade</button>
+                <button class="filter-btn" data-filter="requisitos">Requisitos</button>
+                <button class="filter-btn" data-filter="documentacao">Documentação</button>
+                <button class="filter-btn" data-filter="comunicacao">Comunicação</button>
+                <button class="filter-btn" data-filter="desenvolvimento">Desenvolvimento</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Use Cases Grid -->
+    <section class="use-cases-section">
+        <div class="container">
+            <div class="use-cases-grid">
+                <!-- Qualidade - Cenários de teste -->
+                <div class="use-case-card animate-fade-in" data-category="qualidade">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <h3 class="card-title">Cenários de Teste</h3>
+                        <span class="card-category">Qualidade</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Geração  de cenários de teste abrangentes a partir de requisitos.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Economia de tempo</span>
+                            <span class="benefit-tag">Maior cobertura</span>
+                                                     <span class="benefit-tag">Padronização</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Analistas de Teste
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Qualidade - Cenários BDD -->
+                <div class="use-case-card animate-fade-in" data-category="qualidade">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3 class="card-title">Cenários BDD (Gherkin)</h3>
+                        <span class="card-category">Qualidade</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Transforme requisitos em cenários Gherkin estruturados no formato "Dado-Quando-Então".
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Automação</span>
+                            <span class="benefit-tag">Clareza</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> QAs e Desenvolvedores
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Qualidade - Registro de bugs -->
+                <div class="use-case-card animate-fade-in" data-category="qualidade">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <h3 class="card-title">Registro de Bugs</h3>
+                        <span class="card-category">Qualidade</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Documentação estruturada de bugs a partir de falhas identificadas.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Detalhamento</span>
+                            <span class="benefit-tag">Reprodutibilidade</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Equipe de QA
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Qualidade - Revisão de código -->
+                <div class="use-case-card animate-fade-in" data-category="qualidade">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="card-title">Revisão de Código</h3>
+                        <span class="card-category">Qualidade</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Análise de código com sugestões de melhoria e padronização.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Qualidade</span>
+                            <span class="benefit-tag">Consistência</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Desenvolvedores
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Qualidade - Massa de dados -->
+                <div class="use-case-card animate-fade-in" data-category="qualidade">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="card-title">Criação de Massa de Dados</h3>
+                        <span class="card-category">Qualidade</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Geração de dados para testes, respeitando regras de negócio.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Diversidade</span>
+                            <span class="benefit-tag">Realismo</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> QAs e Analistas
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Requisitos - Histórias de usuário -->
+                <div class="use-case-card animate-fade-in" data-category="requisitos">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="card-title">Histórias de Usuário</h3>
+                        <span class="card-category">Requisitos</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Criação de histórias de usuário com critérios de aceitação claros.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Clareza</span>
+                            <span class="benefit-tag">Foco no valor</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> POs e Analistas
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Requisitos - Refinamento -->
+                <div class="use-case-card animate-fade-in" data-category="requisitos">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <h3 class="card-title">Refinamento de Requisitos</h3>
+                        <span class="card-category">Requisitos</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Análise e aprimoramento de requisitos, identificando ambiguidades e lacunas.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Precisão</span>
+                            <span class="benefit-tag">Completude</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Analistas de Negócio
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Requisitos - Pontos de função -->
+                <div class="use-case-card animate-fade-in" data-category="requisitos">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="card-title">Contagem de Pontos de Função</h3>
+                        <span class="card-category">Requisitos</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Estimativa de esforço baseada na análise de funcionalidades.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Precisão</span>
+                            <span class="benefit-tag">Objetividade</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Analistas de Métricas
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Documentação - Tutoriais -->
+                <div class="use-case-card animate-fade-in" data-category="documentacao">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="card-title">Tutoriais e Manuais</h3>
+                        <span class="card-category">Documentação</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Criação de documentação de usuário clara e objetiva com passo a passo.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Clareza</span>
+                            <span class="benefit-tag">Usabilidade</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Documentadores
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Documentação - Técnica -->
+                <div class="use-case-card animate-fade-in" data-category="documentacao">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <h3 class="card-title">Documentação Técnica</h3>
+                        <span class="card-category">Documentação</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Elaboração de documentação técnica padronizada para arquitetura e APIs.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Padronização</span>
+                            <span class="benefit-tag">Manutenibilidade</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Desenvolvedores
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comunicação - Transcrição -->
+                <div class="use-case-card animate-fade-in" data-category="comunicacao">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3 class="card-title">Transcrição de Reuniões</h3>
+                        <span class="card-category">Comunicação</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Transformação de gravações em resumos estruturados com pontos-chave.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Economia de tempo</span>
+                            <span class="benefit-tag">Foco</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Gerentes e Líderes
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comunicação - Relatórios -->
+                <div class="use-case-card animate-fade-in" data-category="comunicacao">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3 class="card-title">Criação de Relatórios</h3>
+                        <span class="card-category">Comunicação</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Elaboração de relatórios estruturados a partir de documentos.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Clareza</span>
+                            <span class="benefit-tag">Insights</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Analistas e Gestores
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comunicação - E-mails -->
+                <div class="use-case-card animate-fade-in" data-category="comunicacao">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="card-title">Comunicação por Email</h3>
+                        <span class="card-category">Comunicação</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Criação de e-mails claros  para diferentes contextos.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Profissionalismo</span>
+                            <span class="benefit-tag">Clareza</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Todos os profissionais
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desenvolvimento - SQL -->
+                <div class="use-case-card animate-fade-in" data-category="desenvolvimento">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="card-title">Criação de Queries SQL</h3>
+                        <span class="card-category">Desenvolvimento</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Geração de consultas SQL otimizadas para diferentes cenários.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Performance</span>
+                            <span class="benefit-tag">Precisão</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Desenvolvedores e DBAs
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desenvolvimento - Diagramas UML -->
+                <div class="use-case-card animate-fade-in" data-category="desenvolvimento">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3 class="card-title">Diagramas UML</h3>
+                        <span class="card-category">Desenvolvimento</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Criação de diagramas UML a partir de descrições textuais.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Visualização</span>
+                            <span class="benefit-tag">Documentação</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Arquitetos e Desenvolvedores
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desenvolvimento - Validação de nomenclatura -->
+                <div class="use-case-card animate-fade-in" data-category="desenvolvimento">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-spell-check"></i>
+                        </div>
+                        <h3 class="card-title">Validação de Nomenclatura</h3>
+                        <span class="card-category">Desenvolvimento</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">
+                            Verificação e sugestão de nomenclatura para modelos de dados.
+                        </p>
+                        <div class="card-benefits">
+                            <span class="benefit-tag">Consistência</span>
+                            <span class="benefit-tag">Conformidade</span>
+                        </div>
+                    </div>
+                   <div class="card-footer">
+                        <div class="target-audience">
+                            <i class="fas fa-users"></i> Modeladores de Dados
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação de entrada dos cards
+            const cards = document.querySelectorAll('.animate-fade-in');
+            
+            function checkVisibility() {
+                cards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    const isVisible = (
+                        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.bottom >= 0
+                    );
+                    
+                    if (isVisible) {
+                        setTimeout(() => {
+                            card.style.opacity = 1;
+                            card.style.animation = 'fadeInUp 0.6s forwards';
+                        }, index % 3 * 100);
+                    }
+                });
+            }
+            
+            // Verificar visibilidade inicial
+            checkVisibility();
+            
+            // Verificar ao rolar
+            window.addEventListener('scroll', checkVisibility);
+            
+            // Filtro de categorias
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const useCards = document.querySelectorAll('.use-case-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remover classe ativa de todos os botões
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Adicionar classe ativa ao botão clicado
+                    button.classList.add('active');
+                    
+                    // Filtrar cards
+                    const filter = button.getAttribute('data-filter');
+                    
+                    useCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = 1;
+                                card.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = 0;
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // Adicionar efeito de clique nos cards
+            useCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.add('pulse');
+                    setTimeout(() => {
+                        this.classList.remove('pulse');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>

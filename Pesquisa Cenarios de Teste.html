@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>V2_Pesquisa PromptX</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Executivo - PromptX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-primary: #151823;
+      --bg-secondary: #1e2130;
+      --bg-card: #272936;
+      --accent-primary: #0033A0;    /* Azul Bradesco */
+      --accent-secondary: #7B68EE;  /* Cor intermediária */
+      --accent-tertiary: #cc0000;   /* Vermelho Bradesco */
+      --text-primary: #ffffff;
+      --text-secondary: #a3a8c3;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --promptx-color: #22c55e;
+      --without-promptx-color: #3b82f6;
+      --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+    
+    .kpi-container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .kpi-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 180px;
+    }
+    
+    .kpi-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .kpi-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .kpi-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    
+    .kpi-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-align: center;
+      width: 100%;
+    }
+    
+    .chart-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .chart-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    
+    .chart-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .chart-wrapper {
+      height: 300px;
+      position: relative;
+    }
+    
+    .testimonials {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    
+    .testimonials-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .testimonial-card {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .testimonial-text {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+      flex-grow: 1;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .testimonial-role {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    .testimonial-quote {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      opacity: 0.1;
+    }
+    
+    .summary-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+    
+    .summary-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .summary-text {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-secondary);
+    }
+    
+    .highlight {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 1200px) {
+      .kpi-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .chart-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .kpi-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .kpi-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .kpi-card {
+        min-height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>PromptX: Transformando a Criação de Cenários de Teste</h1>
+      <p class="subtitle">Resultados de Produtividade e Eficiência</p>
+    </header>
+    
+    <div class="kpi-container">
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-hand-pointer"></i>
+        </div>
+        <div class="kpi-value">94,7%</div>
+        <div class="kpi-label">Facilidade de uso</div>
+      </div>
+      
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="kpi-value">89,3%</div>
+        <div class="kpi-label">Economia de tempo</div>
+      </div>
+      
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <div class="kpi-value">89,5%</div>
+        <div class="kpi-label">Eficácia na criação de cenários</div>
+      </div>
+      
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <div class="kpi-value">92,1%</div>
+        <div class="kpi-label">Precisão dos cenários</div>
+      </div>
+      
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-thumbs-up"></i>
+        </div>
+        <div class="kpi-value">100%</div>
+        <div class="kpi-label">Taxa de Recomendação</div>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <div class="chart-card">
+        <div class="chart-title">Tempo Médio de Criação de Cenários (horas)</div>
+        <div class="chart-wrapper">
+          <canvas id="timeReductionChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <div class="chart-title">Distribuição de Ganhos de Produtividade</div>
+        <div class="chart-wrapper">
+          <canvas id="productivityGainsChart"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <div class="testimonials">
+      <div class="testimonials-title">O Que Nossos Usuários Dizem</div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+          <div class="testimonial-text">"Gera a documentação de forma clara e bem detalhada, facilitando assim a nossa revisão e entendimento. Ferramenta eficiente e rápida."</div>
+          <div class="testimonial-author">Fabiane Barbosa</div>
+          <div class="testimonial-role">QA Engineer</div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+          <div class="testimonial-text">"A extração de casos de teste a partir da imagem para mim é sensacional. A rapidez em ler a documentação e nos dar os casos de teste que ela conseguiu extrair nos permite criar novos casos de teste mais ricos e em menos tempo."</div>
+          <div class="testimonial-author">Taiana Floriano</div>
+          <div class="testimonial-role">QA Lead</div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+          <div class="testimonial-text">"Ganhamos tempo na criação de cenários de testes. Ferramenta excelente. O PromptX tem sido extremamente útil para criar agentes especializados com contexto profissional."</div>
+          <div class="testimonial-author">Aline Assunção</div>
+          <div class="testimonial-role">Test Analyst</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <div class="chart-card">
+        <div class="chart-title">Comparativo de Qualidade Antes e Depois</div>
+        <div class="chart-wrapper">
+          <canvas id="qualityComparisonChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <div class="chart-title">Ferramentas de IA Preferidas pelos Usuários</div>
+        <div class="chart-wrapper">
+          <canvas id="aiToolsChart"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <div class="summary-card">
+      <div class="summary-title">Impacto nos Resultados</div>
+      <div class="summary-text">
+        A implementação do PromptX resultou em uma <span class="highlight">redução média de 58% no tempo</span> necessário para criar cenários de teste, com alguns usuários relatando economias de até <span class="highlight">75% do tempo</span>. Isso se traduz em uma <span class="highlight">aceleração significativa do ciclo de desenvolvimento</span>, permitindo entregas mais rápidas e com maior qualidade. A ferramenta demonstrou ser especialmente eficaz em projetos complexos, onde a <span class="highlight">redução do retrabalho chegou a 42%</span>.
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa | Atualizado em <span id="current-date"></span></p>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configurar a data atual
+      const now = new Date();
+      const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
+      
+      // Configurações globais do Chart.js
+      Chart.defaults.color = '#a3a8c3';
+      Chart.defaults.font.family = "'Montserrat', sans-serif";
+      
+      // Cores padrão para os gráficos
+      const withPromptXColor = 'rgba(34, 197, 94, 0.7)';
+      const withPromptXBorderColor = 'rgba(34, 197, 94, 1)';
+      const withoutPromptXColor = 'rgba(59, 130, 246, 0.7)';
+      const withoutPromptXBorderColor = 'rgba(59, 130, 246, 1)';
+      
+      // Gráfico de Redução de Tempo
+      const timeReductionCtx = document.getElementById('timeReductionChart').getContext('2d');
+      new Chart(timeReductionCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Cenários Simples', 'Cenários Médios', 'Cenários Complexos'],
+          datasets: [
+            {
+              label: 'Sem PromptX',
+              data: [2, 4, 8],
+              backgroundColor: withoutPromptXColor,
+              borderColor: withoutPromptXBorderColor,
+              borderWidth: 1
+            },
+            {
+              label: 'Com PromptX',
+              data: [0.8, 1.5, 3],
+              backgroundColor: withPromptXColor,
+              borderColor: withPromptXBorderColor,
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { weight: 'bold' },
+              formatter: (value) => value + 'h'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Horas'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)'
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+      
+      // Gráfico de Ganhos de Produtividade
+      const productivityGainsCtx = document.getElementById('productivityGainsChart').getContext('2d');
+      new Chart(productivityGainsCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Redução de 30-50%', 'Redução de 51-70%', 'Redução > 70%'],
+          datasets: [{
+            data: [25, 55, 20],
+            backgroundColor: [
+              'rgba(59, 130, 246, 0.7)',
+              'rgba(34, 197, 94, 0.7)',
+              'rgba(34, 197, 94, 0.9)'
+            ],
+            borderColor: [
+              'rgba(59, 130, 246, 1)',
+              'rgba(34, 197, 94, 1)',
+              'rgba(34, 197, 94, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.label}: ${context.raw}% dos usuários`;
+                }
+              }
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { weight: 'bold' },
+              formatter: (value) => value + '%'
+            }
+          }
+        }
+      });
+      
+      // Novo Gráfico de Comparação de Qualidade (substituindo o radar)
+      const qualityComparisonCtx = document.getElementById('qualityComparisonChart').getContext('2d');
+      new Chart(qualityComparisonCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Cobertura', 'Precisão', 'Consistência', 'Legibilidade', 'Manutenibilidade'],
+          datasets: [
+            {
+              label: 'Sem PromptX',
+              data: [65, 70, 60, 75, 55],
+              backgroundColor: withoutPromptXColor,
+              borderColor: withoutPromptXBorderColor,
+              borderWidth: 1,
+              borderRadius: 6
+            },
+            {
+              label: 'Com PromptX',
+              data: [90, 85, 95, 90, 85],
+              backgroundColor: withPromptXColor,
+              borderColor: withPromptXBorderColor,
+              borderWidth: 1,
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { weight: 'bold' },
+              formatter: (value) => value + '%'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Pontuação (%)'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)'
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+      
+      // Gráfico de Ferramentas de IA Preferidas
+      const aiToolsCtx = document.getElementById('aiToolsChart').getContext('2d');
+      new Chart(aiToolsCtx, {
+        type: 'bar',
+        data: {
+          labels: ['PromptX', 'BIA TECH', 'Copilot', 'ChatGPT', 'Outras'],
+          datasets: [{
+            label: 'Preferência dos Usuários',
+            data: [65, 15, 10, 7, 3],
+            backgroundColor: [
+              withPromptXColor,
+              withoutPromptXColor,
+              withoutPromptXColor,
+              withoutPromptXColor,
+              withoutPromptXColor
+            ],
+            borderColor: [
+              withPromptXBorderColor,
+              withoutPromptXBorderColor,
+              withoutPromptXBorderColor,
+              withoutPromptXBorderColor,
+              withoutPromptXBorderColor
+            ],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: 'y',
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.raw}% dos usuários preferem`;
+                }
+              }
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { weight: 'bold' },
+              formatter: (value) => value + '%',
+              anchor: 'end',
+              align: 'end'
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Preferência (%)'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)'
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
