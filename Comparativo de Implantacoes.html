@@ -935,97 +935,97 @@
         });
       })();
       
-      // Função para renderizar o gráfico de profissionais por caso de uso
-      (function renderProfessionalsByUseCase() {
-        // Ordenar casos de uso por total de profissionais (maior para menor)
-        const sortedUseCases = [...useCases].sort((a, b) => b.total - a.total);
-        
-        const labels = sortedUseCases.map(uc => uc.name);
-        const dataActive = sortedUseCases.map(uc => uc.active);
-        const dataInactive = sortedUseCases.map(uc => uc.total - uc.active);
-        
-        const okColor = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim();
-        const attColor = getComputedStyle(document.documentElement).getPropertyValue('--att').trim();
-        
-        new Chart(document.getElementById('professionalsByUseCase'), {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [
-              { 
-                label: 'Com interação', 
-                data: dataActive, 
-                backgroundColor: okColor,  
-                borderRadius: 4, 
-                categoryPercentage: 0.8, 
-                barPercentage: 0.9,
-                datalabels: {
-                  color: '#ffffff',
-                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
-                  formatter: v => v || '',
-                  align: 'center',
-                  anchor: 'center'
-                }
-              },
-              { 
-                label: 'Sem interação', 
-                data: dataInactive, 
-                backgroundColor: attColor, 
-                borderRadius: 4, 
-                categoryPercentage: 0.8, 
-                barPercentage: 0.9,
-                datalabels: {
-                  color: '#ffffff',
-                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
-                  formatter: v => v || '',
-                  align: 'center',
-                  anchor: 'center',
-                  font: { weight: 'bold' }
-                }
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y', // Gráfico horizontal para melhor visualização
-            scales: {
-              x: {
-                stacked: true,
-                beginAtZero: true,
-                grid: { display: false },
-                ticks: { precision: 0 }
-              },
-              y: {
-                stacked: true,
-                grid: { display: false },
-                ticks: { font: { weight: 'bold', size: 11 } }
-              }
-            },
-            plugins: {
-              legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, boxHeight: 10 } },
-              tooltip: {
-                enabled: true,
-                callbacks: {
-                  label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x} profissional(is)`,
-                  afterBody: (tooltipItems) => {
-                    const idx = tooltipItems[0].dataIndex;
-                    const useCase = sortedUseCases[idx];
-                    const percentActive = ((useCase.active / useCase.total) * 100).toFixed(1);
-                    const avgInteractions = (useCase.interactions / useCase.active).toFixed(1);
-                    return [
-                      `Taxa de adoção: ${percentActive}%`,
-                      `Total de interações: ${useCase.interactions}`,
-                      `Média por usuário ativo: ${avgInteractions}`
-                    ];
-                  }
-                }
-              },
-              datalabels: { color: '#ffffff', font: { size: 11 } }
+// Função para renderizar o gráfico de profissionais por caso de uso
+(function renderProfessionalsByUseCase() {
+  // Ordenar casos de uso por total de profissionais (maior para menor)
+  const sortedUseCases = [...useCases].sort((a, b) => b.total - a.total);
+  
+  const labels = sortedUseCases.map(uc => uc.name);
+  const dataActive = sortedUseCases.map(uc => uc.active);
+  const dataInactive = sortedUseCases.map(uc => uc.total - uc.active);
+  
+  const okColor = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim();
+  const attColor = getComputedStyle(document.documentElement).getPropertyValue('--att').trim();
+  
+  new Chart(document.getElementById('professionalsByUseCase'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { 
+          label: 'Com interação', 
+          data: dataActive, 
+          backgroundColor: okColor,  
+          borderRadius: 4, 
+          categoryPercentage: 0.8, 
+          barPercentage: 0.9,
+          datalabels: {
+            color: '#ffffff',
+            display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
+            formatter: v => v || '',
+            align: 'center',
+            anchor: 'center'
+          }
+        },
+        { 
+          label: 'Sem interação', 
+          data: dataInactive, 
+          backgroundColor: attColor, 
+          borderRadius: 4, 
+          categoryPercentage: 0.8, 
+          barPercentage: 0.9,
+          datalabels: {
+            color: '#ffffff',
+            display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
+            formatter: v => v || '',
+            align: 'center',
+            anchor: 'center',
+            font: { weight: 'bold' }
+          }
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      // Removida a linha: indexAxis: 'y', para tornar o gráfico vertical
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: { maxRotation: 45, minRotation: 45, font: { weight: 'bold', size: 10 } }
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          grid: { display: false },
+          ticks: { precision: 0 }
+        }
+      },
+      plugins: {
+        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, boxHeight: 10 } },
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} profissional(is)`,
+            afterBody: (tooltipItems) => {
+              const idx = tooltipItems[0].dataIndex;
+              const useCase = sortedUseCases[idx];
+              const percentActive = ((useCase.active / useCase.total) * 100).toFixed(1);
+              const avgInteractions = (useCase.interactions / useCase.active).toFixed(1);
+              return [
+                `Taxa de adoção: ${percentActive}%`,
+                `Total de interações: ${useCase.interactions}`,
+                `Média por usuário ativo: ${avgInteractions}`
+              ];
             }
           }
-        });
-      })();
+        },
+        datalabels: { color: '#ffffff', font: { size: 11 } }
+      }
+    }
+  });
+})();
 
       // Chamar updateAllMetrics() também no início para garantir que todos os valores estejam atualizados
       updateAllMetrics();
