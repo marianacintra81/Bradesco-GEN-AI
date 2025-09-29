@@ -76,26 +76,31 @@
       font-style: italic;
     }
     
+    /* Botão Voltar - Estilo correto para botão circular */
     .back-button {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: var(--accent-primary);
-      color: white;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #0033A0, #7B68EE);
+      color: #ffffff;
       border: none;
-      border-radius: 8px;
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: background-color 0.3s ease;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
     
     .back-button:hover {
-      background-color: var(--accent-secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(135deg, #7B68EE, #0033A0);
     }
     
     .kpi-container {
@@ -310,43 +315,16 @@
       .kpi-card {
         min-height: 120px;
       }
-       <style>
-     /* Botão Voltar */
-    .back-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: linear-gradient(135deg, #0033A0, #7B68EE);
-      color: #ffffff;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-    }
-
-    .back-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      background: linear-gradient(135deg, #7B68EE, #0033A0);
-    }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-       <!-- Botão Voltar -->
-    <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
-      <i class="fas fa-arrow-left"></i>
-    </a>
+      <!-- Botão Voltar -->
+      <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+      </a>
       <h1>PromptX: Transformando a Criação de Cenários de Teste</h1>
       <p class="subtitle">Resultados de Produtividade e Eficiência</p>
       <p class="research-info">Pesquisa realizada com até 100 profissionais da área de Qualidade</p>
@@ -426,7 +404,6 @@
           <div class="testimonial-author">Taiana Floriano</div>
           <div class="testimonial-role">QA Lead</div>
         </div>
-        
         <div class="testimonial-card">
           <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
           <div class="testimonial-text">"Ganhamos tempo na criação de cenários de testes. Ferramenta excelente. O PromptX tem sido extremamente útil para criar agentes especializados com contexto profissional."</div>
@@ -454,7 +431,7 @@
     <div class="summary-card">
       <div class="summary-title">Impacto nos Resultados</div>
       <div class="summary-text">
-        A implementação do PromptX resultou em uma <span class="highlight">redução média de 58% no tempo</span> necessário para criar cenários de teste, com alguns usuários relatando economias de até <span class="highlight">75% do tempo</span>. Isso se traduz em uma <span class="highlight">aceleração significativa do ciclo de desenvolvimento</span>, permitindo entregas mais rápidas e com maior qualidade. A ferramenta demonstrou ser especialmente eficaz em projetos complexos, onde a <span class="highlight">redução do retrabalho chegou a 42%</span>.
+        A implementação do PromptX resultou em uma <span class="highlight">redução média de 58% no tempo</span> necessário para criar cenários de teste, com alguns usuários relatando economias de até <span class="highlight">75% do tempo</span>. Isso se traduz em uma <span class="highlight">aceleração significativa do ciclo de desenvolvimento</span>, permitindo entregas mais rápidas e com maior qualidade. A ferramenta demonstrou ser especialmente eficaz em projetos complexos, onde a <span class="highlight">redução do retrabalho chegou a até 42%</span>.
       </div>
     </div>
     
@@ -467,13 +444,16 @@
     // Função para voltar para a tela inicial
     function goBack() {
        window.location.href = 'https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html';
-}
+    }
     
     document.addEventListener('DOMContentLoaded', function() {
       // Configurar a data atual
       const now = new Date();
       const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
       document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
+      
+      // Registrar o plugin datalabels
+      Chart.register(ChartDataLabels);
       
       // Configurações globais do Chart.js
       Chart.defaults.color = '#a3a8c3';
@@ -575,7 +555,7 @@
         }
       });
       
-      // Gráfico de Ganhos de Produtividade
+      // Gráfico de Ganhos de Produtividade com porcentagens em negrito dentro do gráfico
       const productivityGainsCtx = document.getElementById('productivityGainsChart').getContext('2d');
       new Chart(productivityGainsCtx, {
         type: 'doughnut',
@@ -627,9 +607,13 @@
               color: '#ffffff',
               font: { 
                 weight: 'bold',
-                size: 9
+                size: 12
               },
-              formatter: (value) => value + '%'
+              formatter: (value) => value + '%',
+              // Configurações para mostrar os valores dentro do gráfico
+              anchor: 'center',
+              align: 'center',
+              offset: 0
             }
           }
         }
