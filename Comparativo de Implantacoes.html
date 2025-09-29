@@ -440,8 +440,8 @@
           <div class="chip"><i class="fas fa-bolt"></i></div>
           <h4>Total de Interações</h4>
         </div>
-        <div class="v" id="k_inter">6543</div>
-        <small id="k_media_global">Média: 31,5 por usuário ativo</small>
+        <div class="v" id="k_inter">6616</div>
+        <small id="k_media_global">Média: 31,8 por usuário ativo</small>
       </div>
 
       <div class="kpi kpi--proj">
@@ -532,8 +532,8 @@
           </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave3)"></i></div>
-          <div class="val" id="v_inter_w3">642</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por usuário ativo:</strong> <span id="avg_w3">9,3</span></div>
+          <div class="val" id="v_inter_w3">715</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por usuário ativo:</strong> <span id="avg_w3">10,4</span></div>
         </div>
       </div>
     </section>
@@ -549,9 +549,18 @@
     <section class="chart-wrap">
       <div class="chart-title">Projetos – Com interação x Sem interação</div>
       <div class="chart-subtitle">
-        <span class="n" id="projetos_sem_interacao">8</span> de <span class="n" id="total_projetos">38</span> projetos possuem usuários sem interação
+        <span class="n" id="projetos_sem_interacao">14</span> de <span class="n" id="total_projetos">38</span> projetos possuem usuários sem interação
       </div>
       <div class="canvas-box"><canvas id="projectsInteractionStacked"></canvas></div>
+    </section>
+    
+    <!-- CARD 3: Profissionais por Caso de Uso -->
+    <section class="chart-wrap">
+      <div class="chart-title">Profissionais por Caso de Uso</div>
+      <div class="chart-subtitle">
+        Distribuição dos <span class="n">222</span> profissionais por caso de uso
+      </div>
+      <div class="canvas-box"><canvas id="professionalsByUseCase"></canvas></div>
     </section>
   </div>
 
@@ -612,130 +621,44 @@
 
       /* ====== GRÁFICO 1: Média de interações por projeto ====== */
       const RAW_WAVE = [
-        {proj:'Bradesco Global Solutions', media:19.0, wave:'piloto'},
-        {proj:'CTBI', media:27.5, wave:'piloto'},
-        {proj:'Contadoria', media:94.3, wave:'piloto'},
-        {proj:'Internet Banking', media:14.5, wave:'piloto'},
+        {proj:'Open Finance', media:135.4, wave:'piloto'},
         {proj:'Investimentos', media:125.0, wave:'piloto'},
-        {proj:'Open Finance', media:149.8, wave:'piloto'},
-        {proj:'Plataforma A3C', media:53.0, wave:'piloto'},
-        {proj:'Plataforma de segurança Safer', media:52.6, wave:'piloto'},
-        {proj:'Transformação', media:33.5, wave:'piloto'},
-        {proj:'Bradesco Global Solutions', media:18.8, wave:'wave1'},
-        {proj:'Open Finance', media:6.0, wave:'wave1'},
-        {proj:'Plataforma A3C', media:40.4, wave:'wave1'},
-        {proj:'Plataforma Atendimento', media:5.5, wave:'wave1'},
-        {proj:'Plataforma de segurança Safer', media:24.0, wave:'wave1'},
+        {proj:'Contadoria', media:117.0, wave:'piloto'},
+        {proj:'Plataforma de segurança Safer', media:54.7, wave:'piloto'},
+        {proj:'Plataforma A3C', media:41.1, wave:'piloto'},
         {proj:'BRAIN', media:38.9, wave:'wave2'},
-        {proj:'CRM', media:29.7, wave:'wave2'},
-        {proj:'Consignado', media:101.0, wave:'wave2'},
-        {proj:'Sala Core', media:35.6, wave:'wave2'},
-        {proj:'Massificado', media:29.5, wave:'wave2'},
+        {proj:'ATACADO', media:36.5, wave:'wave3'},
+        {proj:'Transformação', media:32.4, wave:'piloto'},
+        {proj:'CRM', media:30.0, wave:'wave2'},
+        {proj:'CTBI', media:33.5, wave:'piloto'},
         {proj:'PIX-CPF', media:76.0, wave:'wave2'},
-        {proj:'PIX-CPJ', media:10.0, wave:'wave2'},
-        {proj:'Plataforma de segurança Safer', media:46.5, wave:'wave2'},
-        {proj:'Reabilitação Financeira', media:16.7, wave:'wave2'},
-        {proj:'SCAP', media:16.3, wave:'wave2'},
-        {proj:'Tesouraria', media:2.0, wave:'wave2'},
-        {proj:'Abertura de Contas', media:15.8, wave:'wave3'},
-        {proj:'ATACADO', media:35.5, wave:'wave3'},
-        {proj:'AFLUENTES', media:0.0, wave:'wave3'},
-        {proj:'CONSIGNADO - E-Social', media:6.1, wave:'wave3'},
-        {proj:'CONSIGNADO - Mktplace Consignado', media:4.0, wave:'wave3'},
+        {proj:'Sala Core', media:27.5, wave:'wave2'},
         {proj:'CONSIGNADO - Pleito de Priorização INSS', media:27.0, wave:'wave3'},
+        {proj:'Massificado', media:25.4, wave:'wave2'},
+        {proj:'Bradesco Global Solutions', media:21.2, wave:'piloto'},
+        {proj:'Reabilitação Financeira', media:19.8, wave:'wave2'},
+        {proj:'SCAP', media:16.3, wave:'wave2'},
+        {proj:'Internet Banking', media:15.0, wave:'piloto'},
+        {proj:'Abertura de Contas', media:15.8, wave:'wave3'},
+        {proj:'PROJETO PT-W50594', media:14.0, wave:'wave3'},
+        {proj:'Consignado', media:14.7, wave:'wave2'},
+        {proj:'Cluster Soluções de Pagamento e Conciliação', media:12.2, wave:'wave3'},
+        {proj:'PIX-CPJ', media:7.5, wave:'wave2'},
         {proj:'CONSÓRCIO | Consorcio', media:8.7, wave:'wave3'},
-        {proj:'INTERNACIONAL E CÂMBIO', media:4.6, wave:'wave3'},
-        {proj:'VATINTR', media:7.0, wave:'wave3'},
-        {proj:'Cluster Soluções de Pagamento e Conciliação', media:8.0, wave:'wave3'},
         {proj:'Interestellar', media:7.0, wave:'wave3'},
-        {proj:'RECR - SOLREAB', media:2.7, wave:'wave3'},
-        {proj:'Missões Especiais', media:4.0, wave:'wave3'},
+        {proj:'VATINTR', media:7.0, wave:'wave3'},
+        {proj:'Tribo Contas e Tarifas', media:7.0, wave:'wave3'},
+        {proj:'CONSIGNADO - E-Social', media:6.1, wave:'wave3'},
         {proj:'BGS', media:6.0, wave:'wave3'},
-        {proj:'Tribo Contas e Tarifas', media:7.0, wave:'wave3'}
+        {proj:'INTERNACIONAL E CÂMBIO', media:4.6, wave:'wave3'},
+        {proj:'Plataforma Atendimento', media:4.2, wave:'wave1'},
+        {proj:'CONSIGNADO - Mktplace Consignado', media:4.0, wave:'wave3'},
+        {proj:'Missões Especiais', media:2.0, wave:'wave3'},
+        {proj:'RECR - SOLREAB', media:2.7, wave:'wave3'},
+        {proj:'SOLPAGC - REABILITAI | SOLUCOES DE PAGAMENTO E CONCILIACAO', media:2.0, wave:'wave3'},
+        {proj:'Tesouraria', media:2.0, wave:'wave2'},
+        {proj:'AFLUENTES', media:0.0, wave:'wave3'}
       ];
-
-      (function renderAvgByProject(){
-        const grouped = {};
-        RAW_WAVE.forEach(r=>{
-          if(!grouped[r.proj]) grouped[r.proj] = {proj:r.proj, sum:0, n:0, maxVal:-Infinity, maxWave:r.wave};
-          grouped[r.proj].sum += Number(r.media);
-          grouped[r.proj].n   += 1;
-          if(Number(r.media) > grouped[r.proj].maxVal){
-            grouped[r.proj].maxVal = Number(r.media);
-            grouped[r.proj].maxWave = r.wave;
-          }
-        });
-
-        const data = Object.values(grouped).map(g=>({
-          proj: g.proj,
-          media: +(g.sum/g.n).toFixed(1),
-          wave: g.maxWave
-        })).sort((a,b)=>b.media-a.media);
-
-        const labels = data.map(d=>d.proj);
-        const values = data.map(d=>d.media);
-
-        const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-        const palette = { piloto: css('--piloto'), wave1: css('--wave1'), wave2: css('--wave2'), wave3: css('--wave3') };
-        const colors  = data.map(d=>palette[d.wave] || palette.piloto);
-
-   const maxVal = Math.max(...values, 1);
-        const niceMax = Math.ceil(maxVal/10)*10;
-        const headroom = Math.max(2, Math.round(niceMax*0.06));
-
-        new Chart(document.getElementById('avgByProject'), {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [{
-              label: 'Média de interações',
-              data: values,
-              backgroundColor: colors,
-              borderRadius: 6,
-              categoryPercentage: 0.72,
-              barPercentage: 0.9,
-              maxBarThickness: 22,
-              datalabels: {
-                color: '#fff',
-                anchor: 'end',
-                align: 'end',
-                offset: 6,
-                formatter: v => v.toLocaleString('pt-BR', { maximumFractionDigits: 1 }),
-                font: { weight: 'bold' }
-              }
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            layout: { padding: { top: 18, right: 8, left: 8, bottom: 50 } },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                enabled: true,
-                callbacks: {
-                  afterLabel: (ctx) => {
-                    const wave = data[ctx.dataIndex].wave;
-                    const label = wave==='piloto' ? 'Piloto' : wave==='wave1' ? 'Wave 1' : wave==='wave2' ? 'Wave 2' : 'Wave 3';
-                    return `Wave dominante: ${label}`;
-                  }
-                }
-              }
-            },
-            scales: {
-              x: {
-                grid: { display: false },
-                ticks: { autoSkip: false, maxRotation: 36, minRotation: 36, font: { weight: 'bold', size: 11 } }
-              },
-              y: {
-                beginAtZero: true,
-                suggestedMax: niceMax + headroom,
-                ticks: { stepSize: Math.max(5, Math.round((niceMax + headroom)/9)), precision: 0 }
-              }
-            }
-          }
-        });
-      })();
 
       /* ====== GRÁFICO 2: Com x Sem interação ======
          Atualizado para incluir projetos da Wave 3 */
@@ -774,8 +697,161 @@
         { proj:'RECR - SOLREAB', total:3, sem:0 },
         { proj:'Missões Especiais', total:2, sem:1 },
         { proj:'BGS', total:1, sem:0 },
-        { proj:'Tribo Contas e Tarifas', total:1, sem:0 }
+        { proj:'Tribo Contas e Tarifas', total:1, sem:0 },
+        { proj:'PROJETO PT-W50594', total:1, sem:0 },
+        { proj:'SOLPAGC - REABILITAI | SOLUCOES DE PAGAMENTO E CONCILIACAO', total:2, sem:1 }
       ];
+      
+      // Dados de casos de uso
+      const useCases = [
+        { name: 'Criação de cenários de testes', total: 149, active: 142, interactions: 4661 },
+        { name: 'Ponto de Função', total: 60, active: 54, interactions: 1018 },
+        { name: 'Criação de histórias de usuário', total: 5, active: 5, interactions: 129 },
+        { name: 'Criação de diagrama de sequência', total: 5, active: 5, interactions: 413 },
+        { name: 'Sem caso de uso especificado', total: 3, active: 2, interactions: 17 }
+      ];
+
+      // Função para calcular a média de interações por projeto incluindo todos os usuários
+      function calculateAdjustedAverageByProject() {
+        // Mapeamento de projetos com seus dados de usuários
+        const projectMap = {};
+        projects.forEach(p => {
+          projectMap[p.proj] = {
+            totalUsers: p.total,           // Total de usuários (com e sem interação)
+            activeUsers: p.total - p.sem,  // Usuários ativos (com interação)
+            inactiveUsers: p.sem           // Usuários sem interação
+          };
+        });
+        
+        // Agrupar dados de RAW_WAVE por projeto
+        const waveDataByProject = {};
+        RAW_WAVE.forEach(r => {
+          if (!waveDataByProject[r.proj]) {
+            waveDataByProject[r.proj] = [];
+          }
+          waveDataByProject[r.proj].push(r);
+        });
+        
+        // Calcular médias ajustadas por projeto
+        const adjustedAverages = [];
+        
+        for (const projectName in projectMap) {
+          // Verificar se temos dados de wave para este projeto
+          if (waveDataByProject[projectName]) {
+            const projectData = projectMap[projectName];
+            
+            // Determinar a wave dominante e a média máxima
+            let maxMedia = -Infinity;
+            let dominantWave = '';
+            
+            waveDataByProject[projectName].forEach(wave => {
+              if (wave.media > maxMedia) {
+                maxMedia = wave.media;
+                dominantWave = wave.wave;
+              }
+            });
+            
+            // Calcular o total estimado de interações
+            // Assumindo que a média em RAW_WAVE é por usuário ativo
+            const estimatedTotalInteractions = maxMedia * projectData.activeUsers;
+            
+            // Calcular a média ajustada considerando todos os usuários
+            const adjustedAverage = projectData.totalUsers > 0 ? 
+                                   estimatedTotalInteractions / projectData.totalUsers : 0;
+            
+            adjustedAverages.push({
+              proj: projectName,
+              media: +adjustedAverage.toFixed(1),
+              originalMedia: maxMedia,
+              wave: dominantWave,
+              totalUsers: projectData.totalUsers,
+              activeUsers: projectData.activeUsers,
+              inactiveUsers: projectData.inactiveUsers,
+              totalInteractions: estimatedTotalInteractions
+            });
+          }
+        }
+        
+        // Ordenar por média ajustada (maior para menor)
+        return adjustedAverages.sort((a, b) => b.media - a.media);
+      }
+
+      (function renderAvgByProject(){
+        // Usar a função para calcular médias ajustadas
+        const data = calculateAdjustedAverageByProject();
+        
+        const labels = data.map(d => d.proj);
+        const values = data.map(d => d.media);
+        
+        const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+        const palette = { piloto: css('--piloto'), wave1: css('--wave1'), wave2: css('--wave2'), wave3: css('--wave3') };
+        const colors = data.map(d => palette[d.wave] || palette.piloto);
+        
+        const maxVal = Math.max(...values, 1);
+        const niceMax = Math.ceil(maxVal/10)*10;
+        const headroom = Math.max(2, Math.round(niceMax*0.06));
+        
+        new Chart(document.getElementById('avgByProject'), {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'Média de interações',
+              data: values,
+              backgroundColor: colors,
+              borderRadius: 6,
+              categoryPercentage: 0.72,
+              barPercentage: 0.9,
+              maxBarThickness: 22,
+              datalabels: {
+                color: '#fff',
+                anchor: 'end',
+                align: 'end',
+                offset: 6,
+                formatter: v => v.toLocaleString('pt-BR', { maximumFractionDigits: 1 }),
+                font: { weight: 'bold' }
+              }
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { top: 18, right: 8, left: 8, bottom: 50 } },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                enabled: true,
+                callbacks: {
+                  afterLabel: (ctx) => {
+                    const projectData = data[ctx.dataIndex];
+                    const wave = projectData.wave;
+                    const label = wave==='piloto' ? 'Piloto' : wave==='wave1' ? 'Wave 1' : wave==='wave2' ? 'Wave 2' : 'Wave 3';
+                    return [
+                      `Wave dominante: ${label}`,
+                      `Total de usuários: ${projectData.totalUsers}`,
+                      `Usuários ativos: ${projectData.activeUsers}`,
+                      `Usuários sem interação: ${projectData.inactiveUsers}`,
+                      `Média por usuário ativo: ${projectData.originalMedia.toFixed(1)}`,
+                      `Média por todos usuários: ${projectData.media}`
+                    ];
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { autoSkip: false, maxRotation: 36, minRotation: 36, font: { weight: 'bold', size: 11 } }
+              },
+              y: {
+                beginAtZero: true,
+                suggestedMax: niceMax + headroom,
+                ticks: { stepSize: Math.max(5, Math.round((niceMax + headroom)/9)), precision: 0 }
+              }
+            }
+          }
+        });
+      })();
 
       (function renderProjectsStacked(){
         // Ordenar projetos pelo total de usuários (maior para menor)
@@ -858,12 +934,104 @@
           }
         });
       })();
+      
+      // Função para renderizar o gráfico de profissionais por caso de uso
+      (function renderProfessionalsByUseCase() {
+        // Ordenar casos de uso por total de profissionais (maior para menor)
+        const sortedUseCases = [...useCases].sort((a, b) => b.total - a.total);
+        
+        const labels = sortedUseCases.map(uc => uc.name);
+        const dataActive = sortedUseCases.map(uc => uc.active);
+        const dataInactive = sortedUseCases.map(uc => uc.total - uc.active);
+        
+        const okColor = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim();
+        const attColor = getComputedStyle(document.documentElement).getPropertyValue('--att').trim();
+        
+        new Chart(document.getElementById('professionalsByUseCase'), {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [
+              { 
+                label: 'Com interação', 
+                data: dataActive, 
+                backgroundColor: okColor,  
+                borderRadius: 4, 
+                categoryPercentage: 0.8, 
+                barPercentage: 0.9,
+                datalabels: {
+                  color: '#ffffff',
+                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
+                  formatter: v => v || '',
+                  align: 'center',
+                  anchor: 'center'
+                }
+              },
+              { 
+                label: 'Sem interação', 
+                data: dataInactive, 
+                backgroundColor: attColor, 
+                borderRadius: 4, 
+                categoryPercentage: 0.8, 
+                barPercentage: 0.9,
+                datalabels: {
+                  color: '#ffffff',
+                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
+                  formatter: v => v || '',
+                  align: 'center',
+                  anchor: 'center',
+                  font: { weight: 'bold' }
+                }
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y', // Gráfico horizontal para melhor visualização
+            scales: {
+              x: {
+                stacked: true,
+                beginAtZero: true,
+                grid: { display: false },
+                ticks: { precision: 0 }
+              },
+              y: {
+                stacked: true,
+                grid: { display: false },
+                ticks: { font: { weight: 'bold', size: 11 } }
+              }
+            },
+            plugins: {
+              legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, boxHeight: 10 } },
+              tooltip: {
+                enabled: true,
+                callbacks: {
+                  label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x} profissional(is)`,
+                  afterBody: (tooltipItems) => {
+                    const idx = tooltipItems[0].dataIndex;
+                    const useCase = sortedUseCases[idx];
+                    const percentActive = ((useCase.active / useCase.total) * 100).toFixed(1);
+                    const avgInteractions = (useCase.interactions / useCase.active).toFixed(1);
+                    return [
+                      `Taxa de adoção: ${percentActive}%`,
+                      `Total de interações: ${useCase.interactions}`,
+                      `Média por usuário ativo: ${avgInteractions}`
+                    ];
+                  }
+                }
+              },
+              datalabels: { color: '#ffffff', font: { size: 11 } }
+            }
+          }
+        });
+      })();
 
       // Chamar updateAllMetrics() também no início para garantir que todos os valores estejam atualizados
       updateAllMetrics();
     });
     
-    function goBack() {
+     function goBack() {
       window.location.href = 'https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html';
     }
   </script>
