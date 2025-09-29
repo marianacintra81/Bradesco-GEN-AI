@@ -99,7 +99,7 @@
     }
     
     .logo img {
-      height: 30px;
+      height: 50px; /* Aumentado de 30px para 50px */
     }
     
     .logo-text {
@@ -174,8 +174,8 @@
     .ai-brain {
       position: absolute;
       top: 50%;
-      right: 10%;
-      transform: translate(0, -50%);
+      left: 50%; /* Alterado de right: 10% para left: 50% */
+      transform: translate(-50%, -50%); /* Alterado para centralizar */
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -243,7 +243,6 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      cursor: pointer;
       text-decoration: none !important;
       color: var(--text-primary) !important;
       animation: fadeInUp 0.8s ease-out;
@@ -255,7 +254,12 @@
       color: inherit;
     }
     
-    .card:hover {
+    /* Adicionando classe para cards não clicáveis */
+    .card.non-clickable {
+      cursor: default;
+    }
+    
+    .card:not(.non-clickable):hover {
       transform: translateY(-15px) scale(1.03);
       background: var(--bg-card-hover);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -285,7 +289,7 @@
       transition: all 0.4s ease;
     }
     
-    .card:hover .card-icon {
+    .card:not(.non-clickable):hover .card-icon {
       transform: scale(1.15);
       box-shadow: 0 0 30px rgba(123, 104, 238, 0.4);
     }
@@ -445,7 +449,7 @@
       }
     }
     
-    @keyframes pulse-node {
+      @keyframes pulse-node {
       0% {
         transform: scale(1);
         opacity: 0.7;
@@ -497,11 +501,11 @@
    @keyframes pulse-brain {
       0% {
         box-shadow: 0 0 20px rgba(123, 104, 238, 0.3);
-        transform: translate(0, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(1); /* Alterado para manter centralizado */
       }
       100% {
         box-shadow: 0 0 50px rgba(123, 104, 238, 0.5);
-        transform: translate(0, -50%) scale(1.1);
+        transform: translate(-50%, -50%) scale(1.1); /* Alterado para manter centralizado */
       }
     }
     
@@ -634,21 +638,22 @@
             <p class="card-description">Acelerando o ciclo de desenvolvimento de software com automação através de prompts avançados.</p>
           </a>
           
-          <a href="#" class="card">
+          <!-- Cards não clicáveis -->
+          <div class="card non-clickable">
             <div class="card-icon">
               <i class="fas fa-robot"></i>
             </div>
             <h3 class="card-title">Assistente Virtual</h3>
             <p class="card-description">Atendimento personalizado com compreensão contextual e resolução inteligente de problemas.</p>
-          </a>
+          </div>
           
-          <a href="#" class="card">
+          <div class="card non-clickable">
             <div class="card-icon">
               <i class="fas fa-microchip"></i>
             </div>
             <h3 class="card-title">Agentes Inteligentes</h3>
             <p class="card-description">Potencialize seu ciclo de desenvolvimento com assistentes AI que automatizam tarefas, aumentam a produtividade e elevam a qualidade do código.</p>
-          </a>
+          </div>
         </div>
       </div>
       
@@ -881,8 +886,8 @@
       observer.observe(document.querySelector('.stats-section'));
     });
     
-    // Adicionar efeito de hover aos cards
-    document.querySelectorAll('.card').forEach(card => {
+    // Adicionar efeito de hover apenas aos cards clicáveis
+    document.querySelectorAll('.card:not(.non-clickable)').forEach(card => {
       card.addEventListener('mouseenter', () => {
         card.querySelector('.card-icon').classList.add('pulse');
       });
