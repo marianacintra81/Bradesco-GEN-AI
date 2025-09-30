@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Pesquisa de Efetividade</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Efetividade</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Cores de Fundo */
+            --bg-primary: #0c0e14;
+            --bg-secondary: #151823;
+            --bg-card: #1e2130;
+            --bg-card-hover: #272936;
+            
+            /* Cores de Destaque */
+            --red-bradesco: #cc0000;
+            --blue-bradesco: #0033A0;
+            --purple-highlight: #7B68EE;
+            --cyan-highlight: #00e5ff;
+            
+            /* Cores de Texto */
+            --text-primary: #ffffff;
+            --text-secondary: #a3a8c3;
+            
+            /* Outras variáveis */
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.4;
+            overflow-x: hidden;
+            font-size: 14px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%),
+                radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            padding: 40px 0 30px;
+            position: relative;
+            background-color: var(--bg-secondary);
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-section h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .header-section p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .option-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            min-height: 280px;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 51, 160, 0.1), rgba(204, 0, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .option-card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 15px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-card:nth-child(1) .card-icon {
+            color: var(--cyan-highlight);
+        }
+        
+        .option-card:nth-child(2) .card-icon {
+            color: var(--purple-highlight);
+        }
+        
+        .option-card:nth-child(3) .card-icon {
+            color: #ff6b6b;
+        }
+        
+        .option-card:nth-child(4) .card-icon {
+            color: #4cd964;
+        }
+        
+        .option-card:hover .card-icon {
+            transform: scale(1.1) rotateY(180deg);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-content {
+            padding: 25px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option-card:hover .card-title {
+            transform: translateY(-5px);
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .card-badge {
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight));
+            color: var(--text-primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: auto;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover .card-badge {
+            transform: scale(1.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.3s ease-in-out;
+        }
+        
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight));
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--purple-highlight), var(--blue-bradesco));
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            background-color: var(--bg-secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-section p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .option-card {
+                min-height: 220px;
+            }
+            
+            .card-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .card-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <section class="header-section">
+        <div class="container">
+     <!-- Botão Voltar -->
+    <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+            <h1>Pesquisa de Efetividade</h1>
+            <p>Selecione uma das opções abaixo para visualizar os resultados da pesquisa</p>
+        </div>
+    </section>
+    
+    <!-- Cards Grid -->
+    <section class="container">
+        <div class="cards-grid">
+            <!-- Card 1: Cenários de Testes -->
+            <div class="option-card" data-option="cenarios-testes">
+                <div class="card-content">
+                    <div class="card-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h3 class="card-title">Cenários de Testes</h3>
+                    <p class="card-description">Análise de efetividade na geração de cenários de teste para validação de software.</p>
+                 
+                </div>
+            </div>
+            
+            <!-- Card 2: História de Usuário -->
+            <div class="option-card" data-option="historia-usuario">
+                <div class="card-content">
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="card-title">História de Usuário</h3>
+                    <p class="card-description">Avaliação da efetividade na criação de histórias de usuário para desenvolvimento ágil.</p>
+            
+                </div>
+            </div>
+            
+            <!-- Card 3: Diagrama de Sequência -->
+            <div class="option-card" data-option="diagrama-sequencia">
+                <div class="card-content">
+                    <div class="card-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="card-title">Diagrama de Sequência</h3>
+                    <p class="card-description">Análise da eficiência na geração de diagramas de sequência UML para modelagem.</p>
+              
+                </div>
+            </div>
+            
+            <!-- Card 4: Ponto de Função -->
+            <div class="option-card" data-option="ponto-funcao">
+                <div class="card-content">
+                    <div class="card-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="card-title">Ponto de Função</h3>
+                    <p class="card-description">Medição da precisão na estimativa de pontos de função para dimensionamento de projetos.</p>
+              
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Referências aos elementos
+            const optionCards = document.querySelectorAll('.option-card');
+            
+            // Mapeamento de opções para URLs de redirecionamento
+            const optionToURL = {
+                'cenarios-testes': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20Cenarios%20de%20Teste.html',
+                'historia-usuario': '#', // Substitua por URLs reais quando disponíveis
+                'diagrama-sequencia': '#',
+                'ponto-funcao': '#'
+            };
+            
+            // Adicionar evento de clique aos cards
+            optionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Adicionar efeito de pulse ao clicar
+                    this.classList.add('pulse');
+                    
+                    // Obter o tipo de opção selecionada
+                    const optionType = this.getAttribute('data-option');
+                    
+                    // Obter a URL correspondente
+                    const redirectURL = optionToURL[optionType];
+                    
+                    // Após um pequeno delay para mostrar a animação
+                    setTimeout(() => {
+                        if (redirectURL && redirectURL !== '#') {
+                            // Redirecionar para a URL específica
+                            window.location.href = redirectURL;
+                        } else {
+                            // Para opções sem URL definida, mostrar um alerta
+                            alert(`A visualização de resultados para ${card.querySelector('.card-title').textContent} está em desenvolvimento.`);
+                        }
+                    }, 300);
+                });
+                
+                // Efeitos de hover
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Função para voltar
+            document.querySelector('.back-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.history.back();
+            });
+        });
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
