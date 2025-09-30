@@ -419,7 +419,7 @@
             <div class="filter-tabs">
                 <button class="filter-btn active" data-filter="all">Todos</button>
                 <button class="filter-btn" data-filter="qualidade">Qualidade</button>
-                <button class="filter-btn" data-filter="requisitos">Requisitos</button>
+                      <button class="filter-btn" data-filter="requisitos">Requisitos</button>
                 <button class="filter-btn" data-filter="documentacao">Documentação</button>
                 <button class="filter-btn" data-filter="comunicacao">Comunicação</button>
                 <button class="filter-btn" data-filter="engenharia-de-dados">Engenharia de Dados</button>
@@ -760,7 +760,7 @@
                 </div>
                 
                 <!-- Engenharia de Dados - Diagramas UML -->
-                <div class="use-case-card animate-fade-in" data-category="engenharia-de-dados">
+              <div class="use-case-card animate-fade-in" data-category="engenharia-de-dados">
                     <div class="card-header">
                         <div class="card-icon">
                             <i class="fas fa-project-diagram"></i>
@@ -845,7 +845,7 @@
             // Verificar ao rolar
             window.addEventListener('scroll', checkVisibility);
             
-            // Filtro de categorias
+            // Filtro de categorias - CÓDIGO CORRIGIDO
             const filterButtons = document.querySelectorAll('.filter-btn');
             const useCards = document.querySelectorAll('.use-case-card');
             
@@ -860,21 +860,35 @@
                     // Filtrar cards
                     const filter = button.getAttribute('data-filter');
                     
+                    // Primeiro, definir todos os cards para display none ou block, sem animação
                     useCards.forEach(card => {
+                        // Resetar qualquer transição ou animação anterior
+                        card.style.transition = 'none';
+                        
                         if (filter === 'all' || card.getAttribute('data-category') === filter) {
                             card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.opacity = 1;
-                                card.style.transform = 'translateY(0)';
-                            }, 100);
-                        } else {
-                            card.style.opacity = 0;
+                            card.style.opacity = '0';
                             card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
+                        } else {
+                            card.style.display = 'none';
+                            card.style.opacity = '0';
                         }
                     });
+                    
+                    // Forçar reflow para garantir que as mudanças acima sejam aplicadas
+                    document.body.offsetHeight;
+                    
+                    // Agora aplicar as animações para os cards visíveis
+                    setTimeout(() => {
+                        useCards.forEach(card => {
+                            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                            
+                            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }
+                        });
+                    }, 50);
                 });
             });
             
