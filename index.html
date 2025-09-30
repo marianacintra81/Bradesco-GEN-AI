@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Executivo - Impacto GenAI</title>
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-      :root {
+    :root {
       /* Cores de Fundo */
       --bg-primary: #0c0e14;
       --bg-secondary: #151823;
@@ -35,20 +35,10 @@
       --future-color: #0033A0;
       --pre-genai-color: #a3a8c3;
       
-      /* Cores de Background para Fases */
-      --pilot-bg: rgba(0, 229, 255, 0.7);
-      --production-bg: rgba(123, 104, 238, 0.7);
-      --future-bg: rgba(204, 0, 0, 0.7);
-      
       /* Outras cores */
       --border-color: rgba(163, 168, 195, 0.2);
       --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
       --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
-      --highlight: rgba(123, 104, 238, 0.1);
-      --retrabalho-color: #cc0000;
-      --retrabalho-bg: rgba(204, 0, 0, 0.2);
-      --promptx-color: #7B68EE;
-      --promptx-bg: rgba(123, 104, 238, 0.2);
       --max-width: 1200px;
     }
 
@@ -59,40 +49,59 @@
     }
 
     body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.5;
-      padding: 10px;
+      padding: 15px;
       background-image: 
         radial-gradient(circle at 10% 20%, rgba(0, 51, 160, 0.15) 0%, rgba(0, 51, 160, 0) 70%),
         radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
     }
 
-    /* Layout principal */
     .dashboard {
       max-width: var(--max-width);
       margin: 0 auto;
       width: 100%;
     }
 
-    /* Botão Voltar */
+    /* Cabeçalho */
+    .header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+    }
+
+    .header-title h1 {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
     .back-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
+      margin-right: 15px;
       background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight));
       color: var(--text-primary);
       border: none;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 18px;
       cursor: pointer;
-      z-index: 1000;
       box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
     }
@@ -100,41 +109,47 @@
     .back-button:hover {
       transform: translateY(-3px);
       box-shadow: var(--card-shadow-hover);
-      background: linear-gradient(135deg, var(--purple-highlight), var(--blue-bradesco));
     }
 
-    /* Cabeçalho */
-    .header {
+    /* Seletor de projetos */
+    .project-selector {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: var(--bg-secondary);
     }
 
-    .header-title {
+    .project-tab {
+      flex: 1;
+      padding: 12px;
       text-align: center;
-      width: 100%;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
     }
 
-    .header-title h1 {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 2px;
-      background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .project-tab.active {
+      background-color: var(--bg-card);
+      border-bottom: 3px solid var(--purple-highlight);
+      color: var(--purple-highlight);
     }
 
-    /* Timeline para mostrar evolução */
-    .timeline {
+    .project-tab:hover:not(.active) {
+      background-color: var(--bg-card-hover);
+    }
+
+    /* Timeline compacta */
+    .timeline-compact {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-top: 15px;
-      padding: 10px 0;
+      justify-content: space-between;
+      background-color: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-bottom: 20px;
     }
 
     .timeline-phase {
@@ -142,356 +157,90 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      flex: 1;
     }
 
     .timeline-dot {
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .timeline-phase.pre-genai .timeline-dot {
       background-color: var(--pre-genai-color);
-      box-shadow: 0 0 0 4px rgba(163, 168, 195, 0.2);
     }
 
     .timeline-phase.pilot .timeline-dot {
       background-color: var(--pilot-color);
-      box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.2);
     }
 
     .timeline-phase.production .timeline-dot {
       background-color: var(--production-color);
-      box-shadow: 0 0 0 4px rgba(123, 104, 238, 0.2);
     }
 
     .timeline-phase.future .timeline-dot {
-   background-color: var(--future-color);
-  box-shadow: 0 0 0 4px rgba(0, 51, 160, 0.2); 
+      background-color: var(--future-color);
     }
 
     .timeline-phase.active .timeline-dot {
       transform: scale(1.2);
-      box-shadow: 0 0 0 6px rgba(123, 104, 238, 0.3);
+      box-shadow: 0 0 0 4px rgba(123, 104, 238, 0.3);
     }
 
     .timeline-label {
-      font-size: 12px;
-      text-align: center;
-      color: var(--text-primary);
-      width: 120px;
-    }
-
-    .timeline-label span {
       font-size: 11px;
-      color: var(--cyan-highlight);
-      display: block;
-      margin-top: 2px;
+      text-align: center;
+      color: var(--text-secondary);
     }
 
-    .timeline-label .phase-desc {
-      font-size: 10px;
+    .timeline-phase.active .timeline-label {
       color: var(--text-primary);
-      font-style: italic;
+      font-weight: 600;
     }
 
-    .timeline-line {
+    .timeline-connector {
       height: 2px;
-      background: linear-gradient(90deg, var(--pilot-color), var(--production-color));
-      width: 100px;
-      margin: 0 10px;
+      background-color: var(--border-color);
+      flex: 1;
+      margin: 0 5px;
       position: relative;
       top: -10px;
     }
 
-    .timeline-line.pre-pilot {
-      background: linear-gradient(90deg, var(--pre-genai-color), var(--pilot-color));
+    /* Layout principal de duas colunas */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
     }
 
-    .timeline-line.future {
-      background: linear-gradient(90deg, var(--production-color), var(--future-color));
+    /* Resultados consolidados */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
-    .timeline-arrow {
-      position: absolute;
-      right: -5px;
-      top: -8px;
-      color: var(--production-color);
-      font-size: 18px;
-    }
-
-    .timeline-arrow.future {
-      color: var(--future-color);
-    }
-      /* Seções */
-    .impact-section,
-    .chart-section,
-    .conclusion-section,
-    .next-phase-section,
-    .projects-section {
+    .result-card {
       background-color: var(--bg-card);
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 15px;
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .chart-section h2,
-    .conclusion-section h2,
-    .next-phase-section h2,
-    .projects-section h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .chart-section h2 i,
-    .conclusion-section h2 i,
-    .next-phase-section h2 i,
-    .projects-section h2 i {
-      color: var(--purple-highlight);
-    }
-
-    /* Estilos para o toggle do impacto */
-    .impact-section h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .impact-section h2:hover {
-      color: var(--purple-highlight);
-    }
-
-    .impact-section h2 i:first-child {
-      color: var(--success);
-    }
-
-    #impact-content {
-      transition: all 0.5s ease;
-      max-height: 500px;
-      overflow: hidden;
-    }
-
-    #impact-content.collapsed {
-      max-height: 0;
-      margin-top: 0;
-      opacity: 0;
-    }
-
-    #impact-toggle {
-      transition: transform 0.3s ease;
-    }
-
-    #impact-toggle.collapsed {
-      transform: rotate(180deg);
-    }
-
-    /* Grids */
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .impact-grid.horizontal,
-    .insight-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .action-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-
-    /* Cards de resumo */
-    .summary-card {
-      background-color: var(--bg-secondary);
       border-radius: 8px;
-      padding: 12px;
-      position: relative;
-      overflow: hidden;
-      border-left: none;
+      padding: 15px;
+      text-align: center;
       box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .summary-card:hover {
-      background-color: var(--bg-card-hover);
+    .result-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--card-shadow-hover);
     }
 
-    /* Indicadores de maturidade */
-    .maturity-indicator {
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 1px dashed var(--border-color);
-    }
-
-    .maturity-label {
-      font-size: 10px;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .maturity-bar {
-      height: 4px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .summary-card.pre-genai .maturity-progress {
-      height: 100%;
-      background-color: var(--pre-genai-color);
-      border-radius: 2px;
-    }
-
-    .summary-card.pre-genai h3 i {
-      color: var(--pre-genai-color);
-    }
-
-    .summary-card.pilot .maturity-progress {
-      height: 100%;
-      background-color: var(--pilot-color);
-      border-radius: 2px;
-    }
-
-    .summary-card.production .maturity-progress {
-      height: 100%;
-      background-color: var(--production-color);
-      border-radius: 2px;
-    }
-
-    .summary-card h3 {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .metric {
-      text-align: center;
-      position: relative;
-      padding-top: 8px;
-    }
-
-    .metric-icon {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-    }
-
-    .metric.improved .metric-icon {
-      background-color: var(--success);
-      color: white;
-    }
-
-    .metric.worsened .metric-icon {
-      background-color: var(--retrabalho-color);
-      color: white;
-    }
-
-    .metric-value {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .metric.improved .metric-value {
-      color: var(--success);
-    }
-
-    .metric.worsened .metric-value {
-      color: var(--retrabalho-color);
-    }
-
-    .metric-label {
-      font-size: 10px;
-      color: var(--text-primary);
-    }
-
-    .metric-change {
-      font-size: 10px;
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .metric.improved .metric-change {
-      color: var(--success);
-    }
-
-    .metric.worsened .metric-change {
-      color: var(--retrabalho-color);
-    }
-
-    /* Animação para indicadores de redução (verdes) */
-    .metric.improved {
-      animation: pulse 2s infinite;
-    }
-
-    /* Remover animação dos indicadores de aumento (vermelhos) */
-    .metric.worsened {
-      animation: none;
-    }
-     /* Cards de impacto */
-    .impact-card {
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 12px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      height: 100%;
-      box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
-    }
-
-    .impact-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--card-shadow-hover);
-      background-color: var(--bg-card-hover);
-    }
-
-    .impact-card::after {
+    .result-card::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -501,209 +250,119 @@
       background: linear-gradient(90deg, var(--blue-bradesco), var(--success));
     }
 
-    .impact-card.negative::after {
+    .result-card.negative::after {
       background: linear-gradient(90deg, var(--blue-bradesco), var(--red-bradesco));
     }
 
-    .impact-value {
+    .result-value {
       font-size: 24px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       color: var(--success);
     }
 
-     .impact-value.negative {
+    .result-value.negative {
       color: var(--red-bradesco);
     }
 
-    .impact-content {
-      width: 100%;
-    }
-    
-    .impact-label {
+    .result-label {
       font-size: 13px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       color: var(--text-primary);
     }
 
-    .impact-desc {
+    .result-desc {
       font-size: 11px;
       color: var(--text-secondary);
-      line-height: 1.4;
     }
 
-    /* Cards de ação */
-    .action-card {
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border-top: 3px solid var(--purple-highlight);
-      height: 100%;
-      box-shadow: var(--card-shadow);
-    }
-
-    .action-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--card-shadow-hover);
-      background-color: var(--bg-card-hover);
-    }
-
-    .action-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      background-color: rgba(123, 104, 238, 0.1);
-      color: var(--purple-highlight);
-      margin: 0 auto 6px;
-    }
-
-    .action-content {
-      flex: 1;
-      text-align: center;
-    }
-
-    .action-content h3 {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--text-primary);
-    }
-
-    .action-content p {
-      font-size: 11px;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-
-    /* Projetos */
-    .projects-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    /* Estilos para o acordeão */
-    .accordion {
+    /* Painel de KPIs do banco */
+    .bank-kpis {
       background-color: var(--bg-card);
-      border-radius: 10px;
-      margin-bottom: 15px;
-      box-shadow: var(--card-shadow);
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .accordion:hover {
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    .accordion-header {
+      border-radius: 8px;
       padding: 15px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      transition: background-color 0.3s ease;
+      box-shadow: var(--card-shadow);
     }
 
-    .accordion-header:hover {
-      background-color: var(--bg-card-hover);
-    }
-
-    .accordion-header h2 {
+    .section-title {
       font-size: 16px;
       font-weight: 600;
-      margin: 0;
+      margin-bottom: 15px;
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .accordion-header h2 i {
-      color: var(--purple-highlight);
+    .section-title i {
+      color: var(--blue-bradesco);
     }
 
-    .accordion-toggle {
-      color: var(--text-secondary);
-      transition: transform 0.3s ease;
+    .kpi-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
     }
 
-    .accordion-toggle.active {
-      transform: rotate(180deg);
-    }
-
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-    }
-
-    .accordion-content.active {
-      max-height: 1000px;
-    }
-
-    .accordion-inner {
-      padding: 15px;
-    }
-     /* Rodapé */
-    .footer {
-      margin-top: 20px;
+    .kpi-table th, .kpi-table td {
+      padding: 10px;
       text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .kpi-table th {
+      font-size: 12px;
       color: var(--text-secondary);
-      font-size: 11px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border-color);
+      font-weight: 600;
     }
 
-    /* Animações */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .kpi-table td {
+      font-size: 14px;
+      font-weight: 600;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .kpi-table .metric-name {
+      text-align: left;
+      color: var(--text-primary);
     }
 
-    .accordion {
-      animation: fadeIn 0.5s ease-out forwards;
+    .improved {
+      color: var(--success);
     }
 
-    .accordion:nth-child(1) { animation-delay: 0.1s; }
-    .accordion:nth-child(2) { animation-delay: 0.2s; }
-    .accordion:nth-child(3) { animation-delay: 0.3s; }
-    .accordion:nth-child(4) { animation-delay: 0.4s; }
-    .accordion:nth-child(5) { animation-delay: 0.5s; }
+    .worsened {
+      color: var(--danger);
+    }
 
-    .impact-section { animation-delay: 0.2s; }
-    .next-phase-section { animation-delay: 0.5s; }
+    .trend-icon {
+      margin-left: 5px;
+      font-size: 12px;
+    }
 
-    /* Estilos específicos para o PromptX */
-    .promptx-section {
+    .kpi-chart {
+      height: 150px;
+      background-color: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 15px;
+      position: relative;
+    }
+
+    #kpiTrendChart {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Painel de impacto GenAI */
+    .genai-impact {
       background-color: var(--bg-card);
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 15px;
       box-shadow: var(--card-shadow);
-      margin-bottom: 15px;
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      transition: all 0.3s ease;
     }
 
-    .promptx-section:hover {
-      box-shadow: var(--card-shadow-hover);
+    .section-title.genai i {
+      color: var(--purple-highlight);
     }
 
     .promptx-header {
@@ -713,17 +372,8 @@
       margin-bottom: 15px;
     }
 
-    .promptx-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--purple-highlight);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     .promptx-badge {
-      background-color: var(--promptx-bg);
+      background-color: rgba(123, 104, 238, 0.2);
       color: var(--purple-highlight);
       font-size: 11px;
       padding: 4px 8px;
@@ -731,1560 +381,843 @@
       font-weight: 600;
     }
 
-    .promptx-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-
-    .promptx-card {
+    .interaction-chart {
       background-color: var(--bg-secondary);
       border-radius: 8px;
       padding: 15px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
-    }
-
-    .promptx-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--card-shadow-hover);
-      background-color: var(--bg-card-hover);
-    }
-
-    .promptx-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--purple-highlight), var(--blue-bradesco));
-    }
-
-    .promptx-stat {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--purple-highlight);
-    }
-
-    .promptx-label {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--text-primary);
-    }
-
-    .promptx-desc {
-      font-size: 11px;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-
-    .promptx-usage-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
       margin-bottom: 15px;
+      height: 120px;
+      position: relative;
     }
 
-    .promptx-usage-card {
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
+    .interaction-bars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      height: 80px;
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      right: 15px;
     }
 
-    .promptx-usage-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--card-shadow-hover);
-      background-color: var(--bg-card-hover);
+    .bar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 40px;
     }
 
-    .promptx-usage-value {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--purple-highlight);
-      margin-bottom: 4px;
+    .bar {
+      width: 30px;
+      border-radius: 3px 3px 0 0;
+      transition: height 1s ease;
     }
 
-    .promptx-usage-label {
+    .bar.q1 {
+      background-color: var(--pre-genai-color);
+      height: 0px;
+    }
+
+    .bar.q2 {
+      background-color: var(--pilot-color);
+      height: 20px;
+    }
+
+    .bar.q3 {
+      background-color: var(--production-color);
+      height: 70px;
+    }
+
+    .bar.q4 {
+      background-color: var(--future-color);
+      height: 0px;
+    }
+
+    .bar-label {
       font-size: 10px;
       color: var(--text-secondary);
+      margin-top: 5px;
+      text-align: center;
     }
 
-    .promptx-impact-grid {
+    /* Casos de uso */
+    .use-cases {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 15px;
+      gap: 10px;
+      margin-top: 15px;
     }
 
-    .promptx-impact-card {
+    .use-case {
       background-color: var(--bg-secondary);
       border-radius: 8px;
       padding: 12px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
     }
 
-    .promptx-impact-card:hover {
+    .use-case:hover {
       transform: translateY(-3px);
       box-shadow: var(--card-shadow-hover);
       background-color: var(--bg-card-hover);
     }
 
-    .promptx-impact-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-    }
-
-    .promptx-impact-card.positive::after {
-      background: linear-gradient(90deg, var(--purple-highlight), var(--success));
-    }
-
-    .promptx-impact-card.negative::after {
-      background: linear-gradient(90deg, var(--purple-highlight), var(--red-bradesco));
-    }
-
-    .promptx-impact-value {
-      font-size: 20px;
+    .use-case-value {
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .promptx-impact-value.positive {
       color: var(--success);
+      margin-bottom: 5px;
     }
 
-    .promptx-impact-value.negative {
-      color: var(--red-bradesco);
-    }
-
-    .promptx-impact-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .promptx-impact-desc {
+    .use-case-label {
       font-size: 10px;
       color: var(--text-secondary);
     }
 
-    .promptx-case-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 15px;
+    /* Próximas iniciativas */
+    .initiatives {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 20px;
     }
 
-    .promptx-case-card {
+    .initiatives-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .initiative-card {
       background-color: var(--bg-secondary);
       border-radius: 8px;
       padding: 15px;
-      position: relative;
-      box-shadow: var(--card-shadow);
       transition: all 0.3s ease;
+      border-left: 3px solid var(--purple-highlight);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
-    .promptx-case-card:hover {
+   .initiative-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--card-shadow-hover);
       background-color: var(--bg-card-hover);
     }
 
-    .promptx-case-icon {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
+    .initiative-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--promptx-bg);
+      font-size: 18px;
+      background-color: rgba(123, 104, 238, 0.1);
       color: var(--purple-highlight);
-      font-size: 12px;
+      margin-bottom: 12px;
     }
 
-    .promptx-case-title {
+    .initiative-title {
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 8px;
       color: var(--text-primary);
-      padding-right: 30px;
     }
 
-    .promptx-case-desc {
-      font-size: 11px;
+    .initiative-desc {
+      font-size: 12px;
       color: var(--text-secondary);
-      line-height: 1.4;
-      margin-bottom: 10px;
+      line-height: 1.5;
     }
 
-    .promptx-case-impact {
+    /* Rodapé */
+    .footer {
+      text-align: center;
+      color: var(--text-secondary);
       font-size: 11px;
-      font-weight: 600;
-      color: var(--success);
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
     }
 
-    .promptx-case-impact.negative {
-      color: var(--red-bradesco);
+    /* Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
     }
 
     /* Responsividade */
-    @media (max-width: 1200px) {
-      .dashboard {
-        max-width: 100%;
-      }
-    }
-
     @media (max-width: 992px) {
-      .impact-grid.horizontal,
-      .insight-grid,
-      .action-grid,
-      .promptx-grid,
-      .promptx-impact-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .main-grid {
+        grid-template-columns: 1fr;
       }
       
-      .promptx-usage-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .summary-grid {
+      .initiatives-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media (max-width: 768px) {
-      .summary-grid,
-      .impact-grid.horizontal,
-      .insight-grid,
-      .action-grid,
-      .promptx-grid,
-      .promptx-case-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .metrics-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .timeline-line {
-        width: 50px;
-      }
-      
-      .promptx-impact-grid {
+      .results-grid,
+      .use-cases {
         grid-template-columns: repeat(2, 1fr);
-      }
-      
-       .back-button {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-        top: 10px;
-        left: 10px;
       }
     }
 
     @media (max-width: 576px) {
-      .metrics-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .timeline {
-        flex-direction: column;
-        gap: 20px;
-      }
-      
-      .timeline-line {
-        width: 2px;
-        height: 30px;
-        transform: rotate(90deg);
-      }
-      
-      .promptx-impact-grid,
-      .promptx-usage-grid {
+      .results-grid,
+      .use-cases,
+      .initiatives-grid {
         grid-template-columns: 1fr;
+      }
+      
+      .timeline-compact {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .timeline-phase {
+        flex-direction: row;
+        width: 100%;
+        gap: 10px;
+      }
+      
+      .timeline-connector {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
   <div class="dashboard">
-    <!-- Botão Voltar -->
-  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
-  <i class="fas fa-arrow-left"></i>
-</a>
-    
+    <!-- Cabeçalho com botão de voltar à esquerda e título centralizado -->
     <div class="header">
+      <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+      </a>
       <div class="header-title">
         <h1>Dashboard de Maturidade GenAI - Bradesco</h1>
-        <div class="timeline">
-          <div class="timeline-phase pre-genai">
-            <div class="timeline-dot"></div>
-            <div class="timeline-label">Base<br><span>Jan-Mar/2025</span><br><span class="phase-desc">Linha de base</span></div>
+      </div>
+    </div>
+    
+    <!-- Seletor de projetos -->
+    <div class="project-selector">
+      <div class="project-tab active" onclick="switchProject('safer', event)">PLATAFORMA SAFER</div>
+      <div class="project-tab" onclick="switchProject('sala-core', event)">SALA CORE</div>
+      <div class="project-tab" onclick="switchProject('massificado', event)">MASSIFICADO</div>
+    </div>
+    
+    <!-- Timeline compacta -->
+    <div class="timeline-compact">
+      <div class="timeline-phase pre-genai">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">Base<br>Jan-Mar/2025</div>
+      </div>
+      <div class="timeline-connector"></div>
+      <div class="timeline-phase pilot">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">Piloto GenAI<br>Abr-Jun/2025</div>
+      </div>
+      <div class="timeline-connector"></div>
+      <div class="timeline-phase production active">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">Produção GenAI<br>Jul-Set/2025</div>
+      </div>
+      <div class="timeline-connector"></div>
+      <div class="timeline-phase future">
+        <div class="timeline-dot"></div>
+        <div class="timeline-label">Expansão GenAI<br>Out-Dez/2025</div>
+      </div>
+    </div>
+    
+    <!-- Resultados consolidados -->
+    <div class="results-grid fade-in">
+      <div class="result-card">
+        <div class="result-value">40.2%</div>
+        <div class="result-label">Redução no Lead Time</div>
+        <div class="result-desc">De 107 para 64 dias em média</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">2.6%</div>
+        <div class="result-label">Redução em Horas/PF</div>
+        <div class="result-desc">De 31 para 30.2 horas por ponto de função</div>
+      </div>
+      <div class="result-card negative">
+        <div class="result-value negative">25.8%</div>
+        <div class="result-label">Aumento de Retrabalho</div>
+        <div class="result-desc">De 0.62% para 0.78%</div>
+      </div>
+    </div>
+    
+    <!-- Layout principal de duas colunas -->
+    <div class="main-grid">
+      <!-- Painel de KPIs do banco -->
+      <div class="bank-kpis fade-in">
+        <div class="section-title">
+          <i class="fas fa-chart-line"></i> KPIs do Banco - PLATAFORMA SAFER
+        </div>
+        
+        <table class="kpi-table">
+          <thead>
+            <tr>
+              <th>Métrica</th>
+              <th>Base<br>(Q1 2025)</th>
+              <th>Piloto<br>(Q2 2025)</th>
+              <th>Produção<br>(Q3 2025)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="metric-name">Lead Time (dias)</td>
+              <td>107</td>
+              <td class="improved">92.4 <i class="fas fa-arrow-down trend-icon"></i></td>
+              <td class="improved">64 <i class="fas fa-arrow-down trend-icon"></i></td>
+            </tr>
+            <tr>
+              <td class="metric-name">Produtividade (h/PF)</td>
+              <td>31</td>
+              <td class="worsened">32.3 <i class="fas fa-arrow-up trend-icon"></i></td>
+              <td class="improved">30.2 <i class="fas fa-arrow-down trend-icon"></i></td>
+            </tr>
+            <tr>
+              <td class="metric-name">Retrabalho (%)</td>
+              <td>0.62</td>
+              <td class="improved">0.28 <i class="fas fa-arrow-down trend-icon"></i></td>
+              <td class="worsened">0.78 <i class="fas fa-arrow-up trend-icon"></i></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="kpi-chart">
+          <canvas id="kpiTrendChart"></canvas>
+        </div>
+      </div>
+      
+      <!-- Painel de impacto GenAI -->
+      <div class="genai-impact fade-in">
+        <div class="section-title genai">
+          <i class="fas fa-robot"></i> Impacto GenAI - PromptX
+        </div>
+        
+        <div class="promptx-header">
+          <div class="promptx-badge">1449 interações no Q3</div>
+        </div>
+        
+        <div class="interaction-chart">
+          <div class="interaction-bars">
+            <div class="bar-container">
+              <div class="bar q1"></div>
+              <div class="bar-label">Q1<br>0</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar q2"></div>
+              <div class="bar-label">Q2<br>395</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar q3"></div>
+              <div class="bar-label">Q3<br>1449</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar q4"></div>
+              <div class="bar-label">Q4<br>-</div>
+            </div>
           </div>
-          <div class="timeline-line pre-pilot">
-            <div class="timeline-arrow">→</div>
+        </div>
+        
+        <div class="section-title genai" style="font-size: 14px;">
+          <i class="fas fa-bullseye"></i> Impacto por Caso de Uso - Cenários de Teste
+        </div>
+        
+        <div class="use-cases">
+          <div class="use-case">
+            <div class="use-case-value">+65%</div>
+            <div class="use-case-label">Mais cenários gerados</div>
           </div>
-          <div class="timeline-phase pilot">
-            <div class="timeline-dot"></div>
-            <div class="timeline-label">Piloto GenAI<br><span>Abr-Jun/2025</span><br><span class="phase-desc">Implementação inicial</span></div>
+          <div class="use-case">
+            <div class="use-case-value">3x</div>
+            <div class="use-case-label">Mais rápido na criação</div>
           </div>
-          <div class="timeline-line">
-            <div class="timeline-arrow">→</div>
+          <div class="use-case">
+            <div class="use-case-value">95%</div>
+            <div class="use-case-label">Precisão nos cenários</div>
           </div>
-          <div class="timeline-phase production active">
-            <div class="timeline-dot"></div>
-            <div class="timeline-label">Produção GenAI<br><span>Jul-Set/2025</span><br><span class="phase-desc">Evolução e maturidade</span></div>
+          <div class="use-case">
+            <div class="use-case-value">2x</div>
+            <div class="use-case-label">Mais cenários revisados/dia</div>
           </div>
-          <div class="timeline-line future">
-            <div class="timeline-arrow future">→</div>
+          <div class="use-case">
+            <div class="use-case-value">85%</div>
+            <div class="use-case-label">Funcionalidades atingidas</div>
           </div>
-          <div class="timeline-phase future">
-            <div class="timeline-dot"></div>
-            <div class="timeline-label">Expansão GenAI<br><span>Out-Dez/2025</span><br><span class="phase-desc">Expansão e consolidação</span></div>
+          <div class="use-case">
+            <div class="use-case-value">-45%</div>
+            <div class="use-case-label">Redução média do tempo</div>
           </div>
         </div>
       </div>
     </div>
-      <!-- Acordeão para Plataforma SAFER (inicialmente expandido) -->
-    <div class="accordion" id="safer-accordion">
-      <div class="accordion-header" onclick="toggleSaferAccordion()">
-         <h2><i class="fas fa-chart-pie"></i> PLATAFORMA SAFER</h2>
-        <span class="accordion-toggle active" id="safer-toggle"><i class="fas fa-chevron-down"></i></span>
+    
+    <!-- Próximas iniciativas -->
+    <div class="initiatives fade-in">
+      <div class="section-title">
+        <i class="fas fa-lightbulb"></i> Próximas Iniciativas GenAI (Out-Dez/25)
       </div>
-      <div class="accordion-content active" id="safer-content">
-        <div class="accordion-inner">
-          <div class="summary-grid">
-            <div class="summary-card pre-genai">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Linha de Base</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%; background-color: var(--pre-genai-color);"></div>
-                </div>
-                    </div>
-              <h3><i class="fas fa-history"></i> Base (Jan-Mar 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric">
-                  <div class="metric-value">107</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                </div>
-                 <div class="metric">
-                  <div class="metric-value">31</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">0.62%</div>
-                  <div class="metric-label">Retrabalho</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card pilot">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase Inicial</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">92.4</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-13.6%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">32.3</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">+4.2%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">0.28%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">-54.8%</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card production">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase de Evolução</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 95%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">64</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-40.2%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">30.2</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-2.6%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">0.78%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+25.8%</div>
-                </div>
-              </div>
-            </div>
+      
+      <div class="initiatives-grid">
+        <div class="initiative-card">
+          <div class="initiative-icon">
+            <i class="fas fa-vial"></i>
           </div>
-          
-          <!-- Nova seção PromptX específica para o projeto SAFER - REVISADA -->
-          <div class="promptx-section" id="safer-promptx-section">
-            <div class="promptx-header">
-              <div class="promptx-title">
-                <i class="fas fa-microphone-alt" style="color: var(--purple-highlight);"></i> Impacto do PromptX 
-              </div>
-              <div class="promptx-badge">1449 interações no Q3</div>
-            </div>
-            
-          <!-- Gráfico de evolução das interações e impacto nos KPIs - VERSÃO COMPACTA -->
-          <div style="background-color: var(--bg-secondary); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: var(--card-shadow);">
-            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-              <i class="fas fa-chart-line" style="color: var(--purple-highlight);"></i> Evolução Trimestral por total de interações
-            </h4>
-            
-            <!-- Visualização compacta de evolução de interações -->
-            <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: var(--bg-card); border-radius: 8px; padding: 12px;">
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Base</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--pre-genai-color);">0</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q1 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Piloto</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--purple-highlight);">395</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q2 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Evolução</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--purple-highlight);">1449</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q3 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-               <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Expansão</div>
-  <div style="font-size: 22px; font-weight: 700; color: var(--future-color);">-</div>
-  <div style="font-size: 10px; color: var(--text-secondary);">Q4 2025</div>
-</div>
-              </div>
-            </div>
-          </div>
-              <!-- Seção de Resultados Consolidados (inicialmente visível) -->
-      <section class="impact-section" id="impact-section">
-        <h2 onclick="toggleImpactSection()">
-          <i class="fas fa-rocket"></i> Resultados Consolidados
-          <span id="impact-toggle">
-            <i class="fas fa-chevron-up"></i>
-          </span>
-        </h2>
-        <div id="impact-content" class="impact-grid horizontal">
-          <div class="impact-card">
-            <div class="impact-value">40.2%</div>
-            <div class="impact-content">
-              <div class="impact-label">Redução no Lead Time</div>
-              <div class="impact-desc">De 107 para 64 dias em média.</div>
-            </div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-value">2.6%</div>
-            <div class="impact-content">
-              <div class="impact-label">Redução em Horas/PF</div>
-              <div class="impact-desc">De 31 para 30.2 horas por ponto de função.</div>
-            </div>
-          </div>
-          <div class="impact-card negative">
-            <div class="impact-value negative">25.8%</div>
-            <div class="impact-content">
-              <div class="impact-label">Aumento de Retrabalho</div>
-              <div class="impact-desc">De 0.62% para 0.78%.</div>
-            </div>
-          </div>
+          <div class="initiative-title">Testes Unitários com Agentes</div>
+          <div class="initiative-desc">Automatizar geração e manutenção de testes unitários com IA, reduzindo em até 25% o retrabalho através da detecção preventiva de problemas.</div>
         </div>
-      </section>
+        
+        <div class="initiative-card">
+          <div class="initiative-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="initiative-title">Testes Automatizados com Agentes</div>
+          <div class="initiative-desc">Implementar testes E2E e regressão assistidos por agentes de IA para acelerar QA e identificar problemas antes da entrega ao cliente.</div>
+        </div>
+        
+        <div class="initiative-card">
+          <div class="initiative-icon">
+            <i class="fas fa-code-branch"></i>
+          </div>
+          <div class="initiative-title">Code Review com Agentes</div>
+          <div class="initiative-desc">Utilizar agentes de IA para revisão estática de código e sugestões de refatoração, reduzindo em até 20% o retrabalho pós-entrega.</div>
         </div>
       </div>
     </div>
-
-
-<!-- Impacto por tipo de caso de uso -->
-<div style="background-color: var(--bg-secondary); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: var(--card-shadow);" id="safer-use-case-section">
-  <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-    <i class="fas fa-bullseye" style="color: var(--purple-highlight);"></i> Impacto por Caso de Uso
-  </h4>
-  
-  <!-- Card único de Cenários de Teste com tamanho aumentado -->
-  <div style="background-color: var(--bg-card); border-radius: 8px; padding: 20px; position: relative; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-    <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--purple-highlight); font-size: 16px;">
-      <i class="fas fa-vial"></i>
-    </div>
-    <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
-    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-      Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
-       </p>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">+65%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários gerados</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">3x</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais rápido na criação</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">95%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Precisão nos cenários</div>
-      </div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">2x</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários revisados/dia</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">85%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Funcionalidades atingidas</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">-45%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Redução media do tempo </div>
-      </div>
+    
+    <!-- Rodapé -->
+    <div class="footer">
+      <p>Dashboard de Maturidade GenAI - Bradesco | Atualizado em: <span id="data-atualizacao">Setembro/2023</span></p>
     </div>
   </div>
-</div>
-            
-         
-    
-    <!-- Acordeão para SALA CORE -->
-    <div class="accordion" id="sala-core-accordion">
-      <div class="accordion-header" onclick="toggleSalaCoreAccordion()">
-        <h2><i class="fas fa-chart-pie"></i> SALA CORE</h2>
-         <span class="accordion-toggle" id="sala-core-toggle"><i class="fas fa-chevron-down"></i></span>
-      </div>
-      <div class="accordion-content" id="sala-core-content">
-        <div class="accordion-inner">
-          <div class="summary-grid">
-            <div class="summary-card pre-genai">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Linha de Base</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%; background-color: var(--pre-genai-color);"></div>
-                </div>
-                   </div>
-                <h3><i class="fas fa-history"></i> Base (Jan-Mar 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric">
-                  <div class="metric-value">168.9</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">20.1</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">6.78%</div>
-                  <div class="metric-label">Retrabalho</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card pilot">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase Inicial</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">146.0</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-13.6%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">21.0</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">+4.2%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">3.06%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">-54.8%</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card production">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase de Evolução</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 95%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">101.0</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-40.2%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">19.6</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-2.6%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">8.53%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+25.8%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Nova seção PromptX específica para o projeto SALA CORE - REVISADA -->
-          <div class="promptx-section" id="sala-core-promptx-section">
-            <div class="promptx-header">
-              <div class="promptx-title">
-                <i class="fas fa-microphone-alt" style="color: var(--purple-highlight);"></i> Impacto do PromptX 
-              </div>
-              <div class="promptx-badge">215 interações no Q3</div>
-            </div>
-            
-          <!-- Gráfico de evolução das interações e impacto nos KPIs - VERSÃO COMPACTA -->
-          <div style="background-color: var(--bg-secondary); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: var(--card-shadow);">
-            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-              <i class="fas fa-chart-line" style="color: var(--purple-highlight);"></i> Evolução Trimestral por total de interações
-            </h4>
-            
-            <!-- Visualização compacta de evolução de interações -->
-            <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: var(--bg-card); border-radius: 8px; padding: 12px;">
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Base</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--pre-genai-color);">0</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q1 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Piloto</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--purple-highlight);">0</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q2 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Evolução</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--purple-highlight);">215</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q3 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Expansão</div>
-                <div style="font-size: 22px; font-weight: 700; color: var(--blue-bradesco);">-</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q4 2025</div>
-              </div>
-            </div>
-          </div>
-              <!-- Seção de Resultados Consolidados (inicialmente visível) -->
-      <section class="impact-section" id="sala-core-impact-section">
-        <h2 onclick="toggleSalaCoreImpactSection()">
-          <i class="fas fa-rocket"></i> Resultados Consolidados
-          <span id="sala-core-impact-toggle">
-            <i class="fas fa-chevron-up"></i>
-          </span>
-        </h2>
-        <div id="sala-core-impact-content" class="impact-grid horizontal">
-          <div class="impact-card">
-            <div class="impact-value">40.2%</div>
-            <div class="impact-content">
-              <div class="impact-label">Redução no Lead Time</div>
-              <div class="impact-desc">De 168.9 para 101.0 dias em média.</div>
-            </div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-value">2.6%</div>
-            <div class="impact-content">
-              <div class="impact-label">Redução em Horas/PF</div>
-              <div class="impact-desc">De 20.1 para 19.6 horas por ponto de função.</div>
-            </div>
-          </div>
-          <div class="impact-card negative">
-            <div class="impact-value negative">25.8%</div>
-            <div class="impact-content">
-              <div class="impact-label">Aumento de Retrabalho</div>
-              <div class="impact-desc">De 6.78% para 8.53%.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-        </div>
-      </div>
-    </div>
-
-
-<!-- Impacto por tipo de caso de uso para SALA CORE -->
-<div style="background-color: var(--bg-secondary); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: var(--card-shadow);" id="sala-core-use-case-section">
-  <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-    <i class="fas fa-bullseye" style="color: var(--purple-highlight);"></i> Impacto por Caso de Uso
-  </h4>
   
-  <!-- Card único de Cenários de Teste com tamanho aumentado -->
-   <div style="background-color: var(--bg-card); border-radius: 8px; padding: 20px; position: relative; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-    <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--purple-highlight); font-size: 16px;">
-      <i class="fas fa-vial"></i>
-    </div>
-    <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
-    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-      Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
-    </p>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">+65%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários gerados</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">3x</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais rápido na criação</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">95%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Precisão nos cenários</div>
-      </div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">2x</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários revisados/dia</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">85%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Funcionalidades atingidas</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">-45%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Redução media do tempo </div>
-      </div>
-    </div>
-  </div>
-</div>
-            
-    <!-- Acordeão para MASSIFICADO -->
-    <div class="accordion" id="massificado-accordion">
-      <div class="accordion-header" onclick="toggleMassificadoAccordion()">
-        <h2><i class="fas fa-chart-pie"></i> MASSIFICADO</h2>
-        <span class="accordion-toggle" id="massificado-toggle"><i class="fas fa-chevron-down"></i></span>
-      </div>
-        <div class="accordion-content" id="massificado-content">
-          <div class="accordion-inner">
-          <div class="summary-grid">
-            <div class="summary-card pre-genai">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Linha de Base</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%; background-color: var(--pre-genai-color);"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-history"></i> Base (Jan-Mar 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric">
-                  <div class="metric-value">190.1</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">13.5</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-value">7.41%</div>
-                  <div class="metric-label">Retrabalho</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card pilot">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase Inicial</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 100%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-seedling"></i> Piloto GenAI (Abr-Jun 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">164.2</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-13.6%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">14.1</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">+4.2%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">3.35%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">-54.8%</div>
-                </div>
-              </div>
-            </div>
-            <div class="summary-card production">
-              <div class="maturity-indicator">
-                <div class="maturity-label">Fase de Evolução</div>
-                <div class="maturity-bar">
-                  <div class="maturity-progress" style="width: 95%;"></div>
-                </div>
-              </div>
-              <h3><i class="fas fa-tree"></i> Produção GenAI (Jul-Set 2025)</h3>
-              <div class="metrics-grid">
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">113.7</div>
-                  <div class="metric-label">Lead Time (dias)</div>
-                  <div class="metric-change">-40.2%</div>
-                </div>
-                <div class="metric improved">
-                  <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
-                  <div class="metric-value">13.2</div>
-                  <div class="metric-label">Produtividade (h/PF)</div>
-                  <div class="metric-change">-2.6%</div>
-                </div>
-                <div class="metric worsened">
-                  <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
-                  <div class="metric-value">9.32%</div>
-                  <div class="metric-label">Retrabalho</div>
-                  <div class="metric-change">+25.8%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Nova seção PromptX específica para o projeto MASSIFICADO - REVISADA -->
-          <div class="promptx-section" id="massificado-promptx-section">
-            <div class="promptx-header">
-              <div class="promptx-title">
-                <i class="fas fa-microphone-alt" style="color: var(--purple-highlight);"></i> Impacto do PromptX 
-              </div>
-              <div class="promptx-badge">243 interações no Q3</div>
-            </div>
-            
-          <!-- Gráfico de evolução das interações e impacto nos KPIs - VERSÃO COMPACTA -->
-          <div style="background-color: var(--bg-secondary); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: var(--card-shadow);">
-            <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-              <i class="fas fa-chart-line" style="color: var(--purple-highlight);"></i> Evolução Trimestral por total de interações
-            </h4>
-            
-            <!-- Visualização compacta de evolução de interações -->
-            <div style="display: flex; align-items: center; margin-bottom: 15px; background-color: var(--bg-card); border-radius: 8px; padding: 12px;">
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Base</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--pre-genai-color);">0</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q1 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Piloto</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--purple-highlight);">0</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q2 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Evolução</div>
-                <div style="font-size: 18px; font-weight: 700; color: var(--purple-highlight);">243</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q3 2025</div>
-              </div>
-              
-              <div style="width: 40px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-arrow-right" style="color: var(--text-secondary); font-size: 14px;"></i>
-              </div>
-              
-              <div style="flex: 1; text-align: center;">
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 5px;">Expansão</div>
-                <div style="font-size: 22px; font-weight: 700; color: var(--blue-bradesco);">-</div>
-                <div style="font-size: 10px; color: var(--text-secondary);">Q4 2025</div>
-              </div>
-            </div>
-          </div>
-              <!-- Seção de Resultados Consolidados (inicialmente visível) -->
-      <section class="impact-section" id="massificado-impact-section">
-        <h2 onclick="toggleMassificadoImpactSection()">
-          <i class="fas fa-rocket"></i> Resultados Consolidados
-          <span id="massificado-impact-toggle">
-            <i class="fas fa-chevron-up"></i>
-          </span>
-        </h2>
-        <div id="massificado-impact-content" class="impact-grid horizontal">
-          <div class="impact-card">
-            <div class="impact-value">40.2%</div>
-            <div class="impact-content">
-              <div class="impact-label">Redução no Lead Time</div>
-              <div class="impact-desc">De 190.1 para 113.7 dias em média.</div>
-            </div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-value">2.6%</div>
-            <div class="impact-content">
-              <div class="impact-label">Redução em Horas/PF</div>
-              <div class="impact-desc">De 13.5 para 13.2 horas por ponto de função.</div>
-            </div>
-          </div>
-          <div class="impact-card negative">
-          <div class="impact-value negative">25.8%</div>
-            <div class="impact-content">
-              <div class="impact-label">Aumento de Retrabalho</div>
-              <div class="impact-desc">De 7.41% para 9.32%.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-        </div>
-      </div>
-    </div>
-
-
-<!-- Impacto por tipo de caso de uso para MASSIFICADO -->
-<div style="background-color: var(--bg-secondary); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: var(--card-shadow);" id="massificado-use-case-section">
-  <h4 style="font-size: 14px; margin-bottom: 15px; color: var(--text-primary);">
-    <i class="fas fa-bullseye" style="color: var(--purple-highlight);"></i> Impacto por Caso de Uso
-  </h4>
-  
-  <!-- Card único de Cenários de Teste com tamanho aumentado -->
-  <div style="background-color: var(--bg-card); border-radius: 8px; padding: 20px; position: relative; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-    <div style="position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--promptx-bg); color: var(--purple-highlight); font-size: 16px;">
-      <i class="fas fa-vial"></i>
-    </div>
-    <h5 style="font-size: 18px; margin-bottom: 15px; color: var(--text-primary); padding-right: 40px;">Cenários de Teste</h5>
-    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-      Os cenários de teste gerados pelo PromptX cobrem as validações de entrada, testes de limite, casos de erro e fluxos de sucesso. A automação desses cenários permitiu uma detecção mais rápida de problemas e maior confiabilidade nas entregas.
-    </p>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">+65%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários gerados</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">3x</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais rápido na criação</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">95%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Precisão nos cenários</div>
-      </div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">2x</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Mais cenários revisados/dia</div>
-      </div>
-     <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">85%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Funcionalidades atingidas</div>
-      </div>
-      <div style="text-align: center; padding: 15px; background-color: rgba(16, 185, 129, 0.1); border-radius: 8px; box-shadow: var(--card-shadow); transition: all 0.3s ease;">
-        <div style="font-size: 24px; font-weight: 700; color: var(--success);">-45%</div>
-        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Redução media do tempo </div>
-      </div>
-    </div>
-      </div>
-</div>
-
-<!-- SEÇÃO DE PRÓXIMAS INICIATIVAS (SEMPRE VISÍVEL) -->
-<div id="next-initiatives-section">
-  <section class="next-phase-section">
-    <h2><i class="fas fa-lightbulb"></i> Próximas Iniciativas GEN AI (Set-Dez/25)</h2>
-    
-    <div class="action-grid">
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-vial"></i>
-        </div>
-        <div class="action-content">
-          <h3>Testes Unitários com Agentes</h3>
-          <p>Automatizar geração e manutenção de testes unitários assistidos por agentes, reduzindo em até 25% o retrabalho através de detecção preventiva de problemas.</p>
-        </div>
-      </div>
-      
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-robot"></i>
-        </div>
-        <div class="action-content">
-          <h3>Testes Automatizados com Agentes</h3>
-           <p>E2E e regressão assistidos por agentes para acelerar QA e identificar problemas antes da entrega.</p>
-        </div>
-      </div>
-      
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-code-branch"></i>
-        </div>
-        <div class="action-content">
-          <h3>Code Review com Agentes</h3>
-          <p>Agentes suportando revisão estática e sugestões de refatoração, reduzindo em até 20% o retrabalho através de detecção preventiva de problemas.</p>
-        </div>
-      </div>
-    </div>
-  
-    <div class="action-grid">
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </div>
-        <div class="action-content">
-          <h3>Expandir</h3>
-          <p>Levar a GenAI para novos squads e áreas, garantindo escala.</p>
-        </div>
-      </div>
-      
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-tachometer-alt"></i>
-        </div>
-        <div class="action-content">
-          <h3>Métricas de Qualidade</h3>
-          <p>Estabelecer KPIs específicos para monitorar o impacto da GenAI na qualidade do código, com foco em indicadores preditivos de retrabalho.</p>
-        </div>
-      </div>
-      
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-book"></i>
-        </div>
-        <div class="action-content">
-          <h3>Biblioteca de Prompts</h3>
-          <p>Criar acervo de prompts específicos para os Projetos, incluindo prompts validados para redução de erros comuns e melhoria de qualidade.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="action-grid">
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-users"></i>
-        </div>
-        <div class="action-content">
-          <h3>Mentoria</h3>
-          <p>Continuidade dos treinamentos, reciclagens e suporte às dúvidas dos times.</p>
-        </div>
-      </div>
-      
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-chart-bar"></i>
-        </div>
-        <div class="action-content">
-          <h3>Portal de Conhecimento</h3>
-          <p>Implementar monitoramento contínuo de maturidade GenAI.</p>
-        </div>
-      </div>
-      
-      <div class="action-card">
-        <div class="action-icon">
-          <i class="fas fa-bolt"></i>
-        </div>
-        <div class="action-content">
-          <h3>Aceleradores</h3>
-          <p>Desenvolver componentes para automatizar tarefas repetitivas.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-    
-<!-- Rodapé -->
-<div class="footer">
-  <p>Dashboard de Maturidade GenAI - Bradesco | Atualizado em: <span id="data-atualizacao"></span></p>
-</div>
-
   <script>
-    // Função para formatar a data atual
-  function atualizarDataRodape() {
-    const dataAtual = new Date();
-    
-    // Array com os nomes dos meses em português
-    const meses = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
-    
-    // Obtém o mês e ano
-    const mes = meses[dataAtual.getMonth()];
-    const ano = dataAtual.getFullYear();
-    
-    // Formata a data no padrão desejado
-    const dataFormatada = `${mes}/${ano}`;
-    
-    // Atualiza o elemento no rodapé
-    document.getElementById('data-atualizacao').textContent = dataFormatada;
-  }
-  
-  // Adiciona a chamada da função quando o DOM estiver carregado
-  document.addEventListener('DOMContentLoaded', atualizarDataRodape);
-  
-     // Função para alternar a visibilidade da seção de impacto
-    function toggleImpactSection() {
-      const content = document.getElementById('impact-content');
-      const toggle = document.getElementById('impact-toggle');
-      
-      if (content.classList.contains('collapsed')) {
-        // Expandir
-        content.classList.remove('collapsed');
-        toggle.classList.remove('collapsed');
-      } else {
-        // Colapsar
-        content.classList.add('collapsed');
-        toggle.classList.add('collapsed');
+    // Dados dos projetos
+    const projectData = {
+      'safer': {
+        title: 'PLATAFORMA SAFER',
+        leadTime: { base: 107, pilot: 92.4, production: 64 },
+        productivity: { base: 31, pilot: 32.3, production: 30.2 },
+        rework: { base: 0.62, pilot: 0.28, production: 0.78 },
+        interactions: 1449,
+        interactionValues: [0, 395, 1449, 0]
+      },
+      'sala-core': {
+        title: 'SALA CORE',
+        leadTime: { base: 168.9, pilot: 146.0, production: 101.0 },
+        productivity: { base: 20.1, pilot: 21.0, production: 19.6 },
+        rework: { base: 6.78, pilot: 3.06, production: 8.53 },
+        interactions: 215,
+        interactionValues: [0, 0, 215, 0]
+      },
+      'massificado': {
+        title: 'MASSIFICADO',
+        leadTime: { base: 190.1, pilot: 164.2, production: 113.7 },
+        productivity: { base: 13.5, pilot: 14.1, production: 13.2 },
+        rework: { base: 7.41, pilot: 3.35, production: 9.32 },
+        interactions: 243,
+        interactionValues: [0, 0, 243, 0]
       }
-    }
-    
-    // Função para alternar a visibilidade da seção de impacto do SALA CORE
-    function toggleSalaCoreImpactSection() {
-      const content = document.getElementById('sala-core-impact-content');
-      const toggle = document.getElementById('sala-core-impact-toggle');
-      
-      if (content.classList.contains('collapsed')) {
-        // Expandir
-        content.classList.remove('collapsed');
-        toggle.classList.remove('collapsed');
-      } else {
-        // Colapsar
-        content.classList.add('collapsed');
-        toggle.classList.add('collapsed');
-      }
-    }
-    
-    // Função para alternar a visibilidade da seção de impacto do MASSIFICADO
-    function toggleMassificadoImpactSection() {
-      const content = document.getElementById('massificado-impact-content');
-      const toggle = document.getElementById('massificado-impact-toggle');
-      
-      if (content.classList.contains('collapsed')) {
-        // Expandir
-        content.classList.remove('collapsed');
-        toggle.classList.remove('collapsed');
-      } else {
-        // Colapsar
-        content.classList.add('collapsed');
-        toggle.classList.add('collapsed');
-      }
-    }
-    
-  // Função para alternar o acordeão SAFER e a seção de impacto juntos
-function toggleSaferAccordion() {
-  const saferContent = document.getElementById('safer-content');
-  const saferToggle = document.getElementById('safer-toggle');
-  const impactSection = document.getElementById('impact-section');
-  const useCaseSection = document.getElementById('safer-use-case-section');
-  
-  // Alterna o conteúdo do SAFER
-  saferContent.classList.toggle('active');
-  saferToggle.classList.toggle('active');
-  
-  // Se o SAFER estiver sendo fechado, esconde também a seção de impacto e o Impacto por Caso de Uso
-  if (!saferContent.classList.contains('active')) {
-    impactSection.style.display = 'none';
-    useCaseSection.style.display = 'none';
-  } else {
-    impactSection.style.display = 'block';
-    useCaseSection.style.display = 'block';
-  }
-}
+    };
 
-// Função para alternar o acordeão SALA CORE e a seção de impacto juntos
-function toggleSalaCoreAccordion() {
-  const salaCoreContent = document.getElementById('sala-core-content');
-  const salaCoreToggle = document.getElementById('sala-core-toggle');
-  const impactSection = document.getElementById('sala-core-impact-section');
-  const useCaseSection = document.getElementById('sala-core-use-case-section');
-  
-  // Alterna o conteúdo do SALA CORE
-  salaCoreContent.classList.toggle('active');
-  salaCoreToggle.classList.toggle('active');
-  
-  // Se o SALA CORE estiver sendo fechado, esconde também a seção de impacto e o Impacto por Caso de Uso
-  if (!salaCoreContent.classList.contains('active')) {
-    if (impactSection) impactSection.style.display = 'none';
-    if (useCaseSection) useCaseSection.style.display = 'none';
-  } else {
-      if (impactSection) impactSection.style.display = 'block';
-    if (useCaseSection) useCaseSection.style.display = 'block';
-  }
-}
+    // Função para calcular os valores percentuais para cada projeto
+    function calculateProjectResults() {
+      for (const project in projectData) {
+        const data = projectData[project];
+        
+        // Calcular redução percentual do Lead Time
+        const leadTimeReduction = ((data.leadTime.base - data.leadTime.production) / data.leadTime.base) * 100;
+        data.leadTimeReduction = leadTimeReduction.toFixed(1) + '%';
+        data.leadTimeDesc = `De ${data.leadTime.base} para ${data.leadTime.production} dias em média`;
+        
+        // Calcular redução percentual da Produtividade
+        const productivityReduction = ((data.productivity.base - data.productivity.production) / data.productivity.base) * 100;
+        data.productivityReduction = productivityReduction.toFixed(1) + '%';
+        data.productivityDesc = `De ${data.productivity.base} para ${data.productivity.production} horas por ponto de função`;
+        
+   // Calcular aumento percentual do Retrabalho
+        const reworkIncrease = ((data.rework.production - data.rework.base) / data.rework.base) * 100;
+        data.reworkIncrease = reworkIncrease.toFixed(1) + '%';
+        data.reworkDesc = `De ${data.rework.base} para ${data.rework.production}%`;
+      }
+    }
 
-// Função para alternar o acordeão MASSIFICADO e a seção de impacto juntos
-function toggleMassificadoAccordion() {
-  const massificadoContent = document.getElementById('massificado-content');
-  const massificadoToggle = document.getElementById('massificado-toggle');
-  const impactSection = document.getElementById('massificado-impact-section');
-  const useCaseSection = document.getElementById('massificado-use-case-section');
-  
-  // Alterna o conteúdo do MASSIFICADO
-  massificadoContent.classList.toggle('active');
-  massificadoToggle.classList.toggle('active');
-  
-  // Se o MASSIFICADO estiver sendo fechado, esconde também a seção de impacto e o Impacto por Caso de Uso
-  if (!massificadoContent.classList.contains('active')) {
-    if (impactSection) impactSection.style.display = 'none';
-    if (useCaseSection) useCaseSection.style.display = 'none';
-  } else {
-    if (impactSection) impactSection.style.display = 'block';
-    if (useCaseSection) useCaseSection.style.display = 'block';
-  }
-}
-    
-    // Função para alternar os outros acordeões
-    function toggleAccordion(header) {
-      const content = header.nextElementSibling;
-      const toggle = header.querySelector('.accordion-toggle');
-      
-      // Alterna o atual
-      content.classList.toggle('active');
-      toggle.classList.toggle('active');
+    // Atualizar data no rodapé
+    function atualizarDataRodape() {
+      const dataAtual = new Date();
+      const meses = [
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+      ];
+      const mes = meses[dataAtual.getMonth()];
+      const ano = dataAtual.getFullYear();
+      const dataFormatada = `${mes}/${ano}`;
+      document.getElementById('data-atualizacao').textContent = dataFormatada;
     }
     
-    // Interatividade para os cards de impacto
-    document.querySelectorAll('.impact-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-        this.style.boxShadow = 'var(--card-shadow-hover)';
-        this.style.transition = 'all 0.3s ease';
-      });
+    // Função para desenhar o gráfico de tendência dos KPIs
+    function drawKpiTrendChart(project) {
+      console.log(`Desenhando gráfico para o projeto: ${project}`); // Log para debug
       
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = 'var(--card-shadow)';
-      });
-    });
-    
-    // Interatividade para os cards de ação
-    document.querySelectorAll('.action-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-3px)';
-        this.style.boxShadow = 'var(--card-shadow-hover)';
-        this.style.transition = 'all 0.3s ease';
-      });
+      const canvas = document.getElementById('kpiTrendChart');
+      const ctx = canvas.getContext('2d');
       
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = 'var(--card-shadow)';
-      });
-    });
-    
-    // Função para calcular médias e atualizar valores dinâmicos
-    function calcularMedias() {
-      // Valores fixos conforme os dados fornecidos
-      const leadTimeAntes = 107;
-      const leadTimeDepois = 64;
+      // Ajustar o tamanho do canvas para corresponder ao tamanho do contêiner
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
       
-      const prodAntes = 31;
-      const prodDepois = 30.2;
+      // Limpar o canvas completamente
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      const reworkAntes = 0.62;
-      const reworkDepois = 0.78;
+      // Dados do projeto selecionado
+      const data = projectData[project];
+      console.log('Dados do projeto:', data); // Log para debug
       
-       // Calcular variação percentual
-      const variacaoLeadTime = ((leadTimeAntes - leadTimeDepois) / leadTimeAntes) * 100;
-      const variacaoProd = ((prodAntes - prodDepois) / prodAntes) * 100;
-      const variacaoRework = ((reworkDepois - reworkAntes) / reworkAntes) * 100;
+      // Normalizar os dados para o gráfico (para que caibam no canvas)
+      const leadTimeData = [
+        1, // Base (100%)
+        data.leadTime.pilot / data.leadTime.base, // Piloto (relativo à base)
+        data.leadTime.production / data.leadTime.base // Produção (relativo à base)
+      ];
       
-      // Atualizar valor no card de impacto (primeiro card - lead time)
-      const impactoLeadTimeCard = document.querySelectorAll('.impact-card')[0];
-      if (impactoLeadTimeCard) {
-        const impactoLeadTimeValue = impactoLeadTimeCard.querySelector('.impact-value');
-        if (impactoLeadTimeValue) {
-          impactoLeadTimeValue.textContent = '40.2%';
-        }
+      const productivityData = [
+        1, // Base (100%)
+        data.productivity.pilot / data.productivity.base, // Piloto (relativo à base)
+        data.productivity.production / data.productivity.base // Produção (relativo à base)
+      ];
+      
+      const reworkData = [
+        1, // Base (100%)
+        data.rework.pilot / data.rework.base, // Piloto (relativo à base)
+        data.rework.production / data.rework.base // Produção (relativo à base)
+      ];
+      
+      console.log('Lead Time Data:', leadTimeData);
+      console.log('Productivity Data:', productivityData);
+      console.log('Rework Data:', reworkData);
+      
+      // Configurações do gráfico
+      const width = canvas.width;
+      const height = canvas.height;
+      const padding = 20;
+      const chartWidth = width - 2 * padding;
+      const chartHeight = height - 2 * padding;
+      
+      // Pontos X para os trimestres
+      const xPoints = [
+        padding,
+        padding + chartWidth / 2,
+        padding + chartWidth
+      ];
+      
+      // Função para converter valor para coordenada Y
+      function valueToY(value) {
+        // Inverter a escala Y (1 = topo, valores maiores = mais baixo)
+        // Limitar valores entre 0.5 e 1.5 para melhor visualização
+        const normalizedValue = Math.max(0.5, Math.min(1.5, value));
+        const yRatio = 1 - ((normalizedValue - 0.5) / 1);
+        return padding + yRatio * chartHeight;
       }
       
-      // Atualizar valor no card de impacto (segundo card - produtividade)
-      const impactoProdCard = document.querySelectorAll('.impact-card')[1];
-      if (impactoProdCard) {
-        const impactoProdValue = impactoProdCard.querySelector('.impact-value');
-        if (impactoProdValue) {
-          impactoProdValue.textContent = '2.6%';
-        }
+      // Desenhar eixos
+      ctx.strokeStyle = 'rgba(163, 168, 195, 0.3)';
+      ctx.lineWidth = 1;
+      
+      // Eixo X
+      ctx.beginPath();
+      ctx.moveTo(padding, height - padding);
+      ctx.lineTo(width - padding, height - padding);
+      ctx.stroke();
+      
+      // Eixo Y
+      ctx.beginPath();
+      ctx.moveTo(padding, padding);
+      ctx.lineTo(padding, height - padding);
+      ctx.stroke();
+      
+      // Linhas de grade horizontais
+      const gridLines = 3;
+      for (let i = 0; i <= gridLines; i++) {
+        const y = padding + (i / gridLines) * chartHeight;
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - padding, y);
+        ctx.stroke();
       }
       
-    // Atualizar valor no card de impacto (terceiro card - retrabalho)
-      const impactoReworkCard = document.querySelectorAll('.impact-card')[2];
-      if (impactoReworkCard) {
-        const impactoReworkValue = impactoReworkCard.querySelector('.impact-value');
-        if (impactoReworkValue) {
-          impactoReworkValue.textContent = '25.8%';
-        }
+      // Rótulos dos trimestres
+      ctx.fillStyle = 'rgba(163, 168, 195, 0.7)';
+      ctx.font = '10px Segoe UI';
+      ctx.textAlign = 'center';
+      
+      ctx.fillText('Q1', xPoints[0], height - padding + 15);
+      ctx.fillText('Q2', xPoints[1], height - padding + 15);
+      ctx.fillText('Q3', xPoints[2], height - padding + 15);
+      
+      // Desenhar linhas para cada métrica
+      // Lead Time (azul)
+      ctx.strokeStyle = '#00e5ff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(xPoints[0], valueToY(leadTimeData[0]));
+      ctx.lineTo(xPoints[1], valueToY(leadTimeData[1]));
+      ctx.lineTo(xPoints[2], valueToY(leadTimeData[2]));
+      ctx.stroke();
+      
+      // Produtividade (roxo)
+      ctx.strokeStyle = '#7B68EE';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(xPoints[0], valueToY(productivityData[0]));
+      ctx.lineTo(xPoints[1], valueToY(productivityData[1]));
+      ctx.lineTo(xPoints[2], valueToY(productivityData[2]));
+      ctx.stroke();
+      
+      // Retrabalho (vermelho)
+      ctx.strokeStyle = '#cc0000';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(xPoints[0], valueToY(reworkData[0]));
+      ctx.lineTo(xPoints[1], valueToY(reworkData[1]));
+      ctx.lineTo(xPoints[2], valueToY(reworkData[2]));
+      ctx.stroke();
+      
+      // Adicionar pontos nos dados
+      function drawPoint(x, y, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#151823'; // Cor de fundo
+        ctx.lineWidth = 1;
+        ctx.stroke();
       }
+      
+      // Pontos para Lead Time
+      for (let i = 0; i < 3; i++) {
+        drawPoint(xPoints[i], valueToY(leadTimeData[i]), '#00e5ff');
+      }
+      
+      // Pontos para Produtividade
+      for (let i = 0; i < 3; i++) {
+        drawPoint(xPoints[i], valueToY(productivityData[i]), '#7B68EE');
+      }
+      
+      // Pontos para Retrabalho
+      for (let i = 0; i < 3; i++) {
+        drawPoint(xPoints[i], valueToY(reworkData[i]), '#cc0000');
+      }
+      
+      // Legenda
+      const legendY = padding + 15;
+      const legendSpacing = 70;
+      
+      // Lead Time
+      ctx.fillStyle = '#00e5ff';
+      ctx.fillRect(padding, legendY - 6, 10, 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.font = '10px Segoe UI';
+      ctx.textAlign = 'left';
+      ctx.fillText('Lead Time', padding + 15, legendY);
+      
+      // Produtividade
+      ctx.fillStyle = '#7B68EE';
+      ctx.fillRect(padding + legendSpacing, legendY - 6, 10, 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.fillText('Produtividade', padding + legendSpacing + 15, legendY);
+      
+      // Retrabalho
+      ctx.fillStyle = '#cc0000';
+      ctx.fillRect(padding + 2 * legendSpacing, legendY - 6, 10, 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.fillText('Retrabalho', padding + 2 * legendSpacing + 15, legendY);
     }
     
-    // Executar cálculo quando o DOM estiver carregado
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(calcularMedias, 500); // Pequeno delay para garantir que os elementos estejam renderizados
+    // Função para alternar entre projetos
+    function switchProject(project, event) {
+      // Atualizar tabs ativas
+      document.querySelectorAll('.project-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
       
-      // Inicializar interações do PromptX
+      // Ativar a tab selecionada
+      event.currentTarget.classList.add('active');
+      
+      // Atualizar título da seção de KPIs
+      document.querySelector('.bank-kpis .section-title').innerHTML = 
+        `<i class="fas fa-chart-line"></i> KPIs do Banco - ${projectData[project].title}`;
+      
+      // Atualizar tabela de KPIs - usando innerHTML para os elementos com ícones
+      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(2)').textContent = 
+        projectData[project].leadTime.base;
+      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(3)').innerHTML = 
+        `${projectData[project].leadTime.pilot} <i class="fas fa-arrow-down trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(4)').innerHTML = 
+        `${projectData[project].leadTime.production} <i class="fas fa-arrow-down trend-icon"></i>`;
+      
+      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(2)').textContent = 
+        projectData[project].productivity.base;
+      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(3)').innerHTML = 
+        `${projectData[project].productivity.pilot} <i class="fas fa-arrow-up trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(4)').innerHTML = 
+        `${projectData[project].productivity.production} <i class="fas fa-arrow-down trend-icon"></i>`;
+      
+      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(2)').textContent = 
+        projectData[project].rework.base;
+      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(3)').innerHTML = 
+        `${projectData[project].rework.pilot} <i class="fas fa-arrow-down trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(4)').innerHTML = 
+        `${projectData[project].rework.production} <i class="fas fa-arrow-up trend-icon"></i>`;
+      
+      // Atualizar badge de interações
+      document.querySelector('.promptx-badge').textContent = 
+        `${projectData[project].interactions} interações no Q3`;
+      
+      // Atualizar resultados consolidados - valores e descrições
+      document.querySelector('.results-grid .result-card:nth-child(1) .result-value').textContent = 
+        projectData[project].leadTimeReduction;
+      document.querySelector('.results-grid .result-card:nth-child(1) .result-desc').textContent = 
+        projectData[project].leadTimeDesc;
+      
+      document.querySelector('.results-grid .result-card:nth-child(2) .result-value').textContent = 
+        projectData[project].productivityReduction;
+      document.querySelector('.results-grid .result-card:nth-child(2) .result-desc').textContent = 
+        projectData[project].productivityDesc;
+      
+      document.querySelector('.results-grid .result-card:nth-child(3) .result-value').textContent = 
+        projectData[project].reworkIncrease;
+      document.querySelector('.results-grid .result-card:nth-child(3) .result-desc').textContent = 
+        projectData[project].reworkDesc;
+      
+      // Limpar o canvas existente e redesenhar o gráfico com os novos dados
+      const canvas = document.getElementById('kpiTrendChart');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Forçar um pequeno atraso para garantir que o canvas esteja limpo antes de redesenhar
       setTimeout(() => {
-        initPromptXInteractions();
-      }, 800);
+        drawKpiTrendChart(project);
+      }, 50);
       
-      // Esconder inicialmente as seções de caso de uso para SALA CORE e MASSIFICADO
-      const salaCoreUseCaseSection = document.getElementById('sala-core-use-case-section');
-      const massificadoUseCaseSection = document.getElementById('massificado-use-case-section');
-      
-      if (salaCoreUseCaseSection) salaCoreUseCaseSection.style.display = 'none';
-      if (massificadoUseCaseSection) massificadoUseCaseSection.style.display = 'none';
-      
-      // Garantir que a seção de próximas iniciativas esteja sempre visível
-      const nextInitiativesSection = document.getElementById('next-initiatives-section');
-      if (nextInitiativesSection) {
-        nextInitiativesSection.style.display = 'block';
-      }
-    });
-    
-      // Adicionar tooltips personalizados para os cards de impacto
-    const impactCards = document.querySelectorAll('.impact-card');
-    
-    // Tooltip para Lead Time
-    if (impactCards[0]) {
-      impactCards[0].setAttribute('title', 'A redução no lead time representa o ganho mais expressivo da implementação da GenAI, com impacto direto na velocidade de entrega.');
+      // Animar barras de interação
+      animateInteractionBars(project);
     }
     
-    // Tooltip para Produtividade
-    if (impactCards[1]) {
-      impactCards[1].setAttribute('title', 'A produtividade mostra uma leve melhoria, com grande variação entre squads. Algumas equipes tiveram ganhos expressivos enquanto outras enfrentaram desafios de adaptação.');
-    }
-    
-    // Tooltip para Retrabalho
-    if (impactCards[2]) {
-      impactCards[2].setAttribute('title', 'O aumento no retrabalho é um ponto de atenção, especialmente nas squads Tank e Babilonia. Recomenda-se revisão dos processos de validação de código gerado por IA.');
-    }
-    
-    // Adicionar efeito de destaque para o indicador de retrabalho
-    function destacarRetrabalho() {
-      const reworkMetrics = document.querySelectorAll('.metric.worsened');
-      reworkMetrics.forEach(reworkMetric => {
-        if (reworkMetric) {
-          // Adicionar um efeito de brilho temporário
-          const highlight = document.createElement('div');
-          highlight.style.position = 'absolute';
-          highlight.style.top = '0';
-          highlight.style.left = '0';
-          highlight.style.width = '100%';
-          highlight.style.height = '100%';
-          highlight.style.backgroundColor = 'rgba(204, 0, 0, 0.2)'; // Vermelho Bradesco transparente
-          highlight.style.borderRadius = '8px';
-          highlight.style.animation = 'fadeOut 2s forwards';
+    // Função para animar as barras de interação
+    function animateInteractionBars(project) {
+      const maxHeight = 70; // Altura máxima em pixels
+      const maxValue = Math.max(...projectData.safer.interactionValues); // Valor máximo para escala
+      
+      const values = projectData[project].interactionValues;
+      const bars = document.querySelectorAll('.bar');
+      
+      // Reset heights
+      bars.forEach(bar => {
+        bar.style.height = '0px';
+      });
+      
+      // Animate with delay
+      setTimeout(() => {
+        bars[0].style.height = (values[0] / maxValue * maxHeight) + 'px';
+        bars[0].style.transition = 'height 0.5s ease';
+        
+        setTimeout(() => {
+          bars[1].style.height = (values[1] / maxValue * maxHeight) + 'px';
+          bars[1].style.transition = 'height 0.5s ease';
           
-          // Adicionar estilo para animação
-          const style = document.createElement('style');
-          style.textContent = `
-            @keyframes fadeOut {
-              0% { opacity: 0.8; }
-              100% { opacity: 0; }
-            }
-          `;
-          document.head.appendChild(style);
-          
-          reworkMetric.style.position = 'relative';
-          reworkMetric.appendChild(highlight);
-          
-          // Remover o elemento após a animação
           setTimeout(() => {
-            if (highlight.parentNode === reworkMetric) {
-              reworkMetric.removeChild(highlight);
-            }
-          }, 2000);
-        }
-      });
-    }
-    
-    // Executar o destaque do retrabalho após carregar a página
-    setTimeout(destacarRetrabalho, 1500);
-    
-    // Animar a linha do tempo
-    function animateTimeline() {
-      const timeline = document.querySelector('.timeline');
-      if (timeline) {
-        timeline.style.opacity = '0';
-        timeline.style.transform = 'translateY(20px)';
-        timeline.style.transition = 'all 0s';
-        
-        setTimeout(() => {
-          timeline.style.opacity = '1';
-          timeline.style.transform = 'translateY(0)';
-          timeline.style.transition = 'all 0.8s ease-out';
-        }, 300);
-      }
-    }
-    
-    // Animar as barras de progresso de maturidade
-    function animateMaturityBars() {
-      const progressBars = document.querySelectorAll('.maturity-progress');
-      progressBars.forEach(bar => {
-        const targetWidth = bar.style.width;
-        bar.style.width = '0%';
-        
-        setTimeout(() => {
-          bar.style.width = targetWidth;
-          bar.style.transition = 'width 1s ease-out';
-        }, 500);
-      });
-    }
-    
-    // Inicializar interações do PromptX
-    function initPromptXInteractions() {
-      // Adicionar interatividade para os cards do PromptX
-      document.querySelectorAll('.promptx-case-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-3px)';
-          this.style.boxShadow = 'var(--card-shadow-hover)';
-          this.style.transition = 'all 0.3s ease';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0)';
-          this.style.boxShadow = 'var(--card-shadow)';
-        });
-      });
+            bars[2].style.height = (values[2] / maxValue * maxHeight) + 'px';
+            bars[2].style.transition = 'height 0.5s ease';
+            
+            setTimeout(() => {
+              bars[3].style.height = (values[3] / maxValue * maxHeight) + 'px';
+              bars[3].style.transition = 'height 0.5s ease';
+            }, 100);
+          }, 100);
+        }, 100);
+      }, 100);
       
-      // Botão de detalhes do PromptX
-      const promptxDetailsBtn = document.getElementById('promptx-details-btn');
-      if (promptxDetailsBtn) {
-        promptxDetailsBtn.addEventListener('click', function() {
-          alert('Relatório detalhado de evolução trimestral do PromptX será disponibilizado em breve.');
-        });
+      // Atualizar os rótulos das barras
+      document.querySelectorAll('.bar-label').forEach((label, index) => {
+        label.innerHTML = `Q${index+1}<br>${values[index] || '-'}`;
+      });
+    }
+    
+   // Função para destacar o indicador de retrabalho
+    function highlightReworkIndicator() {
+      const reworkCell = document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(4)');
+      
+      if (reworkCell) {
+        reworkCell.style.position = 'relative';
+        
+        const highlight = document.createElement('div');
+        highlight.style.position = 'absolute';
+        highlight.style.top = '0';
+        highlight.style.left = '0';
+        highlight.style.width = '100%';
+        highlight.style.height = '100%';
+        highlight.style.backgroundColor = 'rgba(204, 0, 0, 0.2)';
+        highlight.style.borderRadius = '4px';
+        highlight.style.animation = 'fadeOut 2s forwards';
+        
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes fadeOut {
+            0% { opacity: 0.8; }
+            100% { opacity: 0; }
+          }
+        `;
+        document.head.appendChild(style);
+        
+        reworkCell.appendChild(highlight);
+        
+        setTimeout(() => {
+          if (highlight.parentNode === reworkCell) {
+            reworkCell.removeChild(highlight);
+          }
+        }, 2000);
       }
     }
     
-    // Executar animações quando a página carregar
+    // Função para ajustar o tamanho do canvas quando a janela for redimensionada
+    function resizeCanvas() {
+      const currentProject = document.querySelector('.project-tab.active').textContent.toLowerCase().replace(/\s+/g, '-');
+      drawKpiTrendChart(currentProject);
+    }
+    
+    // Animar elementos quando a página carregar
     document.addEventListener('DOMContentLoaded', function() {
-      animateTimeline();
-      animateMaturityBars();
+      // Calcular resultados para todos os projetos
+      calculateProjectResults();
       
-      // Destacar a fase atual na linha do tempo
-      const productionPhase = document.querySelector('.timeline-phase.production');
-      if (productionPhase) {
-        setTimeout(() => {
-          productionPhase.style.transform = 'scale(1.05)';
-          productionPhase.style.transition = 'transform 0.5s ease';
-        }, 1200);
-      }
+      // Atualizar data no rodapé
+      atualizarDataRodape();
       
-      // Função para atualizar os valores do SALA CORE
-      function atualizarValoresSalaCore() {
-        // Valores da linha de base
-        document.querySelector('#sala-core-content .summary-card.pre-genai .metric:nth-child(1) .metric-value').textContent = '168.9';
-        document.querySelector('#sala-core-content .summary-card.pre-genai .metric:nth-child(2) .metric-value').textContent = '20.1';
-        document.querySelector('#sala-core-content .summary-card.pre-genai .metric:nth-child(3) .metric-value').textContent = '6.78%';
-        
-        // Valores da fase piloto
-        document.querySelector('#sala-core-content .summary-card.pilot .metric:nth-child(1) .metric-value').textContent = '146.0';
-        document.querySelector('#sala-core-content .summary-card.pilot .metric:nth-child(2) .metric-value').textContent = '21.0';
-        document.querySelector('#sala-core-content .summary-card.pilot .metric:nth-child(3) .metric-value').textContent = '3.06%';
-        
-        // Valores da fase de produção
-        document.querySelector('#sala-core-content .summary-card.production .metric:nth-child(1) .metric-value').textContent = '101.0';
-        document.querySelector('#sala-core-content .summary-card.production .metric:nth-child(2) .metric-value').textContent = '19.6';
-        document.querySelector('#sala-core-content .summary-card.production .metric:nth-child(3) .metric-value').textContent = '8.53%';
-        
-        // Resultados consolidados
-        document.querySelector('#sala-core-impact-content .impact-card:nth-child(1) .impact-desc').textContent = 'De 168.9 para 101.0 dias em média.';
-        document.querySelector('#sala-core-impact-content .impact-card:nth-child(2) .impact-desc').textContent = 'De 20.1 para 19.6 horas por ponto de função.';
-        document.querySelector('#sala-core-impact-content .impact-card:nth-child(3) .impact-desc').textContent = 'De 6.78% para 8.53%.';
-      }
-
-      // Função para atualizar os valores do MASSIFICADO
-      function atualizarValoresMassificado() {
-        // Valores da linha de base
-        document.querySelector('#massificado-content .summary-card.pre-genai .metric:nth-child(1) .metric-value').textContent = '190.1';
-        document.querySelector('#massificado-content .summary-card.pre-genai .metric:nth-child(2) .metric-value').textContent = '13.5';
-        document.querySelector('#massificado-content .summary-card.pre-genai .metric:nth-child(3) .metric-value').textContent = '7.41%';
-        
-        // Valores da fase piloto
-        document.querySelector('#massificado-content .summary-card.pilot .metric:nth-child(1) .metric-value').textContent = '164.2';
-        document.querySelector('#massificado-content .summary-card.pilot .metric:nth-child(2) .metric-value').textContent = '14.1';
-        document.querySelector('#massificado-content .summary-card.pilot .metric:nth-child(3) .metric-value').textContent = '3.35%';
-        
-        // Valores da fase de produção
-        document.querySelector('#massificado-content .summary-card.production .metric:nth-child(1) .metric-value').textContent = '113.7';
-         document.querySelector('#massificado-content .summary-card.production .metric:nth-child(2) .metric-value').textContent = '13.2';
-        document.querySelector('#massificado-content .summary-card.production .metric:nth-child(3) .metric-value').textContent = '9.32%';
-        
-        // Resultados consolidados
-        document.querySelector('#massificado-impact-content .impact-card:nth-child(1) .impact-desc').textContent = 'De 190.1 para 113.7 dias em média.';
-        document.querySelector('#massificado-impact-content .impact-card:nth-child(2) .impact-desc').textContent = 'De 13.5 para 13.2 horas por ponto de função.';
-        document.querySelector('#massificado-impact-content .impact-card:nth-child(3) .impact-desc').textContent = 'De 7.41% para 9.32%.';
-      }
-      
-      // Executar as funções de atualização
+      // Desenhar o gráfico inicial para o projeto SAFER
       setTimeout(() => {
-        atualizarValoresSalaCore();
-        atualizarValoresMassificado();
-      }, 500);
+        drawKpiTrendChart('safer');
+      }, 100);
+      
+      // Animar barras de interação para o projeto inicial (SAFER)
+      animateInteractionBars('safer');
+      
+      // Adicionar efeito de destaque para o indicador de retrabalho
+      highlightReworkIndicator();
+      
+      // Adicionar listener para redimensionamento da janela
+      window.addEventListener('resize', resizeCanvas);
     });
   </script>
 </body>
