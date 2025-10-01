@@ -15,7 +15,7 @@
       --bg-card-hover: #272936;
       
       /* Cores de Destaque */
-      --red-bradesco: #cc0000;
+      --red-bradesco: #ff6666;
       --blue-bradesco: #0033A0;
       --purple-highlight: #7B68EE;
       --cyan-highlight: #00e5ff;
@@ -27,7 +27,7 @@
       /* Cores de Status */
       --success: #10b981;
       --warning: #f59e0b;
-      --danger: #cc0000;
+      --danger: #ff6666;
       
       /* Cores de Fases */
       --pilot-color: #00e5ff;
@@ -626,15 +626,15 @@
         <div class="timeline-label">Piloto GenAI<br>Abr-Jun/2025</div>
       </div>
       <div class="timeline-connector"></div>
-      <div class="timeline-phase production active">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">Produção GenAI<br>Jul-Set/2025</div>
-      </div>
+   <div class="timeline-phase production">
+  <div class="timeline-dot"></div>
+  <div class="timeline-label">Produção GenAI<br>Jul-Set/2025</div>
+</div>
       <div class="timeline-connector"></div>
-      <div class="timeline-phase future">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">Expansão GenAI<br>Out-Dez/2025</div>
-      </div>
+   <div class="timeline-phase future active">
+  <div class="timeline-dot"></div>
+  <div class="timeline-label">Expansão GenAI<br>Out-Dez/2025</div>
+</div>
     </div>
     
     <!-- Resultados consolidados -->
@@ -764,44 +764,7 @@
       </div>
     </div>
     
-    <!-- Próximas iniciativas -->
-    <div class="initiatives fade-in">
-      <div class="section-title">
-        <i class="fas fa-lightbulb"></i> Próximas Iniciativas GenAI (Out-Dez/25)
-      </div>
-      
-      <div class="initiatives-grid">
-        <div class="initiative-card">
-          <div class="initiative-icon">
-            <i class="fas fa-vial"></i>
-          </div>
-          <div class="initiative-title">Testes Unitários com Agentes</div>
-          <div class="initiative-desc">Automatizar geração e manutenção de testes unitários com IA, reduzindo em até 25% o retrabalho através da detecção preventiva de problemas.</div>
-        </div>
-        
-        <div class="initiative-card">
-          <div class="initiative-icon">
-            <i class="fas fa-robot"></i>
-          </div>
-          <div class="initiative-title">Testes Automatizados com Agentes</div>
-          <div class="initiative-desc">Implementar testes E2E e regressão assistidos por agentes de IA para acelerar QA e identificar problemas antes da entrega ao cliente.</div>
-        </div>
-        
-        <div class="initiative-card">
-          <div class="initiative-icon">
-            <i class="fas fa-code-branch"></i>
-          </div>
-          <div class="initiative-title">Code Review com Agentes</div>
-          <div class="initiative-desc">Utilizar agentes de IA para revisão estática de código e sugestões de refatoração, reduzindo em até 20% o retrabalho pós-entrega.</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Rodapé -->
-    <div class="footer">
-      <p>Dashboard de Maturidade GenAI - Bradesco | Atualizado em: <span id="data-atualizacao">Setembro/2023</span></p>
-    </div>
-  </div>
+  
   
   <script>
     // Dados dos projetos
@@ -1198,7 +1161,7 @@
     }
     
     // Animar elementos quando a página carregar
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
       // Calcular resultados para todos os projetos
       calculateProjectResults();
       
