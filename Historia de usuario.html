@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Pesquisa_Criação de Histórias de Usuário</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard PromptX - Histórias de Usuário</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Cores de Fundo */
+            --bg-primary: #0c0e14;
+            --bg-secondary: #151823;
+            --bg-card: #1e2130;
+            --bg-card-hover: #272936;
+            
+            /* Cores de Destaque */
+            --red-bradesco: #cc0000;
+            --blue-bradesco: #0033A0;
+            --purple-highlight: #7B68EE;
+            --cyan-highlight: #00e5ff;
+            
+            /* Cores de Texto */
+            --text-primary: #ffffff;
+            --text-secondary: #a3a8c3;
+            
+            /* Outras variáveis */
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 15px;
+            line-height: 1.5;
+            font-size: 13px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%),
+                radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+        }
+        
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            grid-column: span 12;
+            text-align: center;
+            padding: 20px 15px;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .kpi-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 18px 15px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-7px);
+            box-shadow: var(--card-shadow-hover);
+            background-color: var(--bg-card-hover);
+        }
+        
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight));
+        }
+        
+        .kpi-value {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin: 10px 0;
+            background: linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .kpi-title {
+            font-size: 0.95em;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .chart-container {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+            background-color: var(--bg-card-hover);
+        }
+        
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--red-bradesco));
+        }
+        
+        .testimonial {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+            background-color: var(--bg-card-hover);
+        }
+        
+        .testimonial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, var(--purple-highlight), var(--cyan-highlight));
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            flex-grow: 1;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.9em;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 2em;
+            color: rgba(123, 104, 238, 0.2);
+            line-height: 1;
+        }
+        
+        .testimonial-author {
+            text-align: right;
+            font-weight: 600;
+            color: var(--cyan-highlight);
+            font-size: 0.85em;
+        }
+        
+        .highlight {
+            color: var(--cyan-highlight);
+            font-weight: 500;
+        }
+        
+        .time-saved {
+            grid-column: span 4;
+        }
+        
+        .satisfaction {
+            grid-column: span 4;
+        }
+        
+        .recommendation {
+            grid-column: span 4;
+        }
+        
+        .time-comparison {
+            grid-column: span 6;
+            height: 280px;
+        }
+        
+        .benefits {
+            grid-column: span 6;
+        }
+        
+        .testimonials {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 15px;
+        }
+        
+        .footer {
+            grid-column: span 12;
+            text-align: center;
+            margin-top: 15px;
+            padding: 15px;
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
+        }
+        
+        h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .benefits-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .benefits-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            color: var(--text-primary);
+            font-size: 0.9em;
+        }
+        
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .benefits-list li:before {
+            content: "✓";
+            color: var(--cyan-highlight);
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight));
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--purple-highlight), var(--blue-bradesco));
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background-color: var(--bg-secondary);
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+        }
+        
+        .progress-bar.blue {
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--cyan-highlight));
+        }
+        
+        .progress-bar.red {
+            background: linear-gradient(135deg, var(--red-bradesco), #ff6b6b);
+        }
+        
+        .progress-bar.purple {
+            background: linear-gradient(135deg, var(--purple-highlight), #9370DB);
+        }
+        
+        .feature-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+            background-color: var(--bg-card-hover);
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: var(--cyan-highlight);
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        @media (max-width: 1200px) {
+            .testimonials {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .time-comparison, .benefits {
+                grid-column: span 12;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .time-saved, .satisfaction, .recommendation {
+                grid-column: span 12;
+            }
+            
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Botão Voltar -->
+<a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20de%20efetividade.html" class="back-button">
+  <i class="fas fa-arrow-left"></i>
+</a>
+  
+    
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>PromptX: Criação de Histórias de Usuário</h1>
+            <p style="color: var(--text-primary); font-size: 0.9em;">Resultados baseados em feedback de analistas que utilizaram a ferramenta</p>
+        </div>
+
+        <div class="kpi-card time-saved">
+            <div class="kpi-title">Redução Média no Tempo</div>
+            <div class="kpi-value">25%</div>
+            <div style="color: var(--text-primary); font-size: 0.85em;">Economia significativa de tempo</div>
+        </div>
+
+        <div class="kpi-card satisfaction">
+            <div class="kpi-title">Facilidade de Uso</div>
+            <div class="kpi-value">100%</div>
+            <div style="color: var(--text-primary); font-size: 0.85em;">Usuários consideram a ferramenta fácil de usar</div>
+        </div>
+
+        <div class="kpi-card recommendation">
+            <div class="kpi-title">Taxa de Recomendação</div>
+            <div class="kpi-value">100%</div>
+            <div style="color: var(--text-primary); font-size: 0.85em;">Todos recomendam o PromptX</div>
+        </div>
+
+        <div class="chart-container time-comparison">
+            <h3>Tempo Médio de Criação (em horas)</h3>
+            <canvas id="timeComparisonChart"></canvas>
+        </div>
+
+        <div class="chart-container benefits">
+            <h3>Principais Benefícios do PromptX</h3>
+            <ul class="benefits-list">
+                <li>Templates personalizados para criação de histórias de usuário</li>
+                <li>Economia significativa de tempo (média de 25% de redução)</li>
+                <li>Estruturação padronizada de narrativas</li>
+                <li>Geração rápida de rascunhos bem formatados</li>
+                    <li>Função de "revisor inteligente" para elevar a qualidade</li>
+            </ul>
+        </div>
+
+ 
+
+
+        <div class="testimonials">
+            <div class="testimonial">
+                <div class="testimonial-text">"O uso do PromptX na escrita de histórias de usuário tem se mostrado uma adição benéfica. Tem contribuído para gerar ideias iniciais, estruturação de narrativas e padronização de linguagem. A principal vantagem é a agilidade com que o PromptX consegue propor rascunhos de histórias bem formatadas, respeitando a estrutura fornecida como parâmetro."</div>
+                <div class="testimonial-author">- Rumena Bittencourt</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">"A possibilidade de utilizar um modelo de template customizado para a criação da história é um grande diferencial. Mesmo em histórias complexas, o PromptX ajuda a estruturar o conteúdo de forma mais eficiente, economizando tempo valioso no processo."</div>
+                <div class="testimonial-author">- Fabio Domingues</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">"A ferramenta tem se mostrado grande aliada na escrita de histórias de usuário, oferecendo sugestões rápidas e estruturadas que agilizam o processo e aumentam a consistência na documentação dos requisitos. O uso do PromptX tem ajudado oferecendo sugestões valiosas."</div>
+                <div class="testimonial-author">- Analista de Negócios</div>
+            </div>
+        </div>
+        
+      
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa</p>
+        </div>
+    </div>
+
+    <script>
+        // Tempo médio de criação
+        const timeCtx = document.getElementById('timeComparisonChart').getContext('2d');
+        const timeChart = new Chart(timeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Método Tradicional', 'Com PromptX'],
+                datasets: [{
+                    data: [3.7, 2.7],
+                    backgroundColor: [
+                        'rgba(204, 0, 0, 0.7)',  // Vermelho Bradesco
+                        'rgba(0, 229, 255, 0.7)' // Ciano
+                    ],
+                    borderColor: [
+                        'rgba(204, 0, 0, 1)',
+                        'rgba(0, 229, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Horas',
+                            color: '#ffffff',
+                            font: {
+                                size: 11
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        },
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        },
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        titleFont: {
+                            size: 12
+                        },
+                        bodyFont: {
+                            size: 11
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.raw} horas`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
