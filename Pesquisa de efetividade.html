@@ -391,9 +391,9 @@
             // Mapeamento de opções para URLs de redirecionamento
             const optionToURL = {
                 'cenarios-testes': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20Cenarios%20de%20Teste.html',
-                'historia-usuario': '#', // Substitua por URLs reais quando disponíveis
-                'diagrama-sequencia': '#',
-                'ponto-funcao': '#'
+                'historia-usuario': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Ponto%20de%20funcao%20(3).html', // Substitua por URLs reais quando disponíveis
+                'diagrama-sequencia': 'https://marianacintra81.github.io/Bradesco-GEN-AI/diagrama%20de%20sequencia.html',
+                'ponto-funcao': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Ponto%20de%20funcao%20(3).html'
             };
             
             // Adicionar evento de clique aos cards
@@ -430,7 +430,11 @@
                 });
             });
             
-    
+            // Função para voltar
+            document.querySelector('.back-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.history.back();
+            });
         });
     </script>
 </body>
