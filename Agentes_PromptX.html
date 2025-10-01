@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Agentes PromptX</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentes PromptX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Cores de Fundo */
+            --bg-primary: #0c0e14;
+            --bg-secondary: #151823;
+            --bg-card: #1e2130;
+            --bg-card-hover: #272936;
+            
+            /* Cores de Destaque */
+            --red-bradesco: #cc0000;
+            --blue-bradesco: #0033A0;
+            --purple-highlight: #7B68EE;
+            --cyan-highlight: #00e5ff;
+            --green-highlight: #4CAF50;
+            --orange-highlight: #FF9800;
+            
+            /* Cores de Texto */
+            --text-primary: #ffffff;
+            --text-secondary: #a3a8c3;
+            
+            /* Outras variáveis */
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.4;
+            overflow-x: hidden;
+            font-size: 14px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%),
+                radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+        }
+        
+        /* Efeito de partículas no fundo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            padding: 40px 0 20px;
+            position: relative;
+            background-color: var(--bg-secondary);
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        /* Efeito de circuito no header */
+        .circuit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjQwIiB5Mj0iMCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMTAiIHgyPSI0MCIgeTI9IjEwIiBzdHJva2U9IiMwMDMzQTAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGxpbmUgeDE9IjAiIHkxPSIyMCIgeDI9IjQwIiB5Mj0iMjAiIHN0cm9rZT0iIzAwMzNBMCIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48bGluZSB4MT0iMCIgeTE9IjMwIiB4Mj0iNDAiIHkyPSIzMCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSI0MCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjQwIiBzdHJva2U9IiMwMDMzQTAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGxpbmUgeDE9IjIwIiB5MT0iMCIgeDI9IjIwIiB5Mj0iNDAiIHN0cm9rZT0iIzAwMzNBMCIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48bGluZSB4MT0iMzAiIHkxPSIwIiB4Mj0iMzAiIHkyPSI0MCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
+        }
+        
+        .header-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #0033A0, #7B68EE);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #7B68EE, #0033A0);
+        }
+        
+        /* Agents Section */
+        .agents-section {
+            padding: 20px 0 60px;
+        }
+        
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .agent-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--card-shadow);
+            margin-top: 20px; /* Aumentado espaço no topo para a tag AI Agent */
+        }
+        
+        .agent-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Efeito de brilho ao redor do card */
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--cyan-highlight), 
+                transparent, 
+                var(--purple-highlight), 
+                transparent, 
+                var(--red-bradesco));
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background-size: 400%;
+            animation: glowing 20s linear infinite;
+        }
+        
+        .agent-card:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        .agent-header {
+            padding: 25px 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .agent-header.data {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 51, 160, 0.2));
+        }
+        
+        .agent-header.business {
+            background: linear-gradient(135deg, rgba(123, 104, 238, 0.2), rgba(204, 0, 0, 0.2));
+        }
+        
+        /* Efeito de circuito no header do card */
+        .agent-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjQwIiB5Mj0iMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMTAiIHgyPSI0MCIgeTI9IjEwIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .agent-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .agent-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan-highlight), var(--blue-bradesco));
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        /* Efeito de pulso no ícone */
+        @keyframes iconPulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 229, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
+        }
+        
+        .agent-icon.data {
+            color: var(--cyan-highlight);
+            animation: iconPulse 2s infinite;
+        }
+        
+        .agent-icon.business {
+            color: var(--purple-highlight);
+            animation: iconPulse 2s infinite;
+        }
+        
+        .agent-icon.business::after {
+            background: linear-gradient(135deg, var(--purple-highlight), var(--red-bradesco));
+        }
+        
+        .agent-card:hover .agent-icon {
+            transform: rotateY(360deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .agent-card:hover .agent-icon.data {
+            color: var(--cyan-highlight);
+        }
+        
+        .agent-card:hover .agent-icon.business {
+            color: var(--purple-highlight);
+        }
+        
+        .agent-title-area {
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .agent-title {
+            font-size: 1.4rem;
+            margin: 0 0 5px;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Efeito de destaque no título */
+        .agent-title::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--cyan-highlight);
+            transition: width 0.3s ease;
+        }
+        
+        .agent-card:hover .agent-title::after {
+            width: 100%;
+        }
+        
+        .agent-card:hover .agent-header.business .agent-title::after {
+            background: var(--purple-highlight);
+        }
+        
+        .agent-category {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .agent-category.data {
+            background: rgba(0, 229, 255, 0.2);
+            color: var(--cyan-highlight);
+        }
+        
+        .agent-category.business {
+            background: rgba(123, 104, 238, 0.2);
+            color: var(--purple-highlight);
+        }
+        
+        .agent-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+            overflow: visible; /* Garante que o conteúdo não seja cortado */
+        }
+        
+        /* Efeito de código binário no fundo */
+        .binary-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.03;
+            font-family: monospace;
+            font-size: 10px;
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+        
+        .binary-text {
+            position: absolute;
+            white-space: nowrap;
+        }
+        
+        .agent-description {
+            margin-bottom: 25px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .agent-features {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .feature-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .feature-icon.data {
+            background: rgba(0, 229, 255, 0.15);
+            color: var(--cyan-highlight);
+        }
+        
+        .feature-icon.business {
+            background: rgba(123, 104, 238, 0.15);
+            color: var(--purple-highlight);
+        }
+        
+        .feature-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .agent-benefits {
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .benefit-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Efeito de brilho nos benefícios */
+        .benefit-tag::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .benefit-tag:hover::after {
+            left: 100%;
+            opacity: 1;
+        }
+        
+        .benefit-tag.data {
+            background: rgba(0, 229, 255, 0.15);
+            color: var(--cyan-highlight);
+        }
+        
+        .benefit-tag.business {
+            background: rgba(123, 104, 238, 0.15);
+            color: var(--purple-highlight);
+        }
+        
+        .agent-card:hover .benefit-tag {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .agent-footer {
+            padding: 20px 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centralizado já que removemos o botão */
+            background-color: rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .agent-users {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .agent-users i {
+            font-size: 1rem;
+        }
+        
+        .agent-users i.data {
+            color: var(--cyan-highlight);
+        }
+        
+        .agent-users i.business {
+            color: var(--purple-highlight);
+        }
+        
+        /* Efeito de destaque AI */
+        .ai-badge {
+            position: absolute;
+            top: -10px; /* Ajustado para ficar mais visível */
+            right: 20px; /* Ajustado para não ficar cortado */
+            background: linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight));
+            color: var(--text-primary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Animações */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-section h1 {
+                font-size: 2rem;
+            }
+            
+            .header-section p {
+                font-size: 1rem;
+            }
+            
+            .agent-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .agent-title-area {
+                text-align: center;
+            }
+            
+            .agent-category {
+                margin-top: 5px;
+            }
+            
+            .agent-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas de fundo -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Header Section -->
+    <section class="header-section">
+        <div class="circuit-overlay"></div>
+        <div class="container header-content">
+            <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            
+            <h1>Agentes PromptX</h1>
+            <p>Inteligência artificial especializada para potencializar seu trabalho</p>
+        </div>
+    </section>
+    
+    <!-- Agents Section -->
+    <section class="agents-section">
+        <div class="container">
+            <div class="agents-grid">
+                <!-- Data Nomenclature Agent -->
+                <div class="agent-card floating">
+                    <div class="ai-badge">
+                    
+                    </div>
+                    <div class="agent-header data">
+                        <div class="agent-icon data">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="agent-title-area">
+                            <h3 class="agent-title">Data Nomenclature Agent</h3>
+                            <span class="agent-category data">Engenharia de Dados</span>
+                        </div>
+                    </div>
+                       <div class="agent-body">
+                        <!-- Fundo de código binário -->
+                        <div class="binary-bg" id="binary-bg-data"></div>
+                        
+                        <p class="agent-description">
+                            Um agente especializado em verificar e sugerir nomenclaturas para modelos de dados, garantindo consistência e conformidade com os padrões do Bradesco.
+                        </p>
+                        
+                        <div class="agent-features">
+                            <div class="feature-item">
+                                <div class="feature-icon data">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Validação automática de nomenclatura de tabelas, colunas e relacionamentos
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon data">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Sugestões inteligentes baseadas em padrões e boas práticas de modelagem
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon data">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Detecção de inconsistências e duplicidades em modelos de dados
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-benefits">
+                            <span class="benefit-tag data">+70% consistência</span>
+                            <span class="benefit-tag data">+55% conformidade</span>
+                            <span class="benefit-tag data">-40% tempo de revisão</span>
+                        </div>
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-users">
+                            <i class="fas fa-users data"></i>
+                            <span>DBAs e Arquitetos de Dados</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Business Analysis Agent -->
+                <div class="agent-card floating">
+                    <div class="ai-badge">
+                      
+                    </div>
+                    <div class="agent-header business">
+                        <div class="agent-icon business">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="agent-title-area">
+                            <h3 class="agent-title">Business Analysis Agent</h3>
+                            <span class="agent-category business">Requisitos</span>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <!-- Fundo de código binário -->
+                        <div class="binary-bg" id="binary-bg-business"></div>
+                        
+                        <p class="agent-description">
+                            Um agente especializado na criação de documentos de requisitos de negócios (BRDs), documentos de requisitos técnicos (TRDs) e histórias de usuário, agilizando o processo de documentação.
+                        </p>
+                        
+                        <div class="agent-features">
+                            <div class="feature-item">
+                                <div class="feature-icon business">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Geração de histórias de usuário com critérios de aceitação claros
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon business">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Elaboração de documentos de requisitos de negócios (BRDs) estruturados
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon business">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Criação de documentos de requisitos técnicos (TRDs) detalhados
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-benefits">
+                            <span class="benefit-tag business">+35% clareza</span>
+                            <span class="benefit-tag business">+40% foco em valor</span>
+                            <span class="benefit-tag business">-45% tempo de documentação</span>
+                        </div>
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-users">
+                            <i class="fas fa-users business"></i>
+                            <span>Product Owners e Analistas de Negócio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Criar partículas no fundo
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Posição aleatória
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                
+                // Tamanho aleatório
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Cor aleatória
+                const colors = ['rgba(0, 229, 255, 0.3)', 'rgba(123, 104, 238, 0.3)', 'rgba(204, 0, 0, 0.3)'];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Duração e atraso aleatórios
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                particle.style.animation = `float ${duration}s ${delay}s infinite linear`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Gerar texto binário para o fundo
+            function generateBinaryBackground(elementId, color) {
+                const container = document.getElementById(elementId);
+                if (!container) return;
+                
+                const rows = 10;
+                const binaryChars = '01';
+                
+                for (let i = 0; i < rows; i++) {
+                    const textElement = document.createElement('div');
+                    textElement.className = 'binary-text';
+                    
+                    let text = '';
+                    for (let j = 0; j < 100; j++) {
+                        text += binaryChars.charAt(Math.floor(Math.random() * binaryChars.length));
+                    }
+                    
+                    textElement.textContent = text;
+                    textElement.style.top = `${i * 10}%`;
+                    textElement.style.left = `${Math.random() * 100}%`;
+                    textElement.style.color = color;
+                    textElement.style.opacity = Math.random() * 0.5 + 0.1;
+                    
+                    container.appendChild(textElement);
+                }
+            }
+            
+            generateBinaryBackground('binary-bg-data', 'rgba(0, 229, 255, 0.2)');
+            generateBinaryBackground('binary-bg-business', 'rgba(123, 104, 238, 0.2)');
+            
+            // Efeito hover nos cards
+            const agentCards = document.querySelectorAll('.agent-card');
+            
+            agentCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.classList.remove('floating');
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.classList.add('floating');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
