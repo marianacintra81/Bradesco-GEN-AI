@@ -493,7 +493,7 @@
     .initiative-card {
       background-color: var(--bg-secondary);
       border-radius: 8px;
-      padding: 15px;
+          padding: 15px;
       transition: all 0.3s ease;
       border-left: 3px solid var(--purple-highlight);
       height: 100%;
@@ -764,7 +764,11 @@
       </div>
     </div>
     
-  
+    <!-- Rodapé -->
+    <div class="footer">
+      <p>© 2025 Bradesco - Dashboard de Maturidade GenAI | Última atualização: <span id="data-atualizacao">Outubro/2025</span></p>
+    </div>
+  </div>
   
   <script>
     // Dados dos projetos
@@ -810,10 +814,10 @@
         data.productivityReduction = productivityReduction.toFixed(1) + '%';
         data.productivityDesc = `De ${data.productivity.base} para ${data.productivity.production} horas por ponto de função`;
         
-   // Calcular aumento percentual do Retrabalho
+        // Calcular aumento percentual do Retrabalho
         const reworkIncrease = ((data.rework.production - data.rework.base) / data.rework.base) * 100;
         data.reworkIncrease = reworkIncrease.toFixed(1) + '%';
-        data.reworkDesc = `De ${data.rework.base} para ${data.rework.production}%`;
+        data.reworkDesc = `De ${data.rework.base}% para ${data.rework.production}%`;
       }
     }
 
@@ -835,7 +839,12 @@
       console.log(`Desenhando gráfico para o projeto: ${project}`); // Log para debug
       
       const canvas = document.getElementById('kpiTrendChart');
-      const ctx = canvas.getContext('2d');
+      if (!canvas || !canvas.getContext) {
+        console.error('Canvas não está disponível');
+        return;
+      }
+      
+       const ctx = canvas.getContext('2d');
       
       // Ajustar o tamanho do canvas para corresponder ao tamanho do contêiner
       canvas.width = canvas.parentElement.clientWidth;
@@ -1154,34 +1163,63 @@
       }
     }
     
-    // Função para ajustar o tamanho do canvas quando a janela for redimensionada
+      // Função para ajustar o tamanho do canvas quando a janela for redimensionada
     function resizeCanvas() {
       const currentProject = document.querySelector('.project-tab.active').textContent.toLowerCase().replace(/\s+/g, '-');
       drawKpiTrendChart(currentProject);
     }
     
-    // Animar elementos quando a página carregar
-document.addEventListener('DOMContentLoaded', function() {
+    // Inicialização quando o DOM estiver carregado
+    document.addEventListener('DOMContentLoaded', function() {
       // Calcular resultados para todos os projetos
       calculateProjectResults();
       
       // Atualizar data no rodapé
       atualizarDataRodape();
       
-      // Desenhar o gráfico inicial para o projeto SAFER
-      setTimeout(() => {
-        drawKpiTrendChart('safer');
-      }, 100);
-      
-      // Animar barras de interação para o projeto inicial (SAFER)
-      animateInteractionBars('safer');
-      
-      // Adicionar efeito de destaque para o indicador de retrabalho
-      highlightReworkIndicator();
+      // Garantir que o canvas seja inicializado corretamente
+      initializeCanvas();
       
       // Adicionar listener para redimensionamento da janela
       window.addEventListener('resize', resizeCanvas);
     });
+    
+    // Função para inicializar o canvas com várias tentativas
+    function initializeCanvas() {
+      // Primeira tentativa imediata
+      tryDrawChart();
+      
+      // Tentativas adicionais com intervalos crescentes
+      setTimeout(tryDrawChart, 100);
+      setTimeout(tryDrawChart, 300);
+      setTimeout(tryDrawChart, 500);
+    }
+    
+    // Função para tentar desenhar o gráfico
+    function tryDrawChart() {
+      const canvas = document.getElementById('kpiTrendChart');
+      if (canvas && canvas.getContext) {
+        console.log('Tentando desenhar o gráfico...');
+        
+        // Verificar se o canvas tem dimensões válidas
+        if (canvas.clientWidth > 0 && canvas.clientHeight > 0) {
+          console.log('Canvas tem dimensões válidas, desenhando gráfico...');
+          
+          // Desenhar o gráfico para o projeto inicial (SAFER)
+          drawKpiTrendChart('safer');
+          
+          // Animar barras de interação para o projeto inicial
+          animateInteractionBars('safer');
+          
+          // Adicionar efeito de destaque para o indicador de retrabalho
+          highlightReworkIndicator();
+        } else {
+          console.log('Canvas não tem dimensões válidas ainda...');
+        }
+      } else {
+        console.log('Canvas ainda não está disponível...');
+      }
+    }
   </script>
 </body>
 </html>
