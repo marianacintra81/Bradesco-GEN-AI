@@ -179,10 +179,11 @@
     }
     
     .chart-title {
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 1.1rem; /* Aumentado de 1rem */
+      font-weight: 700; /* Aumentado de 600 */
       margin-bottom: 1rem;
       text-align: center;
+      color: var(--text-primary); /* Garantindo que seja branco */
     }
     
     .chart-wrapper {
@@ -270,15 +271,6 @@
     .highlight {
       color: var(--text-primary);
       font-weight: 600;
-    }
-    
-    .footer {
-      text-align: center;
-      margin-top: 2rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-secondary);
-      font-size: 0.8rem;
     }
     
     @media (max-width: 1200px) {
@@ -420,8 +412,7 @@
           <canvas id="qualityComparisonChart"></canvas>
         </div>
       </div>
-      
-      <div class="chart-card">
+          <div class="chart-card">
         <div class="chart-title">Ferramentas de IA Preferidas pelos Usuários</div>
         <div class="chart-wrapper">
           <canvas id="aiToolsChart"></canvas>
@@ -434,10 +425,6 @@
         A implementação do PromptX resultou em uma <span class="highlight">redução média de 58% no tempo</span> necessário para criar cenários de teste, com alguns usuários relatando economias de até <span class="highlight">75% do tempo</span>. Isso se traduz em uma <span class="highlight">aceleração significativa do ciclo de desenvolvimento</span>, permitindo entregas mais rápidas e com maior qualidade. A ferramenta demonstrou ser especialmente eficaz em projetos complexos, onde a <span class="highlight">redução do retrabalho chegou a até 42%</span>.
       </div>
     </div>
-    
-    <div class="footer">
-      <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa | Atualizado em <span id="current-date"></span></p>
-    </div>
   </div>
   
   <script>
@@ -447,23 +434,19 @@
     }
     
     document.addEventListener('DOMContentLoaded', function() {
-      // Configurar a data atual
-      const now = new Date();
-      const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-      document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
-      
       // Registrar o plugin datalabels
       Chart.register(ChartDataLabels);
       
-      // Configurações globais do Chart.js
-      Chart.defaults.color = '#a3a8c3';
+      // Configurações globais do Chart.js com melhor visibilidade
+      Chart.defaults.color = '#ffffff'; // Mudando de #a3a8c3 para branco puro
       Chart.defaults.font.family = "'Montserrat', sans-serif";
-      Chart.defaults.font.size = 11;
+      Chart.defaults.font.size = 12; // Aumentando de 11 para 12
+      Chart.defaults.font.weight = '600'; // Adicionando peso da fonte
       
       // Cores padrão para os gráficos
-      const withPromptXColor = 'rgba(34, 197, 94, 0.7)';
+      const withPromptXColor = 'rgba(34, 197, 94, 0.8)'; // Aumentando opacidade
       const withPromptXBorderColor = 'rgba(34, 197, 94, 1)';
-      const withoutPromptXColor = 'rgba(59, 130, 246, 0.7)';
+      const withoutPromptXColor = 'rgba(59, 130, 246, 0.8)'; // Aumentando opacidade
       const withoutPromptXBorderColor = 'rgba(59, 130, 246, 1)';
       
       // Gráfico de Redução de Tempo
@@ -496,30 +479,41 @@
             legend: {
               position: 'top',
               labels: {
-                boxWidth: 12,
-                padding: 10,
+                boxWidth: 15, // Aumentado de 12
+                padding: 12, // Aumentado de 10
                 font: {
-                  size: 10
-                }
+                  size: 13, // Aumentado de 10
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             },
             tooltip: {
               mode: 'index',
               intersect: false,
               bodyFont: {
-                size: 10
+                size: 12, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
               },
               titleFont: {
-                size: 10
-              }
+                size: 13, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
+              },
+              backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fundo mais escuro para contraste
+              titleColor: '#ffffff', // Título em branco
+              bodyColor: '#ffffff', // Corpo em branco
+              borderColor: 'rgba(255, 255, 255, 0.2)', // Borda sutil
+              borderWidth: 1
             },
             datalabels: {
               color: '#ffffff',
               font: { 
                 weight: 'bold',
-                size: 9
+                size: 12 // Aumentado de 9
               },
-              formatter: (value) => value + 'h'
+              formatter: (value) => value + 'h',
+              textStrokeColor: 'rgba(0, 0, 0, 0.5)', // Adiciona contorno
+              textStrokeWidth: 2 // Espessura do contorno
             }
           },
           scales: {
@@ -529,16 +523,20 @@
                 display: true,
                 text: 'Horas',
                 font: {
-                  size: 10
-                }
+                  size: 13, // Aumentado de 10
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               },
               grid: {
-                color: 'rgba(255, 255, 255, 0.05)'
+                color: 'rgba(255, 255, 255, 0.1)' // Aumentando a opacidade de 0.05 para 0.1
               },
               ticks: {
                 font: {
-                  size: 9
-                }
+                  size: 12, // Aumentado de 9
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             },
             x: {
@@ -547,8 +545,10 @@
               },
               ticks: {
                 font: {
-                  size: 9
-                }
+                  size: 12, // Aumentado de 9
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             }
           }
@@ -564,9 +564,9 @@
           datasets: [{
             data: [25, 55, 20],
             backgroundColor: [
-              'rgba(59, 130, 246, 0.7)',
-              'rgba(34, 197, 94, 0.7)',
-              'rgba(34, 197, 94, 0.9)'
+              'rgba(59, 130, 246, 0.8)', // Aumentando opacidade
+              'rgba(34, 197, 94, 0.8)', // Aumentando opacidade
+              'rgba(34, 197, 94, 0.95)' // Aumentando opacidade
             ],
             borderColor: [
               'rgba(59, 130, 246, 1)',
@@ -583,11 +583,13 @@
             legend: {
               position: 'right',
               labels: {
-                boxWidth: 10,
-                padding: 8,
+                boxWidth: 12, // Aumentado de 10
+                padding: 10, // Aumentado de 8
                 font: {
-                  size: 9
-                }
+                  size: 12, // Aumentado de 9
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             },
             tooltip: {
@@ -597,23 +599,30 @@
                 }
               },
               bodyFont: {
-                size: 10
+                size: 12, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
               },
               titleFont: {
-                size: 10
-              }
+                size: 13, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
+              },
+              backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fundo mais escuro para contraste
+              titleColor: '#ffffff', // Título em branco
+              bodyColor: '#ffffff' // Corpo em branco
             },
             datalabels: {
               color: '#ffffff',
               font: { 
                 weight: 'bold',
-                size: 12
+                size: 14 // Aumentado de 12
               },
               formatter: (value) => value + '%',
               // Configurações para mostrar os valores dentro do gráfico
               anchor: 'center',
               align: 'center',
-              offset: 0
+              offset: 0,
+              textStrokeColor: 'rgba(0, 0, 0, 0.5)', // Adiciona contorno
+              textStrokeWidth: 2 // Espessura do contorno
             }
           }
         }
@@ -651,30 +660,39 @@
             legend: {
               position: 'top',
               labels: {
-                boxWidth: 12,
-                padding: 10,
+                boxWidth: 15, // Aumentado de 12
+                padding: 12, // Aumentado de 10
                 font: {
-                  size: 10
-                }
+                  size: 13, // Aumentado de 10
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             },
             tooltip: {
               mode: 'index',
               intersect: false,
               bodyFont: {
-                size: 10
+                size: 12, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
               },
               titleFont: {
-                size: 10
-              }
+                size: 13, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
+              },
+              backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fundo mais escuro para contraste
+              titleColor: '#ffffff', // Título em branco
+              bodyColor: '#ffffff' // Corpo em branco
             },
             datalabels: {
               color: '#ffffff',
               font: { 
                 weight: 'bold',
-                size: 9
+                size: 12 // Aumentado de 9
               },
-              formatter: (value) => value + '%'
+              formatter: (value) => value + '%',
+              textStrokeColor: 'rgba(0, 0, 0, 0.5)', // Adiciona contorno
+              textStrokeWidth: 2 // Espessura do contorno
             }
           },
           scales: {
@@ -685,16 +703,20 @@
                 display: true,
                 text: 'Pontuação (%)',
                 font: {
-                  size: 10
-                }
+                  size: 13, // Aumentado de 10
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               },
               grid: {
-                color: 'rgba(255, 255, 255, 0.05)'
+                color: 'rgba(255, 255, 255, 0.1)' // Aumentando a opacidade de 0.05 para 0.1
               },
               ticks: {
                 font: {
-                  size: 9
-                }
+                  size: 12, // Aumentado de 9
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             },
             x: {
@@ -703,8 +725,10 @@
               },
               ticks: {
                 font: {
-                  size: 9
-                }
+                  size: 12, // Aumentado de 9
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             }
           }
@@ -753,41 +777,52 @@
                 }
               },
               bodyFont: {
-                size: 10
+                size: 12, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
               },
               titleFont: {
-                size: 10
-              }
+                size: 13, // Aumentado de 10
+                weight: 'bold' // Adicionado negrito
+              },
+              backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fundo mais escuro para contraste
+              titleColor: '#ffffff', // Título em branco
+              bodyColor: '#ffffff' // Corpo em branco
             },
             datalabels: {
               color: '#ffffff',
               font: { 
                 weight: 'bold',
-                size: 9
+                size: 12 // Aumentado de 9
               },
               formatter: (value) => value + '%',
               anchor: 'end',
-              align: 'end'
+              align: 'end',
+              textStrokeColor: 'rgba(0, 0, 0, 0.5)', // Adiciona contorno
+              textStrokeWidth: 2 // Espessura do contorno
             }
           },
           scales: {
             x: {
-              beginAtZero: true,
+                beginAtZero: true,
               max: 100,
               title: {
                 display: true,
                 text: 'Preferência (%)',
                 font: {
-                  size: 10
-                }
+                  size: 13, // Aumentado de 10
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               },
               grid: {
-                color: 'rgba(255, 255, 255, 0.05)'
+                color: 'rgba(255, 255, 255, 0.1)' // Aumentando a opacidade de 0.05 para 0.1
               },
               ticks: {
                 font: {
-                  size: 9
-                }
+                  size: 12, // Aumentado de 9
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             },
             y: {
@@ -796,8 +831,10 @@
               },
               ticks: {
                 font: {
-                  size: 9
-                }
+                  size: 12, // Aumentado de 9
+                  weight: 'bold' // Adicionado negrito
+                },
+                color: '#ffffff' // Garantindo que seja branco
               }
             }
           }
