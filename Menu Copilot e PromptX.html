@@ -22,6 +22,7 @@
       --red-gradient: linear-gradient(135deg, var(--bradesco-red), #ff6b6b);
       --blue-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan));
       --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
+      --vibrant-gradient: linear-gradient(135deg, #00e5ff, #7B68EE, #ff6b6b);
     }
     
     * {
@@ -270,6 +271,46 @@
       color: transparent;
     }
     
+    /* Estilo especial para o card destacado */
+    .stat-card.highlight {
+      background: linear-gradient(145deg, var(--bg-secondary), var(--bg-card));
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(123, 104, 238, 0.3);
+    }
+    
+    .stat-card.highlight::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, 
+                  rgba(0, 229, 255, 0.1), 
+                  rgba(0, 51, 160, 0.05), 
+                  rgba(123, 104, 238, 0.1));
+      z-index: 0;
+    }
+    
+    .stat-card.highlight .stat-value {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      background: var(--vibrant-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .stat-card.highlight .stat-label {
+      position: relative;
+      z-index: 1;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+    
     .stat-label {
       font-size: 0.9rem;
       color: var(--text-secondary);
@@ -367,6 +408,26 @@
       }
     }
     
+    /* Animação especial para o contador principal */
+    @keyframes highlight-pulse {
+      0% {
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+        transform: scale(1);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(0, 229, 255, 0.7), 0 0 30px rgba(123, 104, 238, 0.5), 0 0 40px rgba(255, 107, 107, 0.3);
+        transform: scale(1.05);
+      }
+      100% {
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+        transform: scale(1);
+      }
+    }
+    
+    .highlight-animate {
+      animation: highlight-pulse 2s infinite;
+    }
+    
     /* Animações para os cards */
     .cards-grid .card:nth-child(1) { animation-delay: 0.1s; }
     .cards-grid .card:nth-child(2) { animation-delay: 0.2s; }
@@ -381,6 +442,10 @@
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      
+      .stat-card.highlight .stat-value {
+        font-size: 2.6rem;
+      }
     }
     
     @media (max-width: 768px) {
@@ -392,6 +457,10 @@
       .hub-title h2 {
         font-size: 1.7rem;
       }
+      
+      .stat-card.highlight .stat-value {
+        font-size: 2.4rem;
+      }
     }
     
     @media (max-width: 480px) {
@@ -401,6 +470,10 @@
       
       .hub-title h2 {
         font-size: 1.5rem;
+      }
+      
+      .stat-card.highlight .stat-value {
+        font-size: 2.2rem;
       }
     }
   </style>
@@ -424,10 +497,36 @@
         <p>Potencialize sua produtividade com nossas soluções de inteligência artificial</p>
       </div>
       
+      <!-- Estatísticas agora vêm logo após o título -->
+      <div class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card highlight">
+            <div class="stat-value" id="stat4">500</div>
+            <div class="stat-label">Especialistas em GenAI Capacitados</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat1">222</div>
+            <div class="stat-label">Especialistas em PromptX</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat2">272</div>
+            <div class="stat-label">Especialistas em GitHub Copilot</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat3">95%</div>
+            <div class="stat-label">Taxa de adoção das tecnologias</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Cards vêm depois das estatísticas -->
       <div class="cards-container">
         <div class="cards-grid">
           <!-- Card PromptX -->
-         <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Comparativo%20de%20Implantacoes.html" class="card">
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Comparativo%20de%20Implantacoes.html" class="card">
             <div class="card-icon">
               <i class="fas fa-wand-magic-sparkles"></i>
             </div>
@@ -436,37 +535,13 @@
           </a>
           
           <!-- Card GitHub Copilot -->
-             <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Github%20Ado%C3%A7%C3%A3o.html" class="card">
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Github%20Ado%C3%A7%C3%A3o.html" class="card">
             <div class="card-icon">
-         <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
+              <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
             </div>
             <h3 class="card-title">GitHub Copilot</h3>
             <p class="card-description">Seu parceiro de programação com IA que sugere código e funções completas em tempo real. Aumente sua produtividade com sugestões inteligentes baseadas no contexto do seu projeto.</p>
           </a>
-        </div>
-      </div>
-      
-      <div class="stats-section">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-value" id="stat1">58%</div>
-            <div class="stat-label">Aumento de Produtividade</div>
-          </div>
-          
-          <div class="stat-card">
-            <div class="stat-value" id="stat2">92%</div>
-            <div class="stat-label">Taxa de Adoção</div>
-          </div>
-          
-          <div class="stat-card">
-            <div class="stat-value" id="stat3">75%</div>
-            <div class="stat-label">Redução de Tarefas Repetitivas</div>
-          </div>
-          
-          <div class="stat-card">
-            <div class="stat-value" id="stat4">7k+</div>
-            <div class="stat-label">Interações Mensais</div>
-          </div>
         </div>
       </div>
     </div>
@@ -474,16 +549,11 @@
   
   <footer class="footer">
     <div class="container">
-      <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa. </span></p>
+      <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa.</p>
     </div>
   </footer>
   
   <script>
-    // Configurar a data atual
-    const now = new Date();
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
-    
     // Criar partículas
     function createParticles() {
       const particles = document.getElementById('particles');
@@ -526,10 +596,10 @@
     // Animação de contagem para estatísticas
     function animateStats() {
       const stats = [
-        { id: 'stat1', end: 58, prefix: '', suffix: '%' },
-        { id: 'stat2', end: 92, prefix: '', suffix: '%' },
-        { id: 'stat3', end: 75, prefix: '', suffix: '%' },
-        { id: 'stat4', end: 7, prefix: '', suffix: 'k+' }
+        { id: 'stat1', end: 222, prefix: '', suffix: '' },
+        { id: 'stat2', end: 272, prefix: '', suffix: '' },
+        { id: 'stat3', end: 95, prefix: '', suffix: '%' },
+        { id: 'stat4', end: 500, prefix: '', suffix: '' }
       ];
       
       stats.forEach(stat => {
@@ -538,27 +608,38 @@
         
         const end = stat.end;
         const prefix = stat.prefix || '';
-        const suffix = stat.suffix;
+        const suffix = stat.suffix || '';
         let current = 0;
         
-        const increment = end > 100 ? Math.ceil(end / 100) : end / 100;
-        const duration = 2000; // 2 segundos
+        // Duração mais longa para o contador principal (stat4)
+        const duration = stat.id === 'stat4' ? 2500 : 2000;
         const interval = 20;
         const steps = duration / interval;
         const step = end / steps;
         
         const counter = setInterval(() => {
-          current += step;
+          // Para o contador principal (stat4), usar uma aceleração não-linear
+          if (stat.id === 'stat4') {
+            const progress = current / end;
+            const increment = progress < 0.5 ? 1 : Math.ceil((1 + progress * 5));
+            current += increment;
+          } else {
+            current += step;
+          }
+          
           if (current >= end) {
             current = end;
             clearInterval(counter);
+            
+            // Adicionar efeito de destaque ao contador principal após completar
+            if (stat.id === 'stat4') {
+              setTimeout(() => {
+                element.classList.add('highlight-animate');
+              }, 300);
+            }
           }
           
-          if (suffix === 'k+') {
-            element.textContent = prefix + Math.floor(current) + suffix;
-          } else {
-            element.textContent = prefix + Math.floor(current) + suffix;
-          }
+          element.textContent = prefix + Math.floor(current) + suffix;
         }, interval);
       });
     }
@@ -567,36 +648,24 @@
     window.addEventListener('load', () => {
       createParticles();
       
-      // Iniciar animação de estatísticas quando o usuário rolar até a seção
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            animateStats();
-            observer.disconnect();
+      // Iniciar animação de estatísticas imediatamente, já que agora estão no topo
+      animateStats();
+      
+      // Adicionar efeito de hover aos cards
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          const cardIcon = card.querySelector('.card-icon');
+          if (cardIcon) {
+            cardIcon.classList.add('pulse');
           }
         });
-      });
-      
-      const statsSection = document.querySelector('.stats-section');
-      if (statsSection) {
-        observer.observe(statsSection);
-      }
-    });
-    
-    // Adicionar efeito de hover aos cards
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        const cardIcon = card.querySelector('.card-icon');
-        if (cardIcon) {
-          cardIcon.classList.add('pulse');
-        }
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        const cardIcon = card.querySelector('.card-icon');
-        if (cardIcon) {
-          cardIcon.classList.remove('pulse');
-        }
+        
+        card.addEventListener('mouseleave', () => {
+          const cardIcon = card.querySelector('.card-icon');
+          if (cardIcon) {
+            cardIcon.classList.remove('pulse');
+          }
+        });
       });
     });
   </script>
