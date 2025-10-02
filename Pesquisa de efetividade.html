@@ -91,7 +91,7 @@
         /* Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr); /* Alterado para 5 colunas para acomodar o novo card */
             gap: 25px;
             margin-bottom: 40px;
         }
@@ -151,6 +151,7 @@
             z-index: 2;
             border: 2px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden; /* Para garantir que a imagem não ultrapasse o círculo */
         }
         
         .option-card:nth-child(1) .card-icon {
@@ -167,6 +168,16 @@
         
         .option-card:nth-child(4) .card-icon {
             color: #4cd964;
+        }
+        
+        .option-card:nth-child(5) .card-icon {
+            background: #1e1e1e; /* Fundo escuro para o ícone do Copilot */
+        }
+        
+        .card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .option-card:hover .card-icon {
@@ -273,6 +284,12 @@
         }
         
         /* Responsive */
+        @media (max-width: 1200px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
         @media (max-width: 1024px) {
             .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -373,7 +390,19 @@
               
                 </div>
             </div>
+            
+        <!-- Card 5: GitHub Copilot (NOVO) -->
+<div class="option-card" data-option="github-copilot">
+    <div class="card-content">
+        <div class="card-icon">
+            <!-- Usando o logo do GitHub Copilot -->
+            <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
         </div>
+        <h3 class="card-title">GitHub Copilot</h3>
+        <p class="card-description">Análise da efetividade do assistente de codificação baseado em IA para desenvolvimento de software.</p>
+    </div>
+</div>
+              </div>
     </section>
     
     <!-- Footer -->
@@ -391,9 +420,10 @@
             // Mapeamento de opções para URLs de redirecionamento
             const optionToURL = {
                 'cenarios-testes': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20Cenarios%20de%20Teste.html',
-                'historia-usuario': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Historia%20de%20usuario.html', // Substitua por URLs reais quando disponíveis
+                'historia-usuario': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Historia%20de%20usuario.html',
                 'diagrama-sequencia': 'https://marianacintra81.github.io/Bradesco-GEN-AI/diagrama%20de%20sequencia.html',
-                'ponto-funcao': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Ponto%20de%20funcao%20(3).html'
+                'ponto-funcao': 'https://marianacintra81.github.io/Bradesco-GEN-AI/Ponto%20de%20funcao%20(3).html',
+                'github-copilot': 'https://marianacintra81.github.io/Bradesco-GEN-AI/github-copilot.html' // URL para a nova página do GitHub Copilot
             };
             
             // Adicionar evento de clique aos cards
@@ -429,8 +459,6 @@
                     this.style.transform = 'translateY(0)';
                 });
             });
-            
-     
         });
     </script>
 </body>
