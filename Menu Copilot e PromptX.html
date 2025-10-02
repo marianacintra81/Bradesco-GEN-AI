@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Menu Copilot e PromptX</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bradesco GenAI Hub | Ferramentas de IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-primary: #0c0e14;
+      --bg-secondary: #151823;
+      --bg-card: #1e2130;
+      --bg-card-hover: #272936;
+      --bradesco-red: #cc0000;
+      --bradesco-blue: #0033A0;
+      --accent-purple: #7B68EE;
+      --accent-cyan: #00e5ff;
+      --text-primary: #ffffff;
+      --text-secondary: #a3a8c3;
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      --red-gradient: linear-gradient(135deg, var(--bradesco-red), #ff6b6b);
+      --blue-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan));
+      --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 30px; /* Adicionado espaço no topo para o botão voltar */
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    /* Removido o header original */
+    
+    .main-content {
+      min-height: calc(100vh - 100px); /* Ajustado para remover o header */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2rem; /* Adicionado padding no topo */
+      position: relative;
+    }
+    
+    /* Botão Voltar - Estilo fixo no topo */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #0033A0, #7B68EE);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    .hub-title {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .hub-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .hub-title p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Resto dos estilos permanecem iguais */
+    .cards-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+    
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none !important;
+      color: var(--text-primary) !important;
+      animation: fadeInUp 0.8s ease-out;
+      height: 100%;
+    }
+    
+    /* Efeito de clique nos textos dentro dos cards */
+    .card-title, .card-description {
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .card:active .card-title,
+    .card:active .card-description {
+      transform: scale(0.98);
+      color: var(--accent-cyan) !important;
+    }
+
+    /* Garantir que o card inteiro seja clicável */
+    .card {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Efeito de feedback ao clicar no card */
+    .card:active {
+      transform: scale(0.98);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Melhorar a transição ao clicar */
+    .card {
+      transition: all 0.3s ease, transform 0.1s ease;
+    }
+    
+    /* Garantir que os links dentro do card não mudem a cor */
+    .card * {
+      color: inherit;
+    }
+    
+    .card:hover {
+      transform: translateY(-15px) scale(1.03);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--mixed-gradient);
+    }
+    
+    .card-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      transition: all 0.4s ease;
+    }
+    
+    .card:hover .card-icon {
+      transform: scale(1.15);
+      box-shadow: 0 0 30px rgba(123, 104, 238, 0.4);
+    }
+    
+    .card-icon i {
+      font-size: 2.2rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .card-icon img {
+      width: 45px;
+      height: 45px;
+    }
+    
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .card-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .stats-section {
+      padding: 1.5rem 0;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 1rem;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .stat-card {
+      text-align: center;
+      padding: 1.2rem;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 15s infinite linear;
+    }
+    
+    .glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 51, 160, 0.2) 0%, rgba(0, 51, 160, 0) 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+    
+    .glow-1 {
+      top: -400px;
+      right: -300px;
+      background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+    }
+    
+    .glow-2 {
+      bottom: -300px;
+      left: -200px;
+      background: radial-gradient(circle, rgba(0, 51, 160, 0.15) 0%, rgba(0, 51, 160, 0) 70%);
+    }
+    
+    .glow-3 {
+      top: 30%;
+      left: 20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%);
+    }
+    
+    .footer {
+      padding: 1.5rem 0;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      background-color: var(--bg-secondary);
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Animações */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(71, 179, 225, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(71, 179, 225, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(71, 179, 225, 0);
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Animações para os cards */
+    .cards-grid .card:nth-child(1) { animation-delay: 0.1s; }
+    .cards-grid .card:nth-child(2) { animation-delay: 0.2s; }
+    
+    @media (max-width: 1200px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .hub-title h2 {
+        font-size: 1.7rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .hub-title h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+  
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  
+  <!-- Botão Voltar - Agora fora do header -->
+  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  
+  <div class="container">
+    <div class="main-content">
+      <div class="hub-title">
+        <h2>Ferramentas de IA Generativa</h2>
+        <p>Potencialize sua produtividade com nossas soluções de inteligência artificial</p>
+      </div>
+      
+      <div class="cards-container">
+        <div class="cards-grid">
+          <!-- Card PromptX -->
+         <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Comparativo%20de%20Implantacoes.html" class="card">
+            <div class="card-icon">
+              <i class="fas fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="card-title">PromptX</h3>
+            <p class="card-description">Acelerando o ciclo de desenvolvimento de software com automação através de prompts avançados. Transforme suas ideias em código com instruções em linguagem natural.</p>
+          </a>
+          
+          <!-- Card GitHub Copilot -->
+          <a href="#" class="card">
+            <div class="card-icon">
+             <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
+            </div>
+            <h3 class="card-title">GitHub Copilot</h3>
+            <p class="card-description">Seu parceiro de programação com IA que sugere código e funções completas em tempo real. Aumente sua produtividade com sugestões inteligentes baseadas no contexto do seu projeto.</p>
+          </a>
+        </div>
+      </div>
+      
+      <div class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="stat1">58%</div>
+            <div class="stat-label">Aumento de Produtividade</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat2">92%</div>
+            <div class="stat-label">Taxa de Adoção</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat3">75%</div>
+            <div class="stat-label">Redução de Tarefas Repetitivas</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat4">7k+</div>
+            <div class="stat-label">Interações Mensais</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa. </span></p>
+    </div>
+  </footer>
+  
+  <script>
+    // Configurar a data atual
+    const now = new Date();
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
+    
+    // Criar partículas
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      if (!particles) return; // Verificação de segurança
+      
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Tamanho aleatório
+        const size = Math.random() * 8 + 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Posição aleatória
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        
+        // Cor aleatória
+        const colors = ['rgba(204, 0, 0, 0.3)', 'rgba(0, 51, 160, 0.3)', 'rgba(123, 104, 238, 0.3)', 'rgba(0, 229, 255, 0.3)'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.backgroundColor = color;
+        
+        // Duração aleatória
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Atraso aleatório
+        const delay = Math.random() * 10;
+        particle.style.animationDelay = `${delay}s`;
+        
+        particles.appendChild(particle);
+      }
+    }
+    
+    // Animação de contagem para estatísticas
+    function animateStats() {
+      const stats = [
+        { id: 'stat1', end: 58, prefix: '', suffix: '%' },
+        { id: 'stat2', end: 92, prefix: '', suffix: '%' },
+        { id: 'stat3', end: 75, prefix: '', suffix: '%' },
+        { id: 'stat4', end: 7, prefix: '', suffix: 'k+' }
+      ];
+      
+      stats.forEach(stat => {
+        const element = document.getElementById(stat.id);
+        if (!element) return; // Verificação de segurança
+        
+        const end = stat.end;
+        const prefix = stat.prefix || '';
+        const suffix = stat.suffix;
+        let current = 0;
+        
+        const increment = end > 100 ? Math.ceil(end / 100) : end / 100;
+        const duration = 2000; // 2 segundos
+        const interval = 20;
+        const steps = duration / interval;
+        const step = end / steps;
+        
+        const counter = setInterval(() => {
+          current += step;
+          if (current >= end) {
+            current = end;
+            clearInterval(counter);
+          }
+          
+          if (suffix === 'k+') {
+            element.textContent = prefix + Math.floor(current) + suffix;
+          } else {
+            element.textContent = prefix + Math.floor(current) + suffix;
+          }
+        }, interval);
+      });
+    }
+    
+    // Iniciar animações quando a página carregar
+    window.addEventListener('load', () => {
+      createParticles();
+      
+      // Iniciar animação de estatísticas quando o usuário rolar até a seção
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateStats();
+            observer.disconnect();
+          }
+        });
+      });
+      
+      const statsSection = document.querySelector('.stats-section');
+      if (statsSection) {
+        observer.observe(statsSection);
+      }
+    });
+    
+    // Adicionar efeito de hover aos cards
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        const cardIcon = card.querySelector('.card-icon');
+        if (cardIcon) {
+          cardIcon.classList.add('pulse');
+        }
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        const cardIcon = card.querySelector('.card-icon');
+        if (cardIcon) {
+          cardIcon.classList.remove('pulse');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
