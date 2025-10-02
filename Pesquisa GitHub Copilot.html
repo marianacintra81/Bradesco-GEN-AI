@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Pesquisa GitHub Copilot</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Executivo - GitHub Copilot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      /* Cores de Fundo */
+      --bg-primary: #0c0e14;
+      --bg-secondary: #151823;
+      --bg-card: #1e2130;
+      --bg-card-hover: #272936;
+      
+      /* Cores de Destaque */
+      --bradesco-red: #cc0000;
+      --bradesco-blue: #0033A0;
+      --accent-purple: #7B68EE;
+      --accent-cyan: #00e5ff;
+      
+      /* Cores de Texto */
+      --text-primary: #ffffff;
+      --text-secondary: #a3a8c3;
+      
+      /* Outras cores */
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      
+      /* Degradês */
+      --red-gradient: linear-gradient(135deg, var(--bradesco-red), #ff6b6b);
+      --blue-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan));
+      --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
+      
+      /* Sombras */
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      font-size: 14px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Efeitos de brilho */
+    .glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .glow-1 {
+      top: -400px;
+      right: -300px;
+      background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+    }
+    
+    .glow-2 {
+      bottom: -300px;
+      left: -200px;
+      background: radial-gradient(circle, rgba(0, 51, 160, 0.15) 0%, rgba(0, 51, 160, 0) 70%);
+    }
+    
+    .glow-3 {
+      top: 30%;
+      left: 20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    
+    .research-info {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    
+    /* Botão Voltar - Estilo correto para botão circular */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--blue-gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--hover-shadow);
+      background: linear-gradient(135deg, var(--accent-purple), var(--bradesco-blue));
+    }
+    
+    .kpi-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .kpi-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 140px;
+    }
+    
+    .kpi-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      background: var(--bg-card-hover);
+      box-shadow: var(--hover-shadow);
+    }
+    
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--mixed-gradient);
+    }
+    
+    .kpi-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.7rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .kpi-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      line-height: 1.1;
+    }
+    
+    .kpi-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-align: center;
+      width: 100%;
+    }
+    
+    .chart-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .chart-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.2rem;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .chart-card:hover {
+      transform: translateY(-5px);
+      background: var(--bg-card-hover);
+      box-shadow: var(--hover-shadow);
+    }
+    
+    .chart-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--mixed-gradient);
+    }
+    
+    .chart-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .chart-wrapper {
+      height: 250px;
+      position: relative;
+    }
+    
+    .testimonials {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    
+    .testimonials:hover {
+      transform: translateY(-5px);
+      background: var(--bg-card-hover);
+      box-shadow: var(--hover-shadow);
+    }
+    
+    .testimonials::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--mixed-gradient);
+    }
+    
+    .testimonials-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    
+    .testimonial-card {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 1.2rem;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .testimonial-text {
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+      font-style: italic;
+      flex-grow: 1;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    
+    .testimonial-role {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    
+    .testimonial-quote {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      font-size: 1.5rem;
+      opacity: 0.1;
+    }
+    
+    .summary-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    
+    .summary-card:hover {
+      transform: translateY(-5px);
+      background: var(--bg-card-hover);
+      box-shadow: var(--hover-shadow);
+    }
+    
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--mixed-gradient);
+    }
+    
+    .summary-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+    
+    .summary-text {
+      font-size: 0.9rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-secondary);
+    }
+    
+    .highlight {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+    
+    /* Animações */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(71, 179, 225, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(71, 179, 225, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(71, 179, 225, 0);
+      }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .kpi-card, .chart-card, .testimonials, .summary-card {
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .kpi-card:nth-child(1) { animation-delay: 0.1s; }
+    .kpi-card:nth-child(2) { animation-delay: 0.2s; }
+    .kpi-card:nth-child(3) { animation-delay: 0.3s; }
+    
+    @media (max-width: 1200px) {
+      .kpi-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .chart-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .kpi-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .kpi-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .kpi-card {
+        min-height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+   <!-- Efeitos de brilho -->
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <div class="container">
+    <header>
+<!-- Botão Voltar -->
+<a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20de%20efetividade.html" class="back-button">
+  <i class="fas fa-arrow-left"></i>
+</a>
+      <h1>GitHub Copilot | Produtividade e Eficiência</h1>
+      <p class="subtitle">Resultados da Pesquisa de Adoção e Impacto</p>
+      <p class="research-info">Pesquisa realizada com 33 desenvolvedores da Capgemini</p>
+    </header>
+    
+    <div class="kpi-container">
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="kpi-value">85%</div>
+        <div class="kpi-label">Ganho direto de produtividade</div>
+      </div>
+      
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-bolt"></i>
+        </div>
+        <div class="kpi-value">97%</div>
+        <div class="kpi-label">Aceleração percebida (21 significativa)</div>
+      </div>
+      
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="kpi-value">52%</div>
+        <div class="kpi-label">Uso diário (17 de 33)</div>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <div class="chart-card">
+        <div class="chart-title">Impacto Percebido na Produtividade</div>
+        <div class="chart-wrapper">
+          <canvas id="impactChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <div class="chart-title">Onde Mais Impulsiona Produtividade</div>
+        <div class="chart-wrapper">
+          <canvas id="activitiesChart"></canvas>
+     
+     
+    </div>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <div class="chart-card">
+        <div class="chart-title">Ritmo de Uso Pós-Treinamento</div>
+        <div class="chart-wrapper">
+          <canvas id="usageChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <div class="chart-title">Recomendações para Aumentar o Uso</div>
+        <div class="chart-wrapper">
+          <canvas id="recommendationsChart"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <div class="summary-card">
+      <div class="summary-title">Impacto nos Resultados</div>
+      <div class="summary-text">
+        A implementação do GitHub Copilot resultou em <span class="highlight">85% de ganho direto de produtividade</span> entre os desenvolvedores, com <span class="highlight">97% reportando aceleração percebida</span> em suas atividades. A ferramenta demonstrou ser especialmente eficaz na <span class="highlight">escrita de testes automatizados (34%)</span> e <span class="highlight">refatoração de código (25%)</span>. O uso diário já alcança <span class="highlight">52% dos desenvolvedores</span>, com potencial de crescimento através de treinamentos avançados e compartilhamento de casos de uso reais.
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>© 2025 PromptX | Acelerando a Engenharia de Software com IA Generativa. Atualizado em <span id="current-date"></span></p>
+    </div>
+  </div>
+  
+  <script>
+    // Função para voltar para a tela inicial
+    function goBack() {
+       window.history.back();
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configurar a data atual
+      const now = new Date();
+      const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
+      
+      // Registrar o plugin datalabels
+      Chart.register(ChartDataLabels);
+      
+      // Configurações globais do Chart.js
+      Chart.defaults.color = '#a3a8c3';
+      Chart.defaults.font.family = "'Montserrat', sans-serif";
+      Chart.defaults.font.size = 11;
+      
+      // Cores padrão para os gráficos baseadas na identidade visual
+      const colors = {
+        blue: {
+          base: 'rgba(0, 51, 160, 0.7)',
+          border: 'rgba(0, 51, 160, 1)'
+        },
+        cyan: {
+          base: 'rgba(0, 229, 255, 0.7)',
+          border: 'rgba(0, 229, 255, 1)'
+        },
+        red: {
+          base: 'rgba(204, 0, 0, 0.7)',
+          border: 'rgba(204, 0, 0, 1)'
+        },
+        purple: {
+          base: 'rgba(123, 104, 238, 0.7)',
+          border: 'rgba(123, 104, 238, 1)'
+        },
+        orange: {
+          base: 'rgba(255, 107, 107, 0.7)',
+          border: 'rgba(255, 107, 107, 1)'
+        }
+      };
+      
+      // Gráfico de Impacto na Produtividade
+      const impactCtx = document.getElementById('impactChart').getContext('2d');
+      new Chart(impactCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Extraordinário', 'Grande', 'Melhora', 'Pouca', 'Nenhum'],
+          datasets: [{
+            label: 'Percentual de Desenvolvedores',
+            data: [15, 15, 55, 6, 9],
+            backgroundColor: [
+              colors.cyan.base,
+              colors.blue.base,
+              colors.purple.base,
+              colors.orange.base,
+              colors.red.base
+            ],
+            borderColor: [
+              colors.cyan.border,
+              colors.blue.border,
+              colors.purple.border,
+              colors.orange.border,
+              colors.red.border
+            ],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.raw}% dos desenvolvedores`;
+                }
+              },
+              bodyFont: {
+                size: 10
+              },
+              titleFont: {
+                size: 10
+              }
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { 
+                weight: 'bold',
+                size: 9
+              },
+              formatter: (value) => value + '%'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Percentual (%)',
+                font: {
+                  size: 10
+                }
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)'
+              },
+              ticks: {
+                font: {
+                  size: 9
+                }
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: {
+                  size: 9
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Gráfico de Atividades
+      const activitiesCtx = document.getElementById('activitiesChart').getContext('2d');
+      new Chart(activitiesCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Testes automatizados', 'Refatoração', 'Aprendizado & sugestões', 'Código padrão'],
+          datasets: [{
+            label: 'Percentual de Menções',
+            data: [34, 25, 24, 16],
+            backgroundColor: [
+              colors.blue.base,
+              colors.purple.base,
+              colors.cyan.base,
+              colors.orange.base
+            ],
+            borderColor: [
+              colors.blue.border,
+              colors.purple.border,
+              colors.cyan.border,
+              colors.orange.border
+            ],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.raw}% das menções`;
+                }
+              },
+              bodyFont: {
+                size: 10
+              },
+              titleFont: {
+                size: 10
+              }
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { 
+                weight: 'bold',
+                size: 9
+              },
+              formatter: (value) => value + '%',
+              anchor: 'end',
+              align: 'end'
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Percentual (%)',
+                font: {
+                  size: 10
+                }
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)'
+              },
+              ticks: {
+                font: {
+                  size: 9
+                }
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: {
+                  size: 9
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Gráfico de Uso
+      const usageCtx = document.getElementById('usageChart').getContext('2d');
+      new Chart(usageCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Diário (17)', 'Semanal (11)', 'Ainda não (5)'],
+          datasets: [{
+            data: [52, 33, 15],
+            backgroundColor: [
+              colors.cyan.base,
+              colors.purple.base,
+              colors.red.base
+            ],
+            borderColor: [
+              colors.cyan.border,
+              colors.purple.border,
+              colors.red.border
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                boxWidth: 10,
+                padding: 8,
+                font: {
+                  size: 9
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.raw}% dos desenvolvedores`;
+                }
+              },
+              bodyFont: {
+                size: 10
+              },
+              titleFont: {
+                size: 10
+              }
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { 
+                weight: 'bold',
+                size: 12
+              },
+              formatter: (value) => value + '%',
+              anchor: 'center',
+              align: 'center',
+              offset: 0
+            }
+          }
+        }
+      });
+      
+      // Gráfico de Recomendações
+      const recommendationsCtx = document.getElementById('recommendationsChart').getContext('2d');
+      new Chart(recommendationsCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Treinamentos avançados', 'Casos de uso reais', 'Exemplos práticos', 'Suporte técnico'],
+          datasets: [{
+            label: 'Preferência dos Desenvolvedores',
+            data: [42, 28, 18, 12],
+            backgroundColor: [
+              colors.blue.base,
+              colors.purple.base,
+              colors.cyan.base,
+              colors.orange.base
+            ],
+            borderColor: [
+              colors.blue.border,
+              colors.purple.border,
+              colors.cyan.border,
+              colors.orange.border
+            ],
+            borderWidth: 1,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: 'y',
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.raw}% dos desenvolvedores`;
+                }
+              },
+              bodyFont: {
+                size: 10
+              },
+              titleFont: {
+                size: 10
+              }
+            },
+            datalabels: {
+              color: '#ffffff',
+              font: { 
+                weight: 'bold',
+                size: 9
+              },
+                     formatter: (value) => value + '%',
+              anchor: 'end',
+              align: 'end'
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Percentual (%)',
+                font: {
+                  size: 10
+                }
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)'
+              },
+              ticks: {
+                font: {
+                  size: 9
+                }
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: {
+                  size: 9
+                }
+              }
+            }
+          }
+        }
+      });
+      
+// Adicionar evento de clique ao botão voltar
+document.querySelector('.back-button').addEventListener('click', function(e) {
+  // Não previne o comportamento padrão para permitir que o link funcione normalmente
+  // Apenas como fallback, se o link não funcionar, tentamos o history.back()
+  setTimeout(function() {
+    // Se ainda estivermos na mesma página após um pequeno delay, tentamos o history.back()
+    window.history.back();
+  }, 100);
+});
+
+// Função para voltar para a tela inicial (não é mais necessária, mas mantida por compatibilidade)
+function goBack() {
+  window.location.href = "https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20de%20efetividade.html";
+}
+      
+      // Adicionar efeito de hover aos cards
+      document.querySelectorAll('.kpi-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.querySelector('.kpi-icon').classList.add('pulse');
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.querySelector('.kpi-icon').classList.remove('pulse');
+        });
+      });
+      
+      // Criar partículas para efeito visual (opcional)
+      function createParticles() {
+        const container = document.querySelector('body');
+        const particleCount = 20;
+        
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.style.position = 'absolute';
+          particle.style.width = `${Math.random() * 5 + 2}px`;
+          particle.style.height = particle.style.width;
+          particle.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+          particle.style.borderRadius = '50%';
+          particle.style.top = `${Math.random() * 100}%`;
+          particle.style.left = `${Math.random() * 100}%`;
+          particle.style.zIndex = '0';
+          particle.style.pointerEvents = 'none';
+          
+          // Animação
+          particle.style.animation = `float ${Math.random() * 15 + 10}s linear infinite`;
+          particle.style.animationDelay = `${Math.random() * 5}s`;
+          
+          container.appendChild(particle);
+        }
+      }
+      
+      // Descomente para ativar o efeito de partículas
+      // createParticles();
+    });
+  </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
