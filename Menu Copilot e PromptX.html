@@ -593,56 +593,56 @@
       }
     }
     
-    // Animação de contagem para estatísticas
-    function animateStats() {
-      const stats = [
-        { id: 'stat1', end: 222, prefix: '', suffix: '' },
-        { id: 'stat2', end: 272, prefix: '', suffix: '' },
-        { id: 'stat3', end: 95, prefix: '', suffix: '%' },
-        { id: 'stat4', end: 500, prefix: '', suffix: '' }
-      ];
+ // Animação de contagem para estatísticas
+function animateStats() {
+  const stats = [
+    { id: 'stat1', end: 222, prefix: '', suffix: '' },
+    { id: 'stat2', end: 272, prefix: '', suffix: '' },
+    { id: 'stat3', end: 95, prefix: '', suffix: '%' },
+    { id: 'stat4', end: 500, prefix: '', suffix: '' }
+  ];
+  
+  stats.forEach(stat => {
+    const element = document.getElementById(stat.id);
+    if (!element) return; // Verificação de segurança
+    
+    const end = stat.end;
+    const prefix = stat.prefix || '';
+    const suffix = stat.suffix || '';
+    let current = 0;
+    
+    // Duração mais curta para o contador principal (stat4)
+    const duration = stat.id === 'stat4' ? 1200 : 1500; // Reduzido de 2500 para 1200ms
+    const interval = 10; // Reduzido de 20 para 10ms para atualizações mais frequentes
+    const steps = duration / interval;
+    const step = end / steps;
+    
+    const counter = setInterval(() => {
+      // Para o contador principal (stat4), usar uma aceleração mais agressiva
+      if (stat.id === 'stat4') {
+        const progress = current / end;
+        // Aceleração mais agressiva
+        const increment = progress < 0.3 ? 5 : Math.ceil((5 + progress * 15));
+        current += increment;
+      } else {
+        current += step;
+      }
       
-      stats.forEach(stat => {
-        const element = document.getElementById(stat.id);
-        if (!element) return; // Verificação de segurança
+      if (current >= end) {
+        current = end;
+        clearInterval(counter);
         
-        const end = stat.end;
-        const prefix = stat.prefix || '';
-        const suffix = stat.suffix || '';
-        let current = 0;
-        
-        // Duração mais longa para o contador principal (stat4)
-        const duration = stat.id === 'stat4' ? 2500 : 2000;
-        const interval = 20;
-        const steps = duration / interval;
-        const step = end / steps;
-        
-        const counter = setInterval(() => {
-          // Para o contador principal (stat4), usar uma aceleração não-linear
-          if (stat.id === 'stat4') {
-            const progress = current / end;
-            const increment = progress < 0.5 ? 1 : Math.ceil((1 + progress * 5));
-            current += increment;
-          } else {
-            current += step;
-          }
-          
-          if (current >= end) {
-            current = end;
-            clearInterval(counter);
-            
-            // Adicionar efeito de destaque ao contador principal após completar
-            if (stat.id === 'stat4') {
-              setTimeout(() => {
-                element.classList.add('highlight-animate');
-              }, 300);
-            }
-          }
-          
-          element.textContent = prefix + Math.floor(current) + suffix;
-        }, interval);
-      });
-    }
+        // Adicionar efeito de destaque ao contador principal após completar
+        if (stat.id === 'stat4') {
+          element.classList.add('highlight-animate');
+        }
+      }
+      
+      element.textContent = prefix + Math.floor(current) + suffix;
+    }, interval);
+  });
+}
+    
     
     // Iniciar animações quando a página carregar
     window.addEventListener('load', () => {
