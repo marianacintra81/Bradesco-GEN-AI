@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Pesquisa_Criação de Histórias de Usuário</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -466,86 +455,91 @@
     </div>
 
     <script>
-        // Tempo médio de criação
-        const timeCtx = document.getElementById('timeComparisonChart').getContext('2d');
-        const timeChart = new Chart(timeCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Método Tradicional', 'Com PromptX'],
-                datasets: [{
-                    data: [3.7, 2.7],
-                    backgroundColor: [
-                        'rgba(204, 0, 0, 0.7)',  // Vermelho Bradesco
-                        'rgba(0, 229, 255, 0.7)' // Ciano
-                    ],
-                    borderColor: [
-                        'rgba(204, 0, 0, 1)',
-                        'rgba(0, 229, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Horas',
-                            color: '#ffffff',
-                            font: {
-                                size: 11
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
-                        },
-                        ticks: {
-                            color: '#ffffff',
-                            font: {
-                                size: 10
-                            }
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
-                        },
-                        ticks: {
-                            color: '#ffffff',
-                            font: {
-                                size: 10
-                            }
-                        }
+      // Tempo médio de criação
+const timeCtx = document.getElementById('timeComparisonChart').getContext('2d');
+const timeChart = new Chart(timeCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Método Tradicional', 'Com PromptX'],
+        datasets: [{
+            label: 'Método Tradicional',
+            data: [3.7, null],
+            backgroundColor: 'rgba(204, 0, 0, 0.7)',  // Vermelho Bradesco
+            borderColor: 'rgba(204, 0, 0, 1)',
+            borderWidth: 1
+        }, {
+            label: 'Com PromptX',
+            data: [null, 2.7],
+            backgroundColor: 'rgba(0, 229, 255, 0.7)', // Ciano
+            borderColor: 'rgba(0, 229, 255, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Horas',
+                    color: '#ffffff',
+                    font: {
+                        size: 11
                     }
                 },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        titleFont: {
-                            size: 12
-                        },
-                        bodyFont: {
-                            size: 11
-                        },
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.raw} horas`;
-                            }
-                        }
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.05)'
+                },
+                ticks: {
+                    color: '#ffffff',
+                    font: {
+                        size: 10
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.05)'
+                },
+                ticks: {
+                    color: '#ffffff',
+                    font: {
+                        size: 10
                     }
                 }
             }
-        });
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    color: '#ffffff',
+                    font: {
+                        size: 11
+                    },
+                    boxWidth: 12
+                }
+            },
+            tooltip: {
+                titleFont: {
+                    size: 12
+                },
+                bodyFont: {
+                    size: 11
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${context.raw} horas`;
+                    }
+                }
+            }
+        }
+    }
+});
 
     </script>
 </body>
-</html>
-    
-  </body>
-  
 </html>
