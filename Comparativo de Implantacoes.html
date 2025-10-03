@@ -947,8 +947,10 @@
       
 // Função para renderizar o gráfico de profissionais por caso de uso
 (function renderProfessionalsByUseCase() {
+  // Filtrar para remover "Sem caso de uso especificado"
+  const filteredUseCases = useCases.filter(uc => uc.name !== "Sem caso de uso especificado");
   // Ordenar casos de uso por total de profissionais (maior para menor)
-  const sortedUseCases = [...useCases].sort((a, b) => b.total - a.total);
+  const sortedUseCases = [...filteredUseCases].sort((a, b) => b.total - a.total);
   
   const labels = sortedUseCases.map(uc => uc.name);
   const dataActive = sortedUseCases.map(uc => uc.active);
