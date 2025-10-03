@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Pesquisa Diagramas de Sequência</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -454,174 +443,110 @@
     </div>
 
     <script>
-        // Tempo médio de criação
-        const timeCtx = document.getElementById('timeComparisonChart').getContext('2d');
-        const timeChart = new Chart(timeCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Método Tradicional', 'Com PromptX'],
-                datasets: [{
-                    data: [3.75, 1.75],
-                    backgroundColor: [
-                        'rgba(204, 0, 0, 0.7)',  // Vermelho Bradesco
-                        'rgba(0, 229, 255, 0.7)' // Ciano
-                    ],
-                    borderColor: [
-                        'rgba(204, 0, 0, 1)',
-                        'rgba(0, 229, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Horas',
-                            color: '#ffffff',
-                            font: {
-                                size: 11
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
-                        },
-                        ticks: {
-                            color: '#ffffff',
-                            font: {
-                                size: 10
-                            }
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
-                        },
-                        ticks: {
-                            color: '#ffffff',
-                            font: {
-                                size: 10
-                            }
-                        }
+       // Tempo médio de criação
+const timeCtx = document.getElementById('timeComparisonChart').getContext('2d');
+const timeChart = new Chart(timeCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Método Tradicional', 'Com PromptX'],
+        datasets: [{
+            data: [3.75, 1.75],
+            backgroundColor: [
+                'rgba(204, 0, 0, 0.7)',  // Vermelho Bradesco
+                'rgba(0, 229, 255, 0.7)' // Ciano
+            ],
+            borderColor: [
+                'rgba(204, 0, 0, 1)',
+                'rgba(0, 229, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Horas',
+                    color: '#ffffff',
+                    font: {
+                        size: 11
                     }
                 },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        titleFont: {
-                            size: 12
-                        },
-                        bodyFont: {
-                            size: 11
-                        },
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.raw} horas`;
-                            }
-                        }
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.05)'
+                },
+                ticks: {
+                    color: '#ffffff',
+                    font: {
+                        size: 10
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.05)'
+                },
+                ticks: {
+                    color: '#ffffff',
+                    font: {
+                        size: 10
                     }
                 }
             }
-        });
-        
-        // Tempo por usuário
-        const userTimeCtx = document.getElementById('userTimeChart').getContext('2d');
-        const userTimeChart = new Chart(userTimeCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Rodrigo', 'Anderson', 'Melissa', 'Douglas'],
-                datasets: [
-                    {
-                        label: 'Sem PromptX',
-                        data: [4, 4, 4, 3],
-                        backgroundColor: 'rgba(204, 0, 0, 0.7)',
-                        borderColor: 'rgba(204, 0, 0, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Com PromptX',
-                        data: [1, 2, 2, 4],
-                        backgroundColor: 'rgba(0, 229, 255, 0.7)',
-                        borderColor: 'rgba(0, 229, 255, 1)',
-                        borderWidth: 1
-                    }
-                ]
+        },
+        plugins: {
+            legend: {
+                display: false
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Horas',
-                            color: '#ffffff',
-                            font: {
-                                size: 11
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
-                        },
-                        ticks: {
-                            color: '#ffffff',
-                            font: {
-                                size: 10
-                            }
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.05)'
-                        },
-                        ticks: {
-                            color: '#ffffff',
-                            font: {
-                                size: 10
-                            }
-                        }
-                    }
+            tooltip: {
+                titleFont: {
+                    size: 12
                 },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            color: '#ffffff',
-                            font: {
-                                size: 10
-                            },
-                            boxWidth: 12
-                        }
-                    },
-                    tooltip: {
-                        titleFont: {
-                            size: 12
-                        },
-                        bodyFont: {
-                            size: 11
-                        },
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.raw} horas`;
-                            }
-                        }
+                bodyFont: {
+                    size: 11
+                },
+                callbacks: {
+                    label: function(context) {
+                        return `${context.raw} horas`;
                     }
                 }
             }
-        });
+        }
+    },
+    plugins: [{
+        afterDraw: function(chart) {
+            const ctx = chart.ctx;
+            chart.data.datasets.forEach((dataset, i) => {
+                const meta = chart.getDatasetMeta(i);
+                meta.data.forEach((bar, index) => {
+                    const data = dataset.data[index];
+                    const label = chart.data.labels[index];
+                    
+                    // Configuração do texto
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 12px Poppins';
+                    ctx.textAlign = 'center';
+                    
+                    // Posição do texto (abaixo da barra)
+                    const x = bar.x;
+                    const y = bar.y + 20; // Ajuste para posicionar abaixo da barra
+                    
+                    // Desenhar o texto
+                    ctx.fillText(label, x, y);
+                    
+                    // Desenhar o valor acima da barra
+                    ctx.fillText(data + ' horas', x, bar.y - 10);
+                });
+            });
+        }
+    }]
+});
         
        
     </script>
 </body>
-</html>
-    
-  </body>
-  
 </html>
