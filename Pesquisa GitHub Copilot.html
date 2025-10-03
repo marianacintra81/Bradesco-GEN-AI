@@ -572,10 +572,10 @@
       // Registrar o plugin datalabels
       Chart.register(ChartDataLabels);
       
-      // Configurações globais do Chart.js
-      Chart.defaults.color = '#a3a8c3';
-      Chart.defaults.font.family = "'Montserrat', sans-serif";
-      Chart.defaults.font.size = 11;
+    // Configurações globais do Chart.js
+Chart.defaults.color = '#ffffff'; // Alterado para branco
+Chart.defaults.font.family = "'Montserrat', sans-serif";
+Chart.defaults.font.size = 11;
       
       // Cores padrão para os gráficos baseadas na identidade visual
       const colors = {
@@ -663,6 +663,7 @@
               title: {
                 display: true,
                 text: 'Percentual (%)',
+                 color: '#ffffff',
                 font: {
                   size: 10
                 }
