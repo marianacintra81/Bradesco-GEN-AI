@@ -7,6 +7,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
+      <!-- Adicione este CSS ao bloco <style> existente -->
+<style>
+    /* Estilo simples para indicar que é um agente */
+    .agent-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight));
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+    
+    .agent-indicator i {
+        font-size: 0.8rem;
+    }
+    
+    /* Animação de pulso para o badge */
+    @keyframes pulse-glow {
+        0% { box-shadow: 0 0 5px rgba(0, 229, 255, 0.5); }
+        50% { box-shadow: 0 0 15px rgba(123, 104, 238, 0.8); }
+        100% { box-shadow: 0 0 5px rgba(0, 229, 255, 0.5); }
+    }
+    
+    /* Estilo especial para o card de agente */
+    .use-case-card.agent-card {
+        border: 2px solid transparent;
+        background: 
+            linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+            linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight)) border-box;
+        transform: scale(1.02);
+    }
+    
+    .use-case-card.agent-card:hover {
+        transform: translateY(-10px) scale(1.02);
+    }
+    
+    .use-case-card.agent-card .card-icon {
+        background: linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight), var(--cyan-highlight));
+        color: white;
+    }
+    
+    .use-case-card.agent-card .card-header {
+        background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(123, 104, 238, 0.2));
+    }
+    
+    /* Ícone de IA para o agente */
+    .ai-brain-icon {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
 .back-button {
   position: fixed;
   top: 20px;
@@ -236,14 +293,15 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
-        .card-title {
-            font-size: 1.1rem;
-            margin: 0;
-            color: var(--text-primary);
-            flex-grow: 1;
-            font-weight: 600;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
+.card-title {
+    font-size: 0.90rem; /* Reduzindo de 1.1rem para 0.95rem */
+    margin: 0;
+    color: var(--text-primary);
+    flex-grow: 1;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+        
         
         .card-category {
             position: absolute;
@@ -251,8 +309,8 @@
             right: 5px;
             background: linear-gradient(135deg, var(--blue-bradesco), var(--red-bradesco));
             padding: 3px 8px;
-            border-radius: 8px;
-            font-size: 0.65rem;
+            border-radius: 4px;
+            font-size: 0.55rem;
             color: var(--text-primary);
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -282,9 +340,9 @@
             display: inline-block;
             background: rgba(0, 51, 160, 0.15);
             color: var(--cyan-highlight);
-            padding: 3px 8px;
+            padding: 3px 2px;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             margin-right: 5px;
             margin-bottom: 5px;
             transition: all 0.3s ease;
@@ -782,30 +840,37 @@
                     </div>
                 </div>
                 
-                <!-- Engenharia de Dados - Validação de nomenclatura -->
-                <div class="use-case-card animate-fade-in" data-category="engenharia-de-dados">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-spell-check"></i>
-                        </div>
-                        <h3 class="card-title">Validação de Nomenclatura</h3>
-                        <span class="card-category">Engenharia de Dados</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-description">
-                            Verificação e sugestão de nomenclatura para modelos de dados.
-                        </p>
-                        <div class="card-benefits">
-                            <span class="benefit-tag">+70% consistência</span>
-                            <span class="benefit-tag">+55% conformidade</span>
-                        </div>
-                    </div>
-                   <div class="card-footer">
-                        <div class="target-audience">
-                            <i class="fas fa-users"></i> DBAs e ADs
-                        </div>
-                    </div>
-                </div>
+               <!-- Engenharia de Dados - Validação de nomenclatura -->
+<div class="use-case-card animate-fade-in agent-card" data-category="engenharia-de-dados">
+    <div class="agent-badge">
+      
+    </div>
+    <div class="card-header">
+      <div class="card-icon">
+    <i class="fas fa-database"></i>
+</div>
+     <h3 class="card-title">Agente de Padronização de Dados <span class="agent-indicator"></h3>
+        <span class="card-category">Engenharia de Dados</span>
+    </div>
+    <div class="card-body">
+        <p class="card-description">
+            Agente especializado em verificar e sugerir nomenclaturas para modelos de dados, garantindo consistência com os padrões do Bradesco.
+        </p>
+     <div class="card-benefits">
+    <span class="benefit-tag">+70% consistência</span>
+    <span class="benefit-tag">+55% conformidade</span>
+    <span class="benefit-tag">-40% tempo</span>
+   <span class="benefit-tag" style="background: linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight)); color: white; padding: 3px 8px;">
+    <i class="fas fa-robot" aria-label="Agente" title="Agente"></i>
+</span>
+</div>
+    </div>
+    <div class="card-footer">
+        <div class="target-audience">
+            <i class="fas fa-users"></i> DBAs e Arquitetos de Dados
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </section>
