@@ -353,6 +353,76 @@
       height: 100%;
     }
 
+    /* Insights Executivos */
+    .insights-section {
+      grid-column: 1 / -1;
+      margin-top: 20px;
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .insight-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .insight-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .insight-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: rgba(245, 158, 11, 0.1);
+      color: var(--warning);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      font-size: 12px;
+    }
+
+    .insight-content {
+      flex: 1;
+    }
+
+    .insight-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .insight-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .insight-item.positive .insight-icon {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+
+    .insight-item.negative .insight-icon {
+      background-color: rgba(255, 102, 102, 0.1);
+      color: var(--danger);
+    }
+
+    .insight-item.neutral .insight-icon {
+      background-color: rgba(123, 104, 238, 0.1);
+      color: var(--purple-highlight);
+    }
+
     /* Painel de impacto GenAI */
     .genai-impact {
       background-color: var(--bg-card);
@@ -423,8 +493,7 @@
       background-color: var(--pilot-color);
       height: 20px;
     }
-
-    .bar.q3 {
+      .bar.q3 {
       background-color: var(--production-color);
       height: 70px;
     }
@@ -699,8 +768,7 @@
           <canvas id="kpiTrendChart"></canvas>
         </div>
       </div>
-      
-      <!-- Painel de impacto GenAI -->
+          <!-- Painel de impacto GenAI -->
       <div class="genai-impact fade-in">
         <div class="section-title genai">
           <i class="fas fa-robot"></i> Impacto GenAI - PromptX
@@ -762,6 +830,16 @@
           </div>
         </div>
       </div>
+      
+      <!-- Insights Executivos (agora como um card separado que ocupa toda a largura) -->
+      <div class="insights-section fade-in">
+        <div class="section-title">
+          <i class="fas fa-lightbulb" style="color: var(--warning);"></i> Insights Executivos
+        </div>
+        <div id="projectInsights">
+          <!-- Os insights serão inseridos dinamicamente aqui -->
+        </div>
+      </div>
     </div>
     
     <!-- Rodapé -->
@@ -779,7 +857,27 @@
         productivity: { base: 31, pilot: 32.3, production: 30.2 },
         rework: { base: 0.62, pilot: 0.28, production: 0.78 },
         interactions: 1449,
-        interactionValues: [0, 395, 1449, 0]
+        interactionValues: [0, 395, 1449, 0],
+        insights: [
+          {
+            type: 'positive',
+            icon: 'fa-chart-line',
+            title: 'Redução significativa no Lead Time',
+            description: 'A redução de 40.2% no Lead Time indica que a implementação do GenAI está acelerando  o ciclo de desenvolvimento.'
+          },
+          {
+            type: 'negative',
+            icon: 'fa-exclamation-triangle',
+            title: 'Aumento no índice de retrabalho',
+            description: 'O aumento de 25.8% no retrabalho pode estar relacionado à maior cobertura e quantidade de casos de teste gerados pela IA, o que identifica mais pontos de melhoria inicialmente.'
+          },
+          {
+            type: 'neutral',
+            icon: 'fa-robot',
+            title: 'Alta adoção da ferramenta PromptX',
+            description: 'O crescimento de 395 para 1449 interações do Q2 para Q3 indica forte adoção pela equipe.'
+          }
+        ]
       },
       'sala-core': {
         title: 'SALA CORE',
@@ -787,17 +885,88 @@
         productivity: { base: 20.1, pilot: 21.0, production: 19.6 },
         rework: { base: 6.78, pilot: 3.06, production: 8.53 },
         interactions: 215,
-        interactionValues: [0, 0, 215, 0]
-      },
-      'massificado': {
-        title: 'MASSIFICADO',
-        leadTime: { base: 190.1, pilot: 164.2, production: 113.7 },
-        productivity: { base: 13.5, pilot: 14.1, production: 13.2 },
-        rework: { base: 7.41, pilot: 3.35, production: 9.32 },
-        interactions: 243,
-        interactionValues: [0, 0, 243, 0]
-      }
-    };
+        interactionValues: [0, 0, 215, 0],
+        insights: [
+         // SUBSTITUA ESTE BLOCO PELOS NOVOS INSIGHTS PARA SAFER
+        {
+          type: 'positive',
+          icon: 'fa-chart-line',
+          title: 'Redução significativa no Lead Time',
+          description: 'A redução de 40.2% no Lead Time indica que a implementação do GenAI está acelerando significativamente o ciclo de desenvolvimento.'
+        },
+        {
+          type: 'negative',
+          icon: 'fa-exclamation-triangle',
+          title: 'Aumento no índice de retrabalho',
+          description: 'O aumento de 25.8% no retrabalho pode estar relacionado à maior cobertura e quantidade de casos de teste gerados pela IA, o que identifica mais pontos de melhoria inicialmente.'
+        },
+        {
+          type: 'neutral',
+          icon: 'fa-robot',
+          title: 'Alta adoção da ferramenta PromptX',
+          description: 'O crescimento de 395 para 1449 interações do Q2 para Q3 indica forte adoção pela equipe.'
+        }
+      ]
+    },
+    'sala-core': {
+      title: 'SALA CORE',
+      leadTime: { base: 168.9, pilot: 146.0, production: 101.0 },
+      productivity: { base: 20.1, pilot: 21.0, production: 19.6 },
+      rework: { base: 6.78, pilot: 3.06, production: 8.53 },
+      interactions: 215,
+      interactionValues: [0, 0, 215, 0],
+      insights: [
+        // SUBSTITUA ESTE BLOCO PELOS NOVOS INSIGHTS PARA SALA CORE
+        {
+          type: 'positive',
+          icon: 'fa-chart-line',
+          title: 'Redução expressiva no Lead Time',
+          description: 'A redução de 40.2% no Lead Time demonstra ganhos significativos de eficiência no ciclo de desenvolvimento da Sala Core.'
+        },
+        {
+          type: 'negative',
+          icon: 'fa-exclamation-triangle',
+          title: 'Aumento no índice de retrabalho',
+          description: 'O aumento no retrabalho está relacionado à maior abrangência dos testes automatizados, que identificam mais cenários e edge cases que antes passavam despercebidos.'
+        },
+        {
+          type: 'neutral',
+          icon: 'fa-lightbulb',
+          title: 'Oportunidade de expansão',
+          description: 'Com base nos resultados positivos de produtividade, recomenda-se expandir o uso de GenAI para outras áreas da Sala Core.'
+        }
+      ]
+    },
+    'massificado': {
+      title: 'MASSIFICADO',
+      leadTime: { base: 190.1, pilot: 164.2, production: 113.7 },
+      productivity: { base: 13.5, pilot: 14.1, production: 13.2 },
+      rework: { base: 7.41, pilot: 3.35, production: 9.32 },
+      interactions: 243,
+      interactionValues: [0, 0, 243, 0],
+      insights: [
+        // SUBSTITUA ESTE BLOCO PELOS NOVOS INSIGHTS PARA MASSIFICADO
+        {
+          type: 'positive',
+          icon: 'fa-chart-line',
+          title: 'Melhoria consistente na produtividade',
+          description: 'A redução de 2.2% nas horas por ponto de função indica ganhos de eficiência sustentáveis no projeto Massificado.'
+        },
+        {
+          type: 'negative',
+          icon: 'fa-exclamation-triangle',
+          title: 'Aumento temporário no retrabalho',
+          description: 'O aumento no retrabalho é um efeito esperado da maior cobertura de testes (65% mais cenários gerados), o que tende a normalizar conforme o processo amadurece.'
+        },
+        {
+          type: 'neutral',
+          icon: 'fa-search',
+          title: 'Adoção moderada da ferramenta',
+          description: 'Com 243 interações no Q3, há espaço para aumentar a adoção do GenAI entre as equipes do projeto Massificado.'
+        }
+      ]
+    }
+  };
 
     // Função para calcular os valores percentuais para cada projeto
     function calculateProjectResults() {
@@ -844,11 +1013,11 @@
         return;
       }
       
-       const ctx = canvas.getContext('2d');
+      // Forçar dimensões explícitas para o canvas
+      canvas.width = canvas.parentElement.clientWidth || 300;
+      canvas.height = canvas.parentElement.clientHeight || 150;
       
-      // Ajustar o tamanho do canvas para corresponder ao tamanho do contêiner
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
+      const ctx = canvas.getContext('2d');
       
       // Limpar o canvas completamente
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1017,6 +1186,30 @@
       ctx.fillText('Retrabalho', padding + 2 * legendSpacing + 15, legendY);
     }
     
+    // Função para atualizar os insights
+    function updateInsights(project) {
+      const insightsContainer = document.getElementById('projectInsights');
+      insightsContainer.innerHTML = ''; // Limpar insights anteriores
+      
+      // Adicionar novos insights
+      projectData[project].insights.forEach(insight => {
+        const insightElement = document.createElement('div');
+        insightElement.className = `insight-item ${insight.type}`;
+        
+        insightElement.innerHTML = `
+          <div class="insight-icon">
+            <i class="fas ${insight.icon}"></i>
+          </div>
+          <div class="insight-content">
+            <div class="insight-title">${insight.title}</div>
+            <div class="insight-desc">${insight.description}</div>
+          </div>
+        `;
+        
+        insightsContainer.appendChild(insightElement);
+      });
+    }
+    
     // Função para alternar entre projetos
     function switchProject(project, event) {
       // Atualizar tabs ativas
@@ -1072,6 +1265,9 @@
         projectData[project].reworkIncrease;
       document.querySelector('.results-grid .result-card:nth-child(3) .result-desc').textContent = 
         projectData[project].reworkDesc;
+      
+      // Atualizar insights
+      updateInsights(project);
       
       // Limpar o canvas existente e redesenhar o gráfico com os novos dados
       const canvas = document.getElementById('kpiTrendChart');
@@ -1163,10 +1359,71 @@
       }
     }
     
-      // Função para ajustar o tamanho do canvas quando a janela for redimensionada
+    // Função para ajustar o tamanho do canvas quando a janela for redimensionada
     function resizeCanvas() {
       const currentProject = document.querySelector('.project-tab.active').textContent.toLowerCase().replace(/\s+/g, '-');
       drawKpiTrendChart(currentProject);
+    }
+    
+    // Função para criar uma imagem estática do gráfico como fallback
+    function createFallbackImage() {
+      // Criar um canvas temporário fora da tela
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = 300;
+      tempCanvas.height = 150;
+      const tempCtx = tempCanvas.getContext('2d');
+      
+      // Desenhar um gráfico simples
+      tempCtx.fillStyle = '#151823';
+      tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+      
+      // Desenhar linhas de exemplo
+      tempCtx.strokeStyle = '#00e5ff';
+      tempCtx.lineWidth = 2;
+      tempCtx.beginPath();
+      tempCtx.moveTo(20, 75);
+      tempCtx.lineTo(150, 50);
+      tempCtx.lineTo(280, 30);
+      tempCtx.stroke();
+      
+      tempCtx.strokeStyle = '#7B68EE';
+      tempCtx.beginPath();
+      tempCtx.moveTo(20, 75);
+      tempCtx.lineTo(150, 85);
+      tempCtx.lineTo(280, 70);
+      tempCtx.stroke();
+      
+      tempCtx.strokeStyle = '#cc0000';
+      tempCtx.beginPath();
+      tempCtx.moveTo(20, 75);
+      tempCtx.lineTo(150, 40);
+      tempCtx.lineTo(280, 90);
+      tempCtx.stroke();
+      
+      // Converter para imagem
+      const imageUrl = tempCanvas.toDataURL('image/png');
+      
+      // Substituir o canvas por uma imagem
+      const kpiChart = document.querySelector('.kpi-chart');
+      const canvas = document.getElementById('kpiTrendChart');
+      
+      if (kpiChart && canvas) {
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.borderRadius = '8px';
+        
+        canvas.style.display = 'none';
+        kpiChart.appendChild(img);
+        
+        // Tentar inicializar o canvas real após um tempo
+        setTimeout(() => {
+          canvas.style.display = 'block';
+          img.style.display = 'none';
+          drawKpiTrendChart('safer');
+        }, 1000);
+      }
     }
     
     // Inicialização quando o DOM estiver carregado
@@ -1176,6 +1433,12 @@
       
       // Atualizar data no rodapé
       atualizarDataRodape();
+      
+      // Inicializar insights para o projeto padrão (SAFER)
+      updateInsights('safer');
+      
+      // Criar imagem de fallback para o gráfico
+      createFallbackImage();
       
       // Garantir que o canvas seja inicializado corretamente
       initializeCanvas();
@@ -1193,6 +1456,8 @@
       setTimeout(tryDrawChart, 100);
       setTimeout(tryDrawChart, 300);
       setTimeout(tryDrawChart, 500);
+      setTimeout(tryDrawChart, 1000);
+      setTimeout(tryDrawChart, 2000);
     }
     
     // Função para tentar desenhar o gráfico
@@ -1215,11 +1480,29 @@
           highlightReworkIndicator();
         } else {
           console.log('Canvas não tem dimensões válidas ainda...');
+          // Forçar dimensões
+          canvas.style.width = '100%';
+          canvas.style.height = '150px';
         }
       } else {
         console.log('Canvas ainda não está disponível...');
       }
     }
+    
+    // Garantir que o gráfico seja desenhado mesmo após o carregamento completo da página
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const canvas = document.getElementById('kpiTrendChart');
+        if (canvas) {
+          // Forçar dimensões explícitas se necessário
+          if (canvas.clientWidth === 0) {
+            canvas.style.width = '100%';
+            canvas.style.height = '150px';
+          }
+          drawKpiTrendChart('safer');
+        }
+      }, 200);
+    });
   </script>
 </body>
 </html>
