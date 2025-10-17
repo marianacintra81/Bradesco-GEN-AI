@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>v2_Agentes PromptX</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -274,6 +285,11 @@
             background: linear-gradient(135deg, rgba(123, 104, 238, 0.2), rgba(204, 0, 0, 0.2));
         }
         
+        /* Nova classe para o header do agente COBOL */
+        .agent-header.legacy {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(255, 152, 0, 0.2));
+        }
+        
         /* Efeito de circuito no header do card */
         .agent-header::after {
             content: '';
@@ -334,8 +350,19 @@
             animation: iconPulse 2s infinite;
         }
         
+        /* Nova classe para o ícone do agente COBOL */
+        .agent-icon.legacy {
+            color: var(--green-highlight);
+            animation: iconPulse 2s infinite;
+        }
+        
         .agent-icon.business::after {
             background: linear-gradient(135deg, var(--purple-highlight), var(--red-bradesco));
+        }
+        
+        /* Nova classe para o fundo do ícone do agente COBOL */
+        .agent-icon.legacy::after {
+            background: linear-gradient(135deg, var(--green-highlight), var(--orange-highlight));
         }
         
         .agent-card:hover .agent-icon {
@@ -349,6 +376,11 @@
         
         .agent-card:hover .agent-icon.business {
             color: var(--purple-highlight);
+        }
+        
+        /* Hover para o ícone do agente COBOL */
+        .agent-card:hover .agent-icon.legacy {
+            color: var(--green-highlight);
         }
         
         .agent-title-area {
@@ -383,6 +415,11 @@
             background: var(--purple-highlight);
         }
         
+        /* Nova classe para o destaque do título do agente COBOL */
+        .agent-card:hover .agent-header.legacy .agent-title::after {
+            background: var(--green-highlight);
+        }
+        
         .agent-category {
             display: inline-block;
             padding: 3px 10px;
@@ -401,6 +438,12 @@
         .agent-category.business {
             background: rgba(123, 104, 238, 0.2);
             color: var(--purple-highlight);
+        }
+        
+        /* Nova classe para a categoria do agente COBOL */
+        .agent-category.legacy {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--green-highlight);
         }
         
         .agent-body {
@@ -490,6 +533,12 @@
             color: var(--purple-highlight);
         }
         
+        /* Nova classe para o ícone de feature do agente COBOL */
+        .feature-icon.legacy {
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--green-highlight);
+        }
+        
         .feature-text {
             font-size: 0.85rem;
             color: var(--text-secondary);
@@ -543,6 +592,12 @@
             color: var(--purple-highlight);
         }
         
+        /* Nova classe para as tags de benefício do agente COBOL */
+        .benefit-tag.legacy {
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--green-highlight);
+        }
+        
         .agent-card:hover .benefit-tag {
             transform: translateY(-3px);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
@@ -577,6 +632,11 @@
         
         .agent-users i.business {
             color: var(--purple-highlight);
+        }
+        
+        /* Nova classe para o ícone de usuários do agente COBOL */
+        .agent-users i.legacy {
+            color: var(--green-highlight);
         }
         
         /* Efeito de destaque AI */
@@ -649,7 +709,7 @@
                 gap: 15px;
             }
         }
-    </style>
+        </style>
 </head>
 <body>
     <!-- Partículas de fundo -->
@@ -797,6 +857,69 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- COBOL Documentation Agent -->
+                <div class="agent-card floating">
+                    <div class="ai-badge">
+                        
+                    </div>
+                    <div class="agent-header legacy">
+                        <div class="agent-icon legacy">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <div class="agent-title-area">
+                            <h3 class="agent-title">Agente de Documentação COBOL</h3>
+                            <span class="agent-category legacy">Modernização de Legado</span>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <!-- Fundo de código binário -->
+                        <div class="binary-bg" id="binary-bg-cobol"></div>
+                        
+                        <p class="agent-description">
+                            Um agente especializado em analisar código COBOL e transformá-lo em documentação funcional detalhada, extraindo regras de negócio e fluxos lógicos.
+                        </p>
+                        
+                        <div class="agent-features">
+                            <div class="feature-item">
+                                <div class="feature-icon legacy">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Extração automática de regras de negócio a partir do código fonte COBOL
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon legacy">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Mapeamento de fluxos de processamento e dependências entre programas
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon legacy">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Geração de documentação técnica e funcional para projetos de modernização
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-benefits">
+                            <span class="benefit-tag legacy">+80% recuperação de conhecimento</span>
+                            <span class="benefit-tag legacy">-70% tempo de análise</span>
+                            <span class="benefit-tag legacy">+90% precisão</span>
+                        </div>
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-users">
+                            <i class="fas fa-users legacy"></i>
+                            <span>Analistas de Sistemas e Desenvolvedores Mainframe</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -863,6 +986,7 @@
             
             generateBinaryBackground('binary-bg-data', 'rgba(0, 229, 255, 0.2)');
             generateBinaryBackground('binary-bg-business', 'rgba(123, 104, 238, 0.2)');
+            generateBinaryBackground('binary-bg-cobol', 'rgba(76, 175, 80, 0.2)');
             
             // Efeito hover nos cards
             const agentCards = document.querySelectorAll('.agent-card');
@@ -879,4 +1003,8 @@
         });
     </script>
 </body>
+</html>
+    
+  </body>
+  
 </html>
