@@ -34,8 +34,11 @@
     .section-subtitle{color:var(--text-secondary);font-size:1rem;margin-top:.5rem}
     .view-all{color:var(--accent-cyan);text-decoration:none;font-weight:600;display:flex;align-items:center;gap:.5rem;transition:.3s}
     .view-all:hover{transform:translateX(5px)}
-    /* Vídeos */
+
+    /* Seções */
     .videos-section,.materials-section,.testimonials-section,.promo-section{width:100%;max-width:1200px;margin-bottom:3rem}
+
+    /* Vídeos */
     .videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2rem}
     .video-card{background:var(--bg-card);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:.3s;animation:fadeInUp .8s ease-out}
     .video-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
@@ -53,6 +56,7 @@
     .video-info{padding:1.5rem}
     .video-title{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
     .video-description{color:var(--text-secondary);font-size:.9rem;line-height:1.5}
+
     /* Materiais */
     .materials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
     .material-card{background:var(--bg-card);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:.3s;animation:fadeInUp .8s ease-out;display:flex;flex-direction:column}
@@ -67,10 +71,51 @@
     .icon-exibir:hover{transform:translateY(-3px);box-shadow:0 12px 22px rgba(0,51,160,.4)}
     .icon-exibir i{font-size:1rem}
     .material-meta{color:var(--text-secondary);font-size:.8rem}
+
+    /* Depoimentos Dinâmicos */
+    .testi-wrap{position:relative;background:radial-gradient(1200px 600px at 80% -10%, rgba(0,229,255,.12), transparent 60%), radial-gradient(900px 500px at 0% 110%, rgba(123,104,238,.12), transparent 60%);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,.08);overflow:hidden}
+    .testi-particles{position:absolute;inset:0;pointer-events:none}
+    .testi-particles span{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(0,229,255,.6);box-shadow:0 0 12px rgba(0,229,255,.9);animation:float 6s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .testi-tabs{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:18px}
+    .testi-tab{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#cfe8ff;border-radius:999px;padding:.5rem .9rem;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.5rem}
+    .testi-tab:hover{background:rgba(255,255,255,.1)}
+    .testi-tab.active{background:var(--blue-gradient);border-color:transparent;color:#fff;box-shadow:0 10px 20px rgba(0,51,160,.35)}
+    .testi-stage{position:relative;overflow:hidden;border-radius:12px}
+    .testi-track{display:flex;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+    .testi-slide{min-width:100%;padding:6px}
+    .testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .testi-card{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px;box-shadow:var(--card-shadow);overflow:hidden;transform:translateY(18px);opacity:0}
+    .testi-card.show{animation:riseIn .6s ease forwards}
+    @keyframes riseIn{to{transform:translateY(0);opacity:1}}
+    .testi-card:before{content:'“';position:absolute;left:14px;top:6px;font-size:60px;line-height:1;color:rgba(123,104,238,.18);font-family:serif}
+    .testi-text{color:var(--text-secondary);font-size:.95rem;line-height:1.6;margin:10px 0 14px 0}
+    .testi-author{display:flex;align-items:center;gap:.8rem}
+    .testi-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(0,229,255,.3);display:flex;align-items:center;justify-content:center;position:relative}
+    /* Avatar com iniciais */
+    .avatar{width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;letter-spacing:.5px;position:relative;isolation:isolate}
+    .avatar::after{content:attr(data-initials);z-index:2}
+    /* Gradientes alternados por data-theme */
+    .avatar[data-theme="1"]{background:linear-gradient(135deg,#0033A0,#00e5ff)}
+    .avatar[data-theme="2"]{background:linear-gradient(135deg,#7B68EE,#0033A0)}
+    .avatar[data-theme="3"]{background:linear-gradient(135deg,#cc0000,#7B68EE)}
+    .avatar[data-theme="4"]{background:linear-gradient(135deg,#22c55e,#0033A0)}
+    .testi-meta{display:flex;flex-direction:column}
+    .testi-name{font-weight:800;font-size:.95rem}
+    .testi-role{font-size:.8rem;color:var(--text-secondary)}
+    .testi-controls{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+    .pips{display:flex;gap:8px}
+    .pip{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:.2s}
+    .pip.active{background:#fff;box-shadow:0 0 10px rgba(255,255,255,.7)}
+    .arrows{display:flex;gap:8px}
+    .arrow-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+    .arrow-btn:hover{background:rgba(255,255,255,.12)}
+
     /* Footer & back */
     .footer{padding:1.5rem 0;text-align:center;color:var(--text-secondary);font-size:.9rem;background:var(--bg-secondary)}
     .back-button{position:fixed;top:2rem;left:2rem;width:50px;height:50px;border-radius:50%;background:var(--mixed-gradient);display:flex;justify-content:center;align-items:center;color:#fff;box-shadow:0 5px 15px rgba(0,0,0,.3);cursor:pointer;transition:.3s;z-index:100}
     .back-button:hover{transform:translateY(-5px)}
+
     /* Modal */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:200}
     .modal-overlay.active{display:flex}
@@ -98,9 +143,10 @@
     .chip.positive{border-color:rgba(34,197,94,.45);color:#b6f7c8}
     .chip.negative{border-color:rgba(204,0,0,.45);color:#ffc4c4}
     .chip.neutral{border-color:rgba(0,229,255,.35);color:#c7f6ff}
+
     @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
     @media (max-width:1200px){ .materials-grid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:768px){ .materials-grid{grid-template-columns:1fr} .grid{grid-template-columns:1fr} }
+    @media (max-width:768px){ .materials-grid{grid-template-columns:1fr} .grid{grid-template-columns:1fr} .testi-grid{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
@@ -204,9 +250,10 @@
         </div>
 
         <div class="materials-grid">
-          <!-- 1) Agente de Padronização de Dados (SVG atrativo) -->
+          <!-- 1) Agente de Padronização de Dados -->
           <div class="material-card">
             <div class="material-thumbnail" aria-label="Imagem: Agente de Padronização de Dados">
+              <!-- (SVG mantido) -->
               <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="apdTitle apdDesc">
                 <title id="apdTitle">Agente de Padronização de Dados</title>
                 <desc id="apdDesc">Escudo com engrenagem, brilho ciano e linhas de dados modernas.</desc>
@@ -228,10 +275,8 @@
                   <path d="M50,130 C220,70 300,240 430,200 S650,160 760,220" fill="none"/>
                   <path d="M50,280 C180,250 260,340 430,320 S650,300 760,350" fill="none" opacity=".8"/>
                 </g>
-                <!-- Escudo -->
                 <path d="M270,90 l80,-30 l80,30 v90 c0,95 -65,165 -80,180 c-15,-15 -80,-85 -80,-180 z" fill="url(#shield)"/>
                 <path d="M270,90 l80,-30 l80,30 v90 c0,95 -65,165 -80,180 c-15,-15 -80,-85 -80,-180 z" fill="none" stroke="#9db8ff" stroke-width="5" opacity=".6"/>
-                <!-- Engrenagem -->
                 <g transform="translate(350,180)">
                   <circle r="52" fill="none" stroke="#00e5ff" stroke-width="6"/>
                   <circle r="18" fill="none" stroke="#00e5ff" stroke-width="5" opacity=".9"/>
@@ -243,7 +288,6 @@
                   </g>
                 </g>
                 <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Agente de Padronização de Dados</text>
-             
               </svg>
             </div>
             <div class="material-info">
@@ -251,17 +295,17 @@
               <p class="material-description">Apresentação detalhada do Agente de Padronização de Dados, incluindo funcionalidades, benefícios e casos de uso implementados no Bradesco.</p>
               <div class="material-actions">
                 <button class="icon-exibir" data-open="folder-padronizacao" title="Exibir"><i class="fas fa-eye"></i></button>
-   
               </div>
             </div>
           </div>
 
-          <!-- 2) Whitepaper GenAI (SVG atrativo) -->
+          <!-- 2) Whitepaper GenAI -->
           <div class="material-card">
             <div class="material-thumbnail" aria-label="Imagem: Whitepaper GenAI">
+              <!-- (SVG mantido) -->
               <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="wpTitle wpDesc">
                 <title id="wpTitle">Whitepaper GenAI</title>
-                <desc id="wpDesc">Documento técnico estilizado com chip de IA e linhas de circuito em azul/ciano.</desc>
+                <desc id="wpDesc">Documento técnico com chip de IA e linhas de circuito.</desc>
                 <defs>
                   <linearGradient id="wpbg" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#061225"/><stop offset="100%" stop-color="#0e213f"/>
@@ -276,7 +320,6 @@
                   <path d="M60,300 H260 V240 H400"/>
                   <path d="M480,220 H740"/>
                 </g>
-                <!-- Documento -->
                 <g transform="translate(150,80)">
                   <rect x="0" y="0" width="280" height="340" rx="14" fill="none" stroke="url(#wplines)" stroke-width="5"/>
                   <rect x="26" y="36" width="228" height="18" rx="4" fill="#7B68EE" opacity=".9"/>
@@ -285,7 +328,6 @@
                   <rect x="26" y="132" width="228" height="12" rx="4" fill="#a3a8c3" opacity=".7"/>
                   <rect x="26" y="156" width="180" height="12" rx="4" fill="#a3a8c3" opacity=".7"/>
                 </g>
-                <!-- Chip IA -->
                 <g transform="translate(540,160)">
                   <rect x="-70" y="-70" width="140" height="140" rx="18" fill="#06142a" stroke="#00e5ff" stroke-width="4"/>
                   <g stroke="#00e5ff" stroke-width="6">
@@ -301,7 +343,6 @@
                   <text x="0" y="12" fill="#00e5ff" font-family="Montserrat,Arial" font-weight="800" font-size="26" text-anchor="middle">AI</text>
                 </g>
                 <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Whitepaper: GenAI no Setor Bancário</text>
-              
               </svg>
             </div>
             <div class="material-info">
@@ -309,14 +350,14 @@
               <p class="material-description">Estudo completo sobre a aplicação de Inteligência Artificial Generativa no setor bancário, com foco nas soluções implementadas pelo Bradesco.</p>
               <div class="material-actions">
                 <button class="icon-exibir" data-open="whitepaper-genai" title="Exibir"><i class="fas fa-eye"></i></button>
-        
               </div>
             </div>
           </div>
 
-          <!-- 3) Infográfico (SVG atrativo) -->
+          <!-- 3) Infográfico -->
           <div class="material-card">
             <div class="material-thumbnail" aria-label="Imagem: Infográfico de Resultados 2025">
+              <!-- (SVG mantido) -->
               <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="infTitle infDesc">
                 <title id="infTitle">Infográfico: Resultados GenAI 2025</title>
                 <desc id="infDesc">Barras roxas e linha verde mostrando crescimento.</desc>
@@ -346,7 +387,6 @@
                   <circle cx="510" cy="160" r="5"/><circle cx="600" cy="130" r="6"/>
                 </g>
                 <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Infográfico: Resultados GenAI 2025</text>
-          
               </svg>
             </div>
             <div class="material-info">
@@ -354,14 +394,13 @@
               <p class="material-description">Principais métricas alcançadas com GenAI no Bradesco durante 2025.</p>
               <div class="material-actions">
                 <button class="icon-exibir" data-open="infografico-resultados" title="Exibir"><i class="fas fa-eye"></i></button>
-          
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- DEPOIMENTOS -->
+      <!-- DEPOIMENTOS (DINÂMICO) -->
       <section class="testimonials-section" id="testimonials-section" style="display:none;">
         <div class="section-header">
           <div>
@@ -370,7 +409,143 @@
           </div>
           <a href="#" class="view-all">Ver todos <i class="fas fa-arrow-right"></i></a>
         </div>
-        <!-- conteúdo opcional -->
+
+        <div class="testi-wrap">
+          <div class="testi-particles" id="testiParticles"></div>
+
+          <!-- Abas de categorias -->
+          <div class="testi-tabs" id="testiTabs">
+            <button class="testi-tab active" data-cat="cenarios">
+              <i class="fas fa-vial"></i> Cenários de Teste
+            </button>
+            <button class="testi-tab" data-cat="diagramas">
+              <i class="fas fa-project-diagram"></i> Diagramas de Sequência
+            </button>
+            <button class="testi-tab" data-cat="pontos">
+              <i class="fas fa-calculator"></i> Pontos de Função
+            </button>
+          </div>
+
+          <!-- Palco/carrossel -->
+          <div class="testi-stage">
+            <div class="testi-track" id="testiTrack">
+              <!-- Slide 1: Cenários de Teste (2 depoimentos) -->
+              <div class="testi-slide" data-cat="cenarios">
+                <div class="testi-grid">
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      “O PromptX gerou casos completos e bem estruturados. Reduzimos em <strong>70%</strong> o tempo de escrita e aumentamos a cobertura — sem perder qualidade.”
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="PM" data-theme="1"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Patrícia M.</span>
+                        <span class="testi-role">QA Lead · Canais Digitais</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      “Nosso time focou na <strong>validação</strong> em vez de tarefas repetitivas. A aceleração foi clara já no primeiro sprint com GenAI.”
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="RC" data-theme="2"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Roberto C.</span>
+                        <span class="testi-role">Engenheiro de Testes · Pagamentos</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+
+              <!-- Slide 2: Diagramas de Sequência (2 depoimentos) -->
+              <div class="testi-slide" data-cat="diagramas">
+                <div class="testi-grid">
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      “A geração automática de <strong>diagramas de sequência</strong> deixou a documentação viva. O time entende o fluxo em minutos.”
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="LV" data-theme="3"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Larissa V.</span>
+                        <span class="testi-role">Arquiteta de Software · Open Finance</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      “Padronização imediata dos diagramas e <strong>menos ambiguidades</strong> entre times. A curva de alinhamento caiu muito.”
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="ES" data-theme="4"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Eduardo S.</span>
+                        <span class="testi-role">Tech Lead · Crédito</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+
+              <!-- Slide 3: Pontos de Função (2 depoimentos) -->
+              <div class="testi-slide" data-cat="pontos">
+                <div class="testi-grid">
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      “As estimativas ficaram <strong>3x mais rápidas</strong> e com menos variação. Tomada de decisão mais ágil e transparente.”
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="MT" data-theme="2"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Marcos T.</span>
+                        <span class="testi-role">Scrum Master · Cartões</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      “A padronização dos <strong>pontos de função</strong> trouxe confiança aos stakeholders e previsibilidade ao planejamento.”
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="BF" data-theme="1"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Beatriz F.</span>
+                        <span class="testi-role">Gerente de Produto · Investimentos</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controles -->
+          <div class="testi-controls">
+            <div class="pips" id="testiPips">
+              <span class="pip active" data-to="0"></span>
+              <span class="pip" data-to="1"></span>
+              <span class="pip" data-to="2"></span>
+            </div>
+            <div class="arrows">
+              <button class="arrow-btn" id="prevSlide" aria-label="Anterior"><i class="fas fa-arrow-left"></i></button>
+              <button class="arrow-btn" id="nextSlide" aria-label="Próximo"><i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- PROMPTX -->
@@ -392,11 +567,10 @@
     <div class="container"><p>© 2025 Bradesco GenAI Hub. Todos os direitos reservados.</p></div>
   </footer>
 
-  <!-- MODAL 1: Folder Agente de Padronização de Dados -->
+  <!-- MODAIS (mesmos conteúdos de antes) -->
   <div class="modal-overlay" id="folder-padronizacao" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle1">
       <div class="modal-header">
- 
         <h3 class="modal-title" id="modalTitle1">Agente de Padronização de Dados</h3>
         <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
       </div>
@@ -479,13 +653,10 @@
           </div>
         </div>
 
-   
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 2: Whitepaper GenAI -->
   <div class="modal-overlay" id="whitepaper-genai" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle2">
       <div class="modal-header">
@@ -522,14 +693,10 @@
             </ul>
           </div>
         </div>
-     
-     
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 3: Infográfico de Resultados -->
   <div class="modal-overlay" id="infografico-resultados" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle3">
       <div class="modal-header">
@@ -562,9 +729,6 @@
             </ul>
           </div>
         </div>
-   
-    
-        </div>
       </div>
     </div>
   </div>
@@ -583,7 +747,7 @@
       });
     });
 
-    // Abrir/fechar modais pelos ícones
+    // Modais
     const body = document.body;
     function wireModalOpeners(){
       document.querySelectorAll('[data-open]').forEach(btn=>{
@@ -606,7 +770,7 @@
     }
     wireModalOpeners();
 
-    // YouTube: mudo + (opcionalmente 2x, sem mostrar) + reinicia ao fim
+    // YouTube: mudo + (opcional 2x) + reinicia ao fim
     function setupVideoThumbnails(){
       document.querySelectorAll('.video-thumbnail').forEach(th=>{
         th.addEventListener('click',function(){
@@ -617,16 +781,16 @@
           div.id=uid; div.style.position='absolute'; div.style.inset='0';
           this.appendChild(div);
           const makePlayer=()=>{ try{
-              const p=new YT.Player(uid,{
+              new YT.Player(uid,{
                 videoId:id,
                 playerVars:{autoplay:1,controls:1,rel:0,playsinline:1,modestbranding:1,mute:1},
                 events:{
-                  onReady:(e)=>{ e.target.mute(); try{ e.target.setPlaybackRate(2); }catch(_){} },
+                  onReady:(e)=>{ e.target.mute(); try{ e.target.setPlaybackRate(2); }catch(_){ } },
                   onStateChange:(e)=>{ if(e.data===YT.PlayerState.ENDED){ e.target.seekTo(0,true); e.target.pauseVideo(); } }
                 }
               });
             }catch(e){
-              // Fallback com loop (sem indicador)
+              // fallback com loop
               const ifr=document.createElement('iframe');
               ifr.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1&rel=0&controls=1&modestbranding=1&loop=1&playlist=${id}`;
               ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
@@ -641,13 +805,82 @@
       });
     }
 
-    // Carrega API do YouTube e prepara thumbs
     document.addEventListener('DOMContentLoaded',()=>{
       const tag=document.createElement('script'); tag.src="https://www.youtube.com/iframe_api";
       const first=document.getElementsByTagName('script')[0]; first.parentNode.insertBefore(tag,first);
       setupVideoThumbnails();
     });
     window.onYouTubeIframeAPIReady=function(){};
+
+    // Depoimentos Dinâmicos
+    const track = document.getElementById('testiTrack');
+    const tabs  = Array.from(document.querySelectorAll('.testi-tab'));
+    const pips  = Array.from(document.querySelectorAll('.pip'));
+    const slides= Array.from(document.querySelectorAll('.testi-slide'));
+    let current=0, autoTimer=null, isHover=false;
+
+    function goTo(idx){
+      current = (idx+slides.length)%slides.length;
+      track.style.transform = `translateX(-${current*100}%)`;
+      pips.forEach((p,i)=>p.classList.toggle('active', i===current));
+      tabs.forEach(t=>t.classList.toggle('active', t.dataset.cat===slides[current].dataset.cat));
+      slides[current].querySelectorAll('.testi-card').forEach((c,i)=>{
+        c.classList.remove('show');
+        setTimeout(()=>c.classList.add('show'), 120*i);
+      });
+    }
+    function next(){ goTo(current+1); }
+    function prev(){ goTo(current-1); }
+    function startAuto(){ stopAuto(); autoTimer=setInterval(()=>{ if(!isHover) next(); },8000); }
+    function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer=null; } }
+
+    if(pips.length){
+      pips.forEach(p=>p.addEventListener('click',()=>goTo(parseInt(p.dataset.to,10))));
+      document.getElementById('nextSlide').addEventListener('click',next);
+      document.getElementById('prevSlide').addEventListener('click',prev);
+    }
+    if(tabs.length){
+      tabs.forEach((t)=>t.addEventListener('click',()=>{
+        const targetIndex = slides.findIndex(s=>s.dataset.cat===t.dataset.cat);
+        if(targetIndex>=0) goTo(targetIndex);
+      }));
+    }
+    const wrap=document.querySelector('.testi-wrap');
+    if(wrap){
+      wrap.addEventListener('mouseenter',()=>{isHover=true;});
+      wrap.addEventListener('mouseleave',()=>{isHover=false;});
+    }
+    (function makeParticles(){
+      const area=document.getElementById('testiParticles');
+      if(!area) return;
+      const n=18;
+      for(let i=0;i<n;i++){
+        const s=document.createElement('span');
+        s.style.left=Math.random()*100+'%';
+        s.style.top=Math.random()*100+'%';
+        s.style.animationDelay=(Math.random()*4)+'s';
+        s.style.opacity=0.5+Math.random()*0.5;
+        area.appendChild(s);
+      }
+    })();
+
+    if(track && slides.length){
+      goTo(0); startAuto();
+      const sect = document.getElementById('testimonials-section');
+      if(sect){
+        const obs = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting){
+              slides[current].querySelectorAll('.testi-card').forEach((c,i)=>{
+                setTimeout(()=>c.classList.add('show'), 120*i);
+              });
+              obs.disconnect();
+            }
+          });
+        },{threshold:0.4});
+        obs.observe(sect);
+      }
+    }
   </script>
 </body>
 </html>
