@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>v3_Cases de Sucesso e Depoimentos</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bradesco GenAI Hub | Casos de Sucesso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --bg-primary:#0c0e14; --bg-secondary:#151823; --bg-card:#1e2130; --bg-card-hover:#272936;
+      --bradesco-red:#cc0000; --bradesco-blue:#0033A0; --accent-purple:#7B68EE; --accent-cyan:#00e5ff;
+      --success:#22c55e;
+      --text-primary:#ffffff; --text-secondary:#a3a8c3; --card-shadow:0 10px 25px -5px rgba(0,0,0,.3);
+      --red-gradient:linear-gradient(135deg,var(--bradesco-red),#ff6b6b);
+      --blue-gradient:linear-gradient(135deg,var(--bradesco-blue),var(--accent-cyan));
+      --mixed-gradient:linear-gradient(135deg,var(--bradesco-blue),var(--accent-purple),var(--bradesco-red));
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Montserrat',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.6;overflow-x:hidden}
+    .container{max-width:1400px;margin:0 auto;padding:0 2rem}
+    header{position:relative;z-index:10;height:120px;overflow:hidden;background:var(--bg-secondary)}
+    .header-content{display:flex;align-items:center;height:100%;position:relative;z-index:5}
+    .main-content{min-height:calc(100vh - 220px);display:flex;flex-direction:column;align-items:center}
+    .page-title{text-align:center;margin:2rem 0}
+    .page-title h2{font-size:2rem;font-weight:700;margin-bottom:.5rem;background:var(--mixed-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .page-title p{font-size:1.1rem;color:var(--text-secondary)}
+    .nav-tabs{display:flex;justify-content:center;margin-bottom:2rem;gap:1rem;flex-wrap:wrap}
+    .nav-tab{padding:.8rem 1.5rem;background:var(--bg-secondary);border-radius:50px;cursor:pointer;transition:.3s;font-weight:600;color:var(--text-secondary)}
+    .nav-tab:hover{background:var(--bg-card-hover);color:var(--text-primary)}
+    .nav-tab.active{background:var(--blue-gradient);color:#fff;box-shadow:0 5px 15px rgba(0,51,160,.3)}
+    .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+    .section-title{font-size:1.5rem;font-weight:700}
+    .section-subtitle{color:var(--text-secondary);font-size:1rem;margin-top:.5rem}
+    .view-all{color:var(--accent-cyan);text-decoration:none;font-weight:600;display:flex;align-items:center;gap:.5rem;transition:.3s}
+    .view-all:hover{transform:translateX(5px)}
+    /* Vídeos */
+    .videos-section,.materials-section,.testimonials-section,.promo-section{width:100%;max-width:1200px;margin-bottom:3rem}
+    .videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2rem}
+    .video-card{background:var(--bg-card);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:.3s;animation:fadeInUp .8s ease-out}
+    .video-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+    .video-thumbnail{position:relative;width:100%;height:0;padding-bottom:56.25%;overflow:hidden;cursor:pointer;background:#000}
+    .custom-thumbnail{position:absolute;inset:0;background:linear-gradient(135deg,#1e2130,#0c0e14);display:flex;justify-content:center;align-items:center;text-align:center}
+    .thumbnail-content{padding:20px}
+    .thumbnail-icon{font-size:3rem;margin-bottom:15px;background:var(--mixed-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .thumbnail-title{font-size:1.8rem;font-weight:700;margin-bottom:10px;background:var(--mixed-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .thumbnail-subtitle{font-size:1rem;color:var(--text-secondary)}
+    .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;justify-content:center;align-items:center;opacity:0;transition:.3s;pointer-events:none}
+    .video-card:hover .video-overlay{opacity:1}
+    .play-button{width:60px;height:60px;border-radius:50%;background:var(--mixed-gradient);display:flex;justify-content:center;align-items:center;box-shadow:0 5px 15px rgba(0,0,0,.3)}
+    .play-button i{color:#fff;font-size:1.5rem}
+    .video-thumbnail iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+    .video-info{padding:1.5rem}
+    .video-title{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+    .video-description{color:var(--text-secondary);font-size:.9rem;line-height:1.5}
+    /* Materiais */
+    .materials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .material-card{background:var(--bg-card);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:.3s;animation:fadeInUp .8s ease-out;display:flex;flex-direction:column}
+    .material-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+    .material-thumbnail{width:100%;aspect-ratio:16/9;background:#0b0e16;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,.08)}
+    .material-thumbnail svg{width:100%;height:100%;display:block}
+    .material-info{padding:1.5rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+    .material-title{font-size:1.1rem;font-weight:700}
+    .material-description{color:var(--text-secondary);font-size:.9rem;line-height:1.5;flex:1}
+    .material-actions{display:flex;justify-content:space-between;align-items:center;margin-top:.5rem}
+    .icon-exibir{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--blue-gradient);color:#fff;text-decoration:none;border:none;cursor:pointer;transition:.25s;box-shadow:0 8px 18px rgba(0,51,160,.28)}
+    .icon-exibir:hover{transform:translateY(-3px);box-shadow:0 12px 22px rgba(0,51,160,.4)}
+    .icon-exibir i{font-size:1rem}
+    .material-meta{color:var(--text-secondary);font-size:.8rem}
+    /* Footer & back */
+    .footer{padding:1.5rem 0;text-align:center;color:var(--text-secondary);font-size:.9rem;background:var(--bg-secondary)}
+    .back-button{position:fixed;top:2rem;left:2rem;width:50px;height:50px;border-radius:50%;background:var(--mixed-gradient);display:flex;justify-content:center;align-items:center;color:#fff;box-shadow:0 5px 15px rgba(0,0,0,.3);cursor:pointer;transition:.3s;z-index:100}
+    .back-button:hover{transform:translateY(-5px)}
+    /* Modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:200}
+    .modal-overlay.active{display:flex}
+    .modal{position:relative;width:min(960px,92vw);max-height:90vh;overflow:auto;border-radius:18px;background:linear-gradient(180deg,#1b1e2a 0%,#0f121a 100%);box-shadow:0 25px 80px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08)}
+    .modal-header{display:flex;align-items:center;gap:12px;padding:22px;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;background:linear-gradient(180deg,#1b1e2a 0%,#141827 100%);z-index:1}
+    .modal-badge{padding:.3rem .7rem;border-radius:999px;background:rgba(0,51,160,.25);font-weight:700;font-size:.75rem;letter-spacing:.02em}
+    .modal-title{font-size:1.4rem;font-weight:800}
+    .modal-close{margin-left:auto;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);cursor:pointer;transition:.2s}
+    .modal-close:hover{transform:rotate(90deg);background:rgba(255,255,255,.12)}
+    .modal-body{padding:22px;display:grid;gap:16px}
+    .pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.25);color:#c7f6ff;border-radius:999px;padding:.35rem .7rem;font-size:.75rem;font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px}
+    .card h4{font-size:1rem;margin-bottom:.5rem}
+    .card ul{padding-left:18px;color:var(--text-secondary)}
+    .card ul li{margin:.38rem 0}
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;border-radius:999px;padding:.8rem 1.1rem;font-weight:800;letter-spacing:.02em;text-decoration:none;transition:.2s}
+    .btn-primary{background:var(--blue-gradient);color:#fff}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,51,160,.35)}
+    .btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff}
+    .btn-ghost:hover{background:rgba(255,255,255,.12)}
+    .kpi-chips{display:flex;flex-wrap:wrap;gap:.5rem}
+    .chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.4rem .7rem;font-weight:800;font-size:.8rem}
+    .chip.positive{border-color:rgba(34,197,94,.45);color:#b6f7c8}
+    .chip.negative{border-color:rgba(204,0,0,.45);color:#ffc4c4}
+    .chip.neutral{border-color:rgba(0,229,255,.35);color:#c7f6ff}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @media (max-width:1200px){ .materials-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:768px){ .materials-grid{grid-template-columns:1fr} .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button" title="Voltar">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+
+  <header>
+    <div class="container"><div class="header-content"></div></div>
+  </header>
+
+  <div class="container">
+    <div class="main-content">
+      <div class="page-title">
+        <h2>Cases de Sucesso e Depoimentos</h2>
+        <p>Conheça as histórias de transformação com GenAI no Bradesco</p>
+      </div>
+
+      <div class="nav-tabs">
+        <div class="nav-tab active" data-tab="videos">Vídeos</div>
+        <div class="nav-tab" data-tab="materials">Materiais</div>
+        <div class="nav-tab" data-tab="testimonials">Depoimentos</div>
+        <div class="nav-tab" data-tab="promo">PromptX</div>
+      </div>
+
+      <!-- VÍDEOS -->
+      <section class="videos-section" id="videos-section">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title">Vídeos de Cases de Sucesso</h3>
+            <p class="section-subtitle">Conheça as histórias de transformação com GenAI</p>
+          </div>
+          <a href="#" class="view-all">Ver todos <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="videos-grid">
+          <!-- Vídeo 1 -->
+          <div class="video-card">
+            <div class="video-thumbnail" data-video-id="JEO2FzB_LoU">
+              <div class="custom-thumbnail">
+                <div class="thumbnail-content">
+                  <i class="fas fa-project-diagram thumbnail-icon"></i>
+                  <h3 class="thumbnail-title">Diagrama de Sequência</h3>
+                  <p class="thumbnail-subtitle">Clique para assistir</p>
+                </div>
+              </div>
+              <div class="video-overlay"><div class="play-button"><i class="fas fa-play"></i></div></div>
+            </div>
+            <div class="video-info">
+              <h4 class="video-title">Diagramas de Sequência: IA Generativa no Setor Bancário</h4>
+              <p class="video-description">Automatize documentação técnica, reduza tempo e eleve a qualidade.</p>
+            </div>
+          </div>
+
+          <!-- Vídeo 2 -->
+          <div class="video-card">
+            <div class="video-thumbnail" data-video-id="VkeBRYQR9mM">
+              <div class="custom-thumbnail">
+                <div class="thumbnail-content">
+                  <i class="fas fa-calculator thumbnail-icon"></i>
+                  <h3 class="thumbnail-title">Pontos de Função</h3>
+                  <p class="thumbnail-subtitle">Clique para assistir</p>
+                </div>
+              </div>
+              <div class="video-overlay"><div class="play-button"><i class="fas fa-play"></i></div></div>
+            </div>
+            <div class="video-info">
+              <h4 class="video-title">Análise de Pontos de Função com GenAI</h4>
+              <p class="video-description">Estimativas 3x mais rápidas e precisas com IA.</p>
+            </div>
+          </div>
+
+          <!-- Vídeo 3 -->
+          <div class="video-card">
+            <div class="video-thumbnail" data-video-id="KyUFuKwoIew">
+              <div class="custom-thumbnail">
+                <div class="thumbnail-content">
+                  <i class="fas fa-vial thumbnail-icon"></i>
+                  <h3 class="thumbnail-title">Cenários de Teste</h3>
+                  <p class="thumbnail-subtitle">Clique para assistir</p>
+                </div>
+              </div>
+              <div class="video-overlay"><div class="play-button"><i class="fas fa-play"></i></div></div>
+            </div>
+            <div class="video-info">
+              <h4 class="video-title">Criação de Cenários de Teste com GenAI</h4>
+              <p class="video-description">Cobertura maior, menos bugs e tempo otimizado.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MATERIAIS -->
+      <section class="materials-section" id="materials-section" style="display:none;">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title">Materiais e Folders</h3>
+            <p class="section-subtitle">Documentos e apresentações sobre nossas iniciativas GenAI</p>
+          </div>
+          <a href="#" class="view-all">Ver todos <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="materials-grid">
+          <!-- 1) Agente de Padronização de Dados (SVG atrativo) -->
+          <div class="material-card">
+            <div class="material-thumbnail" aria-label="Imagem: Agente de Padronização de Dados">
+              <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="apdTitle apdDesc">
+                <title id="apdTitle">Agente de Padronização de Dados</title>
+                <desc id="apdDesc">Escudo com engrenagem, brilho ciano e linhas de dados modernas.</desc>
+                <defs>
+                  <linearGradient id="apdbg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#071427"/><stop offset="100%" stop-color="#0b1c3a"/>
+                  </linearGradient>
+                  <radialGradient id="glow" cx="65%" cy="35%" r="60%">
+                    <stop offset="0%" stop-color="#00e5ff" stop-opacity=".45"/>
+                    <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+                  </radialGradient>
+                  <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0033A0"/><stop offset="100%" stop-color="#7B68EE"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" fill="url(#apdbg)"/>
+                <circle cx="580" cy="120" r="170" fill="url(#glow)"/>
+                <g opacity=".25" stroke="#00e5ff" stroke-width="2">
+                  <path d="M50,130 C220,70 300,240 430,200 S650,160 760,220" fill="none"/>
+                  <path d="M50,280 C180,250 260,340 430,320 S650,300 760,350" fill="none" opacity=".8"/>
+                </g>
+                <!-- Escudo -->
+                <path d="M270,90 l80,-30 l80,30 v90 c0,95 -65,165 -80,180 c-15,-15 -80,-85 -80,-180 z" fill="url(#shield)"/>
+                <path d="M270,90 l80,-30 l80,30 v90 c0,95 -65,165 -80,180 c-15,-15 -80,-85 -80,-180 z" fill="none" stroke="#9db8ff" stroke-width="5" opacity=".6"/>
+                <!-- Engrenagem -->
+                <g transform="translate(350,180)">
+                  <circle r="52" fill="none" stroke="#00e5ff" stroke-width="6"/>
+                  <circle r="18" fill="none" stroke="#00e5ff" stroke-width="5" opacity=".9"/>
+                  <g fill="#00e5ff" opacity=".95">
+                    <rect x="-6" y="-82" width="12" height="22" rx="3"/>
+                    <rect x="-6" y="60" width="12" height="22" rx="3"/>
+                    <rect x="-82" y="-6" width="22" height="12" rx="3"/>
+                    <rect x="60" y="-6" width="22" height="12" rx="3"/>
+                  </g>
+                </g>
+                <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Agente de Padronização de Dados</text>
+             
+              </svg>
+            </div>
+            <div class="material-info">
+              <h4 class="material-title">Agente de Padronização de Dados</h4>
+              <p class="material-description">Apresentação detalhada do Agente de Padronização de Dados, incluindo funcionalidades, benefícios e casos de uso implementados no Bradesco.</p>
+              <div class="material-actions">
+                <button class="icon-exibir" data-open="folder-padronizacao" title="Exibir"><i class="fas fa-eye"></i></button>
+   
+              </div>
+            </div>
+          </div>
+
+          <!-- 2) Whitepaper GenAI (SVG atrativo) -->
+          <div class="material-card">
+            <div class="material-thumbnail" aria-label="Imagem: Whitepaper GenAI">
+              <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="wpTitle wpDesc">
+                <title id="wpTitle">Whitepaper GenAI</title>
+                <desc id="wpDesc">Documento técnico estilizado com chip de IA e linhas de circuito em azul/ciano.</desc>
+                <defs>
+                  <linearGradient id="wpbg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#061225"/><stop offset="100%" stop-color="#0e213f"/>
+                  </linearGradient>
+                  <linearGradient id="wplines" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#7B68EE"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" fill="url(#wpbg)"/>
+                <g stroke="url(#wplines)" stroke-width="2" opacity=".4">
+                  <path d="M60,120 H220 V180 H360"/>
+                  <path d="M60,300 H260 V240 H400"/>
+                  <path d="M480,220 H740"/>
+                </g>
+                <!-- Documento -->
+                <g transform="translate(150,80)">
+                  <rect x="0" y="0" width="280" height="340" rx="14" fill="none" stroke="url(#wplines)" stroke-width="5"/>
+                  <rect x="26" y="36" width="228" height="18" rx="4" fill="#7B68EE" opacity=".9"/>
+                  <rect x="26" y="72" width="188" height="12" rx="4" fill="#a3a8c3" opacity=".9"/>
+                  <rect x="26" y="96" width="206" height="12" rx="4" fill="#a3a8c3" opacity=".7"/>
+                  <rect x="26" y="132" width="228" height="12" rx="4" fill="#a3a8c3" opacity=".7"/>
+                  <rect x="26" y="156" width="180" height="12" rx="4" fill="#a3a8c3" opacity=".7"/>
+                </g>
+                <!-- Chip IA -->
+                <g transform="translate(540,160)">
+                  <rect x="-70" y="-70" width="140" height="140" rx="18" fill="#06142a" stroke="#00e5ff" stroke-width="4"/>
+                  <g stroke="#00e5ff" stroke-width="6">
+                    <line x1="-90" y1="-50" x2="-70" y2="-50"/>
+                    <line x1="-90" y1="-20" x2="-70" y2="-20"/>
+                    <line x1="-90" y1="10" x2="-70" y2="10"/>
+                    <line x1="-90" y1="40" x2="-70" y2="40"/>
+                    <line x1="70" y1="-50" x2="90" y2="-50"/>
+                    <line x1="70" y1="-20" x2="90" y2="-20"/>
+                    <line x1="70" y1="10" x2="90" y2="10"/>
+                    <line x1="70" y1="40" x2="90" y2="40"/>
+                  </g>
+                  <text x="0" y="12" fill="#00e5ff" font-family="Montserrat,Arial" font-weight="800" font-size="26" text-anchor="middle">AI</text>
+                </g>
+                <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Whitepaper: GenAI no Setor Bancário</text>
+              
+              </svg>
+            </div>
+            <div class="material-info">
+              <h4 class="material-title">Whitepaper: GenAI no Setor Bancário</h4>
+              <p class="material-description">Estudo completo sobre a aplicação de Inteligência Artificial Generativa no setor bancário, com foco nas soluções implementadas pelo Bradesco.</p>
+              <div class="material-actions">
+                <button class="icon-exibir" data-open="whitepaper-genai" title="Exibir"><i class="fas fa-eye"></i></button>
+        
+              </div>
+            </div>
+          </div>
+
+          <!-- 3) Infográfico (SVG atrativo) -->
+          <div class="material-card">
+            <div class="material-thumbnail" aria-label="Imagem: Infográfico de Resultados 2025">
+              <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="infTitle infDesc">
+                <title id="infTitle">Infográfico: Resultados GenAI 2025</title>
+                <desc id="infDesc">Barras roxas e linha verde mostrando crescimento.</desc>
+                <defs>
+                  <linearGradient id="infbg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0a1222"/><stop offset="100%" stop-color="#11182b"/>
+                  </linearGradient>
+                  <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#7B68EE"/><stop offset="100%" stop-color="#3b2ba8"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" fill="url(#infbg)"/>
+                <line x1="80" y1="340" x2="740" y2="340" stroke="#2a3550" stroke-width="2"/>
+                <line x1="80" y1="80" x2="80" y2="340" stroke="#2a3550" stroke-width="2"/>
+                <g>
+                  <rect x="130" y="300" width="40" height="40" fill="url(#bar)"/>
+                  <rect x="220" y="260" width="40" height="80" fill="url(#bar)"/>
+                  <rect x="310" y="220" width="40" height="120" fill="url(#bar)"/>
+                  <rect x="400" y="180" width="40" height="160" fill="url(#bar)"/>
+                  <rect x="490" y="140" width="40" height="200" fill="url(#bar)"/>
+                  <rect x="580" y="110" width="40" height="230" fill="url(#bar)"/>
+                </g>
+                <polyline points="150,300 240,270 330,230 420,200 510,160 600,130" fill="none" stroke="#22c55e" stroke-width="4"/>
+                <g fill="#22c55e">
+                  <circle cx="150" cy="300" r="5"/><circle cx="240" cy="270" r="5"/>
+                  <circle cx="330" cy="230" r="5"/><circle cx="420" cy="200" r="5"/>
+                  <circle cx="510" cy="160" r="5"/><circle cx="600" cy="130" r="6"/>
+                </g>
+                <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Infográfico: Resultados GenAI 2025</text>
+          
+              </svg>
+            </div>
+            <div class="material-info">
+              <h4 class="material-title">Infográfico: Resultados GenAI 2025</h4>
+              <p class="material-description">Principais métricas alcançadas com GenAI no Bradesco durante 2025.</p>
+              <div class="material-actions">
+                <button class="icon-exibir" data-open="infografico-resultados" title="Exibir"><i class="fas fa-eye"></i></button>
+          
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPOIMENTOS -->
+      <section class="testimonials-section" id="testimonials-section" style="display:none;">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title">Depoimentos</h3>
+            <p class="section-subtitle">O que nossos colaboradores dizem sobre o GenAI</p>
+          </div>
+          <a href="#" class="view-all">Ver todos <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <!-- conteúdo opcional -->
+      </section>
+
+      <!-- PROMPTX -->
+      <section class="promo-section" id="promo-section" style="display:none;">
+        <div class="section-header">
+          <div>
+            <h3 class="section-title">PromptX</h3>
+            <p class="section-subtitle">Ferramenta para acelerar times com IA</p>
+          </div>
+        </div>
+        <div style="background:var(--bg-card);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,.08);">
+          <p class="material-description">Área pronta para adicionar animações e métricas do PromptX.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container"><p>© 2025 Bradesco GenAI Hub. Todos os direitos reservados.</p></div>
+  </footer>
+
+  <!-- MODAL 1: Folder Agente de Padronização de Dados -->
+  <div class="modal-overlay" id="folder-padronizacao" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle1">
+      <div class="modal-header">
+        <span class="modal-badge" style="background:rgba(50,205,50,.2);border:1px solid rgba(50,205,50,.4);color:#caffd1"><i class="fas fa-sparkles"></i> Novo</span>
+        <span class="modal-badge"><i class="fas fa-shield-alt"></i> Enterprise</span>
+        <h3 class="modal-title" id="modalTitle1">Agente de Padronização de Dados</h3>
+        <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <h4><i class="fas fa-circle-info"></i> O que é</h4>
+        <p>Um agente inteligente que <strong>padroniza, valida e enriquece</strong> dados corporativos em escala, de forma <strong>automática, auditável e segura</strong>. Elimine divergências de nomenclatura, formatação e regras de negócio entre sistemas, acelerando integrações, analytics e IA.</p>
+
+        <div class="kpi-chips" aria-label="Indicadores">
+          <span class="chip negative">-70% Tempo de ajuste</span>
+          <span class="chip positive">+85% Conformidade</span>
+          <span class="chip negative">-60% Retrabalho</span>
+          <span class="chip neutral">120d Payback médio</span>
+        </div>
+
+        <h4><i class="fas fa-bolt"></i> Por que importa</h4>
+        <p>Dados padronizados significam <strong>decisões rápidas, risco reduzido</strong> e <strong>experiências consistentes</strong> para clientes e times. Padronização é a base para <strong>produtização de IA</strong> com qualidade bancária.</p>
+
+        <div class="kpi-chips">
+          <span class="chip neutral"><i class="fas fa-shield-halved"></i> LGPD & Compliance ready</span>
+          <span class="chip neutral"><i class="fas fa-clock"></i> Tempo real & Lote</span>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h4><i class="fas fa-cubes"></i> Funcionalidades</h4>
+            <ul>
+              <li>Mapeamento e <strong>normalização</strong> automática de campos e valores.</li>
+              <li><strong>Regras de negócio</strong> versionadas e auditáveis (no/low code).</li>
+              <li>Detecção de <strong>anomalias e duplicidades</strong> com IA.</li>
+              <li><strong>Enriquecimento</strong> (dicionários, catálogos, taxonomias internas).</li>
+              <li>APIs e conectores para <strong>sistemas legados</strong> e nuvem.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-star"></i> Benefícios</h4>
+            <ul>
+              <li><strong>Qualidade de dados</strong> consistente entre áreas e canais.</li>
+              <li>Redução de <strong>SLA</strong> em squads de produto e analytics.</li>
+              <li>Menos <strong>incidentes operacionais</strong> por divergências.</li>
+              <li><strong>Governança</strong> reforçada (trilha, papéis, aprovação).</li>
+              <li>Escalável para <strong>milhões</strong> de registros/dia.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-briefcase"></i> Casos de uso (Bradesco)</h4>
+            <ul>
+              <li>Padronização de <strong>produtos e serviços</strong> entre canais digitais.</li>
+              <li>Higienização de <strong>cadastro</strong> para onboarding e KYC.</li>
+              <li>Normalização de <strong>eventos transacionais</strong> para detecção de fraude.</li>
+              <li>Unificação de <strong>taxonomias</strong> para relatórios regulatórios.</li>
+              <li>Base única de <strong>referência</strong> para projetos de GenAI.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h4><i class="fas fa-gears"></i> Como funciona</h4>
+            <ul>
+              <li>Ingestão (API/Batch) → <strong>Regras & IA</strong> → Validação → <strong>Output padronizado</strong>.</li>
+              <li>Painel com <strong>KPIs</strong> de qualidade e aderência por domínio.</li>
+              <li>Sandbox para <strong>simulação</strong> antes de ir para produção.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-chart-line"></i> KPI & ROI</h4>
+            <ul>
+              <li><strong>Acurácia</strong> de padronização & <strong>redução de retrabalho</strong>.</li>
+              <li><strong>Tempo de integração</strong> entre sistemas (pré vs. pós).</li>
+              <li><strong>ROI 12 meses</strong> com base em horas evitadas + multas evitadas.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-shield-alt"></i> Segurança & Compliance</h4>
+            <ul>
+              <li>Mascaramento e <strong>pseudonimização</strong> por contexto.</li>
+              <li><strong>RBAC</strong> e segregação de ambientes.</li>
+              <li>Logs imutáveis e <strong>auditoria</strong> centralizada.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a href="folder-agente-padronizacao.pdf" class="btn btn-primary" download><i class="fas fa-download"></i> Baixar PDF (2,4 MB)</a>
+          <a href="mailto:genaihub@bradesco.com?subject=Interesse%20-%20Agente%20de%20Padroniza%C3%A7%C3%A3o%20de%20Dados" class="btn btn-ghost"><i class="fas fa-comments"></i> Falar com Especialista</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Whitepaper GenAI -->
+  <div class="modal-overlay" id="whitepaper-genai" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle2">
+      <div class="modal-header">
+        <span class="modal-badge"><i class="fas fa-file-lines"></i> Whitepaper</span>
+        <h3 class="modal-title" id="modalTitle2">Whitepaper: GenAI no Setor Bancário</h3>
+        <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <p>Estudo completo sobre arquiteturas, padrões e melhores práticas de <strong>IA Generativa</strong> aplicadas ao contexto bancário, com foco em segurança, governança e escalabilidade.</p>
+        <div class="grid">
+          <div class="card">
+            <h4><i class="fas fa-list-check"></i> Sumário Executivo</h4>
+            <ul>
+              <li>Panorama de GenAI no core bancário.</li>
+              <li>Casos de uso: atendimento, risco, operações, TI.</li>
+              <li>Arquiteturas de referência e integração.</li>
+              <li>Métricas de valor e ROI.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-diagram-project"></i> Arquitetura & Padrões</h4>
+            <ul>
+              <li>RAG, Fine-tuning, Guardrails e Observabilidade.</li>
+              <li>Privacidade, LGPD, RBAC e isolamento de dados.</li>
+              <li>MLOps/LangOps e esteiras CI/CD.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-users-gear"></i> Público-Alvo</h4>
+            <ul>
+              <li>Executivos de tecnologia e produto.</li>
+              <li>Arquitetos de dados e segurança.</li>
+              <li>Squads de analytics e automação.</li>
+            </ul>
+          </div>
+        </div>
+     
+     
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Infográfico de Resultados -->
+  <div class="modal-overlay" id="infografico-resultados" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle3">
+      <div class="modal-header">
+        <span class="modal-badge"><i class="fas fa-chart-column"></i> Highlights</span>
+        <h3 class="modal-title" id="modalTitle3">Infográfico: Resultados GenAI 2025</h3>
+        <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <p>Principais métricas alcançadas com iniciativas de GenAI no Bradesco durante <strong>2025</strong>, com foco em produtividade, qualidade e ROI.</p>
+        <div class="grid">
+          <div class="card">
+            <h4><i class="fas fa-angles-up"></i> Crescimento</h4>
+            <ul>
+              <li>Produtividade: tendência de alta ao longo do ano.</li>
+              <li>Qualidade: mais cobertura, menos retrabalho.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-sack-dollar"></i> ROI</h4>
+            <ul>
+              <li>Benefícios acumulados por automação e redução de incidentes.</li>
+              <li>Payback inferior a 12 meses em cenários priorizados.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-shield-halved"></i> Compliance</h4>
+            <ul>
+              <li>Guardrails, auditoria e conformidade contínua.</li>
+              <li>KPIs de aderência por domínio de dados.</li>
+            </ul>
+          </div>
+        </div>
+   
+    
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tabs
+    document.querySelectorAll('.nav-tab').forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        const id = tab.getAttribute('data-tab');
+        document.getElementById('videos-section').style.display = id==='videos' ? 'block':'none';
+        document.getElementById('materials-section').style.display = id==='materials' ? 'block':'none';
+        document.getElementById('testimonials-section').style.display = id==='testimonials' ? 'block':'none';
+        document.getElementById('promo-section').style.display = id==='promo' ? 'block':'none';
+      });
+    });
+
+    // Abrir/fechar modais pelos ícones
+    const body = document.body;
+    function wireModalOpeners(){
+      document.querySelectorAll('[data-open]').forEach(btn=>{
+        btn.addEventListener('click',(e)=>{
+          e.preventDefault();
+          const id=btn.getAttribute('data-open');
+          const overlay=document.getElementById(id);
+          if(!overlay) return;
+          overlay.classList.add('active');
+          overlay.setAttribute('aria-hidden','false');
+          body.style.overflow='hidden';
+          const closeBtn=overlay.querySelector('.modal-close');
+          const close=()=>{ overlay.classList.remove('active'); overlay.setAttribute('aria-hidden','true'); body.style.overflow='auto'; };
+          closeBtn.addEventListener('click',close,{once:true});
+          overlay.addEventListener('click',(ev)=>{ if(ev.target===overlay) close(); });
+          const esc=(ev)=>{ if(ev.key==='Escape'){ close(); document.removeEventListener('keydown',esc); } };
+          document.addEventListener('keydown',esc);
+        });
+      });
+    }
+    wireModalOpeners();
+
+    // YouTube: mudo + (opcionalmente 2x, sem mostrar) + reinicia ao fim
+    function setupVideoThumbnails(){
+      document.querySelectorAll('.video-thumbnail').forEach(th=>{
+        th.addEventListener('click',function(){
+          const id=this.getAttribute('data-video-id');
+          this.innerHTML='';
+          const div=document.createElement('div');
+          const uid=`player-${id}-${Date.now()}-${Math.floor(Math.random()*1e6)}`;
+          div.id=uid; div.style.position='absolute'; div.style.inset='0';
+          this.appendChild(div);
+          const makePlayer=()=>{ try{
+              const p=new YT.Player(uid,{
+                videoId:id,
+                playerVars:{autoplay:1,controls:1,rel:0,playsinline:1,modestbranding:1,mute:1},
+                events:{
+                  onReady:(e)=>{ e.target.mute(); try{ e.target.setPlaybackRate(2); }catch(_){} },
+                  onStateChange:(e)=>{ if(e.data===YT.PlayerState.ENDED){ e.target.seekTo(0,true); e.target.pauseVideo(); } }
+                }
+              });
+            }catch(e){
+              // Fallback com loop (sem indicador)
+              const ifr=document.createElement('iframe');
+              ifr.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1&rel=0&controls=1&modestbranding=1&loop=1&playlist=${id}`;
+              ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+              ifr.allowFullscreen=true; div.replaceWith(ifr);
+            }
+          };
+          if(window.YT&&YT.Player) makePlayer(); else {
+            const int=setInterval(()=>{ if(window.YT&&YT.Player){clearInterval(int); makePlayer();}},100);
+            setTimeout(()=>clearInterval(int),5000);
+          }
+        },{once:true});
+      });
+    }
+
+    // Carrega API do YouTube e prepara thumbs
+    document.addEventListener('DOMContentLoaded',()=>{
+      const tag=document.createElement('script'); tag.src="https://www.youtube.com/iframe_api";
+      const first=document.getElementsByTagName('script')[0]; first.parentNode.insertBefore(tag,first);
+      setupVideoThumbnails();
+    });
+    window.onYouTubeIframeAPIReady=function(){};
+  </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
