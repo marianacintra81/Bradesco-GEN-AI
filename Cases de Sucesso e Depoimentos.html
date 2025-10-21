@@ -85,10 +85,11 @@
     .testi-track{display:flex;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
     .testi-slide{min-width:100%;padding:6px}
     .testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .testi-grid.pf-grid{grid-template-columns:repeat(3,1fr);gap:16px}
     .testi-card{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px;box-shadow:var(--card-shadow);overflow:hidden;transform:translateY(18px);opacity:0}
     .testi-card.show{animation:riseIn .6s ease forwards}
     @keyframes riseIn{to{transform:translateY(0);opacity:1}}
-    .testi-card:before{content:'“';position:absolute;left:14px;top:6px;font-size:60px;line-height:1;color:rgba(123,104,238,.18);font-family:serif}
+    .testi-card:before{content:'"';position:absolute;left:14px;top:6px;font-size:60px;line-height:1;color:rgba(123,104,238,.18);font-family:serif}
     .testi-text{color:var(--text-secondary);font-size:.95rem;line-height:1.6;margin:10px 0 14px 0}
     .testi-author{display:flex;align-items:center;gap:.8rem}
     .testi-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(0,229,255,.3);display:flex;align-items:center;justify-content:center;position:relative}
@@ -116,37 +117,312 @@
     .back-button{position:fixed;top:2rem;left:2rem;width:50px;height:50px;border-radius:50%;background:var(--mixed-gradient);display:flex;justify-content:center;align-items:center;color:#fff;box-shadow:0 5px 15px rgba(0,0,0,.3);cursor:pointer;transition:.3s;z-index:100}
     .back-button:hover{transform:translateY(-5px)}
 
-    /* Modal */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:200}
-    .modal-overlay.active{display:flex}
-    .modal{position:relative;width:min(960px,92vw);max-height:90vh;overflow:auto;border-radius:18px;background:linear-gradient(180deg,#1b1e2a 0%,#0f121a 100%);box-shadow:0 25px 80px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08)}
-    .modal-header{display:flex;align-items:center;gap:12px;padding:22px;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;background:linear-gradient(180deg,#1b1e2a 0%,#141827 100%);z-index:1}
-    .modal-badge{padding:.3rem .7rem;border-radius:999px;background:rgba(0,51,160,.25);font-weight:700;font-size:.75rem;letter-spacing:.02em}
-    .modal-title{font-size:1.4rem;font-weight:800}
-    .modal-close{margin-left:auto;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);cursor:pointer;transition:.2s}
-    .modal-close:hover{transform:rotate(90deg);background:rgba(255,255,255,.12)}
-    .modal-body{padding:22px;display:grid;gap:16px}
-    .pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.25);color:#c7f6ff;border-radius:999px;padding:.35rem .7rem;font-size:.75rem;font-weight:700}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px}
-    .card h4{font-size:1rem;margin-bottom:.5rem}
-    .card ul{padding-left:18px;color:var(--text-secondary)}
-    .card ul li{margin:.38rem 0}
-    .cta-row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:.6rem;border-radius:999px;padding:.8rem 1.1rem;font-weight:800;letter-spacing:.02em;text-decoration:none;transition:.2s}
-    .btn-primary{background:var(--blue-gradient);color:#fff}
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,51,160,.35)}
-    .btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff}
-    .btn-ghost:hover{background:rgba(255,255,255,.12)}
-    .kpi-chips{display:flex;flex-wrap:wrap;gap:.5rem}
-    .chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.4rem .7rem;font-weight:800;font-size:.8rem}
-    .chip.positive{border-color:rgba(34,197,94,.45);color:#b6f7c8}
-    .chip.negative{border-color:rgba(204,0,0,.45);color:#ffc4c4}
-    .chip.neutral{border-color:rgba(0,229,255,.35);color:#c7f6ff}
+    /* Modal - Versão Otimizada para evitar barra de rolagem lateral */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .7);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      position: relative;
+      width: min(1200px, 95vw); /* Aumentado para 1200px */
+      max-height: 92vh;
+      overflow: auto;
+      border-radius: 20px;
+       background: linear-gradient(180deg, #1b1e2a 0%, #0f121a 100%);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, .5);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Reduzido de 12px para 10px */
+      padding: 20px 24px; /* Reduzido de 24px 28px */
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      position: sticky;
+      top: 0;
+      background: linear-gradient(180deg, #1b1e2a 0%, #141827 100%);
+      z-index: 1;
+    }
+
+    .modal-badge {
+      padding: .3rem .7rem; /* Reduzido de .4rem .8rem */
+      border-radius: 999px;
+      background: var(--blue-gradient);
+      color: #fff;
+      font-weight: 700;
+      font-size: .75rem; /* Reduzido de .8rem */
+      letter-spacing: .02em;
+    }
+
+    .modal-title {
+      font-size: 1.4rem; /* Reduzido de 1.5rem */
+      font-weight: 800;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .modal-close {
+      margin-left: auto;
+      width: 38px; /* Reduzido de 42px */
+      height: 38px; /* Reduzido de 42px */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, .08);
+      cursor: pointer;
+      transition: .3s;
+      color: #fff;
+    }
+
+    .modal-close:hover {
+      transform: rotate(90deg);
+      background: var(--bradesco-red);
+      color: #fff;
+    }
+
+    .modal-body {
+      padding: 22px; /* Reduzido de 28px */
+      display: grid;
+      gap: 16px; /* Reduzido de 20px */
+    }
+
+    /* Cards otimizados */
+    .card {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 14px; /* Reduzido de 16px */
+      padding: 18px; /* Reduzido de 22px */
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+      border-color: rgba(0, 229, 255, .3);
+    }
+
+    .card h4 {
+      font-size: 1rem; /* Reduzido de 1.1rem */
+      margin-bottom: .6rem; /* Reduzido de .8rem */
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px; /* Reduzido de 8px */
+    }
+
+    .card h4 i {
+      color: var(--bradesco-blue);
+      font-size: 0.9rem; /* Reduzido o tamanho do ícone */
+    }
+
+    .card ul {
+      padding-left: 16px; /* Reduzido de 18px */
+      color: var(--text-secondary);
+    }
+
+    .card ul li {
+      margin: .4rem 0; /* Reduzido de .5rem */
+      font-size: 0.9rem; /* Tamanho de fonte reduzido */
+    }
+
+    .card ul li strong {
+      color: #fff;
+    }
+
+    /* Chips de KPI otimizados */
+    .kpi-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem; /* Reduzido de .8rem */
+      margin: 0.8rem 0; /* Reduzido de 1rem */
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: 999px;
+      padding: .4rem .8rem; /* Reduzido de .5rem 1rem */
+      font-weight: 700;
+      font-size: .8rem; /* Reduzido de .85rem */
+      display: flex;
+      align-items: center;
+      gap: 5px; /* Reduzido de 6px */
+      transition: transform 0.2s;
+    }
+
+    .chip:hover {
+      transform: translateY(-2px);
+    }
+
+    .chip i {
+      font-size: .8rem; /* Reduzido de .9rem */
+    }
+
+    .chip.positive {
+      border-color: rgba(34, 197, 94, .5);
+      background: rgba(34, 197, 94, .1);
+      color: #b6f7c8;
+    }
+
+    .chip.negative {
+      border-color: rgba(204, 0, 0, .5);
+      background: rgba(204, 0, 0, .1);
+      color: #ffc4c4;
+    }
+
+    .chip.neutral {
+      border-color: rgba(0, 229, 255, .4);
+      background: rgba(0, 229, 255, .1);
+      color: #c7f6ff;
+    }
+
+    /* Citações otimizadas */
+    .quote-box {
+      margin-top: 20px; /* Reduzido de 24px */
+      padding: 16px; /* Reduzido de 20px */
+      background: linear-gradient(135deg, rgba(0, 51, 160, .15), rgba(0, 229, 255, .1));
+      border-radius: 14px; /* Reduzido de 16px */
+      border: 1px solid rgba(0, 229, 255, .3);
+    }
+
+    .quote-box h4 {
+      display: flex;
+      align-items: center;
+      gap: 8px; /* Reduzido de 10px */
+      margin-bottom: 10px; /* Reduzido de 12px */
+      color: #fff;
+      font-size: 0.95rem; /* Tamanho reduzido */
+    }
+
+    .quote-box h4 i {
+      color: var(--accent-cyan);
+      font-size: 1rem; /* Reduzido de 1.2rem */
+    }
+
+    .quote-box p {
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.6; /* Reduzido de 1.7 */
+      font-size: 0.9rem; /* Tamanho reduzido */
+    }
+
+    .quote-box .author {
+      text-align: right;
+      margin-top: 10px; /* Reduzido de 12px */
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.9rem; /* Tamanho reduzido */
+    }
+
+    /* Botões CTA otimizados */
+    .cta-row {
+      display: flex;
+      gap: 10px; /* Reduzido de 12px */
+      flex-wrap: wrap;
+      margin-top: 16px; /* Reduzido de 20px */
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem; /* Reduzido de .8rem */
+      border-radius: 999px;
+      padding: .8rem 1.2rem; /* Reduzido de 1rem 1.5rem */
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-decoration: none;
+      transition: .3s;
+      font-size: 0.9rem; /* Tamanho reduzido */
+    }
+
+    .btn-primary {
+      background: var(--blue-gradient);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 51, 160, .3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 51, 160, .45);
+    }
+
+    .btn-secondary {
+      background: var(--red-gradient);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(204, 0, 0, .3);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(204, 0, 0, .45);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .15);
+      color: #fff;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, .15);
+      transform: translateY(-3px);
+    }
+
+    /* Grid otimizado */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px; /* Reduzido de 20px */
+    }
+
+    @media (max-width: 1100px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .modal {
+        width: 95vw;
+        max-height: 95vh;
+      }
+      
+      .modal-header {
+        padding: 16px;
+      }
+      
+      .modal-body {
+        padding: 16px;
+      }
+    }
 
     @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
     @media (max-width:1200px){ .materials-grid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:768px){ .materials-grid{grid-template-columns:1fr} .grid{grid-template-columns:1fr} .testi-grid{grid-template-columns:1fr} }
+    @media (max-width:768px){ 
+      .materials-grid{grid-template-columns:1fr} 
+      .grid{grid-template-columns:1fr} 
+      .testi-grid{grid-template-columns:1fr} 
+      .testi-grid.pf-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -185,7 +461,7 @@
         <div class="videos-grid">
           <!-- Vídeo 1 -->
           <div class="video-card">
-            <div class="video-thumbnail" data-video-id="JEO2FzB_LoU">
+            <div class="video-thumbnail" data-video-url="https://capgemininar-my.sharepoint.com/personal/mariana_cintra_capgemini_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fmariana%5Fcintra%5Fcapgemini%5Fcom%2FDocuments%2FDiagrama%5FSequencia%2Emkv&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E75083a3e%2D1d9b%2D4a9b%2Da5a9%2Def25ace27b2b">
               <div class="custom-thumbnail">
                 <div class="thumbnail-content">
                   <i class="fas fa-project-diagram thumbnail-icon"></i>
@@ -196,14 +472,14 @@
               <div class="video-overlay"><div class="play-button"><i class="fas fa-play"></i></div></div>
             </div>
             <div class="video-info">
-              <h4 class="video-title">Diagramas de Sequência: IA Generativa no Setor Bancário</h4>
+              <h4 class="video-title">Diagramas de Sequência</h4>
               <p class="video-description">Automatize documentação técnica, reduza tempo e eleve a qualidade.</p>
             </div>
           </div>
 
           <!-- Vídeo 2 -->
           <div class="video-card">
-            <div class="video-thumbnail" data-video-id="VkeBRYQR9mM">
+            <div class="video-thumbnail" data-video-url="https://capgemininar-my.sharepoint.com/personal/mariana_cintra_capgemini_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fmariana%5Fcintra%5Fcapgemini%5Fcom%2FDocuments%2FContagem%20de%20Ponto%20de%20Fun%C3%A7%C3%A3o%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E122a344f%2D7f5f%2D43f9%2D8fcc%2D3a71715ecd27">
               <div class="custom-thumbnail">
                 <div class="thumbnail-content">
                   <i class="fas fa-calculator thumbnail-icon"></i>
@@ -214,14 +490,14 @@
               <div class="video-overlay"><div class="play-button"><i class="fas fa-play"></i></div></div>
             </div>
             <div class="video-info">
-              <h4 class="video-title">Contagem de Pontos de Função com GenAI</h4>
+              <h4 class="video-title">Contagem de Pontos de Função </h4>
               <p class="video-description">Estimativas 3x mais rápidas e precisas com IA.</p>
             </div>
-          </div>
+                 </div>
 
           <!-- Vídeo 3 -->
           <div class="video-card">
-            <div class="video-thumbnail" data-video-id="KyUFuKwoIew">
+            <div class="video-thumbnail" data-video-url="https://capgemininar-my.sharepoint.com/personal/mariana_cintra_capgemini_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fmariana%5Fcintra%5Fcapgemini%5Fcom%2FDocuments%2FHistoria%5Fde%5FUsuario%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Eb497b0df%2Db12b%2D4fd7%2Db6cf%2D61a424afa345">
               <div class="custom-thumbnail">
                 <div class="thumbnail-content">
                   <i class="fas fa-vial thumbnail-icon"></i>
@@ -232,12 +508,31 @@
               <div class="video-overlay"><div class="play-button"><i class="fas fa-play"></i></div></div>
             </div>
             <div class="video-info">
-              <h4 class="video-title">Criação de Cenários de Teste com GenAI</h4>
+              <h4 class="video-title">Criação de Cenários de Teste </h4>
               <p class="video-description">Cobertura maior, menos bugs e tempo otimizado.</p>
             </div>
           </div>
+          <!-- Vídeo 4 (NOVO) - História de Usuário -->
+<div class="video-card">
+  <div class="video-thumbnail" data-video-url="https://capgemininar-my.sharepoint.com/personal/mariana_cintra_capgemini_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fmariana%5Fcintra%5Fcapgemini%5Fcom%2FDocuments%2FHistoria%5Fde%5FUsuario%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Eb497b0df%2Db12b%2D4fd7%2Db6cf%2D61a424afa345">
+    <div class="custom-thumbnail">
+      <div class="thumbnail-content">
+        <i class="fas fa-file-alt thumbnail-icon"></i>
+        <h3 class="thumbnail-title">História de Usuário</h3>
+        <p class="thumbnail-subtitle">Clique para assistir</p>
+      </div>
+    </div>
+    <div class="video-overlay"><div class="play-button"><i class="fas fa-play"></i></div></div>
+  </div>
+  <div class="video-info">
+    <h4 class="video-title">Criação de Histórias de Usuário </h4>
+    <p class="video-description">Histórias mais claras, completas e alinhadas com as necessidades do negócio.</p>
+  </div>
+</div>
         </div>
+        
       </section>
+      
 
       <!-- MATERIAIS -->
       <section class="materials-section" id="materials-section" style="display:none;">
@@ -250,44 +545,116 @@
         </div>
 
         <div class="materials-grid">
-          <!-- 1) Agente de Padronização de Dados -->
+          <!-- 1) Agente de Padronização de Dados - IMAGEM ATUALIZADA -->
           <div class="material-card">
             <div class="material-thumbnail" aria-label="Imagem: Agente de Padronização de Dados">
-              <!-- (SVG mantido) -->
+              <!-- SVG atualizado com representação de banco de dados em movimento -->
               <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="apdTitle apdDesc">
                 <title id="apdTitle">Agente de Padronização de Dados</title>
-                <desc id="apdDesc">Escudo com engrenagem, brilho ciano e linhas de dados modernas.</desc>
+                <desc id="apdDesc">Visualização de dados sendo padronizados por um agente inteligente.</desc>
                 <defs>
                   <linearGradient id="apdbg" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#071427"/><stop offset="100%" stop-color="#0b1c3a"/>
                   </linearGradient>
-                  <radialGradient id="glow" cx="65%" cy="35%" r="60%">
+                  <radialGradient id="glow" cx="50%" cy="40%" r="60%">
                     <stop offset="0%" stop-color="#00e5ff" stop-opacity=".45"/>
                     <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
                   </radialGradient>
-                  <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#0033A0"/><stop offset="100%" stop-color="#7B68EE"/>
+                  <linearGradient id="dataGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#0033A0"/><stop offset="100%" stop-color="#00e5ff"/>
                   </linearGradient>
+                  <linearGradient id="agentGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#7B68EE"/><stop offset="100%" stop-color="#0033A0"/>
+                  </linearGradient>
+                  <linearGradient id="errorGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#cc0000"/><stop offset="100%" stop-color="#ff6b6b"/>
+                  </linearGradient>
+                  <linearGradient id="successGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#22c55e"/><stop offset="100%" stop-color="#4ade80"/>
+                  </linearGradient>
+                  
+                  <!-- Animation for data flow -->
+                  <pattern id="flowPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <circle cx="10" cy="10" r="3" fill="#00e5ff" opacity="0.8">
+                      <animate attributeName="cx" from="0" to="100" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="30" cy="30" r="2" fill="#7B68EE" opacity="0.7">
+                      <animate attributeName="cx" from="0" to="100" dur="2.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="50" cy="50" r="4" fill="#0033A0" opacity="0.6">
+                      <animate attributeName="cx" from="0" to="100" dur="4s" repeatCount="indefinite"/>
+                    </circle>
+                  </pattern>
                 </defs>
+                
                 <rect width="800" height="450" fill="url(#apdbg)"/>
-                <circle cx="580" cy="120" r="170" fill="url(#glow)"/>
-                <g opacity=".25" stroke="#00e5ff" stroke-width="2">
-                  <path d="M50,130 C220,70 300,240 430,200 S650,160 760,220" fill="none"/>
-                  <path d="M50,280 C180,250 260,340 430,320 S650,300 760,350" fill="none" opacity=".8"/>
-                </g>
-                <path d="M270,90 l80,-30 l80,30 v90 c0,95 -65,165 -80,180 c-15,-15 -80,-85 -80,-180 z" fill="url(#shield)"/>
-                <path d="M270,90 l80,-30 l80,30 v90 c0,95 -65,165 -80,180 c-15,-15 -80,-85 -80,-180 z" fill="none" stroke="#9db8ff" stroke-width="5" opacity=".6"/>
-                <g transform="translate(350,180)">
-                  <circle r="52" fill="none" stroke="#00e5ff" stroke-width="6"/>
-                  <circle r="18" fill="none" stroke="#00e5ff" stroke-width="5" opacity=".9"/>
-                  <g fill="#00e5ff" opacity=".95">
-                    <rect x="-6" y="-82" width="12" height="22" rx="3"/>
-                    <rect x="-6" y="60" width="12" height="22" rx="3"/>
-                    <rect x="-82" y="-6" width="22" height="12" rx="3"/>
-                    <rect x="60" y="-6" width="22" height="12" rx="3"/>
+                <circle cx="400" cy="180" r="200" fill="url(#glow)" opacity="0.7"/>
+                
+                <!-- Central Agent Icon -->
+                <g transform="translate(400, 180)">
+                  <circle cx="0" cy="0" r="70" fill="#1e2130" stroke="url(#agentGradient)" stroke-width="4"/>
+                  <g transform="scale(0.8)">
+                    <!-- Agent Icon - Database with AI -->
+                    <path d="M-40,-40 h80 v60 a20,20 0 0 1 -20,20 h-40 a20,20 0 0 1 -20,-20 v-60 z" fill="#0b1c3a" stroke="#00e5ff" stroke-width="2"/>
+                    <ellipse cx="0" cy="-40" rx="40" ry="15" fill="#0b1c3a" stroke="#00e5ff" stroke-width="2"/>
+                    
+                      <!-- Data Lines -->
+                    <line x1="-30" y1="-20" x2="30" y2="-20" stroke="#00e5ff" stroke-width="2"/>
+                    <line x1="-30" y1="0" x2="30" y2="0" stroke="#00e5ff" stroke-width="2"/>
+                    <line x1="-30" y1="20" x2="30" y2="20" stroke="#00e5ff" stroke-width="2"/>
+                    
+                    <!-- AI Brain Overlay -->
+                    <path d="M0,-15 c15,0 25,10 25,25 c0,15 -10,25 -25,25 c-15,0 -25,-10 -25,-25 c0,-15 10,-25 25,-25" fill="none" stroke="#7B68EE" stroke-width="2" opacity="0.8"/>
+                    <path d="M-15,0 c0,-10 30,-10 30,0 c0,10 -30,10 -30,0" fill="none" stroke="#7B68EE" stroke-width="2" opacity="0.8"/>
+                    <circle cx="-10" cy="-5" r="3" fill="#7B68EE"/>
+                    <circle cx="10" cy="-5" r="3" fill="#7B68EE"/>
                   </g>
+                  
+                  <!-- Pulsing Animation -->
+                  <circle cx="0" cy="0" r="75" fill="none" stroke="#00e5ff" stroke-width="2" opacity="0.5">
+                    <animate attributeName="r" values="70;85;70" dur="3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.5;0;0.5" dur="3s" repeatCount="indefinite"/>
+                  </circle>
                 </g>
-                <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Agente de Padronização de Dados</text>
+                
+                <!-- Input Data (Left) -->
+                <g transform="translate(180, 180)">
+                  <!-- Messy Data Files -->
+                  <rect x="-60" y="-70" width="120" height="140" rx="10" fill="#1e2130" stroke="#cc0000" stroke-width="2"/>
+                  <text x="0" y="-40" text-anchor="middle" fill="#fff" font-family="Montserrat,Arial" font-size="14" font-weight="bold">Dados</text>
+                  <text x="0" y="-20" text-anchor="middle" fill="#fff" font-family="Montserrat,Arial" font-size="14" font-weight="bold">Não</text>
+                  <text x="0" y="0" text-anchor="middle" fill="#fff" font-family="Montserrat,Arial" font-size="14" font-weight="bold">Padronizados</text>
+                  
+                  <!-- Error Data Examples -->
+                  <g transform="translate(0, 30)">
+                    <rect x="-50" y="0" width="100" height="10" rx="2" fill="url(#errorGradient)" opacity="0.7"/>
+                    <rect x="-40" y="15" width="80" height="10" rx="2" fill="url(#errorGradient)" opacity="0.7"/>
+                    <rect x="-45" y="30" width="90" height="10" rx="2" fill="url(#errorGradient)" opacity="0.7"/>
+                  </g>
+                  
+                  <!-- Flow to Center -->
+                  <path d="M60,0 h90" stroke="url(#dataGradient)" stroke-width="6" stroke-dasharray="8 4"/>
+                  <rect x="60" y="-10" width="90" height="20" fill="url(#flowPattern)" opacity="0.7"/>
+                </g>
+                
+                <!-- Output Data (Right) -->
+                <g transform="translate(620, 180)">
+                  <!-- Clean Data Files -->
+                  <rect x="-60" y="-70" width="120" height="140" rx="10" fill="#1e2130" stroke="url(#dataGradient)" stroke-width="3"/>
+                  <text x="0" y="-40" text-anchor="middle" fill="#fff" font-family="Montserrat,Arial" font-size="14" font-weight="bold">Dados</text>
+                  <text x="0" y="-20" text-anchor="middle" fill="#fff" font-family="Montserrat,Arial" font-size="14" font-weight="bold">Padronizados</text>
+                  
+                  <!-- Structured Data Examples -->
+                  <g transform="translate(0, 30)">
+                    <rect x="-50" y="0" width="100" height="10" rx="2" fill="url(#successGradient)" opacity="0.8"/>
+                    <rect x="-50" y="15" width="100" height="10" rx="2" fill="url(#successGradient)" opacity="0.8"/>
+                    <rect x="-50" y="30" width="100" height="10" rx="2" fill="url(#successGradient)" opacity="0.8"/>
+                  </g>
+                  
+                  <!-- Flow from Center -->
+                  <path d="M-150,0 h90" stroke="url(#dataGradient)" stroke-width="6" stroke-dasharray="8 4"/>
+                  <rect x="-150" y="-10" width="90" height="20" fill="url(#flowPattern)" opacity="0.7"/>
+                </g>
               </svg>
             </div>
             <div class="material-info">
@@ -330,7 +697,7 @@
                 </g>
                 <g transform="translate(540,160)">
                   <rect x="-70" y="-70" width="140" height="140" rx="18" fill="#06142a" stroke="#00e5ff" stroke-width="4"/>
-                  <g stroke="#00e5ff" stroke-width="6">
+                      <g stroke="#00e5ff" stroke-width="6">
                     <line x1="-90" y1="-50" x2="-70" y2="-50"/>
                     <line x1="-90" y1="-20" x2="-70" y2="-20"/>
                     <line x1="-90" y1="10" x2="-70" y2="10"/>
@@ -342,12 +709,12 @@
                   </g>
                   <text x="0" y="12" fill="#00e5ff" font-family="Montserrat,Arial" font-weight="800" font-size="26" text-anchor="middle">AI</text>
                 </g>
-                <text x="40" y="385" fill="#cfe8ff" font-family="Montserrat,Arial" font-weight="800" font-size="28">Whitepaper: GenAI no Setor Bancário</text>
+     
               </svg>
             </div>
             <div class="material-info">
               <h4 class="material-title">Whitepaper: GenAI no Setor Bancário</h4>
-              <p class="material-description">Estudo completo sobre a aplicação de Inteligência Artificial Generativa no setor bancário, com foco nas soluções implementadas pelo Bradesco.</p>
+              <p class="material-description">Estudo completo sobre a aplicação de Inteligência Artificial Generativa no setor bancário, com foco nas soluções implementadas pela Capgemini.</p>
               <div class="material-actions">
                 <button class="icon-exibir" data-open="whitepaper-genai" title="Exibir"><i class="fas fa-eye"></i></button>
               </div>
@@ -415,7 +782,7 @@
 
           <!-- Abas de categorias -->
           <div class="testi-tabs" id="testiTabs">
-            <button class="testi-tab active" data-cat="cenarios">
+          <button class="testi-tab active" data-cat="cenarios">
               <i class="fas fa-vial"></i> Cenários de Teste
             </button>
             <button class="testi-tab" data-cat="diagramas">
@@ -434,21 +801,21 @@
                 <div class="testi-grid">
                   <article class="testi-card">
                     <div class="testi-text">
-                      “O PromptX gerou casos completos e bem estruturados. Reduzimos em <strong>70%</strong> o tempo de escrita e aumentamos a cobertura — sem perder qualidade.”
+                      "O PromptX gerou casos completos e bem estruturados. Reduzimos em <strong>70%</strong> o tempo de escrita e aumentamos a cobertura — sem perder qualidade."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
                         <div class="avatar" data-initials="PM" data-theme="1"></div>
                       </div>
                       <div class="testi-meta">
-                        <span class="testi-name">Patrícia M.</span>
+                           <span class="testi-name">Patrícia M.</span>
                         <span class="testi-role">QA Lead · Canais Digitais</span>
                       </div>
                     </div>
                   </article>
                   <article class="testi-card">
                     <div class="testi-text">
-                      “Nosso time focou na <strong>validação</strong> em vez de tarefas repetitivas. A aceleração foi clara já no primeiro sprint com GenAI.”
+                      "Nosso time focou na <strong>validação</strong> em vez de tarefas repetitivas. A aceleração foi clara já no primeiro sprint com GenAI."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
@@ -468,7 +835,7 @@
                 <div class="testi-grid">
                   <article class="testi-card">
                     <div class="testi-text">
-                      “A geração automática de <strong>diagramas de sequência</strong> deixou a documentação viva. O time entende o fluxo em minutos.”
+                      "A geração automática de <strong>diagramas de sequência</strong> deixou a documentação viva. O time entende o fluxo em minutos."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
@@ -482,7 +849,7 @@
                   </article>
                   <article class="testi-card">
                     <div class="testi-text">
-                      “Padronização imediata dos diagramas e <strong>menos ambiguidades</strong> entre times. A curva de alinhamento caiu muito.”
+                      "Padronização imediata dos diagramas e <strong>menos ambiguidades</strong> entre times. A curva de alinhamento caiu muito."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
@@ -497,34 +864,90 @@
                 </div>
               </div>
 
-              <!-- Slide 3: Pontos de Função (2 depoimentos) -->
+              <!-- Slide 3: Pontos de Função (todos os depoimentos em um único slide) -->
               <div class="testi-slide" data-cat="pontos">
-                <div class="testi-grid">
+                <div class="testi-grid pf-grid">
                   <article class="testi-card">
                     <div class="testi-text">
-                      “As estimativas ficaram <strong>3x mais rápidas</strong> e com menos variação. Tomada de decisão mais ágil e transparente.”
+                      "Reduzimos o tempo de análise de <strong>4 horas para apenas 1 hora</strong> por sprint. A ferramenta identifica funções que passariam despercebidas."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
-                        <div class="avatar" data-initials="MT" data-theme="2"></div>
+                        <div class="avatar" data-initials="RG" data-theme="2"></div>
                       </div>
                       <div class="testi-meta">
-                        <span class="testi-name">Marcos T.</span>
-                        <span class="testi-role">Scrum Master · Cartões</span>
+                        <span class="testi-name">Roger Guerra</span>
+                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
                   <article class="testi-card">
                     <div class="testi-text">
-                      “A padronização dos <strong>pontos de função</strong> trouxe confiança aos stakeholders e previsibilidade ao planejamento.”
+                      "O PromptX nos ajudou a <strong>recuperar pontuação</strong> em histórias que seriam zeradas, criando argumentos sólidos baseados nas diretrizes."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
-                        <div class="avatar" data-initials="BF" data-theme="1"></div>
+                        <div class="avatar" data-initials="MM" data-theme="1"></div>
                       </div>
                       <div class="testi-meta">
-                        <span class="testi-name">Beatriz F.</span>
-                        <span class="testi-role">Gerente de Produto · Investimentos</span>
+                        <span class="testi-name">Michele Marcato</span>
+                        <span class="testi-role">Capgemini</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "A ferramenta <strong>identifica itens importantes</strong> para metrificação e indica onde encontrá-los na Tabela Bradesco."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="SL" data-theme="3"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Solimar Laterca</span>
+                        <span class="testi-role">Capgemini</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "O PromptX oferece <strong>justificativas precisas</strong> que contribuem para um discurso mais eficaz junto ao Escritório de Métricas."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="AS" data-theme="4"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Andre Santana</span>
+                        <span class="testi-role">Capgemini</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Reduzimos o tempo de contagem de <strong>2 horas para menos de 1 hora</strong>, além de identificar funções não mapeadas inicialmente."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="BC" data-theme="1"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Bruna Conceicao</span>
+                        <span class="testi-role">Capgemini</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Consegui <strong>recuperar muitos pontos</strong> identificando os pontos fortes que podemos mudar na história."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="SP" data-theme="2"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Sofia Piantavini</span>
+                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
@@ -538,7 +961,7 @@
             <div class="pips" id="testiPips">
               <span class="pip active" data-to="0"></span>
               <span class="pip" data-to="1"></span>
-              <span class="pip" data-to="2"></span>
+               <span class="pip" data-to="2"></span>
             </div>
             <div class="arrows">
               <button class="arrow-btn" id="prevSlide" aria-label="Anterior"><i class="fas fa-arrow-left"></i></button>
@@ -567,92 +990,126 @@
     <div class="container"><p>© 2025 Bradesco GenAI Hub. Todos os direitos reservados.</p></div>
   </footer>
 
-  <!-- MODAIS (mesmos conteúdos de antes) -->
+  <!-- MODAIS (versão otimizada) -->
   <div class="modal-overlay" id="folder-padronizacao" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle1">
       <div class="modal-header">
+        <span class="modal-badge"><i class="fas fa-database"></i> Case</span>
         <h3 class="modal-title" id="modalTitle1">Agente de Padronização de Dados</h3>
         <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
       </div>
       <div class="modal-body">
-        <h4><i class="fas fa-circle-info"></i> O que é</h4>
-        <p>Um agente inteligente que <strong>padroniza, valida e enriquece</strong> dados corporativos em escala, de forma <strong>automática, auditável e segura</strong>. Elimine divergências de nomenclatura, formatação e regras de negócio entre sistemas, acelerando integrações, analytics e IA.</p>
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:rgba(0,51,160,.08); padding:16px; border-radius:14px; border:1px solid rgba(0,51,160,.2);">
+          <div style="flex:1">
+            <h4 style="font-size:1.2rem; margin-bottom:10px;"><i class="fas fa-circle-info" style="color:var(--accent-cyan); font-size:0.9rem;"></i> O que é</h4>
+            <p style="font-size:0.95rem; line-height:1.5;">Um assistente de modelagem de dados com IA que <strong style="color:#fff">automatiza e qualifica</strong> a modelagem de dados, elevando consistência, conformidade e alinhamento com os padrões do Bradesco.</p>
+          </div>
+          <div style="width:100px; height:100px; flex-shrink:0; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,51,160,.4);">
+            <i class="fas fa-database" style="font-size:2.5rem; color:#fff"></i>
+          </div>
+        </div>
 
+        <h4 style="font-size:1.1rem; margin-bottom:12px;"><i class="fas fa-chart-line" style="color:var(--bradesco-blue); font-size:0.9rem;"></i> Principais Indicadores</h4>
         <div class="kpi-chips" aria-label="Indicadores">
-          <span class="chip negative">-70% Tempo de ajuste</span>
-          <span class="chip positive">+85% Conformidade</span>
-          <span class="chip negative">-60% Retrabalho</span>
-          <span class="chip neutral">120d Payback médio</span>
+          <span class="chip neutral"><i class="fa-solid fa-clock"></i> Modelagem até 25% mais rápida</span>
+          <span class="chip positive"><i class="fa-solid fa-bug-slash"></i> Detecção de erros ~98%</span>
+          <span class="chip negative"><i class="fa-solid fa-hourglass-half"></i> Revisão reduzida em 65%</span>
+          <span class="chip positive"><i class="fa-solid fa-shield-check"></i> Conformidade ~95%</span>
+          <span class="chip neutral"><i class="fa-solid fa-chart-line"></i> Produtividade +50%</span>
         </div>
 
-        <h4><i class="fas fa-bolt"></i> Por que importa</h4>
-        <p>Dados padronizados significam <strong>decisões rápidas, risco reduzido</strong> e <strong>experiências consistentes</strong> para clientes e times. Padronização é a base para <strong>produtização de IA</strong> com qualidade bancária.</p>
-
-        <div class="kpi-chips">
-          <span class="chip neutral"><i class="fas fa-shield-halved"></i> LGPD & Compliance ready</span>
-          <span class="chip neutral"><i class="fas fa-clock"></i> Tempo real & Lote</span>
-        </div>
+        <h4 style="font-size:1.1rem; margin:20px 0 12px;"><i class="fas fa-bolt" style="color:var(--bradesco-red); font-size:0.9rem;"></i> Transforme sua <span style="color: var(--accent-cyan);">Engenharia de Dados</span> com IA</h4>
 
         <div class="grid">
           <div class="card">
-            <h4><i class="fas fa-cubes"></i> Funcionalidades</h4>
+            <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Validação automática</h4>
             <ul>
-              <li>Mapeamento e <strong>normalização</strong> automática de campos e valores.</li>
-              <li><strong>Regras de negócio</strong> versionadas e auditáveis (no/low code).</li>
-              <li>Detecção de <strong>anomalias e duplicidades</strong> com IA.</li>
-              <li><strong>Enriquecimento</strong> (dicionários, catálogos, taxonomias internas).</li>
-              <li>APIs e conectores para <strong>sistemas legados</strong> e nuvem.</li>
+              <li>Tabelas e colunas com checagens contextuais</li>
+              <li>Análise de conformidade com padrões</li>
+              <li>Verificação de nomenclatura e estrutura</li>
+              <li>Detecção de desvios do THESAURUS</li>
             </ul>
           </div>
           <div class="card">
-            <h4><i class="fas fa-star"></i> Benefícios</h4>
+            <h4><i class="fa-solid fa-lightbulb"></i> Sugestões inteligentes</h4>
             <ul>
-              <li><strong>Qualidade de dados</strong> consistente entre áreas e canais.</li>
-              <li>Redução de <strong>SLA</strong> em squads de produto e analytics.</li>
-              <li>Menos <strong>incidentes operacionais</strong> por divergências.</li>
-              <li><strong>Governança</strong> reforçada (trilha, papéis, aprovação).</li>
-              <li>Escalável para <strong>milhões</strong> de registros/dia.</li>
+              <li>Baseadas em boas práticas</li>
+              <li>Alinhadas às diretrizes do THESAURUS</li>
+              <li>Recomendações de otimização</li>
+              <li>Alternativas para nomenclatura</li>
             </ul>
           </div>
           <div class="card">
-            <h4><i class="fas fa-briefcase"></i> Casos de uso (Bradesco)</h4>
+            <h4><i class="fa-solid fa-bug-slash"></i> Detecção de inconsistências</h4>
             <ul>
-              <li>Padronização de <strong>produtos e serviços</strong> entre canais digitais.</li>
-              <li>Higienização de <strong>cadastro</strong> para onboarding e KYC.</li>
-              <li>Normalização de <strong>eventos transacionais</strong> para detecção de fraude.</li>
-              <li>Unificação de <strong>taxonomias</strong> para relatórios regulatórios.</li>
-              <li>Base única de <strong>referência</strong> para projetos de GenAI.</li>
+              <li>Alertas para divergências</li>
+              <li>Sugestões de correções</li>
+              <li>Identificação de anomalias</li>
+              <li>Prevenção de problemas futuros</li>
             </ul>
           </div>
         </div>
 
-        <div class="grid">
-          <div class="card">
-            <h4><i class="fas fa-gears"></i> Como funciona</h4>
-            <ul>
-              <li>Ingestão (API/Batch) → <strong>Regras & IA</strong> → Validação → <strong>Output padronizado</strong>.</li>
-              <li>Painel com <strong>KPIs</strong> de qualidade e aderência por domínio.</li>
-              <li>Sandbox para <strong>simulação</strong> antes de ir para produção.</li>
-            </ul>
+        <h4 style="font-size:1.1rem; margin:20px 0 12px;"><i class="fas fa-tasks" style="color:var(--bradesco-blue); font-size:0.9rem;"></i> Fluxo em 4 passos</h4>
+        <div style="display:flex; justify-content:space-between; margin:16px 0; flex-wrap:wrap; gap:8px;">
+          <div style="flex:1; min-width:180px; background:rgba(0,51,160,.1); padding:12px; border-radius:12px; border:1px solid rgba(0,51,160,.2); text-align:center;">
+            <div style="width:40px; height:40px; margin:0 auto 8px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+              <span style="color:#fff; font-weight:800; font-size:1rem;">1</span>
+            </div>
+            <h5 style="margin-bottom:6px; font-size:0.9rem;">Ingestão</h5>
+            <p style="color:var(--text-secondary); font-size:0.8rem;">Upload do modelo de dados</p>
           </div>
-          <div class="card">
-            <h4><i class="fas fa-chart-line"></i> KPI & ROI</h4>
-            <ul>
-              <li><strong>Acurácia</strong> de padronização & <strong>redução de retrabalho</strong>.</li>
-              <li><strong>Tempo de integração</strong> entre sistemas (pré vs. pós).</li>
-              <li><strong>ROI 12 meses</strong> com base em horas evitadas + multas evitadas.</li>
-            </ul>
+          <div style="flex:1; min-width:180px; background:rgba(0,51,160,.1); padding:12px; border-radius:12px; border:1px solid rgba(0,51,160,.2); text-align:center;">
+            <div style="width:40px; height:40px; margin:0 auto 8px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+              <span style="color:#fff; font-weight:800; font-size:1rem;">2</span>
+            </div>
+            <h5 style="margin-bottom:6px; font-size:0.9rem;">Análise</h5>
+            <p style="color:var(--text-secondary); font-size:0.8rem;">Regras & THESAURUS</p>
           </div>
-          <div class="card">
-            <h4><i class="fas fa-shield-alt"></i> Segurança & Compliance</h4>
-            <ul>
-              <li>Mascaramento e <strong>pseudonimização</strong> por contexto.</li>
-              <li><strong>RBAC</strong> e segregação de ambientes.</li>
-              <li>Logs imutáveis e <strong>auditoria</strong> centralizada.</li>
-            </ul>
+          <div style="flex:1; min-width:180px; background:rgba(0,51,160,.1); padding:12px; border-radius:12px; border:1px solid rgba(0,51,160,.2); text-align:center;">
+            <div style="width:40px; height:40px; margin:0 auto 8px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+              <span style="color:#fff; font-weight:800; font-size:1rem;">3</span>
+            </div>
+            <h5 style="margin-bottom:6px; font-size:0.9rem;">Ação</h5>
+            <p style="color:var(--text-secondary); font-size:0.8rem;">Correções & Sugestões</p>
+          </div>
+          <div style="flex:1; min-width:180px; background:rgba(0,51,160,.1); padding:12px; border-radius:12px; border:1px solid rgba(0,51,160,.2); text-align:center;">
+            <div style="width:40px; height:40px; margin:0 auto 8px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+              <span style="color:#fff; font-weight:800; font-size:1rem;">4</span>
+            </div>
+            <h5 style="margin-bottom:6px; font-size:0.9rem;">Evidências</h5>
+            <p style="color:var(--text-secondary); font-size:0.8rem;">Relatório Detalhado</p>
           </div>
         </div>
 
+        <h4 style="font-size:1.1rem; margin:20px 0 12px;"><i class="fas fa-users" style="color:var(--bradesco-red); font-size:0.9rem;"></i> Ideal para</h4>
+        <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="card" style="text-align:center;">
+            <i class="fas fa-user-tie" style="font-size:1.8rem; color:var(--accent-cyan); margin-bottom:10px;"></i>
+            <h5 style="font-size:0.9rem;">DBAs</h5>
+          </div>
+          <div class="card" style="text-align:center;">
+            <i class="fas fa-user-cog" style="font-size:1.8rem; color:var(--accent-purple); margin-bottom:10px;"></i>
+            <h5 style="font-size:0.9rem;">Arquitetos de Dados</h5>
+          </div>
+          <div class="card" style="text-align:center;">
+            <i class="fas fa-user-gear" style="font-size:1.8rem; color:var(--bradesco-blue); margin-bottom:10px;"></i>
+            <h5 style="font-size:0.9rem;">Engenheiros de Dados</h5>
+          </div>
+          <div class="card" style="text-align:center;">
+            <i class="fas fa-user-graduate" style="font-size:1.8rem; color:var(--bradesco-red); margin-bottom:10px;"></i>
+            <h5 style="font-size:0.9rem;">Analistas de Dados</h5>
+          </div>
+        </div>
+
+        <div class="quote-box">
+          <h4><i class="fas fa-quote-left"></i> Depoimento</h4>
+          <p>"O Agente de Padronização de Dados transformou nossa abordagem para modelagem. O que antes levava dias de revisões manuais agora é feito em horas, com maior precisão e consistência."</p>
+          <div class="author">— Coordenador de Arquitetura de Dados, Bradesco</div>
+        </div>
+
+   
+        </div>
       </div>
     </div>
   </div>
@@ -661,37 +1118,121 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle2">
       <div class="modal-header">
         <span class="modal-badge"><i class="fas fa-file-lines"></i> Whitepaper</span>
-        <h3 class="modal-title" id="modalTitle2">Whitepaper: GenAI no Setor Bancário</h3>
+        <h3 class="modal-title" id="modalTitle2">GenAI no Setor Bancário</h3>
         <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
       </div>
       <div class="modal-body">
-        <p>Estudo completo sobre arquiteturas, padrões e melhores práticas de <strong>IA Generativa</strong> aplicadas ao contexto bancário, com foco em segurança, governança e escalabilidade.</p>
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+          <div style="flex:1">
+            <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-lightbulb" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+            <p style="font-size:0.95rem; line-height:1.5;">Análise estratégica sobre a implementação de <strong style="color:#fff">Inteligência Artificial Generativa</strong> no setor financeiro, com foco em casos de uso, arquitetura e governança.</p>
+          </div>
+          <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(123,104,238,.4);">
+            <i class="fas fa-brain" style="font-size:2.2rem; color:#fff"></i>
+          </div>
+        </div>
+        
         <div class="grid">
           <div class="card">
-            <h4><i class="fas fa-list-check"></i> Sumário Executivo</h4>
+            <h4><i class="fas fa-lightbulb"></i> Principais Insights</h4>
             <ul>
-              <li>Panorama de GenAI no core bancário.</li>
-              <li>Casos de uso: atendimento, risco, operações, TI.</li>
-              <li>Arquiteturas de referência e integração.</li>
-              <li>Métricas de valor e ROI.</li>
+              <li>GenAI pode reduzir até <strong>40% dos custos operacionais</strong></li>
+              <li>Potencial de <strong>aumento de 25%</strong> na produtividade</li>
+              <li>Redução de <strong>30% no time-to-market</strong></li>
+              <li>ROI médio de <strong>3.2x</strong> em iniciativas bem implementadas</li>
             </ul>
           </div>
           <div class="card">
-            <h4><i class="fas fa-diagram-project"></i> Arquitetura & Padrões</h4>
+             <h4><i class="fas fa-bullseye"></i> Casos de Uso Prioritários</h4>
             <ul>
-              <li>RAG, Fine-tuning, Guardrails e Observabilidade.</li>
-              <li>Privacidade, LGPD, RBAC e isolamento de dados.</li>
-              <li>MLOps/LangOps e esteiras CI/CD.</li>
+              <li><strong>Desenvolvimento:</strong> Aceleração de código e testes</li>
+              <li><strong>Atendimento:</strong> Chatbots avançados</li>
+              <li><strong>Análise de Risco:</strong> Detecção de anomalias</li>
+              <li><strong>Compliance:</strong> Automação de relatórios</li>
             </ul>
           </div>
           <div class="card">
-            <h4><i class="fas fa-users-gear"></i> Público-Alvo</h4>
+            <h4><i class="fas fa-shield-alt"></i> Governança & Segurança</h4>
             <ul>
-              <li>Executivos de tecnologia e produto.</li>
-              <li>Arquitetos de dados e segurança.</li>
-              <li>Squads de analytics e automação.</li>
+              <li><strong>Guardrails:</strong> Proteção contra conteúdo inadequado</li>
+              <li><strong>Monitoramento:</strong> Detecção de incidentes</li>
+              <li><strong>Compliance:</strong> Aderência às políticas</li>
+              <li><strong>Auditoria:</strong> Rastreabilidade das interações</li>
             </ul>
           </div>
+        </div>
+        
+        <div class="grid">
+          <div class="card">
+            <h4><i class="fas fa-diagram-project"></i> Arquitetura de Referência</h4>
+            <ul>
+              <li><strong>RAG:</strong> Acesso seguro a dados corporativos</li>
+              <li><strong>Guardrails:</strong> Controle de saídas</li>
+              <li><strong>Orquestração:</strong> Modelos especializados</li>
+              <li><strong>Observabilidade:</strong> Monitoramento de desempenho</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-code-branch"></i> Roadmap de Implementação</h4>
+            <ul>
+              <li><strong>Fase 1:</strong> Casos de uso internos</li>
+              <li><strong>Fase 2:</strong> Processos críticos com supervisão</li>
+              <li><strong>Fase 3:</strong> Integração com sistemas core</li>
+              <li><strong>Fase 4:</strong> Produtos baseados em GenAI</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4><i class="fas fa-users-gear"></i> Equipe & Competências</h4>
+            <ul>
+              <li><strong>Centro de Excelência</strong> multidisciplinar</li>
+              <li><strong>Capacitação</strong> em engenharia de prompts</li>
+              <li><strong>Fornecedores</strong> estratégicos de tecnologia</li>
+              <li><strong>Comunidade</strong> de prática para conhecimento</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div style="margin-top:20px; display:flex; gap:16px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:280px; background:linear-gradient(135deg, rgba(0,51,160,.1), rgba(0,229,255,.1)); padding:16px; border-radius:14px; border:1px solid rgba(0,229,255,.25);">
+            <h4 style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:var(--accent-cyan); font-size:0.95rem;">
+              <i class="fas fa-chart-line"></i> Impacto Financeiro
+            </h4>
+            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+              <div style="text-align:center; flex:1; min-width:80px; padding:8px; background:rgba(255,255,255,.05); border-radius:8px;">
+                <div style="font-size:1.8rem; font-weight:800; color:var(--accent-cyan);">40%</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">Redução de Custos</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:80px; padding:8px; background:rgba(255,255,255,.05); border-radius:8px;">
+                <div style="font-size:1.8rem; font-weight:800; color:var(--accent-cyan);">3.2x</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">ROI Médio</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:80px; padding:8px; background:rgba(255,255,255,.05); border-radius:8px;">
+                <div style="font-size:1.8rem; font-weight:800; color:var(--accent-cyan);">25%</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">Produtividade</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="flex:1; min-width:280px; background:linear-gradient(135deg, rgba(204,0,0,.1), rgba(123,104,238,.1)); padding:16px; border-radius:14px; border:1px solid rgba(204,0,0,.25);">
+            <h4 style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:var(--bradesco-red); font-size:0.95rem;">
+              <i class="fas fa-exclamation-triangle"></i> Riscos & Mitigações
+            </h4>
+            <ul style="margin:0; padding-left:18px; color:var(--text-secondary); font-size:0.85rem;">
+              <li style="margin-bottom:6px;"><strong style="color:#fff;">Alucinações:</strong> RAG e validação humana</li>
+              <li style="margin-bottom:6px;"><strong style="color:#fff;">Segurança:</strong> Guardrails e filtragem</li>
+              <li style="margin-bottom:6px;"><strong style="color:#fff;">Compliance:</strong> Auditoria contínua</li>
+              <li><strong style="color:#fff;">Adoção:</strong> Programa de capacitação</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="quote-box">
+          <h4><i class="fas fa-quote-left"></i> Visão Estratégica</h4>
+          <p>"A Inteligência Artificial Generativa representa uma mudança de paradigma para o setor bancário, permitindo níveis de personalização, eficiência e inovação sem precedentes."</p>
+          <div class="author">— Vice Presidente da Capgemini</div>
+        </div>
+        
+
         </div>
       </div>
     </div>
@@ -705,29 +1246,89 @@
         <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
       </div>
       <div class="modal-body">
-        <p>Principais métricas alcançadas com iniciativas de GenAI no Bradesco durante <strong>2025</strong>, com foco em produtividade, qualidade e ROI.</p>
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(34,197,94,.08), rgba(0,51,160,.08)); padding:16px; border-radius:14px; border:1px solid rgba(34,197,94,.2);">
+          <div style="flex:1">
+            <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-chart-column" style="color:var(--success); font-size:0.9rem;"></i> Visão Geral</h4>
+            <p style="font-size:0.95rem; line-height:1.5;">Principais métricas alcançadas com iniciativas de GenAI no Bradesco durante <strong style="color:#fff">2025</strong>, com foco em produtividade, qualidade e ROI.</p>
+          </div>
+          <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, var(--success), var(--bradesco-blue)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(34,197,94,.4);">
+            <i class="fas fa-chart-pie" style="font-size:2.2rem; color:#fff"></i>
+          </div>
+        </div>
+        
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-bottom:24px;">
+          <div style="grid-column:span 2; background:linear-gradient(135deg, rgba(0,51,160,.1), rgba(0,229,255,.1)); padding:16px; border-radius:14px; border:1px solid rgba(0,51,160,.2);">
+            <h4 style="margin-bottom:12px; color:var(--accent-cyan); font-size:0.95rem;"><i class="fas fa-star"></i> Destaques</h4>
+            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+              <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
+                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">75%</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">Redução no tempo de desenvolvimento</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
+                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">4.2x</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">ROI em iniciativas GenAI</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
+                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">68%</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">Redução de bugs em produção</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
+                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">32%</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">Aumento na satisfação das equipes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="grid">
           <div class="card">
             <h4><i class="fas fa-angles-up"></i> Crescimento</h4>
             <ul>
-              <li>Produtividade: tendência de alta ao longo do ano.</li>
-              <li>Qualidade: mais cobertura, menos retrabalho.</li>
+              <li><strong>Produtividade:</strong> +35% na entrega de features</li>
+              <li><strong>Qualidade:</strong> 68% menos bugs</li>
+              <li><strong>Cobertura:</strong> +42% em testes automatizados</li>
+              <li><strong>Documentação:</strong> 85% mais completa</li>
             </ul>
           </div>
           <div class="card">
             <h4><i class="fas fa-sack-dollar"></i> ROI</h4>
             <ul>
-              <li>Benefícios acumulados por automação e redução de incidentes.</li>
-              <li>Payback inferior a 12 meses em cenários priorizados.</li>
+              <li><strong>Economia:</strong> R$ 12,5M em custos</li>
+              <li><strong>Incidentes:</strong> Economia de R$ 8,2M</li>
+              <li><strong>Time-to-market:</strong> Redução de 40%</li>
+              <li><strong>Payback:</strong> 7 meses para recuperação</li>
             </ul>
           </div>
           <div class="card">
             <h4><i class="fas fa-shield-halved"></i> Compliance</h4>
             <ul>
-              <li>Guardrails, auditoria e conformidade contínua.</li>
-              <li>KPIs de aderência por domínio de dados.</li>
+              <li><strong>Guardrails:</strong> 99,8% de precisão</li>
+              <li><strong>Auditoria:</strong> 100% rastreáveis</li>
+              <li><strong>Conformidade:</strong> Alinhamento total</li>
+              <li><strong>Segurança:</strong> Zero vazamentos</li>
             </ul>
           </div>
+        </div>
+        
+        <div style="margin-top:20px; padding:16px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,51,160,.08)); border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+          <h4 style="margin-bottom:12px; color:var(--accent-purple); font-size:0.95rem;"><i class="fas fa-chart-line"></i> Tendências para 2026</h4>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+            <div style="background:rgba(255,255,255,.05); padding:12px; border-radius:8px;">
+              <h5 style="color:var(--accent-cyan); margin-bottom:8px; font-size:0.9rem;">Multimodalidade</h5>
+              <p style="color:var(--text-secondary); font-size:0.8rem;">Processamento de imagens e vídeos com GenAI</p>
+            </div>
+            <div style="background:rgba(255,255,255,.05); padding:12px; border-radius:8px;">
+              <h5 style="color:var(--accent-cyan); margin-bottom:8px; font-size:0.9rem;">Agentes Autônomos</h5>
+              <p style="color:var(--text-secondary); font-size:0.8rem;">Automação com agentes especializados</p>
+            </div>
+            <div style="background:rgba(255,255,255,.05); padding:12px; border-radius:8px;">
+              <h5 style="color:var(--accent-cyan); margin-bottom:8px; font-size:0.9rem;">Fine-tuning</h5>
+                      <p style="color:var(--text-secondary); font-size:0.8rem;">Modelos específicos para domínios bancários</p>
+            </div>
+          </div>
+        </div>
+        
+ 
         </div>
       </div>
     </div>
@@ -770,47 +1371,22 @@
     }
     wireModalOpeners();
 
-    // YouTube: mudo + (opcional 2x) + reinicia ao fim
+    // Atualizado: Manipulação de vídeos para abrir em nova aba
     function setupVideoThumbnails(){
       document.querySelectorAll('.video-thumbnail').forEach(th=>{
         th.addEventListener('click',function(){
-          const id=this.getAttribute('data-video-id');
-          this.innerHTML='';
-          const div=document.createElement('div');
-          const uid=`player-${id}-${Date.now()}-${Math.floor(Math.random()*1e6)}`;
-          div.id=uid; div.style.position='absolute'; div.style.inset='0';
-          this.appendChild(div);
-          const makePlayer=()=>{ try{
-              new YT.Player(uid,{
-                videoId:id,
-                playerVars:{autoplay:1,controls:1,rel:0,playsinline:1,modestbranding:1,mute:1},
-                events:{
-                  onReady:(e)=>{ e.target.mute(); try{ e.target.setPlaybackRate(2); }catch(_){ } },
-                  onStateChange:(e)=>{ if(e.data===YT.PlayerState.ENDED){ e.target.seekTo(0,true); e.target.pauseVideo(); } }
-                }
-              });
-            }catch(e){
-              // fallback com loop
-              const ifr=document.createElement('iframe');
-              ifr.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1&rel=0&controls=1&modestbranding=1&loop=1&playlist=${id}`;
-              ifr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-              ifr.allowFullscreen=true; div.replaceWith(ifr);
-            }
-          };
-          if(window.YT&&YT.Player) makePlayer(); else {
-            const int=setInterval(()=>{ if(window.YT&&YT.Player){clearInterval(int); makePlayer();}},100);
-            setTimeout(()=>clearInterval(int),5000);
-          }
-        },{once:true});
+          const videoUrl = this.getAttribute('data-video-url');
+          if (!videoUrl) return;
+          
+          // Abrir o vídeo do SharePoint em uma nova aba
+          window.open(videoUrl, '_blank');
+        });
       });
     }
 
     document.addEventListener('DOMContentLoaded',()=>{
-      const tag=document.createElement('script'); tag.src="https://www.youtube.com/iframe_api";
-      const first=document.getElementsByTagName('script')[0]; first.parentNode.insertBefore(tag,first);
       setupVideoThumbnails();
     });
-    window.onYouTubeIframeAPIReady=function(){};
 
     // Depoimentos Dinâmicos
     const track = document.getElementById('testiTrack');
