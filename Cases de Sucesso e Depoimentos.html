@@ -136,12 +136,7 @@
     .modal {
       position: relative;
       width: min(1200px, 95vw); /* Aumentado para 1400px */
-      max-height: 92vh
-O RESTO DO CODIGO
-
-Aqui está o restante do código com as alterações solicitadas:
-
-      max-height: 92vh;
+       max-height: 92vh;
       overflow: auto;
       border-radius: 20px;
       background: linear-gradient(180deg, #1b1e2a 0%, #0f121a 100%);
@@ -499,7 +494,7 @@ Aqui está o restante do código com as alterações solicitadas:
 
           <!-- Vídeo 3 -->
           <div class="video-card">
-            <div class="video-thumbnail" data-video-url="https://capgemininar-my.sharepoint.com/personal/mariana_cintra_capgemini_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fmariana%5Fcintra%5Fcapgemini%5Fcom%2FDocuments%2FHistoria%5Fde%5FUsuario%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Eb497b0df%2Db12b%2D4fd7%2Db6cf%2D61a424afa345">
+              <div class="video-thumbnail" data-video-url="https://capgemininar-my.sharepoint.com/personal/mariana_cintra_capgemini_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fmariana%5Fcintra%5Fcapgemini%5Fcom%2FDocuments%2FHistoria%5Fde%5FUsuario%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Eb497b0df%2Db12b%2D4fd7%2Db6cf%2D61a424afa345">
               <div class="custom-thumbnail">
                 <div class="thumbnail-content">
                   <i class="fas fa-vial thumbnail-icon"></i>
@@ -684,7 +679,7 @@ Aqui está o restante do código com as alterações solicitadas:
                        </linearGradient>
                 </defs>
                 <rect width="800" height="450" fill="url(#wpbg)"/>
-                <g stroke="url(#wplines)" stroke-width="2" opacity=".4">
+                 <g stroke="url(#wplines)" stroke-width="2" opacity=".4">
                     <path d="M60,120 H220 V180 H360"/>
                   <path d="M60,300 H260 V240 H400"/>
                   <path d="M480,220 H740"/>
@@ -776,7 +771,7 @@ Aqui está o restante do código com as alterações solicitadas:
             <h3 class="section-title">Depoimentos</h3>
             <p class="section-subtitle">O que nossos colaboradores dizem sobre o GenAI</p>
           </div>
-          <a href="#" class="view-all">Ver todos <i class="fas fa-arrow-right"></i></a>
+ 
         </div>
 
         <div class="testi-wrap">
@@ -798,34 +793,136 @@ Aqui está o restante do código com as alterações solicitadas:
           <!-- Palco/carrossel -->
           <div class="testi-stage">
             <div class="testi-track" id="testiTrack">
-              <!-- Slide 1: Cenários de Teste (2 depoimentos) -->
+              <!-- Slide 1: Cenários de Teste (todos os depoimentos em um único slide) -->
               <div class="testi-slide" data-cat="cenarios">
-                <div class="testi-grid">
+                <div class="testi-grid pf-grid">
                   <article class="testi-card">
                     <div class="testi-text">
                       "O PromptX gerou casos completos e bem estruturados. Reduzimos em <strong>70%</strong> o tempo de escrita e aumentamos a cobertura — sem perder qualidade."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
-                        <div class="avatar" data-initials="PM" data-theme="1"></div>
+                        <div class="avatar" data-initials="VP" data-theme="1"></div>
                       </div>
                       <div class="testi-meta">
-                           <span class="testi-name">Patrícia M.</span>
-                        <span class="testi-role">QA Lead · Canais Digitais</span>
+                        <span class="testi-name">Vanessa Portela</span>
                       </div>
                     </div>
                   </article>
                   <article class="testi-card">
                     <div class="testi-text">
-                      "Nosso time focou na <strong>validação</strong> em vez de tarefas repetitivas. A aceleração foi clara já no primeiro sprint com GenAI."
+                      "Utilizo a ferramenta diariamente para suporte em cenários de testes complexos. A solução tem contribuído significativamente para a <strong>automação e otimização</strong> de fluxos."
                     </div>
                     <div class="testi-author">
                       <div class="testi-avatar">
-                        <div class="avatar" data-initials="RC" data-theme="2"></div>
+                        <div class="avatar" data-initials="KL" data-theme="2"></div>
                       </div>
                       <div class="testi-meta">
-                        <span class="testi-name">Roberto C.</span>
-                        <span class="testi-role">Engenheiro de Testes · Pagamentos</span>
+                        <span class="testi-name">Karoline Lima</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Houve uma mudança de escopo e eu já tinha escrito muitos testes, mas com a ajuda do PromptX consegui <strong>reescrever e adequar os testes</strong> rapidamente."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="EN" data-theme="3"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Elton Novais</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Gostei muito da forma como o PromptX pega como exemplo os cenários que enviamos, <strong>gerando padronização</strong> e consistência nos testes."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="IF" data-theme="4"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Iago Freire</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Reduzimos o tempo de criação de cenários de <strong>4 horas para apenas 1 hora</strong> por sprint. A ferramenta identifica casos que passariam despercebidos."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="TB" data-theme="2"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Thais Barreto</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "A ferramenta está me ajudando bastante com as criações de cenários, <strong>principalmente quando tenho urgências</strong> para criar e testar."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="TB" data-theme="1"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Thais Barreto</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Após criação de CTs no modo gherkin foi aprovado pelo PO, isso já mostra a <strong>eficiência da ferramenta</strong> e a qualidade dos cenários gerados."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="RM" data-theme="3"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Renata Martins</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Estou adorando trabalhar com a ferramenta. Com uma equipe de 13 desenvolvedores, o PromptX <strong>otimiza bastante o tempo</strong>, entregando celeridade e qualidade ao trabalho."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="BA" data-theme="4"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Barbara Alves</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Reduzimos o tempo de análise de <strong>4 horas para apenas 1 hora</strong> por sprint. A ferramenta ajuda na economia de tempo para tarefas mais árduas."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="GC" data-theme="1"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Gabriel Cortes</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="testi-card">
+                    <div class="testi-text">
+                      "Sua praticidade ajuda em muito nas entregas, não apenas na criação de casos de teste, mas também em <strong>outros processos</strong> quando necessário."
+                    </div>
+                    <div class="testi-author">
+                      <div class="testi-avatar">
+                        <div class="avatar" data-initials="AC" data-theme="2"></div>
+                      </div>
+                      <div class="testi-meta">
+                        <span class="testi-name">Andre Chaffer</span>
                       </div>
                     </div>
                   </article>
@@ -845,7 +942,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Larissa V.</span>
-                        <span class="testi-role">Arquiteta de Software · Open Finance</span>
                       </div>
                     </div>
                   </article>
@@ -859,7 +955,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Eduardo S.</span>
-                        <span class="testi-role">Tech Lead · Crédito</span>
                       </div>
                     </div>
                   </article>
@@ -879,7 +974,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Roger Guerra</span>
-                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
@@ -893,7 +987,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Michele Marcato</span>
-                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
@@ -907,7 +1000,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Solimar Laterca</span>
-                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
@@ -921,7 +1013,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Andre Santana</span>
-                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
@@ -935,7 +1026,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Bruna Conceicao</span>
-                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
@@ -949,7 +1039,6 @@ Aqui está o restante do código com as alterações solicitadas:
                       </div>
                       <div class="testi-meta">
                         <span class="testi-name">Sofia Piantavini</span>
-                        <span class="testi-role">Capgemini</span>
                       </div>
                     </div>
                   </article>
@@ -963,7 +1052,7 @@ Aqui está o restante do código com as alterações solicitadas:
             <div class="pips" id="testiPips">
               <span class="pip active" data-to="0"></span>
               <span class="pip" data-to="1"></span>
-               <span class="pip" data-to="2"></span>
+              <span class="pip" data-to="2"></span>
             </div>
             <div class="arrows">
               <button class="arrow-btn" id="prevSlide" aria-label="Anterior"><i class="fas fa-arrow-left"></i></button>
@@ -1066,7 +1155,7 @@ Aqui está o restante do código com as alterações solicitadas:
           <h5 style="margin-bottom:2px; font-size:0.75rem;">Análise</h5>
           <p style="color:var(--text-secondary); font-size:0.7rem;">Regras & THESAURUS</p>
         </div>
-        <div style="flex:1; min-width:140px; background:rgba(0,51,160,.1); padding:6px; border-radius:8px; border:1px solid rgba(0,51,160,.2); text-align:center;">
+       <div style="flex:1; min-width:140px; background:rgba(0,51,160,.1); padding:6px; border-radius:8px; border:1px solid rgba(0,51,160,.2); text-align:center;">
           <div style="width:28px; height:28px; margin:0 auto 2px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
             <span style="color:#fff; font-weight:800; font-size:0.8rem;">3</span>
           </div>
@@ -1242,11 +1331,12 @@ Aqui está o restante do código com as alterações solicitadas:
             <h4 style="margin-bottom:12px; color:var(--accent-cyan); font-size:0.95rem;"><i class="fas fa-star"></i> Destaques</h4>
             <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
               <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
-                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">20%</div>
+                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">-20%</div>
+                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">-20%</div>
                 <div style="color:var(--text-secondary); font-size:0.8rem;">Redução no Lead Time de desenvolvimento</div>
               </div>
               <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
-                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">+42</div>
+                <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">+42%</div>
                 <div style="color:var(--text-secondary); font-size:0.8rem;">Aumento na cobertura dos testes</div>
               </div>
               <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
@@ -1255,7 +1345,7 @@ Aqui está o restante do código com as alterações solicitadas:
               </div>
               <div style="text-align:center; flex:1; min-width:100px; padding:12px; background:rgba(255,255,255,.05); border-radius:8px;">
                 <div style="font-size:2rem; font-weight:800; color:var(--accent-cyan);">+95%</div>
-                <div style="color:var(--text-secondary); font-size:0.8rem;">Taxa de adoção nas squads treinadas</div>
+                <div style="color:var(--text-secondary); font-size:0.8rem;">Taxa de   Adoção nas squads treinadas</div>
               </div>
             </div>
           </div>
@@ -1385,7 +1475,7 @@ Aqui está o restante do código com as alterações solicitadas:
     }
     function next(){ goTo(current+1); }
     function prev(){ goTo(current-1); }
-    function startAuto(){ stopAuto(); autoTimer=setInterval(()=>{ if(!isHover) next(); },8000); }
+    function startAuto(){ stopAuto(); autoTimer=setInterval(()=>{ if(!isHover) next(); },40000); }
     function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer=null; } }
 
     if(pips.length){
