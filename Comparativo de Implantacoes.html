@@ -224,7 +224,7 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 16px;
-      margin-top: 8px;
+      margin-top: 10px;
       transition: all 0.3s ease;
       border: 1px solid rgba(255, 255, 255, .06);
     }
@@ -244,35 +244,32 @@
     .chart-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
     .chart-subtitle .n { color: #fff; font-weight: 800; }
     
-    /* Ajuste para o gráfico de projetos */
-    .canvas-box { 
-      height: 500px; 
-      width: 100%; 
-      overflow-x: auto;
+    /* Grid para os gráficos em linha */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
     }
-    
-    .projects-chart-container {
-      height: 800px; /* Aumentado para acomodar todos os projetos */
-      width: 100%;
-      overflow-x: auto;
-      overflow-y: auto;
+
+    .chart-card {
+      height: 220px; /* Reduzido de 250px para 220px */
     }
 
     /* Responsivo */
     @media (max-width: 1100px) {
       .kpis { grid-template-columns: repeat(3, 1fr); }
       .grid { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 720px) {
       .kpis { grid-template-columns: repeat(2, 1fr); }
-      .canvas-box { height: 540px; }
-      .projects-chart-container { height: 900px; }
+      .charts-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 480px) {
       .kpis { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
-      .canvas-box { height: 560px; }
-      .projects-chart-container { height: 1000px; }
+      .charts-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -291,39 +288,40 @@
     <section class="kpis">
       <div class="kpi kpi--total">
         <div class="kpi-head"><div class="chip"><i class="fas fa-users"></i></div><h4>Total de Profissionais</h4></div>
-        <div class="v" id="k_total">258</div>
+        <div class="v" id="k_total">275</div>
         <small>Treinados</small>
       </div>
 
       <div class="kpi kpi--ativos">
         <div class="kpi-head"><div class="chip"><i class="fas fa-user-check"></i></div><h4>Usuários ativos</h4></div>
-        <div class="v" id="k_ativos">238</div>
-        <small><strong id="k_adocao">92,2%</strong> de adoção</small>
+        <div class="v" id="k_ativos">249</div>
+        <small><strong id="k_adocao">90.5%</strong> de adoção</small>
       </div>
 
       <div class="kpi kpi--sem">
         <div class="kpi-head"><div class="chip"><i class="fas fa-user-clock"></i></div><h4>Usuários sem interação</h4></div>
-        <div class="v" id="k_sem">20</div>
-        <small><strong id="k_sem_pct">7,8%</strong> do total</small>
+        <div class="v" id="k_sem">26</div>
+        <small><strong id="k_sem_pct">9.5%</strong> do total</small>
       </div>
 
       <div class="kpi kpi--inter">
         <div class="kpi-head"><div class="chip"><i class="fas fa-bolt"></i></div><h4>Total de Interações</h4></div>
-        <div class="v" id="k_inter">8016</div>
+        <div class="v" id="k_inter">9503</div>
         <!-- Corrigido: média por TODOS os usuários -->
-        <small id="k_media_global">Média: 31,1 por usuário</small>
-           </div>
+        <small id="k_media_global">Média: 34.6 por usuário</small>
+      </div>
 
       <div class="kpi kpi--proj">
-        <div class="kpi-head"><div class="chip"><i class="fas fa-diagram-project"></i></div><h4>Projetos envolvidos</h4></div>
-        <div class="v" id="k_proj_total">39</div>
+        <div class="kpi-head"><div class="chip">
+             <i class="fas fa-diagram-project"></i></div><h4>Projetos envolvidos</h4></div>
+        <div class="v" id="k_proj_total">40</div>
         <small>Somatório de projetos mapeados</small>
       </div>
 
      <div class="kpi kpi--adocao">
         <div class="kpi-head"><div class="chip"><i class="fas fa-gauge-high"></i></div><h4>Taxa de Adoção (geral)</h4></div>
-        <div class="v" id="k_taxa_v">92,2%</div>
-        <small id="k_taxa_desc">238 de 258 usuários ativos</small>
+        <div class="v" id="k_taxa_v">90.5%</div>
+        <small id="k_taxa_desc">249 de 275 usuários ativos</small>
       </div>
     </section>
 
@@ -352,13 +350,13 @@
       <div class="grid-col">
         <div class="card">
           <div class="icon"><i class="fas fa-chart-pie" style="color:var(--piloto)"></i></div>
-          <div class="val">97,8%</div><div class="lbl">Taxa de Adoção</div>
+          <div class="val">97.8%</div><div class="lbl">Taxa de Adoção</div>
           <div class="sub"><span class="tag piloto">44 de 45 ativos</span></div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--piloto)"></i></div>
-          <div class="val" id="v_inter_piloto">3131</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_piloto">69,6</span></div>
+          <div class="val" id="v_inter_piloto">3311</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_piloto">73.6</span></div>
         </div>
       </div>
 
@@ -366,13 +364,13 @@
       <div class="grid-col">
         <div class="card">
           <div class="icon"><i class="fas fa-chart-pie" style="color:var(--wave1)"></i></div>
-          <div class="val">91,3%</div><div class="lbl">Taxa de Adoção</div>
+          <div class="val">91.3%</div><div class="lbl">Taxa de Adoção</div>
           <div class="sub"><span class="tag wave1">21 de 23 ativos</span></div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave1)"></i></div>
-          <div class="val" id="v_inter_w1">705</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w1">30,7</span></div>
+          <div class="val" id="v_inter_w1">810</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w1">35.2</span></div>
         </div>
       </div>
 
@@ -380,13 +378,13 @@
       <div class="grid-col">
         <div class="card">
           <div class="icon"><i class="fas fa-chart-pie" style="color:var(--wave2)"></i></div>
-          <div class="val">97,3%</div><div class="lbl">Taxa de Adoção</div>
+          <div class="val">97.3%</div><div class="lbl">Taxa de Adoção</div>
           <div class="sub"><span class="tag wave2">72 de 74 ativos</span></div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave2)"></i></div>
-          <div class="val" id="v_inter_w2">2759</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w2">37,3</span></div>
+          <div class="val" id="v_inter_w2">3237</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w2">43.7</span></div>
         </div>
       </div>
 
@@ -394,13 +392,13 @@
       <div class="grid-col">
         <div class="card">
           <div class="icon"><i class="fas fa-chart-pie" style="color:var(--wave3)"></i></div>
-          <div class="val">87,5%</div><div class="lbl">Taxa de Adoção</div>
-          <div class="sub"><span class="tag wave3">98 de 112 ativos</span></div>
+          <div class="val">90.6%</div><div class="lbl">Taxa de Adoção</div>
+          <div class="sub"><span class="tag wave3">106 de 117 ativos</span></div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave3)"></i></div>
-          <div class="val" id="v_inter_w3">1399</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w3">12,5</span></div>
+          <div class="val" id="v_inter_w3">2013</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w3">17.2</span></div>
         </div>
       </div>
 
@@ -408,41 +406,37 @@
       <div class="grid-col">
         <div class="card">
           <div class="icon"><i class="fas fa-chart-pie" style="color:var(--wave4)"></i></div>
-          <div class="val">75,0%</div><div class="lbl">Taxa de Adoção</div>
-          <div class="sub"><span class="tag wave4">3 de 4 ativos</span></div>
+          <div class="val">37.5%</div><div class="lbl">Taxa de Adoção</div>
+          <div class="sub"><span class="tag wave4">6 de 16 ativos</span></div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave4)"></i></div>
-          <div class="val" id="v_inter_w4">22</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w4">5,5</span></div>
+          <div class="val" id="v_inter_w4">132</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w4">8.3</span></div>
         </div>
       </div>
     </section>
 
-    <!-- CARD 1: Média de interações por projeto -->
-    <section class="chart-wrap">
-      <div class="chart-title">Média de Interações por Projeto</div>
-      <div class="canvas-box"><canvas id="avgByProject"></canvas></div>
-    </section>
+    <!-- Gráficos em linha única -->
+    <div class="charts-grid">
+      <!-- CARD 1: Top 10 Projetos com Maior Média de Interações -->
+      <section class="chart-wrap chart-card">
+        <div class="chart-title">Top 10 Projetos - Média de Interações</div>
+        <canvas id="topProjectsChart"></canvas>
+      </section>
 
-    <!-- CARD 2: Projetos – Com x Sem interação -->
-    <section class="chart-wrap">
-      <div class="chart-title">Projetos – Com interação x Sem interação</div>
-      <div class="chart-subtitle">
-        <span class="n" id="projetos_sem_interacao">—</span> de <span class="n" id="total_projetos">—</span> projetos possuem usuários sem interação
-      </div>
-      <!-- Alterado para usar o container específico para projetos -->
-      <div class="projects-chart-container"><canvas id="projectsInteractionStacked"></canvas></div>
-    </section>
+      <!-- CARD 2: Interações por Mês -->
+      <section class="chart-wrap chart-card">
+        <div class="chart-title">Interações por Mês</div>
+        <canvas id="interactionsByMonth"></canvas>
+      </section>
 
-    <!-- CARD 3: Profissionais por Caso de Uso -->
-    <section class="chart-wrap">
-      <div class="chart-title">Profissionais por Caso de Uso</div>
-      <div class="chart-subtitle">
-        Distribuição dos <span class="n">258</span> profissionais por caso de uso
-      </div>
-      <div class="canvas-box"><canvas id="professionalsByUseCase"></canvas></div>
-    </section>
+      <!-- CARD 3: Interações por Perfil -->
+      <section class="chart-wrap chart-card">
+        <div class="chart-title">Interações por Perfil</div>
+        <canvas id="interactionsByProfile"></canvas>
+      </section>
+    </div>
   </div>
 
   <script>
@@ -534,15 +528,15 @@
         {"proj":"CONSÓRCIO | Consorcio","total":4,"sem":0},
         {"proj":"Contadoria","total":8,"sem":0},
         {"proj":"Interestellar","total":2,"sem":0},
-          {"proj":"Transformação","total":7,"sem":0},
+        {"proj":"Transformação","total":7,"sem":0},
         {"proj":"Plataforma de segurança Safer","total":38,"sem":1},
         {"proj":"MBPF","total":3,"sem":1},
         {"proj":"PDPJ","total":1,"sem":0},
         {"proj":"PIX-CPF","total":1,"sem":0},
         {"proj":"PIX-CPJ","total":5,"sem":1},
         {"proj":"Site Gestor","total":1,"sem":0},
-        {"proj":"Open Finance","total":5,"sem":0},
-        {"proj":"CRM","total":11,"sem":0},
+          {"proj":"Open Finance","total":5,"sem":0},
+              {"proj":"CRM","total":11,"sem":0},
         {"proj":"BSPI","total":7,"sem":2},
         {"proj":"INTERNACIONAL E CÂMBIO","total":5,"sem":0},
         {"proj":"Reabilitação Financeira","total":31,"sem":3},
@@ -552,26 +546,32 @@
         {"proj":"Plataforma A3C","total":14,"sem":0}
       ];
 
-      // Casos de uso (totais e ativos)
-      const useCases = [
-        {"Caso de Uso":"Criação de cenários de testes","total":165,"active":155,"interactions":5873},
-        {"Caso de Uso":"Ponto de Função","total":83,"active":73,"interactions":1579},
-        {"Caso de Uso":"Criação de diagrama de sequência","total":5,"active":5,"interactions":421},
-        {"Caso de Uso":"Criação de histórias de usuário","total":5,"active":5,"interactions":143}
-      ];
+     // Dados atualizados para o gráfico de interações por mês
+const monthlyInteractions = [
+  { month: "Abril", interactions: 124 },
+  { month: "Maio", interactions: 540 },
+  { month: "Junho", interactions: 353 },
+  { month: "Julho", interactions: 1157 },
+  { month: "Agosto", interactions: 2435 },
+  { month: "Setembro", interactions: 2203 },
+  { month: "Outubro", interactions: 2388 }
+];
+
+  const profileInteractions = [
+  { profile: "QA", interactions: 6736, users: 165 },
+  { profile: "Scrum Master", interactions: 2070, users: 74 },
+  { profile: "SRE", interactions: 421, users: 3 },
+  { profile: "Analista de Negócios", interactions: 154, users: 8 },
+  { profile: "DEV", interactions: 122, users: 25 }
+];
 
       // KPIs e textos auxiliares
       function updateAllMetrics() {
-        const totalProjetos = 39;
-        const totalUsuarios = 258;
-        const usuariosSemInteracao = 20;
+        const totalProjetos = 40;
+        const totalUsuarios = 275;
+        const usuariosSemInteracao = 26;
         const usuariosAtivos = totalUsuarios - usuariosSemInteracao;
         const taxaAdocao = ((usuariosAtivos / totalUsuarios) * 100).toFixed(1);
-
-        let projetosComSemInteracao = 0;
-        for (let i = 0; i < projects.length; i++) {
-          if (projects[i].sem > 0) projetosComSemInteracao++;
-        }
 
         document.getElementById('k_total').textContent = totalUsuarios;
         document.getElementById('k_ativos').textContent = usuariosAtivos;
@@ -582,18 +582,32 @@
         document.getElementById('k_taxa_desc').textContent = `${usuariosAtivos} de ${totalUsuarios} usuários ativos`;
 
         // Média global corrigida: interações / TOTAL de usuários
-        const totalInteracoes = 8016;
+        const totalInteracoes = 9503;
         document.getElementById('k_inter').textContent = totalInteracoes;
         const mediaGlobal = (totalInteracoes / totalUsuarios).toFixed(1);
         document.getElementById('k_media_global').textContent = `Média: ${mediaGlobal} por usuário`;
 
-        // Projetos com/sem interação
-        document.getElementById('projetos_sem_interacao').textContent = projetosComSemInteracao;
-        document.getElementById('total_projetos').textContent = totalProjetos;
+        // Projetos
         document.getElementById('k_proj_total').textContent = totalProjetos;
+        
+        // Atualizar valores das ondas com os dados corretos
+        document.getElementById('v_inter_piloto').textContent = '3311';
+        document.getElementById('avg_piloto').textContent = '73.6';
+        
+        document.getElementById('v_inter_w1').textContent = '810';
+        document.getElementById('avg_w1').textContent = '35.2';
+        
+        document.getElementById('v_inter_w2').textContent = '3237';
+        document.getElementById('avg_w2').textContent = '43.7';
+        
+        document.getElementById('v_inter_w3').textContent = '2013';
+        document.getElementById('avg_w3').textContent = '17.2';
+        
+        document.getElementById('v_inter_w4').textContent = '132';
+        document.getElementById('avg_w4').textContent = '8.3';
       }
 
-      /* ====== GRÁFICO 1: Média de interações por projeto (corrigido para total de usuários) ====== */
+      /* ====== GRÁFICO 1: Top 10 Projetos com Maior Média de Interações ====== */
       function calculateAdjustedAverageByProject(){
         const projectMap = {};
         projects.forEach(p => {
@@ -634,19 +648,33 @@
               inactiveUsers: pdata.inactiveUsers,
               totalInteractions: Math.round(estimatedTotalInteractions)
             });
+          } else {
+            // Adicionar projetos sem dados de média
+            adjustedAverages.push({
+              proj: projectName,
+              media: 0,
+              originalMedia: 0,
+              wave: "Desconhecido",
+              totalUsers: projectMap[projectName].totalUsers,
+              activeUsers: projectMap[projectName].activeUsers,
+              inactiveUsers: projectMap[projectName].inactiveUsers,
+              totalInteractions: 0
+            });
           }
         }
         return adjustedAverages.sort((a,b)=>b.media-a.media);
       }
 
-      (function renderAvgByProject(){
+      (function renderTopProjectsChart(){
         const data = calculateAdjustedAverageByProject();
-        const labels = data.map(d => d.proj);
-        const values = data.map(d => d.media);
+        // Pegar apenas os top 10 projetos
+        const top10 = data.slice(0, 10);
+        const labels = top10.map(d => d.proj);
+        const values = top10.map(d => d.media);
 
         const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
         const palette = { piloto: css('--piloto'), wave1: css('--wave1'), wave2: css('--wave2'), wave3: css('--wave3'), wave4: css('--wave4') };
-        const colors = data.map(d => {
+        const colors = top10.map(d => {
           const w = (d.wave || '').toLowerCase();
           if (w.includes('piloto')) return palette.piloto;
           if (w.includes('wave 1')) return palette.wave1;
@@ -655,11 +683,7 @@
           return palette.wave3;
         });
 
-        const maxVal = Math.max(...values, 1);
-        const niceMax = Math.ceil(maxVal/10)*10;
-        const headroom = Math.max(2, Math.round(niceMax*0.06));
-
-        new Chart(document.getElementById('avgByProject'), {
+        new Chart(document.getElementById('topProjectsChart'), {
           type: 'bar',
           data: {
             labels,
@@ -668,222 +692,189 @@
               data: values,
               backgroundColor: colors,
               borderRadius: 6,
-              categoryPercentage: 0.72,
-              barPercentage: 0.9,
-              maxBarThickness: 22,
+              categoryPercentage: 0.9, // Reduzido para barras mais finas
+              barPercentage: 0.9, // Reduzido para barras mais finas
+              maxBarThickness: 10, // Reduzido para barras mais finas
               datalabels: {
                 color: '#fff',
                 anchor: 'end',
                 align: 'end',
-                offset: 6,
+                offset: 4,
                 formatter: v => v.toLocaleString('pt-BR', { maximumFractionDigits: 1 }),
-                font: { weight: 'bold' }
+                font: { weight: 'bold', size: 8 } // Reduzido para fonte menor
               }
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            layout: { padding: { top: 18, right: 8, left: 8, bottom: 50 } },
             plugins: {
               legend: { display: false },
               tooltip: {
                 enabled: true,
                 callbacks: {
                   afterLabel: (ctx) => {
-                    const projectData = data[ctx.dataIndex];
+                    const projectData = top10[ctx.dataIndex];
                     const wave = projectData.wave || '';
                     return [
                       `Wave dominante: ${wave}`,
                       `Total de usuários: ${projectData.totalUsers}`,
                       `Usuários ativos: ${projectData.activeUsers}`,
-                      `Usuários sem interação: ${projectData.inactiveUsers}`,
-                      `Média por usuário ativo: ${projectData.originalMedia.toFixed(1)}`,
-                      `Média por todos usuários: ${projectData.media}`
+                      `Média por usuário ativo: ${projectData.originalMedia.toFixed(1)}`
                     ];
                   }
                 }
               }
             },
             scales: {
-              x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 36, minRotation: 36, font: { weight: 'bold', size: 11 } } },
-              y: { beginAtZero: true, suggestedMax: niceMax + headroom, ticks: { stepSize: Math.max(5, Math.round((niceMax + headroom)/9)), precision: 0 } }
+              x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 45, minRotation: 45, font: { size: 8 } } },
+              y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' } }
             }
           }
         });
       })();
 
-      (function renderProjectsStacked(){
-        const sortedProjects = [...projects].sort((a, b) => b.total - a.total);
-        const labels = sortedProjects.map(p => p.proj);
-        const dataSem = sortedProjects.map(p => p.sem);
-        const dataCom = sortedProjects.map(p => Math.max(p.total - p.sem, 0));
-
-        updateAllMetrics();
-
-        const okColor = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim();
-        const attColor = getComputedStyle(document.documentElement).getPropertyValue('--att').trim();
-
-        // Configuração modificada para o gráfico de projetos
-        new Chart(document.getElementById('projectsInteractionStacked'), {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [
-              {
-                label: 'Com interação',
-                data: dataCom,
-                backgroundColor: okColor,
-                borderRadius: 4,
-                categoryPercentage: 0.8,
-                barPercentage: 0.9,
-                datalabels: {
-                  color: '#ffffff',
-                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
-                  formatter: v => v || '',
-                  align: 'center',
-                  anchor: 'center'
-                }
-              },
-              {
-                label: 'Sem interação',
-                data: dataSem,
-                backgroundColor: attColor,
-                borderRadius: 4,
-                categoryPercentage: 0.8,
-                barPercentage: 0.9,
-                datalabels: {
-                  color: '#ffffff',
-                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
-                  formatter: v => v || '',
-                  align: 'center',
-                  anchor: 'center',
-                  font: { weight: 'bold' }
-                }
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            layout: {
-              padding: { top: 10, right: 10, bottom: 10, left: 10 }
-            },
-            scales: {
-              x: {
-                stacked: true,
-                grid: { display: false },
-                ticks: { 
-                  maxRotation: 45, 
-                  minRotation: 45, 
-                  font: { weight: 'bold', size: 10 },
-                  autoSkip: false // Impede que rótulos sejam pulados
-                }
-              },
-              y: {
-                stacked: true,
-                beginAtZero: true,
-                grid: { display: false },
-                ticks: { precision: 0 }
-              }
-            },
-            plugins: {
-              legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, boxHeight: 10 } },
-              tooltip: { enabled: true, callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} usuário(s)` } },
-              datalabels: { color: '#ffffff', font: { size: 11 } }
+ // GRÁFICO 2: Interações por Mês (barras verticais)
+(function renderInteractionsByMonth() {
+  const labels = monthlyInteractions.map(item => item.month);
+  const values = monthlyInteractions.map(item => item.interactions);
+  
+  new Chart(document.getElementById('interactionsByMonth'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Interações Mensais',
+          data: values,
+          backgroundColor: 'rgba(123, 104, 238, 0.7)',
+          borderColor: 'rgba(123, 104, 238, 1)',
+          borderWidth: 1,
+          borderRadius: 6,
+          categoryPercentage: 0.8,
+          barPercentage: 0.8,
+          maxBarThickness: 25,
+          datalabels: {
+            color: '#fff',
+            anchor: 'end',
+            align: 'end',
+            offset: 4,
+            formatter: v => v.toLocaleString('pt-BR'),
+            font: { weight: 'bold', size: 8 }
+          }
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            label: ctx => {
+              const value = ctx.parsed.y;
+              return `Interações: ${value.toLocaleString('pt-BR')}`;
             }
           }
-        });
-      })();
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(255, 255, 255, 0.1)' },
+          // Ajustado para acomodar o novo valor máximo (2435)
+          max: 3000, // Alterado de 3500 para 3000
+          ticks: {
+            stepSize: 500 // Mantém o intervalo entre os valores no eixo Y
+          }
+        }
+      }
+    }
+  });
+})();
+  // GRÁFICO 3: Interações por Perfil (barras verticais)
+(function renderInteractionsByProfile() {
+  const labels = profileInteractions.map(item => item.profile);
+  const values = profileInteractions.map(item => item.interactions);
+  
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const colors = [
+    css('--piloto'),
+    css('--wave1'),
+    css('--wave2'),
+    css('--wave3'),
+    css('--wave4')
+  ];
 
-      // CARD 3: Profissionais por Caso de Uso
-      (function renderProfessionalsByUseCase() {
-        const sortedUseCases = [...useCases].sort((a, b) => b.total - a.total);
-        const labels = sortedUseCases.map(uc => uc["Caso de Uso"]);
-        const dataActive = sortedUseCases.map(uc => uc.active);
-        const dataInactive = sortedUseCases.map(uc => uc.total - uc.active);
-
-        const okColor = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim();
-        const attColor = getComputedStyle(document.documentElement).getPropertyValue('--att').trim();
-
-        new Chart(document.getElementById('professionalsByUseCase'), {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [
-              {
-                label: 'Com interação',
-                data: dataActive,
-                backgroundColor: okColor,
-                borderRadius: 4,
-                categoryPercentage: 0.8,
-                barPercentage: 0.9,
-                datalabels: {
-                  color: '#ffffff',
-                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
-                  formatter: v => v || '',
-                  align: 'center',
-                  anchor: 'center'
-                }
-              },
-              {
-                label: 'Sem interação',
-                data: dataInactive,
-                backgroundColor: attColor,
-                borderRadius: 4,
-                categoryPercentage: 0.8,
-                barPercentage: 0.9,
-                datalabels: {
-                  color: '#ffffff',
-                  display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
-                  formatter: v => v || '',
-                  align: 'center',
-                  anchor: 'center',
-                  font: { weight: 'bold' }
-                }
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                stacked: true,
-                grid: { display: false },
-                ticks: { maxRotation: 45, minRotation: 45, font: { weight: 'bold', size: 10 } }
-              },
-              y: {
-                stacked: true,
-                beginAtZero: true,
-                grid: { display: false },
-                ticks: { precision: 0 }
-              }
-            },
-            plugins: {
-              legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, boxHeight: 10 } },
-              tooltip: {
-                enabled: true,
-                callbacks: {
-                  afterBody: (tooltipItems) => {
-                    const idx = tooltipItems[0].dataIndex;
-                    const uc = sortedUseCases[idx];
-                    const percentActive = ((uc.active / uc.total) * 100).toFixed(1);
-                    const avgInteractions = (uc.interactions / uc.total).toFixed(1); // média por TOTAL
-                    return [
-                      `Taxa de adoção: ${percentActive}%`,
-                      `Total de interações: ${uc.interactions}`,
-                      `Média por usuário (total): ${avgInteractions}`
-                    ];
-                  }
-                }
-              },
-               datalabels: { color: '#ffffff', font: { size: 11 } }
+  new Chart(document.getElementById('interactionsByProfile'), {
+    type: 'bar', // Barras verticais
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Interações',
+          data: values,
+          backgroundColor: colors,
+          borderColor: colors,
+          borderWidth: 1,
+          borderRadius: 6,
+          categoryPercentage: 0.8,
+          barPercentage: 0.8,
+          maxBarThickness: 30,
+          datalabels: {
+            color: '#fff',
+            anchor: 'end',
+            align: 'end',
+            offset: 4,
+            formatter: v => v.toLocaleString('pt-BR'),
+            font: { weight: 'bold', size: 8 }
+          }
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            afterLabel: (tooltipItem) => {
+              const idx = tooltipItem.dataIndex;
+              const profile = profileInteractions[idx];
+              const percentage = ((profile.interactions / values.reduce((a, b) => a + b, 0)) * 100).toFixed(1);
+              return [
+                `Usuários: ${profile.users}`,
+                `Média por usuário: ${(profile.interactions / profile.users).toFixed(1)}`,
+                `Percentual: ${percentage}%`
+              ];
             }
           }
-        });
-      })();
-
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(255, 255, 255, 0.1)' },
+          // Aumentar o valor máximo para acomodar o novo valor de QA (6736)
+          max: 8000, // Alterado de 7000 para 8000
+          ticks: {
+            stepSize: 1000 // Mantém o intervalo entre os valores no eixo Y
+          }
+        }
+      }
+    }
+  });
+})();
       updateAllMetrics();
     });
 
