@@ -1189,59 +1189,47 @@
         </div>
       </div>
 
-      <h4 style="font-size:0.95rem; margin:6px 0 4px;"><i class="fas fa-tasks" style="color:var(--bradesco-blue); font-size:0.85rem;"></i> Fluxo em 4 passos</h4>
-      <div style="display:flex; justify-content:space-between; margin:4px 0; flex-wrap:wrap; gap:4px;">
-        <div style="flex:1; min-width:140px; background:rgba(0,51,160,.1); padding:6px; border-radius:8px; border:1px solid rgba(0,51,160,.2); text-align:center;">
-          <div style="width:28px; height:28px; margin:0 auto 2px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
-            <span style="color:#fff; font-weight:800; font-size:0.8rem;">1</span>
-          </div>
-          <h5 style="margin-bottom:2px; font-size:0.75rem;">Ingestão</h5>
-          <p style="color:var(--text-secondary); font-size:0.7rem;">Upload do modelo de dados</p>
-        </div>
-        <div style="flex:1; min-width:140px; background:rgba(0,51,160,.1); padding:6px; border-radius:8px; border:1px solid rgba(0,51,160,.2); text-align:center;">
-          <div style="width:28px; height:28px; margin:0 auto 2px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
-            <span style="color:#fff; font-weight:800; font-size:0.8rem;">2</span>
-          </div>
-          <h5 style="margin-bottom:2px; font-size:0.75rem;">Análise</h5>
-          <p style="color:var(--text-secondary); font-size:0.7rem;">Regras & THESAURUS</p>
-        </div>
-       <div style="flex:1; min-width:140px; background:rgba(0,51,160,.1); padding:6px; border-radius:8px; border:1px solid rgba(0,51,160,.2); text-align:center;">
-          <div style="width:28px; height:28px; margin:0 auto 2px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
-            <span style="color:#fff; font-weight:800; font-size:0.8rem;">3</span>
-          </div>
-          <h5 style="margin-bottom:2px; font-size:0.75rem;">Ação</h5>
-          <p style="color:var(--text-secondary); font-size:0.7rem;">Correções & Sugestões</p>
-        </div>
-        <div style="flex:1; min-width:140px; background:rgba(0,51,160,.1); padding:6px; border-radius:8px; border:1px solid rgba(0,51,160,.2); text-align:center;">
-          <div style="width:28px; height:28px; margin:0 auto 2px; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center;">
-            <span style="color:#fff; font-weight:800; font-size:0.8rem;">4</span>
-          </div>
-          <h5 style="margin-bottom:2px; font-size:0.75rem;">Evidências</h5>
-          <p style="color:var(--text-secondary); font-size:0.7rem;">Relatório Detalhado</p>
-        </div>
-      </div>
-
-      <!-- Seção "Ideal para" mais compacta -->
-      <h4 style="font-size:0.95rem; margin:6px 0 4px;"><i class="fas fa-users" style="color:var(--bradesco-red); font-size:0.85rem;"></i> Ideal para</h4>
-      <div class="grid" style="grid-template-columns: repeat(4, 1fr); gap:6px;">
-        <div class="card" style="text-align:center; padding:6px;">
-          <i class="fas fa-user-tie" style="font-size:1.2rem; color:var(--accent-cyan); margin-bottom:2px;"></i>
-          <h5 style="font-size:0.75rem;">DBAs</h5>
-        </div>
-        <div class="card" style="text-align:center; padding:6px;">
-          <i class="fas fa-user-cog" style="font-size:1.2rem; color:var(--accent-purple); margin-bottom:2px;"></i>
-          <h5 style="font-size:0.75rem;">Arquitetos de Dados</h5>
-        </div>
-        <div class="card" style="text-align:center; padding:6px;">
-          <i class="fas fa-user-gear" style="font-size:1.2rem; color:var(--bradesco-blue); margin-bottom:2px;"></i>
-          <h5 style="font-size:0.75rem;">Engenheiros de Dados</h5>
-        </div>
-        <div class="card" style="text-align:center; padding:6px;">
-          <i class="fas fa-user-graduate" style="font-size:1.2rem; color:var(--bradesco-red); margin-bottom:2px;"></i>
-          <h5 style="font-size:0.75rem;">Analistas de Dados</h5>
-        </div>
-      </div>
+   <!-- Fluxo em 4 passos - Versão compacta e responsiva -->
+<!-- Fluxo em 4 passos - Versão mais compacta -->
+<h4 style="font-size:0.95rem; margin:6px 0 4px;"><i class="fas fa-tasks" style="color:var(--bradesco-blue); font-size:0.85rem;"></i> Fluxo em 4 passos</h4>
+<div style="background:rgba(0,51,160,.05); padding:8px; border-radius:8px; border:1px solid rgba(0,51,160,.1);">
+  <div style="display:flex; flex-wrap:wrap; row-gap:4px; font-size:0.8rem; color:var(--text-secondary);">
+    <div style="width:30%; padding-right:2px; box-sizing:border-box;">
+      <strong style="color:var(--accent-cyan);">1. Ingestão:</strong> Upload do modelo de dados.
     </div>
+    <div style="width:50%; padding-left:2px; box-sizing:border-box;">
+      <strong style="color:var(--accent-cyan);">2. Análise:</strong> Regras & THESAURUS.
+    </div>
+    <div style="width:30%; padding-right:2px; box-sizing:border-box;">
+      <strong style="color:var(--accent-cyan);">3. Ação:</strong> Correções & Sugestões.
+    </div>
+    <div style="width:50%; padding-left:2px; box-sizing:border-box;">
+      <strong style="color:var(--accent-cyan);">4. Evidências:</strong> Relatório Detalhado.
+    </div>
+  </div>
+</div>
+<!-- Ideal para - Versão compacta e responsiva -->
+<h4 style="font-size:0.95rem; margin:6px 0 4px;"><i class="fas fa-users" style="color:var(--bradesco-red); font-size:0.85rem;"></i> Ideal para</h4>
+<div style="background:rgba(204,0,0,.05); padding:10px; border-radius:8px; border:1px solid rgba(204,0,0,.1);">
+  <div style="display:flex; flex-wrap:wrap; row-gap:8px; font-size:0.8rem; color:var(--text-secondary);">
+    <div style="width:30%; padding-right:4px; box-sizing:border-box; display:flex; align-items:center; gap:6px;">
+      <i class="fas fa-user-tie" style="color:var(--accent-cyan); font-size:0.9rem;"></i>
+      <span>DBAs</span>
+    </div>
+    <div style="width:50%; padding-left:4px; box-sizing:border-box; display:flex; align-items:center; gap:6px;">
+      <i class="fas fa-user-cog" style="color:var(--accent-purple); font-size:0.9rem;"></i>
+      <span>Arquitetos de Dados</span>
+    </div>
+    <div style="width:30%; padding-right:4px; box-sizing:border-box; display:flex; align-items:center; gap:6px;">
+      <i class="fas fa-user-gear" style="color:var(--bradesco-blue); font-size:0.9rem;"></i>
+      <span>Engenheiros de Dados</span>
+    </div>
+    <div style="width:50%; padding-left:4px; box-sizing:border-box; display:flex; align-items:center; gap:6px;">
+      <i class="fas fa-user-graduate" style="color:var(--bradesco-red); font-size:0.9rem;"></i>
+      <span>Analistas de Dados</span>
+    </div>
+  </div>
+</div>
   </div>
 </div>
   </div>
