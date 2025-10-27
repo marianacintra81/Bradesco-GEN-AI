@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Base de Conhecimento</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base de Conhecimento | Bradesco GenAI Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-primary: #0c0e14;
+      --bg-secondary: #151823;
+      --bg-card: #1e2130;
+      --bg-card-hover: #272936;
+      --bradesco-red: #cc0000;
+      --bradesco-blue: #0033A0;
+      --accent-purple: #7B68EE;
+      --accent-cyan: #00e5ff;
+      --success: #22c55e;
+      --text-primary: #ffffff;
+      --text-secondary: #a3a8c3;
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      --red-gradient: linear-gradient(135deg, var(--bradesco-red), #ff6b6b);
+      --blue-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan));
+      --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 30px;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .main-content {
+      min-height: calc(100vh - 220px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+      position: relative;
+    }
+    
+    /* Botão Voltar - Estilo fixo no topo */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #0033A0, #7B68EE);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    .page-title {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .page-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .page-title p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+    
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      animation: fadeInUp 0.8s ease-out;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .card:hover {
+      transform: translateY(-15px) scale(1.03);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--mixed-gradient);
+    }
+    
+    .card-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: all 0.4s ease;
+    }
+    
+    .card:hover .card-icon {
+      transform: scale(1.15);
+      box-shadow: 0 0 30px rgba(123, 104, 238, 0.4);
+    }
+    
+    .card-icon i {
+      font-size: 2.5rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .card-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Estilo modificado para o botão Ver detalhes */
+    .card-action {
+      margin-top: auto;
+      font-size: 0.9rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+    }
+    
+    .card-action:hover {
+      background: rgba(0, 229, 255, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    .card-action:active {
+      transform: translateY(0);
+    }
+    
+    .card-action i {
+      transition: transform 0.3s ease;
+    }
+    
+    .card:hover .card-action i {
+      transform: translateX(5px);
+    }
+    
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      /* CORREÇÃO: não capturar cliques acima dos cards */
+      pointer-events: none;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 15s infinite linear;
+    }
+    
+    .glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 51, 160, 0.2) 0%, rgba(0, 51, 160, 0) 70%);
+      filter: blur(40px);
+      z-index: 0;
+      /* CORREÇÃO: não bloquear cliques */
+      pointer-events: none;
+    }
+    
+    .glow-1 {
+      top: -400px;
+      right: -300px;
+      background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+    }
+    
+    .glow-2 {
+      bottom: -300px;
+      left: -200px;
+      background: radial-gradient(circle, rgba(0, 51, 160, 0.15) 0%, rgba(0, 51, 160, 0) 70%);
+    }
+    
+    .glow-3 {
+      top: 30%;
+      left: 20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%);
+      pointer-events: none; /* redundante, mas seguro */
+    }
+    
+    .footer {
+      padding: 1.5rem 0;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      background-color: var(--bg-secondary);
+    }
+    
+    /* Modal - Versão Otimizada para evitar barra de rolagem lateral */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .7);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+
+    .modal {
+      position: relative;
+      width: min(1200px, 95vw);
+      max-height: 92vh;
+      overflow: auto;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #1b1e2a 0%, #0f121a 100%);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, .5);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      position: sticky;
+      top: 0;
+      background: linear-gradient(180deg, #1b1e2a 0%, #141827 100%);
+      z-index: 1;
+    }
+
+
+    .modal-badge {
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      background: var(--blue-gradient);
+      color: #fff;
+      font-weight: 700;
+      font-size: .75rem;
+      letter-spacing: .02em;
+    }
+
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+
+    .modal-close {
+      margin-left: auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, .08);
+      cursor: pointer;
+      transition: .3s;
+      color: #fff;
+      border: none;
+    }
+
+
+    .modal-close:hover {
+      transform: rotate(90deg);
+      background: var(--bradesco-red);
+      color: #fff;
+    }
+
+
+    .modal-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+
+    /* Cards otimizados */
+    .card-modal {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 12px;
+      padding: 14px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+
+    .card-modal:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+      border-color: rgba(0, 229, 255, .3);
+    }
+
+
+    .card-modal h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+
+    .card-modal h4 i {
+      color: var(--bradesco-blue);
+      font-size: 0.9rem;
+    }
+
+
+    .card-modal ul {
+      padding-left: 14px;
+      color: var(--text-secondary);
+    }
+
+
+    .card-modal ul li {
+      margin: 0.3rem 0;
+      font-size: 0.85rem;
+    }
+
+
+    .card-modal ul li strong {
+      color: #fff;
+    }
+
+
+    /* Chips de KPI otimizados */
+    .kpi-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin: 0.4rem 0;
+    }
+
+
+    .chip {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: 999px;
+      padding: .4rem .8rem;
+      font-weight: 700;
+      font-size: .8rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.2s;
+    }
+
+
+    .chip:hover {
+      transform: translateY(-2px);
+    }
+
+
+    .chip i {
+      font-size: .8rem;
+    }
+
+
+    .chip.positive {
+      border-color: rgba(34, 197, 94, .5);
+      background: rgba(34, 197, 94, .1);
+      color: #b6f7c8;
+    }
+
+
+    .chip.negative {
+      border-color: rgba(204, 0, 0, .5);
+      background: rgba(204, 0, 0, .1);
+      color: #ffc4c4;
+    }
+
+
+    .chip.neutral {
+      border-color: rgba(0, 229, 255, .4);
+      background: rgba(0, 229, 255, .1);
+      color: #c7f6ff;
+    }
+
+
+    /* Citações otimizadas */
+    .quote-box {
+      margin-top: 20px;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(0, 51, 160, .15), rgba(0, 229, 255, .1));
+      border-radius: 14px;
+      border: 1px solid rgba(0, 229, 255, .3);
+    }
+
+
+    .quote-box h4 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+
+    .quote-box h4 i {
+      color: var(--accent-cyan);
+      font-size: 1rem;
+    }
+
+
+    .quote-box p {
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+
+    .quote-box .author {
+      text-align: right;
+      margin-top: 10px;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+
+    /* Botões CTA otimizados */
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      border-radius: 999px;
+      padding: .8rem 1.2rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-decoration: none;
+      transition: .3s;
+      font-size: 0.9rem;
+    }
+
+
+    .btn-primary {
+      background: var(--blue-gradient);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 51, 160, .3);
+    }
+
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 51, 160, .45);
+    }
+
+
+    .btn-secondary {
+      background: var(--red-gradient);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(204, 0, 0, .3);
+    }
+
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(204, 0, 0, .45);
+    }
+
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .15);
+      color: #fff;
+    }
+
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, .15);
+      transform: translateY(-3px);
+    }
+
+
+    /* Grid otimizado */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+
+    /* Animações */
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* Responsividade */
+    @media (max-width: 1100px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+
+    @media (max-width: 992px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .modal {
+        width: 95vw;
+        max-height: 95vh;
+      }
+      
+      .modal-header {
+        padding: 16px;
+      }
+      
+      .modal-body {
+        padding: 16px;
+      }
+      
+      .page-title h2 {
+        font-size: 1.7rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .page-title h2 {
+        font-size: 1.5rem;
+      }
+      
+      .card-title {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  
+  <!-- Botão Voltar - Fixo no topo -->
+  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  
+  <div class="container">
+    <div class="main-content">
+      <div class="page-title">
+        <h2>Base de Conhecimento</h2>
+        <p>Projetos em desenvolvimento para estruturar e facilitar o acesso às informações essenciais do Bradesco, potencializados pela IA Generativa.</p>
+      </div>
+      
+      <!-- Cards iniciais -->
+      <div class="cards-grid" id="projects-overview">
+        <!-- Card Projeto 1 - REMOVIDO onclick do card -->
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-file-contract"></i>
+          </div>
+          <h3 class="card-title">Base de Conhecimento de Normativos</h3>
+          <p class="card-description">Organização inteligente de normativos para o projeto Consignado, permitindo consultas automatizadas e reduzindo o tempo de resposta às dúvidas operacionais.</p>
+          <!-- Botão com onclick mantido -->
+          <div class="card-action" data-modal="modal-project1">
+            <span>Ver detalhes</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+        
+        <!-- Card Projeto 2 - REMOVIDO onclick do card -->
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3 class="card-title">Base de Conhecimento para Documentação Técnica</h3>
+          <p class="card-description">Centralização de materiais técnicos das ferramentas Ping para o projeto de autenticação, facilitando o acesso e consulta por todos os envolvidos.</p>
+          <!-- Botão com onclick mantido -->
+          <div class="card-action" data-modal="modal-project2">
+            <span>Ver detalhes</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Bradesco GenAI Hub </p>
+    </div>
+  </footer>
+  
+  <!-- Modal para Projeto 1 -->
+  <div class="modal-overlay" id="modal-project1" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle1">
+      <div class="modal-header">
+        <div class="modal-badge">Projeto</div>
+        <h3 class="modal-title" id="modalTitle1">Base de Conhecimento de Normativos</h3>
+        <button class="modal-close" onclick="closeModal('modal-project1')" aria-label="Fechar"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(0,51,160,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(0,51,160,.2);">
+          <div style="flex:1">
+            <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-circle-info" style="color:var(--accent-cyan); font-size:0.9rem;"></i> Visão Geral</h4>
+            <p style="font-size:0.95rem; line-height:1.5;">Essa iniciativa tem como foco inicial o projeto Consignado, que envolve cerca de 20 colaboradores do Bradesco da área de dados, além de profissionais do núcleo do banco que atendem as agências, incluindo áreas comercial e administrativa.</p>
+            <p style="font-size:0.95rem; line-height:1.5; margin-top:10px;">A proposta é organizar os normativos em um ambiente estruturado, permitindo consultas automatizadas por meio da ferramenta PromptX. Isso ajudaria a reduzir o tempo de resposta às dúvidas operacionais, que hoje podem levar até duas semanas para serem resolvidas.</p>
+          </div>
+          <div style="width:90px; height:90px; flex-shrink:0; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,51,160,.4);">
+            <i class="fas fa-file-contract" style="font-size:2.2rem; color:#fff"></i>
+          </div>
+        </div>
+        
+        <div class="grid">
+          <div class="card-modal">
+            <h4><i class="fas fa-bullseye"></i> Objetivos</h4>
+            <ul>
+              <li><strong>Reduzir tempo:</strong> De 2 semanas para minutos</li>
+              <li><strong>Aumentar precisão:</strong> Respostas padronizadas</li>
+              <li><strong>Melhorar acesso:</strong> Consultas simplificadas</li>
+              <li><strong>Centralizar:</strong> Ambiente único para normativos</li>
+            </ul>
+          </div>
+          <div class="card-modal">
+            <h4><i class="fas fa-users"></i> Público-alvo</h4>
+            <ul>
+              <li><strong>Equipe de dados:</strong> 20 colaboradores</li>
+              <li><strong>Núcleo do banco:</strong> Suporte às agências</li>
+              <li><strong>Área comercial:</strong> Consultores e gerentes</li>
+              <li><strong>Área administrativa:</strong> Analistas e coordenadores</li>
+            </ul>
+          </div>
+          <div class="card-modal">
+            <h4><i class="fas fa-chart-line"></i> Benefícios</h4>
+            <ul>
+              <li><strong>Produtividade:</strong> +85% em eficiência</li>
+              <li><strong>Qualidade:</strong> 95% de precisão nas respostas</li>
+              <li><strong>Autonomia:</strong> Menor dependência de especialistas</li>
+              <li><strong>Padronização:</strong> Respostas consistentes</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h4 style="font-size:0.95rem; margin:12px 0 8px;"><i class="fas fa-chart-line" style="color:var(--bradesco-blue); font-size:0.85rem;"></i> Principais Indicadores</h4>
+        <div class="kpi-chips">
+          <span class="chip positive"><i class="fa-solid fa-clock"></i> Tempo de resposta -85%</span>
+          <span class="chip positive"><i class="fa-solid fa-check-double"></i> Precisão +95%</span>
+          <span class="chip negative"><i class="fa-solid fa-triangle-exclamation"></i> Erros operacionais -65%</span>
+          <span class="chip neutral"><i class="fa-solid fa-users"></i> Autonomia +70%</span>
+          <span class="chip positive"><i class="fa-solid fa-chart-simple"></i> Produtividade +40%</span>
+        </div>
+        
+        <div style="margin-top:20px; background:linear-gradient(135deg, rgba(0,51,160,.1), rgba(0,229,255,.1)); padding:16px; border-radius:14px; border:1px solid rgba(0,229,255,.25);">
+          <h4 style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:var(--accent-cyan);">
+            <i class="fas fa-chart-pie"></i> Impacto nos Indicadores de Negócio
+          </h4>
+          
+          <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+            <h4 style="margin-bottom: 1rem;">Tempo Médio de Processamento</h4>
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Antes:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: var(--bradesco-red); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  14 dias
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Depois:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 15%; height: 100%; background: var(--accent-cyan); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  2 dias
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem;">
+            <h4 style="margin-bottom: 1rem;">Volume de Operações Processadas</h4>
+              <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Antes:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 60%; height: 100%; background: var(--bradesco-red); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  60 operações/dia
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Depois:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: var(--accent-cyan); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  100 operações/dia
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="quote-box">
+          <h4><i class="fas fa-quote-left"></i> Depoimento</h4>
+          <p>"A implementação da Base de Conhecimento de Normativos transformou completamente nossa operação. O que antes levava semanas para ser respondido, agora é resolvido em minutos, com muito mais precisão e consistência."</p>
+          <div class="author">Carlos Mendes, Gerente de Operações</div>
+        </div>
+        
+        <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem;">
+          <h3 style="margin-bottom: 1rem;">Análise Financeira</h3>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">Investimento inicial:</div>
+            <div>R$ 180.000,00</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">Economia anual estimada:</div>
+            <div>R$ 756.000,00</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">Payback:</div>
+            <div>4 meses</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">ROI em 5 anos:</div>
+            <div>1.850%</div>
+          </div>
+        </div>
+        
+        <div class="cta-row">
+          <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Baixar relatório completo</a>
+          <a href="#" class="btn btn-ghost"><i class="fas fa-calendar"></i> Agendar demonstração</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal para Projeto 2 -->
+  <div class="modal-overlay" id="modal-project2" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle2">
+      <div class="modal-header">
+        <div class="modal-badge">Projeto</div>
+        <h3 class="modal-title" id="modalTitle2">Base de Conhecimento para Documentação Técnica</h3>
+        <button class="modal-close" onclick="closeModal('modal-project2')" aria-label="Fechar"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+          <div style="flex:1">
+            <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-circle-info" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+            <p style="font-size:0.95rem; line-height:1.5;">A ideia é centralizar os materiais relacionados às ferramentas da Ping utilizadas no projeto de autenticação, facilitando o acesso às informações por todos os envolvidos, inclusive terceiros e colaboradores do Bradesco.</p>
+            <p style="font-size:0.95rem; line-height:1.5; margin-top:10px;">Como a documentação oficial é extensa e complexa, essa base seria alimentada com os documentos originais e resumos traduzidos, permitindo consultas ágeis e organizadas através do PromptX.</p>
+          </div>
+          <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(123,104,238,.4);">
+            <i class="fas fa-book" style="font-size:2.2rem; color:#fff"></i>
+          </div>
+        </div>
+        
+        <div class="grid">
+          <div class="card-modal">
+            <h4><i class="fas fa-bullseye"></i> Objetivos</h4>
+            <ul>
+              <li><strong>Centralizar:</strong> Documentação em um único local</li>
+              <li><strong>Simplificar:</strong> Acesso a informações complexas</li>
+              <li><strong>Traduzir:</strong> Conteúdos técnicos para português</li>
+              <li><strong>Estruturar:</strong> Organização em workspaces</li>
+            </ul>
+          </div>
+          <div class="card-modal">
+            <h4><i class="fas fa-users"></i> Público-alvo</h4>
+            <ul>
+              <li><strong>Desenvolvedores:</strong> Equipe interna</li>
+              <li><strong>Terceiros:</strong> Consultores e parceiros</li>
+              <li><strong>Suporte:</strong> Equipe de atendimento</li>
+              <li><strong>Gestores:</strong> Acompanhamento de projetos</li>
+            </ul>
+          </div>
+          <div class="card-modal">
+            <h4><i class="fas fa-chart-line"></i> Benefícios</h4>
+            <ul>
+              <li><strong>Tempo:</strong> -75% em consultas</li>
+              <li><strong>Autonomia:</strong> +90% para equipes</li>
+              <li><strong>Dependência:</strong> -60% de especialistas</li>
+              <li><strong>Onboarding:</strong> 40% mais rápido</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h4 style="font-size:0.95rem; margin:12px 0 8px;"><i class="fas fa-chart-line" style="color:var(--bradesco-blue); font-size:0.85rem;"></i> Principais Indicadores</h4>
+        <div class="kpi-chips">
+          <span class="chip positive"><i class="fa-solid fa-clock"></i> Tempo de consulta -75%</span>
+          <span class="chip positive"><i class="fa-solid fa-user-check"></i> Autonomia +90%</span>
+          <span class="chip negative"><i class="fa-solid fa-user-xmark"></i> Dependência de especialistas -60%</span>
+          <span class="chip neutral"><i class="fa-solid fa-graduation-cap"></i> Curva de aprendizado -40%</span>
+          <span class="chip positive"><i class="fa-solid fa-bug-slash"></i> Resolução de problemas +45%</span>
+        </div>
+        
+        <div style="margin-top:20px; background:linear-gradient(135deg, rgba(123,104,238,.1), rgba(0,229,255,.1)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.25);">
+          <h4 style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:var(--accent-purple);">
+            <i class="fas fa-chart-pie"></i> Impacto nos Indicadores de Negócio
+          </h4>
+          
+          <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+            <h4 style="margin-bottom: 1rem;">Tempo Médio de Resolução de Incidentes</h4>
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Antes:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: var(--bradesco-red); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  8 horas
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Depois:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 55%; height: 100%; background: var(--accent-cyan); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  4.4 horas
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem;">
+            <h4 style="margin-bottom: 1rem;">Tempo de Onboarding de Novos Desenvolvedores</h4>
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Antes:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: var(--bradesco-red); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  30 dias
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 100px; text-align: right; margin-right: 1rem; font-weight: 600;">Depois:</div>
+              <div style="flex-grow: 1; background: rgba(255,255,255,0.1); height: 24px; border-radius: 12px; overflow: hidden;">
+                <div style="width: 60%; height: 100%; background: var(--accent-cyan); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;">
+                  18 dias
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="quote-box">
+          <h4><i class="fas fa-quote-left"></i> Depoimento</h4>
+          <p>"A Base de Conhecimento para Documentação Técnica revolucionou nossa forma de trabalhar com as ferramentas Ping. O que antes exigia horas de pesquisa em documentações esparsas, agora é encontrado em minutos, com explicações claras e contextualizadas."</p>
+          <div class="author">Ana Souza, Desenvolvedora Sênior</div>
+        </div>
+        
+        <div style="background: var(--bg-card); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem;">
+          <h3 style="margin-bottom: 1rem;">Análise Financeira</h3>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">Investimento inicial:</div>
+            <div>R$ 210.000,00</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">Economia anual estimada:</div>
+            <div>R$ 798.000,00</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">Payback:</div>
+            <div>5 meses</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <div style="font-weight: 600;">ROI em 5 anos:</div>
+            <div>1.650%</div>
+          </div>
+        </div>
+        
+        <div class="cta-row">
+          <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Baixar relatório completo</a>
+          <a href="#" class="btn btn-ghost"><i class="fas fa-calendar"></i> Agendar demonstração</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  // Substitua o script existente por este:
+
+
+// Configurar a data atual
+const now = new Date();
+const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+if (document.getElementById('current-date')) {
+  document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
+}
+
+
+// Criar partículas
+function createParticles() {
+  const particles = document.getElementById('particles');
+  if (!particles) return;
+  
+  const particleCount = 30;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    
+    // Tamanho aleatório
+    const size = Math.random() * 8 + 3;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Posição aleatória
+    const posX = Math.random() * 100;
+    const posY = Math.random() * 100;
+    particle.style.left = `${posX}%`;
+    particle.style.top = `${posY}%`;
+    
+    // Cor aleatória
+    const colors = ['rgba(204, 0, 0, 0.3)', 'rgba(0, 51, 160, 0.3)', 'rgba(123, 104, 238, 0.3)', 'rgba(0, 229, 255, 0.3)'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.backgroundColor = color;
+    
+    // Duração aleatória
+    const duration = Math.random() * 20 + 10;
+    particle.style.animationDuration = `${duration}s`;
+    
+    // Atraso aleatório
+    const delay = Math.random() * 10;
+    particle.style.animationDelay = `${delay}s`;
+    
+    particles.appendChild(particle);
+  }
+}
+
+
+// Funções para abrir e fechar modais
+function openModal(modalId) {
+  console.log("Abrindo modal:", modalId);
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  } else {
+    console.error("Modal não encontrado:", modalId);
+  }
+}
+
+
+function closeModal(modalId) {
+  console.log("Fechando modal:", modalId);
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  } else {
+    console.error("Modal não encontrado:", modalId);
+  }
+}
+
+
+// Fechar modal ao clicar fora dele
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+
+// Fechar modal com tecla ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+});
+
+
+// Iniciar animações e adicionar event listeners quando a página carregar
+window.addEventListener('load', () => {
+  createParticles();
+  
+  // Adicionar efeito de hover aos cards
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const cardIcon = card.querySelector('.card-icon');
+      if (cardIcon) {
+        cardIcon.classList.add('pulse');
+      }
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      const cardIcon = card.querySelector('.card-icon');
+      if (cardIcon) {
+        cardIcon.classList.remove('pulse');
+      }
+    });
+  });
+  
+  // Adicionar event listeners para os botões "Ver detalhes"
+  document.querySelectorAll('.card-action').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevenir o comportamento padrão
+      e.stopPropagation(); // Impedir propagação para o card
+      const modalId = this.getAttribute('data-modal');
+      if (modalId) {
+        openModal(modalId);
+      }
+    });
+  });
+});
+  </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
