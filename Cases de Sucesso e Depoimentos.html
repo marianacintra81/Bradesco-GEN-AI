@@ -7,6 +7,76 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    .material-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  flex: 1;
+}
+    /* Estilo para o botão Ver detalhes */
+.card-action {
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.card-action:hover {
+  background: rgba(0, 229, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.card-action:active {
+  transform: translateY(0);
+}
+
+.card-action i {
+  transition: transform 0.3s ease;
+}
+
+.material-card:hover .card-action i {
+  transform: translateX(5px);
+}
+    .card-action {
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.card-action:hover {
+  background: rgba(0, 229, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.card-action:active {
+  transform: translateY(0);
+}
+
+.card-action i {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-action i {
+  transform: translateX(5px);
+}
     :root{
       --bg-primary:#0c0e14; --bg-secondary:#151823; --bg-card:#1e2130; --bg-card-hover:#272936;
       --bradesco-red:#cc0000; --bradesco-blue:#0033A0; --accent-purple:#7B68EE; --accent-cyan:#00e5ff;
@@ -476,7 +546,7 @@
 
           <!-- Vídeo 2 -->
           <div class="video-card">
-            <div class="video-thumbnail" data-video-url="https://capgemininar-my.sharepoint.com/personal/mariana_cintra_capgemini_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fmariana%5Fcintra%5Fcapgemini%5Fcom%2FDocuments%2FContagem%20de%20Ponto%20de%20Fun%C3%A7%C3%A3o%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E122a344f%2D7f5f%2D43f9%2D8fcc%2D3a71715ecd27">
+            <div class="video-thumbnail" data-video-url="https://capgemininar.sharepoint.com/sites/GenAIGitHubCopilot/_layouts/15/stream.aspx?id=%2Fsites%2FGenAIGitHubCopilot%2FMateriais%20de%20suporte%2F3%2E%20Treinamentos%20PromptX%2FV%C3%ADdeos%20Curtos%2FContagem%20de%20Ponto%20de%20Fun%C3%A7%C3%A3o%2Emp4&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E3b798f6f%2D15e6%2D4b47%2Dacc5%2D7c6f243cbf8e&ga=1">
               <div class="custom-thumbnail">
                 <div class="thumbnail-content">
                   <i class="fas fa-calculator thumbnail-icon"></i>
@@ -675,11 +745,15 @@
             <div class="material-info">
               <h4 class="material-title">Agente de Padronização de Dados</h4>
               <p class="material-description">Apresentação detalhada do Agente de Padronização de Dados, incluindo funcionalidades, benefícios e casos de uso implementados no Bradesco.</p>
-              <div class="material-actions">
-                <button class="icon-exibir" data-open="folder-padronizacao" title="Exibir"><i class="fas fa-eye"></i></button>
-              </div>
-            </div>
-          </div>
+              
+               <div class="material-actions" style="display: flex; justify-content: center;">
+      <div class="card-action" data-open="folder-padronizacao">
+        <span>Ver detalhes</span>
+        <i class="fas fa-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
 
           <!-- 2) Whitepaper GenAI -->
           <div class="material-card">
@@ -730,11 +804,13 @@
             <div class="material-info">
               <h4 class="material-title"> GenAI no Setor Bancário</h4>
               <p class="material-description">Estudo completo sobre a aplicação de Inteligência Artificial Generativa no setor bancário, com foco nas soluções implementadas pela Capgemini.</p>
-              <div class="material-actions">
-                <button class="icon-exibir" data-open="whitepaper-genai" title="Exibir"><i class="fas fa-eye"></i></button>
-              </div>
-            </div>
-          </div>
+               <div class="material-actions" style="display: flex; justify-content: center;">
+      <div class="card-action" data-open="whitepaper-genai"  <span>Ver detalhes</span>
+        <i class="fas fa-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
 
           <!-- 3) Infográfico -->
           <div class="material-card">
@@ -774,12 +850,13 @@
             <div class="material-info">
               <h4 class="material-title">Resultados GenAI 2025</h4>
               <p class="material-description">Principais métricas alcançadas com GenAI no Bradesco durante 2025.</p>
-              <div class="material-actions">
-                <button class="icon-exibir" data-open="infografico-resultados" title="Exibir"><i class="fas fa-eye"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
+              <div class="material-actions" style="display: flex; justify-content: center;">
+      <div class="card-action" data-open="infografico-resultados"    <span>Ver detalhes</span>
+        <i class="fas fa-arrow-right"></i>
+      </div>
+    </div>
+  </div>
+</div>
       </section>
 
       <!-- DEPOIMENTOS (DINÂMICO) -->
@@ -1128,7 +1205,7 @@
   </div>
 
   <footer class="footer">
-    <div class="container"><p>© 2025 Bradesco GenAI Hub. Todos os direitos reservados.</p></div>
+    <div class="container"><p>© 2025 Bradesco GenAI Hub. </p></div>
   </footer>
 
   <!-- MODAIS (versão otimizada) -->
@@ -1350,7 +1427,7 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle3">
       <div class="modal-header">
       
-        <h3 class="modal-title" id="modalTitle3">Infográfico: Resultados GenAI 2025</h3>
+        <h3 class="modal-title" id="modalTitle3">Resultados GenAI 2025</h3>
         <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
       </div>
       <div class="modal-body">
