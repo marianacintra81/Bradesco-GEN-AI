@@ -719,64 +719,70 @@
     </div>
   </footer>
   
-  <!-- Modal para Projeto 1 -->
-  <div class="modal-overlay" id="modal-project1" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle1">
-      <div class="modal-header">
-      
-        <h3 class="modal-title" id="modalTitle1">Base de Conhecimento de Normativos</h3>
-        <button class="modal-close" onclick="closeModal('modal-project1')" aria-label="Fechar"><i class="fas fa-times"></i></button>
+ <!-- Modal para Projeto 1 -->
+<div class="modal-overlay" id="modal-project1" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle1">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalTitle1">Base de Conhecimento de Normativos</h3>
+      <button class="modal-close" onclick="closeModal('modal-project1')" aria-label="Fechar"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(0,51,160,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(0,51,160,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-circle-info" style="color:var(--accent-cyan); font-size:0.9rem;"></i> Visão Geral</h4>
+          <p style="font-size:0.95rem; line-height:1.5;">Essa iniciativa tem como foco inicial o projeto Consignado, que envolve cerca de 20 colaboradores do Bradesco da área de dados, além de profissionais do núcleo do banco que atendem as agências, incluindo áreas comercial e administrativa.</p>
+          <p style="font-size:0.95rem; line-height:1.5; margin-top:10px;">A proposta é organizar os normativos em um ambiente estruturado, permitindo consultas automatizadas por meio da ferramenta PromptX. Isso ajudaria a reduzir o tempo de resposta às dúvidas operacionais, que hoje podem levar até duas semanas para serem resolvidas.</p>
+        </div>
+        <div style="width:90px; height:90px; flex-shrink:0; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,51,160,.4);">
+          <i class="fas fa-file-contract" style="font-size:2.2rem; color:#fff"></i>
+        </div>
       </div>
-      <div class="modal-body">
-        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(0,51,160,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(0,51,160,.2);">
-          <div style="flex:1">
-            <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-circle-info" style="color:var(--accent-cyan); font-size:0.9rem;"></i> Visão Geral</h4>
-            <p style="font-size:0.95rem; line-height:1.5;">Essa iniciativa tem como foco inicial o projeto Consignado, que envolve cerca de 20 colaboradores do Bradesco da área de dados, além de profissionais do núcleo do banco que atendem as agências, incluindo áreas comercial e administrativa.</p>
-            <p style="font-size:0.95rem; line-height:1.5; margin-top:10px;">A proposta é organizar os normativos em um ambiente estruturado, permitindo consultas automatizadas por meio da ferramenta PromptX. Isso ajudaria a reduzir o tempo de resposta às dúvidas operacionais, que hoje podem levar até duas semanas para serem resolvidas.</p>
-          </div>
-          <div style="width:90px; height:90px; flex-shrink:0; background:var(--blue-gradient); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,51,160,.4);">
-            <i class="fas fa-file-contract" style="font-size:2.2rem; color:#fff"></i>
-          </div>
+      
+      <div class="grid">
+        <div class="card-modal">
+          <h4><i class="fas fa-bullseye"></i> Objetivos</h4>
+          <ul>
+            <li><strong>Reduzir tempo:</strong> De 2 semanas para minutos</li>
+            <li><strong>Aumentar precisão:</strong> Respostas padronizadas</li>
+            <li><strong>Melhorar acesso:</strong> Consultas simplificadas</li>
+            <li><strong>Centralizar:</strong> Ambiente único para normativos</li>
+          </ul>
         </div>
-        
-        <div class="grid">
-          <div class="card-modal">
-            <h4><i class="fas fa-bullseye"></i> Objetivos</h4>
-            <ul>
-              <li><strong>Reduzir tempo:</strong> De 2 semanas para minutos</li>
-              <li><strong>Aumentar precisão:</strong> Respostas padronizadas</li>
-              <li><strong>Melhorar acesso:</strong> Consultas simplificadas</li>
-              <li><strong>Centralizar:</strong> Ambiente único para normativos</li>
-            </ul>
-          </div>
-          <div class="card-modal">
-            <h4><i class="fas fa-users"></i> Público-alvo</h4>
-            <ul>
-              <li><strong>Equipe de dados:</strong> 20 colaboradores</li>
-              <li><strong>Núcleo do banco:</strong> Suporte às agências</li>
-              <li><strong>Área comercial:</strong> Consultores e gerentes</li>
-              <li><strong>Área administrativa:</strong> Analistas e coordenadores</li>
-            </ul>
-          </div>
-          <div class="card-modal">
-            <h4><i class="fas fa-chart-line"></i> Benefícios</h4>
-            <ul>
-              <li><strong>Produtividade:</strong> +85% em eficiência</li>
-              <li><strong>Qualidade:</strong> 95% de precisão nas respostas</li>
-              <li><strong>Autonomia:</strong> Menor dependência de especialistas</li>
-              <li><strong>Padronização:</strong> Respostas consistentes</li>
-            </ul>
-          </div>
+        <div class="card-modal">
+          <h4><i class="fas fa-users"></i> Público-alvo</h4>
+          <ul>
+            <li><strong>Equipe de dados:</strong> ~20 colaboradores</li>
+            <li><strong>Núcleo do banco:</strong> Suporte às agências</li>
+            <li><strong>Área comercial:</strong> Consultores e gerentes</li>
+            <li><strong>Área administrativa:</strong> Analistas e coordenadores</li>
+          </ul>
         </div>
-    
-        
-    
-        
-       
+        <div class="card-modal">
+          <h4><i class="fas fa-chart-line"></i> Benefícios</h4>
+          <ul>
+            <li><strong>Produtividade:</strong> +85% em eficiência</li>
+            <li><strong>Qualidade:</strong> 95% de precisão nas respostas</li>
+            <li><strong>Autonomia:</strong> Menor dependência de especialistas</li>
+            <li><strong>Padronização:</strong> Respostas consistentes</li>
+          </ul>
         </div>
+      </div>
+      
+      <!-- ROI Identificado -->
+      <div class="card-modal" style="margin-top: 16px; background: linear-gradient(135deg, rgba(34,197,94,.05), rgba(0,51,160,.05)); border: 1px solid rgba(34,197,94,.2);">
+        <h4><i class="fas fa-sack-dollar" style="color: var(--success);"></i> ROI Estimado</h4>
+        <ul>
+          <li><strong>Tempo de resposta:</strong> Redução de 40% a 60% no TMR para consultas normativas</li>
+          <li><strong>Qualidade:</strong> Diminuição de retrabalho e riscos de não conformidade com respostas citando fontes</li>
+          <li><strong>Produtividade:</strong> aumento da capacidade de atendimento (casos resolvidos/dia) em atendimento, backoffice e jurídico, com menor fila de dúvidas</li>
+          <li><strong>Onboarding:</strong> Integração mais rápida de novos analistas com conteúdo unificado e pesquisável</li>
+          <li><strong>Escalabilidade:</strong> Crescimento à medida que o portfólio de normas cresce</li>
+        </ul>
       </div>
     </div>
   </div>
+</div>
+
   
   <!-- Modal para Projeto 2 -->
   <div class="modal-overlay" id="modal-project2" aria-hidden="true">
