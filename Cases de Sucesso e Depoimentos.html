@@ -1349,9 +1349,7 @@
     </div>
   </div>
 
-  <footer class="footer">
-    <div class="container"><p>© 2025 Bradesco GenAI Hub. </p></div>
-  </footer>
+
 
   <!-- MODAIS (versão otimizada) -->
  <div class="modal-overlay" id="folder-padronizacao" aria-hidden="true">
@@ -1662,138 +1660,136 @@
     </div>
   </div>
 
-  <!-- Modal para POC de Contraoferta Personalizada -->
-  <div class="modal-overlay" id="generated-by-ai" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle4">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalTitle4">POC de Contraoferta Personalizada</h3>
-        <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
+<!-- Modal para POC de Contraoferta Personalizada -->
+<div class="modal-overlay" id="generated-by-ai" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle4">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalTitle4" style="font-size:1.1rem;">Contraoferta Personalizada</h3>
+      <button class="modal-close" aria-label="Fechar"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="padding-top:10px; padding-bottom:10px;">
+      <!-- Banner Principal - REDUZIDO -->
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px; background:linear-gradient(135deg, rgba(0,51,160,.08), rgba(0,229,255,.08)); padding:12px; border-radius:12px; border:1px solid rgba(0,51,160,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:0.95rem; margin-bottom:6px;"><i class="fas fa-shield-alt" style="color:var(--bradesco-blue); font-size:0.85rem;"></i> Defesa Proativa de Carteira</h4>
+          <p style="font-size:0.85rem; line-height:1.4; margin-bottom:0;">Sistema inteligente que <strong style="color:#fff">atua de forma preditiva e automatizada</strong> na defesa da carteira, gerando contraoferta personalizada quando o cliente solicita portabilidade.</p>
+        </div>
+        <div style="width:70px; height:70px; flex-shrink:0; background:linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(0,51,160,.4);">
+          <i class="fas fa-percentage" style="font-size:1.8rem; color:#fff"></i>
+        </div>
       </div>
-      <div class="modal-body">
-        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(0,51,160,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(0,51,160,.2);">
-          <div style="flex:1">
-            <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-robot" style="color:var(--bradesco-blue); font-size:0.9rem;"></i> Visão Geral</h4>
-            <p style="font-size:0.95rem; line-height:1.5;">Sistema inteligente que gera <strong style="color:#fff">contraoferta personalizada e automatizada</strong> quando o cliente solicita portabilidade, ajustando taxas e benefícios conforme seu perfil financeiro, comportamento e relacionamento com o banco.</p>
-          </div>
-          <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,51,160,.4);">
-            <i class="fas fa-percentage" style="font-size:2.2rem; color:#fff"></i>
-          </div>
-        </div>
+      
+      <!-- Principais Benefícios de Negócio - REDUZIDO -->
+      <div style="margin-bottom:16px;">
+        <h4 style="font-size:0.9rem; margin-bottom:10px; color:var(--bradesco-blue); border-bottom:1px solid rgba(0,51,160,.2); padding-bottom:6px;">
+          <i class="fas fa-chart-line"></i> Principais Benefícios de Negócio
+        </h4>
         
-        <div class="grid">
-          <div class="card">
-            <h4><i class="fas fa-database"></i> Fontes de Dados</h4>
-            <ul>
-              <li><strong>Cadastro de clientes:</strong> Profissão, salário, score, margem consignável</li>
-              <li><strong>Histórico de transações:</strong> Categorias, volume, tipos de operação</li>
-              <li><strong>Benefícios:</strong> Ativos e disponíveis</li>
-              <li><strong>Taxas:</strong> Bradesco por segmento e concorrentes</li>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+          <div class="card" style="background:linear-gradient(135deg, rgba(0,51,160,.04), rgba(0,51,160,.08)); border-left:4px solid var(--bradesco-blue); padding:10px;">
+            <h4 style="font-size:0.85rem; margin-bottom:6px;"><i class="fas fa-bolt"></i> Atuação Preditiva</h4>
+            <ul style="font-size:0.75rem; margin-bottom:0; padding-left:18px;">
+              <li>Identificação antecipada de saídas</li>
+              <li>Resposta imediata automatizada</li>
+              <li>Contraoferta personalizada</li>
             </ul>
           </div>
-          <div class="card">
-            <h4><i class="fas fa-user-tag"></i> Classificação de Perfil</h4>
-            <ul>
-              <li><strong>Conservador (0-40):</strong> Pouco uso de crédito, foco em estabilidade</li>
-              <li><strong>Consumidor Ativo (41-60):</strong> Alta movimentação e gastos regulares</li>
-              <li><strong>Investidor (61-75):</strong> Equilibrado, foco em aplicações</li>
-              <li><strong>Endividado (76-85):</strong> Alto uso de crédito e baixa reserva</li>
-              <li><strong>Premium (86-100):</strong> Alto ticket médio, lazer e viagens</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4><i class="fas fa-chart-pie"></i> Dimensões de Análise</h4>
-            <ul>
-              <li><strong>Frequência de Transações (25%):</strong> Volume mensal de operações</li>
-              <li><strong>Categorias de Gasto (25%):</strong> Essenciais vs. lazer/consumo</li>
-              <li><strong>Relação Saldo/Salário (25%):</strong> Indicador de reserva financeira</li>
-              <li><strong>Uso de Crédito (25%):</strong> Diversidade de produtos utilizados</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="grid">
-          <div class="card">
-            <h4><i class="fas fa-calculator"></i> Lógica de Oferta</h4>
-            <ul>
-                   <li><strong>Fórmula:</strong> Taxa Base - (Ajustes de Perfil + Relacionamento + Fidelidade)</li>
-              <li><strong>Reduções por perfil:</strong> De 0.05% a 0.15% a.m.</li>
-              <li><strong>Ajustes adicionais:</strong> Relacionamento, investimentos e benefícios</li>
-              <li><strong>Exemplo:</strong> Taxa 1.40% → 1.31% para Consumidor Ativo</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4><i class="fas fa-gift"></i> Benefícios Estratégicos</h4>
-            <ul>
-              <li><strong>Seleção:</strong> Até 3 benefícios com base no perfil</li>
-              <li><strong>Conservador:</strong> Isenção de tarifas, consultoria financeira</li>
-              <li><strong>Consumidor Ativo:</strong> Cashback, anuidade bonificada</li>
-              <li><strong>Premium:</strong> Concierge, salas VIP, experiências exclusivas</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4><i class="fas fa-balance-scale"></i> Peso de Decisão</h4>
-            <ul>
-              <li><strong>Contexto financeiro:</strong> 40% (taxas, margem, score)</li>
-              <li><strong>Comportamento:</strong> 30% (perfil e transações)</li>
-              <li><strong>Benefícios:</strong> 20% (ativos e potenciais)</li>
-              <li><strong>Relacionamento:</strong> 10% (tempo e engajamento)</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div style="margin-top:20px; background:linear-gradient(135deg, rgba(0,229,255,.08), rgba(123,104,238,.08)); padding:16px; border-radius:14px; border:1px solid rgba(0,229,255,.2);">
-          <h4 style="font-size:1rem; margin-bottom:12px;"><i class="fas fa-user-check" style="color:var(--accent-cyan);"></i> Exemplo Prático</h4>
           
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
-            <div>
-              <h5 style="color:var(--accent-cyan); margin-bottom:8px; font-size:0.9rem;">Cliente: Fernanda Oliveira</h5>
-              <ul style="list-style:none; padding-left:0; font-size:0.85rem; color:var(--text-secondary);">
-                <li><i class="fas fa-exchange-alt" style="width:20px;"></i> <strong>Transações:</strong> 32/mês (25 pts)</li>
-                <li><i class="fas fa-shopping-bag" style="width:20px;"></i> <strong>Categorias:</strong> 65% lazer (25 pts)</li>
-                <li><i class="fas fa-wallet" style="width:20px;"></i> <strong>Saldo/Salário:</strong> 1.2 (15 pts)</li>
-                <li><i class="fas fa-credit-card" style="width:20px;"></i> <strong>Uso de crédito:</strong> 2 tipos (15 pts)</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h5 style="color:var(--accent-cyan); margin-bottom:8px; font-size:0.9rem;">Resultado</h5>
-              <ul style="list-style:none; padding-left:0; font-size:0.85rem; color:var(--text-secondary);">
-                <li><i class="fas fa-user-tag" style="width:20px;"></i> <strong>Pontuação:</strong> 80 pontos</li>
-                <li><i class="fas fa-users" style="width:20px;"></i> <strong>Perfil:</strong> Consumidor Ativo Premium</li>
-                <li><i class="fas fa-percentage" style="width:20px;"></i> <strong>Nova taxa:</strong> 1.31% a.m.</li>
-                <li><i class="fas fa-gift" style="width:20px;"></i> <strong>Benefícios:</strong> 3 ofertas personalizadas</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h5 style="color:var(--accent-cyan); margin-bottom:8px; font-size:0.9rem;">Benefícios Oferecidos</h5>
-              <ul style="list-style:none; padding-left:0; font-size:0.85rem; color:var(--text-secondary);">
-                <li><i class="fas fa-check-circle" style="width:20px; color:var(--success);"></i> Anuidade Bonificada</li>
-                <li><i class="fas fa-check-circle" style="width:20px; color:var(--success);"></i> Descontos em Restaurantes</li>
-                <li><i class="fas fa-check-circle" style="width:20px; color:var(--success);"></i> Experiências Exclusivas</li>
-              </ul>
-            </div>
+          <div class="card" style="background:linear-gradient(135deg, rgba(0,229,255,.04), rgba(0,229,255,.08)); border-left:4px solid var(--accent-cyan); padding:10px;">
+            <h4 style="font-size:0.85rem; margin-bottom:6px;"><i class="fas fa-clock"></i> Tempo de Resposta</h4>
+            <ul style="font-size:0.75rem; margin-bottom:0; padding-left:18px;">
+              <li>De dias para segundos</li>
+              <li>Eliminação de etapas manuais</li>
+              <li>Aprovação instantânea</li>
+            </ul>
+          </div>
+          
+          <div class="card" style="background:linear-gradient(135deg, rgba(76,175,80,.04), rgba(76,175(76,175,80,.08)); border-left:4px solid #4CAF50; padding:10px;">
+            <h4 style="font-size:0.85rem; margin-bottom:6px;"><i class="fas fa-user-check"></i> Taxa de Retenção</h4>
+            <ul style="font-size:0.75rem; margin-bottom:0; padding-left:18px;">
+              <li>Aumento na retenção</li>
+              <li>Ofertas mais assertivas</li>
+              <li>Maior satisfação do cliente</li>
+            </ul>
+          </div>
+          
+          <div class="card" style="background:linear-gradient(135deg, rgba(255,152,0,.04), rgba(255,152,0,.08)); border-left:4px solid #FF9800; padding:10px;">
+            <h4 style="font-size:0.85rem; margin-bottom:6px;"><i class="fas fa-coins"></i> Eficiência</h4>
+            <ul style="font-size:0.75rem; margin-bottom:0; padding-left:18px;">
+              <li>Redução no custo</li>
+              <li>Otimização de recursos</li>
+              <li>Menor intervenção manual</li>
+            </ul>
           </div>
         </div>
+      </div>
+      
+      <!-- Resultados Esperados - REDUZIDO -->
+      <div style="margin-bottom:16px; background:linear-gradient(135deg, rgba(0,51,160,.05), rgba(0,229,255,.05)); padding:12px; border-radius:12px; border:1px solid rgba(0,51,160,.15);">
+        <h4 style="font-size:0.9rem; margin-bottom:10px; color:var(--bradesco-blue);">
+          <i class="fas fa-bullseye"></i> Resultados Esperados
+        </h4>
         
-        <div class="quote-box" style="margin-top:20px;">
-          <h4><i class="fas fa-lightbulb"></i> Conclusão</h4>
-          <p>As regras são determinísticas, auditáveis e prontas para implementação. O módulo eleva a retenção, reduz portabilidades efetivadas e reforça a percepção de personalização.</p>
-          <div class="author">- Equipe de Desenvolvimento</div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+          <div style="text-align:center; padding:10px; background:linear-gradient(135deg, rgba(0,51,160,.03), rgba(0,51,160,.08)); border-radius:8px; border:1px solid rgba(0,51,160,.1);">
+            <div style="font-size:1.8rem; font-weight:bold; color:var(--bradesco-blue); margin-bottom:4px;">35%</div>
+            <p style="margin:0; font-size:0.75rem;">Aumento na retenção</p>
+          </div>
+          
+          <div style="text-align:center; padding:10px; background:linear-gradient(135deg, rgba(0,229,255,.03), rgba(0,229,255,.08)); border-radius:8px; border:1px solid rgba(0,229,255,.1);">
+            <div style="font-size:1.8rem; font-weight:bold; color:var(--accent-cyan); margin-bottom:4px;">65%</div>
+            <p style="margin:0; font-size:0.75rem;">Redução de custos</p>
+          </div>
+          
+          <div style="text-align:center; padding:10px; background:linear-gradient(135deg, rgba(123,104,238,.03), rgba(123,104,238,.08)); border-radius:8px; border:1px solid rgba(123,104,238,.1);">
+            <div style="font-size:1.8rem; font-weight:bold; color:#7b68ee; margin-bottom:4px;">90%</div>
+            <p style="margin:0; font-size:0.75rem;">Automação</p>
+          </div>
         </div>
+      </div>
+      
+      <!-- Simulação de Caso - REDUZIDO -->
+      <div style="background:linear-gradient(135deg, rgba(0,229,255,.08), rgba(123,104,238,.08)); padding:12px; border-radius:12px; border:1px solid rgba(0,229,255,.2);">
+        <h4 style="font-size:0.9rem; margin-bottom:10px;"><i class="fas fa-laptop" style="color:var(--accent-cyan);"></i> Simulação de Caso</h4>
         
-        <div class="cta-row" style="margin-top:20px;">
-          <a href="#" class="btn btn-primary">
-            <i class="fas fa-file-alt"></i> Acessar Documentação Completa
-          </a>
-          <a href="#" class="btn btn-ghost">
-            <i class="fas fa-code"></i> Ver Implementação
-          </a>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+          <div>
+            <h5 style="color:var(--accent-cyan); margin-bottom:6px; font-size:0.85rem;">Cliente Premium</h5>
+            <p style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:8px;">
+              Cliente solicitou portabilidade com taxa 1.45% a.m.
+            </p>
+            <ul style="list-style:none; padding-left:0; font-size:0.75rem; color:var(--text-secondary); margin-bottom:0;">
+              <li style="margin-bottom:4px;"><i class="fas fa-user-tag" style="width:16px; color:var(--accent-cyan);"></i> <strong>Perfil:</strong> Alta rentabilidade</li>
+              <li style="margin-bottom:4px;"><i class="fas fa-history" style="width:16px; color:var(--accent-cyan);"></i> <strong>Relacionamento:</strong> 8 anos</li>
+              <li><i class="fas fa-shopping-bag" style="width:16px; color:var(--accent-cyan);"></i> <strong>Consumo:</strong> Lazer e viagens</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h5 style="color:var(--accent-cyan); margin-bottom:6px; font-size:0.85rem;">Contraoferta Gerada</h5>
+            <ul style="list-style:none; padding-left:0; font-size:0.75rem; color:var(--text-secondary); margin-bottom:0;">
+              <li style="margin-bottom:4px;"><i class="fas fa-percentage" style="width:16px; color:#4CAF50;"></i> <strong>Nova taxa:</strong> 1.31% a.m.</li>
+              <li style="margin-bottom:4px;"><i class="fas fa-clock" style="width:16px; color:#4CAF50;"></i> <strong>Tempo:</strong> 3 segundos</li>
+              <li style="margin-bottom:4px;"><i class="fas fa-check-circle" style="width:16px; color:#4CAF50;"></i> <strong>Benefício 1:</strong> Anuidade bonificada</li>
+              <li><i class="fas fa-check-circle" style="width:16px; color:#4CAF50;"></i> <strong>Benefício 2:</strong> Acesso a salas VIP</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h5 style="color:var(--accent-cyan); margin-bottom:6px; font-size:0.85rem;">Resultado</h5>
+            <div style="background:#4CAF50; color:white; padding:8px; border-radius:6px; text-align:center; margin-bottom:4px;">
+              <i class="fas fa-thumbs-up" style="font-size:1.2rem; margin-bottom:4px;"></i>
+              <p style="margin:0; font-weight:bold; font-size:0.8rem;">Cliente Retido</p>
+            </div>
+            <p style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:0;">
+              Aceitação imediata da contraoferta, mantendo o relacionamento com o banco.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
+</div>
   <script>
     // Tabs
     document.querySelectorAll('.nav-tab').forEach(tab=>{
