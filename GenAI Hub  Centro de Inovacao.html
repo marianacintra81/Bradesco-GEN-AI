@@ -676,19 +676,21 @@
       <div class="stat-label">Produtividade</div>
     </div>
     
+  
+    
     <div class="stat-card">
+      <div class="stat-value" id="stat3">44</div>
+      <div class="stat-label">Projetos Envolvidos</div>
+    </div>
+     
+    
+    <div class="stat-card">
+      <div class="stat-value" id="stat4">+10.000</div>
+      <div class="stat-label">Total de Interações Mensais</div>
+    </div>
+     <div class="stat-card">
       <div class="stat-value" id="stat2">92%</div>
       <div class="stat-label">Taxa de Adoção</div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-value" id="stat3">+75%</div>
-      <div class="stat-label">Tarefas Repetitivas</div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-value" id="stat4">+7k</div>
-      <div class="stat-label">Total de Interações Mensais</div>
     </div>
   </div>
 </div>
@@ -697,7 +699,7 @@
   
   <footer class="footer">
     <div class="container">
-      <p>© 2025 Bradesco GenAI Hub | Transformando o futuro com inteligência artificial | Atualizado em <span id="current-date"></span></p>
+      <p>© 2025 Bradesco GenAI Hub | Transformando o futuro com inteligência artificial | 
     </div>
   </footer>
   
@@ -846,8 +848,8 @@ function animateStats() {
   const stats = [
     { id: 'stat1', end: 58, prefix: '+ ', suffix: '%' },
     { id: 'stat2', end: 92, prefix: '', suffix: '%' },
-    { id: 'stat3', end: 75, prefix: '- ', suffix: '%' },
-    { id: 'stat4', end: 7, prefix: '+', suffix: 'k' }
+    { id: 'stat3', end: 44, prefix: ' ', suffix: '' },
+    { id: 'stat4', end: +10.000, prefix: '+', suffix: '.000' }
   ];
   
   stats.forEach(stat => {
