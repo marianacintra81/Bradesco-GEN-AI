@@ -701,215 +701,234 @@
       <p>© 2025 Bradesco GenAI Hub | Transformando o futuro com inteligência artificial | 
     </div>
   </footer>
+ 
+<script>
+  // Configurar a data atual
+  const now = new Date();
+  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  // Removi esta linha pois o elemento 'current-date' não existe no HTML
+  // document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
   
-  <script>
-    // Configurar a data atual
-    const now = new Date();
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', options);
+  // Criar partículas
+  function createParticles() {
+    const particles = document.getElementById('particles');
+    const particleCount = 30;
     
-    // Criar partículas
-    function createParticles() {
-      const particles = document.getElementById('particles');
-      const particleCount = 30;
+    // Limpar partículas existentes
+    particles.innerHTML = '';
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
       
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Tamanho aleatório
-        const size = Math.random() * 8 + 3;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Posição aleatória
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        particle.style.left = `${posX}%`;
-        particle.style.top = `${posY}%`;
-        
-        // Cor aleatória
-        const colors = ['rgba(204, 0, 0, 0.3)', 'rgba(0, 51, 160, 0.3)', 'rgba(123, 104, 238, 0.3)', 'rgba(0, 229, 255, 0.3)'];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.backgroundColor = color;
-        
-        // Duração aleatória
-        const duration = Math.random() * 20 + 10;
-        particle.style.animationDuration = `${duration}s`;
-        
-        // Atraso aleatório
-        const delay = Math.random() * 10;
-        particle.style.animationDelay = `${delay}s`;
-        
-        particles.appendChild(particle);
-      }
+      // Tamanho aleatório
+      const size = Math.random() * 8 + 3;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      // Posição aleatória
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      particle.style.left = `${posX}%`;
+      particle.style.top = `${posY}%`;
+      
+      // Cor aleatória
+      const colors = ['rgba(204, 0, 0, 0.3)', 'rgba(0, 51, 160, 0.3)', 'rgba(123, 104, 238, 0.3)', 'rgba(0, 229, 255, 0.3)'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.backgroundColor = color;
+      
+      // Duração aleatória
+      const duration = Math.random() * 20 + 10;
+      particle.style.animationDuration = `${duration}s`;
+      
+      // Atraso aleatório
+      const delay = Math.random() * 10;
+      particle.style.animationDelay = `${delay}s`;
+      
+      particles.appendChild(particle);
+    }
+  }
+  
+  // Criar rede neural
+  function createNeuralNetwork() {
+    const network = document.getElementById('neural-network');
+    
+    // Limpar rede existente
+    network.innerHTML = '';
+    
+    const nodeCount = 15;
+    const connectionCount = 20;
+    const dataStreamCount = 10;
+    const iconCount = 6;
+    
+    // Criar nós
+    const nodes = [];
+    for (let i = 0; i < nodeCount; i++) {
+      const node = document.createElement('div');
+      node.classList.add('node');
+      
+      // Posição aleatória
+      const posX = Math.random() * 90 + 5;
+      const posY = Math.random() * 90 + 5;
+      node.style.left = `${posX}%`;
+      node.style.top = `${posY}%`;
+      
+      // Atraso na animação
+      const delay = Math.random() * 3;
+      node.style.animationDelay = `${delay}s`;
+      
+      network.appendChild(node);
+      nodes.push({x: posX, y: posY, element: node});
     }
     
-    // Criar rede neural
-    function createNeuralNetwork() {
-      const network = document.getElementById('neural-network');
-      const nodeCount = 15;
-      const connectionCount = 20;
-      const dataStreamCount = 10;
-      const iconCount = 6;
+    // Criar conexões
+    for (let i = 0; i < connectionCount; i++) {
+      const connection = document.createElement('div');
+      connection.classList.add('connection');
       
-      // Criar nós
-      const nodes = [];
-      for (let i = 0; i < nodeCount; i++) {
-        const node = document.createElement('div');
-        node.classList.add('node');
-        
-        // Posição aleatória
-        const posX = Math.random() * 90 + 5;
-        const posY = Math.random() * 90 + 5;
-        node.style.left = `${posX}%`;
-        node.style.top = `${posY}%`;
-        
-        // Atraso na animação
-        const delay = Math.random() * 3;
-        node.style.animationDelay = `${delay}s`;
-        
-        network.appendChild(node);
-        nodes.push({x: posX, y: posY, element: node});
-      }
+      // Selecionar dois nós aleatórios
+      const nodeA = nodes[Math.floor(Math.random() * nodes.length)];
+      const nodeB = nodes[Math.floor(Math.random() * nodes.length)];
       
-      // Criar conexões
-      for (let i = 0; i < connectionCount; i++) {
-        const connection = document.createElement('div');
-        connection.classList.add('connection');
-        
-        // Selecionar dois nós aleatórios
-        const nodeA = nodes[Math.floor(Math.random() * nodes.length)];
-        const nodeB = nodes[Math.floor(Math.random() * nodes.length)];
-        
-        // Calcular posição e comprimento
-        const x1 = nodeA.x;
-        const y1 = nodeA.y;
-        const x2 = nodeB.x;
-        const y2 = nodeB.y;
-        
-        const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-        
-        connection.style.width = `${length}%`;
-        connection.style.left = `${x1}%`;
-        connection.style.top = `${y1}%`;
-        connection.style.transform = `rotate(${angle}deg)`;
-        
-        // Atraso na animação
-        const delay = Math.random() * 4;
-        connection.style.animationDelay = `${delay}s`;
-        
-        network.appendChild(connection);
-      }
+      // Calcular posição e comprimento
+      const x1 = nodeA.x;
+      const y1 = nodeA.y;
+      const x2 = nodeB.x;
+      const y2 = nodeB.y;
       
-      // Criar fluxos de dados
-      for (let i = 0; i < dataStreamCount; i++) {
-        const dataStream = document.createElement('div');
-        dataStream.classList.add('data-stream');
-        
-        // Selecionar uma conexão aleatória
-        const startX = Math.random() * 90 + 5;
-        const startY = Math.random() * 90 + 5;
-        dataStream.style.left = `${startX}%`;
-        dataStream.style.top = `${startY}%`;
-        
-        // Atraso na animação
-        const delay = Math.random() * 10;
-        dataStream.style.animationDelay = `${delay}s`;
-        
-        network.appendChild(dataStream);
-      }
+      const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+      const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
       
-      // Adicionar ícones financeiros
-      const icons = ['fa-dollar-sign', 'fa-credit-card', 'fa-chart-pie', 'fa-piggy-bank', 'fa-hand-holding-usd', 'fa-landmark'];
+      connection.style.width = `${length}%`;
+      connection.style.left = `${x1}%`;
+      connection.style.top = `${y1}%`;
+      connection.style.transform = `rotate(${angle}deg)`;
       
-      for (let i = 0; i < iconCount; i++) {
-        const icon = document.createElement('i');
-        icon.classList.add('fas', icons[i % icons.length], 'financial-icon');
-        
-        // Posição aleatória
-        const posX = Math.random() * 80 + 10;
-        const posY = Math.random() * 80 + 10;
-        icon.style.left = `${posX}%`;
-        icon.style.top = `${posY}%`;
-        
-        // Atraso na animação
-        const delay = Math.random() * 5;
-        icon.style.animationDelay = `${delay}s`;
-        
-        network.appendChild(icon);
-      }
+      // Atraso na animação
+      const delay = Math.random() * 4;
+      connection.style.animationDelay = `${delay}s`;
+      
+      network.appendChild(connection);
     }
     
+    // Criar fluxos de dados
+    for (let i = 0; i < dataStreamCount; i++) {
+      const dataStream = document.createElement('div');
+      dataStream.classList.add('data-stream');
+      
+      // Selecionar uma conexão aleatória
+      const startX = Math.random() * 90 + 5;
+      const startY = Math.random() * 90 + 5;
+      dataStream.style.left = `${startX}%`;
+      dataStream.style.top = `${startY}%`;
+      
+      // Atraso na animação
+      const delay = Math.random() * 10;
+      dataStream.style.animationDelay = `${delay}s`;
+      
+      network.appendChild(dataStream);
+    }
+    
+    // Adicionar ícones financeiros
+    const icons = ['fa-dollar-sign', 'fa-credit-card', 'fa-chart-pie', 'fa-piggy-bank', 'fa-hand-holding-usd', 'fa-landmark'];
+    
+    for (let i = 0; i < iconCount; i++) {
+      const icon = document.createElement('i');
+      icon.classList.add('fas', icons[i % icons.length], 'financial-icon');
+      
+      // Posição aleatória
+      const posX = Math.random() * 80 + 10;
+      const posY = Math.random() * 80 + 10;
+      icon.style.left = `${posX}%`;
+      icon.style.top = `${posY}%`;
+      
+      // Atraso na animação
+      const delay = Math.random() * 5;
+      icon.style.animationDelay = `${delay}s`;
+      
+      network.appendChild(icon);
+    }
+  }
+  
   // Animação de contagem para estatísticas
-function animateStats() {
-  const stats = [
-    { id: 'stat1', end: 58, prefix: '+ ', suffix: '%' },
-    { id: 'stat2', end: 92, prefix: '', suffix: '%' },
-    { id: 'stat3', end: 44, prefix: ' ', suffix: '' },
-    { id: 'stat4', end: +10.000, prefix: '+', suffix: '.000' }
-  ];
-  
-  stats.forEach(stat => {
-    const element = document.getElementById(stat.id);
-    const end = stat.end;
-    const prefix = stat.prefix || '';
-    const suffix = stat.suffix;
-    let current = 0;
+  function animateStats() {
+    const stats = [
+      { id: 'stat1', end: 58, prefix: '', suffix: '%' },
+      { id: 'stat2', end: 92, prefix: '', suffix: '%' },
+      { id: 'stat3', end: 44, prefix: '', suffix: '' },
+      { id: 'stat4', end: 10, prefix: '+', suffix: '.000' }
+    ];
     
-    const increment = end > 100 ? Math.ceil(end / 100) : end / 100;
-    const duration = 2000; // 2 segundos
-    const interval = 20;
-    const steps = duration / interval;
-    const step = end / steps;
-    
-    const counter = setInterval(() => {
-      current += step;
-      if (current >= end) {
-        current = end;
-        clearInterval(counter);
-      }
+    stats.forEach(stat => {
+      const element = document.getElementById(stat.id);
+      if (!element) return; // Verificar se o elemento existe
       
-      if (suffix === 'M') {
-        element.textContent = prefix + current.toFixed(1) + suffix;
-      } else if (suffix === 'k') {
-        element.textContent = prefix + Math.floor(current) + suffix;
-      } else {
-        element.textContent = prefix + Math.floor(current) + suffix;
-      }
-    }, interval);
-  });
-}
-    
-     // Iniciar animações quando a página carregar
-    window.addEventListener('load', () => {
-      createParticles();
-      createNeuralNetwork();
+      const end = stat.end;
+      const prefix = stat.prefix || '';
+      const suffix = stat.suffix || '';
+      let current = 0;
       
-      // Iniciar animação de estatísticas quando o usuário rolar até a seção
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            animateStats();
-            observer.disconnect();
-          }
-        });
-      });
+      const duration = 2000; // 2 segundos
+      const interval = 20;
+      const steps = duration / interval;
+      const step = end / steps;
       
-      observer.observe(document.querySelector('.stats-section'));
+      const counter = setInterval(() => {
+        current += step;
+        if (current >= end) {
+          current = end;
+          clearInterval(counter);
+        }
+        
+        if (suffix === 'M') {
+          element.textContent = prefix + current.toFixed(1) + suffix;
+        } else if (suffix === 'k') {
+          element.textContent = prefix + Math.floor(current) + suffix;
+        } else {
+          element.textContent = prefix + Math.floor(current) + suffix;
+        }
+      }, interval);
     });
+  }
+  
+  // Iniciar animações imediatamente
+  document.addEventListener('DOMContentLoaded', () => {
+    // Executar as funções de animação imediatamente
+    createParticles();
+    createNeuralNetwork();
+    
+    // Iniciar animação de estatísticas quando o usuário rolar até a seção
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateStats();
+          observer.disconnect();
+        }
+      });
+    });
+    
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
     
     // Adicionar efeito de hover apenas aos cards clicáveis
     document.querySelectorAll('.card:not(.non-clickable)').forEach(card => {
       card.addEventListener('mouseenter', () => {
-        card.querySelector('.card-icon').classList.add('pulse');
+        const cardIcon = card.querySelector('.card-icon');
+        if (cardIcon) {
+          cardIcon.classList.add('pulse');
+        }
       });
       
       card.addEventListener('mouseleave', () => {
-        card.querySelector('.card-icon').classList.remove('pulse');
+        const cardIcon = card.querySelector('.card-icon');
+        if (cardIcon) {
+          cardIcon.classList.remove('pulse');
+        }
       });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
