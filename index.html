@@ -503,7 +503,7 @@
       height: 0px;
     }
 
-    .bar-label {
+     .bar-label {
       font-size: 10px;
       color: var(--text-secondary);
       margin-top: 5px;
@@ -681,6 +681,7 @@
       <div class="project-tab active" onclick="switchProject('safer', event)">PLATAFORMA SAFER</div>
       <div class="project-tab" onclick="switchProject('sala-core', event)">SALA CORE</div>
       <div class="project-tab" onclick="switchProject('massificado', event)">MASSIFICADO</div>
+      <div class="project-tab" onclick="switchProject('contadoria', event)">CONTADORIA</div>
     </div>
     
     <!-- Timeline compacta -->
@@ -775,7 +776,7 @@
         </div>
         
         <div class="promptx-header">
-          <div class="promptx-badge">1449 interações no Q3</div>
+          <div class="promptx-badge">2638 total de interações</div>
         </div>
         
         <div class="interaction-chart">
@@ -856,8 +857,8 @@
         leadTime: { base: 107, pilot: 92.4, production: 64 },
         productivity: { base: 31, pilot: 32.3, production: 30.2 },
         rework: { base: 0.62, pilot: 0.28, production: 0.78 },
-        interactions: 1449,
-        interactionValues: [0, 395, 1449, 0],
+        interactions: 3473,
+        interactionValues: [0, 395, 1449, 1629],
         insights: [
           {
             type: 'positive',
@@ -886,87 +887,84 @@
         rework: { base: 6.78, pilot: 3.06, production: 8.53 },
         interactions: 215,
         interactionValues: [0, 0, 215, 0],
+            insights: [
+          {
+            type: 'positive',
+            icon: 'fa-chart-line',
+            title: 'Redução expressiva no Lead Time',
+            description: 'A redução de 40.2% no Lead Time demonstra ganhos significativos de eficiência no ciclo de desenvolvimento da Sala Core.'
+          },
+          {
+            type: 'negative',
+            icon: 'fa-exclamation-triangle',
+            title: 'Aumento no índice de retrabalho',
+            description: 'O aumento no retrabalho pode estar relacionado à maior cobertura dos testes.'
+          },
+          {
+            type: 'neutral',
+            icon: 'fa-lightbulb',
+            title: 'Oportunidade de expansão',
+            description: 'Com base nos resultados positivos de produtividade, recomenda-se expandir o uso de GenAI para outras áreas da Sala Core.'
+          }
+        ]
+      },
+      'massificado': {
+        title: 'MASSIFICADO',
+        leadTime: { base: 190.1, pilot: 164.2, production: 113.7 },
+        productivity: { base: 13.5, pilot: 14.1, production: 13.2 },
+        rework: { base: 7.41, pilot: 3.35, production: 9.32 },
+        interactions: 243,
+        interactionValues: [0, 0, 243, 0],
         insights: [
-         // SUBSTITUA ESTE BLOCO PELOS NOVOS INSIGHTS PARA SAFER
-        {
-          type: 'positive',
-          icon: 'fa-chart-line',
-          title: 'Redução significativa no Lead Time',
-          description: 'A redução de 40.2% no Lead Time indica que a implementação do GenAI está acelerando  o ciclo de desenvolvimento.'
-        },
-        {
-          type: 'negative',
-          icon: 'fa-exclamation-triangle',
-          title: 'Aumento no índice de retrabalho',
-          description: 'O aumento de 25.8% no retrabalho pode estar relacionado à maior cobertura e quantidade de casos de teste gerados pela IA, o que identifica mais pontos de melhoria inicialmente.'
-        },
-        {
-          type: 'neutral',
-          icon: 'fa-robot',
-          title: 'Alta adoção da ferramenta PromptX',
-          description: 'O crescimento de 395 para 1449 interações do Q2 para Q3 indica forte adoção pela equipe.'
-        }
-      ]
-    },
-    'sala-core': {
-      title: 'SALA CORE',
-      leadTime: { base: 168.9, pilot: 146.0, production: 101.0 },
-      productivity: { base: 20.1, pilot: 21.0, production: 19.6 },
-      rework: { base: 6.78, pilot: 3.06, production: 8.53 },
-      interactions: 215,
-      interactionValues: [0, 0, 215, 0],
-      insights: [
-        // SUBSTITUA ESTE BLOCO PELOS NOVOS INSIGHTS PARA SALA CORE
-        {
-          type: 'positive',
-          icon: 'fa-chart-line',
-          title: 'Redução expressiva no Lead Time',
-          description: 'A redução de 40.2% no Lead Time demonstra ganhos significativos de eficiência no ciclo de desenvolvimento da Sala Core.'
-        },
-        {
-          type: 'negative',
-          icon: 'fa-exclamation-triangle',
-          title: 'Aumento no índice de retrabalho',
-          description: 'O aumento no retrabalho pode estar relacionado à maior cobertura dos testes.'
-        },
-        {
-          type: 'neutral',
-          icon: 'fa-lightbulb',
-          title: 'Oportunidade de expansão',
-          description: 'Com base nos resultados positivos de produtividade, recomenda-se expandir o uso de GenAI para outras áreas da Sala Core.'
-        }
-      ]
-    },
-    'massificado': {
-      title: 'MASSIFICADO',
-      leadTime: { base: 190.1, pilot: 164.2, production: 113.7 },
-      productivity: { base: 13.5, pilot: 14.1, production: 13.2 },
-      rework: { base: 7.41, pilot: 3.35, production: 9.32 },
-      interactions: 243,
-      interactionValues: [0, 0, 243, 0],
-      insights: [
-        // SUBSTITUA ESTE BLOCO PELOS NOVOS INSIGHTS PARA MASSIFICADO
-        {
-          type: 'positive',
-          icon: 'fa-chart-line',
-          title: 'Melhoria consistente na produtividade',
-          description: 'A redução de 2.2% nas horas por ponto de função indica ganhos de eficiência sustentáveis no projeto Massificado.'
-        },
-        {
-          type: 'negative',
-          icon: 'fa-exclamation-triangle',
-          title: 'Aumento temporário no retrabalho',
-          description: 'O aumento no retrabalho é um efeito esperado da maior cobertura de testes (65% mais cenários gerados), o que tende a normalizar conforme o processo amadurece.'
-        },
-        {
-          type: 'neutral',
-          icon: 'fa-search',
-          title: 'Adoção moderada da ferramenta',
-          description: 'Com 243 interações no Q3, há espaço para aumentar a adoção do GenAI entre as equipes do projeto Massificado.'
-        }
-      ]
-    }
-  };
+          {
+            type: 'positive',
+            icon: 'fa-chart-line',
+            title: 'Melhoria consistente na produtividade',
+            description: 'A redução de 2.2% nas horas por ponto de função indica ganhos de eficiência sustentáveis no projeto Massificado.'
+          },
+          {
+            type: 'negative',
+            icon: 'fa-exclamation-triangle',
+            title: 'Aumento temporário no retrabalho',
+            description: 'O aumento no retrabalho é um efeito esperado da maior cobertura de testes (65% mais cenários gerados), o que tende a normalizar conforme o processo amadurece.'
+          },
+          {
+            type: 'neutral',
+            icon: 'fa-search',
+            title: 'Adoção moderada da ferramenta',
+            description: 'Com 243 interações no Q3, há espaço para aumentar a adoção do GenAI entre as equipes do projeto Massificado.'
+          }
+        ]
+      },
+      'contadoria': {
+        title: 'CONTADORIA',
+        leadTime: { base: 127.5, pilot: 59.6, production: 59.5 },
+        productivity: { base: 31.6, pilot: 30.1, production: 26.2 },
+        rework: { base: 5.79, pilot: 1.74, production: 0.93 },
+        interactions: 1000,
+        interactionValues: [0, 189, 292, 519],
+        insights: [
+          {
+            type: 'positive',
+            icon: 'fa-chart-line',
+            title: 'Redução expressiva no Lead Time',
+            description: 'Redução de 53,3% no Lead Time, impulsionada pelo uso do PromptX e de aceleradores GenAI, como a criação de cenários de teste'
+          },
+          {
+            type: 'positive',
+            icon: 'fa-tachometer-alt',
+            title: 'Melhoria contínua na produtividade',
+            description: 'Redução de 17.1% nas horas por ponto de função refletindo maior eficiência nas entregas com apoio de GenAI.'
+          },
+          {
+            type: 'positive',
+            icon: 'fa-check-circle',
+            title: 'Redução significativa no retrabalho',
+            description: 'Queda de 83.9% no índice de retrabalho, de 5.79% para 0.93%, evidenciando maior maturidade e qualidade nos processos automatizados com o PromptX.'
+          }
+        ]
+      }
+    };
 
     // Função para calcular os valores percentuais para cada projeto
     function calculateProjectResults() {
@@ -983,10 +981,20 @@
         data.productivityReduction = productivityReduction.toFixed(1) + '%';
         data.productivityDesc = `De ${data.productivity.base} para ${data.productivity.production} horas por ponto de função`;
         
-        // Calcular aumento percentual do Retrabalho
-        const reworkIncrease = ((data.rework.production - data.rework.base) / data.rework.base) * 100;
-        data.reworkIncrease = reworkIncrease.toFixed(1) + '%';
-        data.reworkDesc = `De ${data.rework.base}% para ${data.rework.production}%`;
+        // Calcular variação percentual do Retrabalho
+        const reworkChange = ((data.rework.production - data.rework.base) / data.rework.base) * 100;
+        
+        // Se for uma redução (valor negativo), exibir como positivo sem o sinal de menos
+        if (reworkChange < 0) {
+          data.reworkIncrease = Math.abs(reworkChange).toFixed(1) + '%';
+          data.reworkDesc = `Redução de ${data.rework.base}% para ${data.rework.production}%`;
+        } else {
+          data.reworkIncrease = reworkChange.toFixed(1) + '%';
+          data.reworkDesc = `Aumento de ${data.rework.base}% para ${data.rework.production}%`;
+        }
+        
+        // Armazenar o valor original para determinar se é positivo ou negativo
+        data.reworkChangeValue = reworkChange;
       }
     }
 
@@ -1026,28 +1034,38 @@
       const data = projectData[project];
       console.log('Dados do projeto:', data); // Log para debug
       
-      // Normalizar os dados para o gráfico (para que caibam no canvas)
-      const leadTimeData = [
-        1, // Base (100%)
-        data.leadTime.pilot / data.leadTime.base, // Piloto (relativo à base)
-        data.leadTime.production / data.leadTime.base // Produção (relativo à base)
+      // Calcular valores absolutos para cada métrica
+      const leadTimeValues = [
+        data.leadTime.base,
+        data.leadTime.pilot,
+        data.leadTime.production
       ];
       
-      const productivityData = [
-        1, // Base (100%)
-        data.productivity.pilot / data.productivity.base, // Piloto (relativo à base)
-        data.productivity.production / data.productivity.base // Produção (relativo à base)
+      const productivityValues = [
+        data.productivity.base,
+        data.productivity.pilot,
+        data.productivity.production
       ];
       
-      const reworkData = [
-        1, // Base (100%)
-        data.rework.pilot / data.rework.base, // Piloto (relativo à base)
-        data.rework.production / data.rework.base // Produção (relativo à base)
+      const reworkValues = [
+        data.rework.base,
+        data.rework.pilot,
+        data.rework.production
       ];
       
-      console.log('Lead Time Data:', leadTimeData);
-      console.log('Productivity Data:', productivityData);
-      console.log('Rework Data:', reworkData);
+      console.log('Lead Time Values:', leadTimeValues);
+      console.log('Productivity Values:', productivityValues);
+      console.log('Rework Values:', reworkValues);
+      
+      // Encontrar os valores mínimos e máximos para cada métrica para normalização
+      const leadTimeMin = Math.min(...leadTimeValues) * 0.8;
+      const leadTimeMax = Math.max(...leadTimeValues) * 1.2;
+      
+      const productivityMin = Math.min(...productivityValues) * 0.8;
+      const productivityMax = Math.max(...productivityValues) * 1.2;
+      
+      const reworkMin = Math.min(...reworkValues) * 0.8;
+      const reworkMax = Math.max(...reworkValues) * 1.2;
       
       // Configurações do gráfico
       const width = canvas.width;
@@ -1063,13 +1081,17 @@
         padding + chartWidth
       ];
       
+      // Função para normalizar um valor dentro de um intervalo
+      function normalize(value, min, max) {
+        if (min === max) return 0.5; // Evitar divisão por zero
+        return (value - min) / (max - min);
+      }
+      
       // Função para converter valor para coordenada Y
-      function valueToY(value) {
-        // Inverter a escala Y (1 = topo, valores maiores = mais baixo)
-        // Limitar valores entre 0.5 e 1.5 para melhor visualização
-        const normalizedValue = Math.max(0.5, Math.min(1.5, value));
-        const yRatio = 1 - ((normalizedValue - 0.5) / 1);
-        return padding + yRatio * chartHeight;
+      function valueToY(value, min, max) {
+        const normalizedValue = normalize(value, min, max);
+        // Inverter a escala Y (0 = topo, 1 = base)
+        return padding + (1 - normalizedValue) * chartHeight;
       }
       
       // Desenhar eixos
@@ -1112,27 +1134,27 @@
       ctx.strokeStyle = '#00e5ff';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(xPoints[0], valueToY(leadTimeData[0]));
-      ctx.lineTo(xPoints[1], valueToY(leadTimeData[1]));
-      ctx.lineTo(xPoints[2], valueToY(leadTimeData[2]));
+      ctx.moveTo(xPoints[0], valueToY(leadTimeValues[0], leadTimeMin, leadTimeMax));
+      ctx.lineTo(xPoints[1], valueToY(leadTimeValues[1], leadTimeMin, leadTimeMax));
+      ctx.lineTo(xPoints[2], valueToY(leadTimeValues[2], leadTimeMin, leadTimeMax));
       ctx.stroke();
       
       // Produtividade (roxo)
       ctx.strokeStyle = '#7B68EE';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(xPoints[0], valueToY(productivityData[0]));
-      ctx.lineTo(xPoints[1], valueToY(productivityData[1]));
-      ctx.lineTo(xPoints[2], valueToY(productivityData[2]));
+      ctx.moveTo(xPoints[0], valueToY(productivityValues[0], productivityMin, productivityMax));
+      ctx.lineTo(xPoints[1], valueToY(productivityValues[1], productivityMin, productivityMax));
+      ctx.lineTo(xPoints[2], valueToY(productivityValues[2], productivityMin, productivityMax));
       ctx.stroke();
       
       // Retrabalho (vermelho)
       ctx.strokeStyle = '#cc0000';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(xPoints[0], valueToY(reworkData[0]));
-      ctx.lineTo(xPoints[1], valueToY(reworkData[1]));
-      ctx.lineTo(xPoints[2], valueToY(reworkData[2]));
+      ctx.moveTo(xPoints[0], valueToY(reworkValues[0], reworkMin, reworkMax));
+      ctx.lineTo(xPoints[1], valueToY(reworkValues[1], reworkMin, reworkMax));
+      ctx.lineTo(xPoints[2], valueToY(reworkValues[2], reworkMin, reworkMax));
       ctx.stroke();
       
       // Adicionar pontos nos dados
@@ -1148,17 +1170,17 @@
       
       // Pontos para Lead Time
       for (let i = 0; i < 3; i++) {
-        drawPoint(xPoints[i], valueToY(leadTimeData[i]), '#00e5ff');
+        drawPoint(xPoints[i], valueToY(leadTimeValues[i], leadTimeMin, leadTimeMax), '#00e5ff');
       }
       
       // Pontos para Produtividade
       for (let i = 0; i < 3; i++) {
-        drawPoint(xPoints[i], valueToY(productivityData[i]), '#7B68EE');
+        drawPoint(xPoints[i], valueToY(productivityValues[i], productivityMin, productivityMax), '#7B68EE');
       }
       
       // Pontos para Retrabalho
       for (let i = 0; i < 3; i++) {
-        drawPoint(xPoints[i], valueToY(reworkData[i]), '#cc0000');
+        drawPoint(xPoints[i], valueToY(reworkValues[i], reworkMin, reworkMax), '#cc0000');
       }
       
       // Legenda
@@ -1189,9 +1211,8 @@
     // Função para atualizar os insights
     function updateInsights(project) {
       const insightsContainer = document.getElementById('projectInsights');
-      insightsContainer.innerHTML = ''; // Limpar insights anteriores
-      
-      // Adicionar novos insights
+      insightsContainer.innerHTML = '';
+         // Adicionar novos insights
       projectData[project].insights.forEach(insight => {
         const insightElement = document.createElement('div');
         insightElement.className = `insight-item ${insight.type}`;
@@ -1220,51 +1241,82 @@
       // Ativar a tab selecionada
       event.currentTarget.classList.add('active');
       
+      // Obter dados do projeto
+      const data = projectData[project];
+      
       // Atualizar título da seção de KPIs
       document.querySelector('.bank-kpis .section-title').innerHTML = 
-        `<i class="fas fa-chart-line"></i> KPIs do Banco - ${projectData[project].title}`;
+        `<i class="fas fa-chart-line"></i> KPIs do Banco - ${data.title}`;
       
       // Atualizar tabela de KPIs - usando innerHTML para os elementos com ícones
       document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(2)').textContent = 
-        projectData[project].leadTime.base;
+        data.leadTime.base;
+        
+      // Lead Time - determinar se melhorou (diminuiu) ou piorou (aumentou)
+      const leadTimePilotImproved = data.leadTime.pilot < data.leadTime.base;
+      const leadTimeProdImproved = data.leadTime.production < data.leadTime.pilot;
+      
       document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(3)').innerHTML = 
-        `${projectData[project].leadTime.pilot} <i class="fas fa-arrow-down trend-icon"></i>`;
+        `${data.leadTime.pilot} <i class="fas fa-arrow-${leadTimePilotImproved ? 'down' : 'up'} trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(3)').className = 
+        leadTimePilotImproved ? 'improved' : 'worsened';
+        
       document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(4)').innerHTML = 
-        `${projectData[project].leadTime.production} <i class="fas fa-arrow-down trend-icon"></i>`;
+        `${data.leadTime.production} <i class="fas fa-arrow-${leadTimeProdImproved ? 'down' : 'up'} trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(4)').className = 
+        leadTimeProdImproved ? 'improved' : 'worsened';
+      
+      // Produtividade - determinar se melhorou (diminuiu) ou piorou (aumentou)
+      const prodPilotImproved = data.productivity.pilot < data.productivity.base;
+      const prodProdImproved = data.productivity.production < data.productivity.pilot;
       
       document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(2)').textContent = 
-        projectData[project].productivity.base;
+        data.productivity.base;
       document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(3)').innerHTML = 
-        `${projectData[project].productivity.pilot} <i class="fas fa-arrow-up trend-icon"></i>`;
+        `${data.productivity.pilot} <i class="fas fa-arrow-${prodPilotImproved ? 'down' : 'up'} trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(3)').className = 
+        prodPilotImproved ? 'improved' : 'worsened';
+        
       document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(4)').innerHTML = 
-        `${projectData[project].productivity.production} <i class="fas fa-arrow-down trend-icon"></i>`;
+        `${data.productivity.production} <i class="fas fa-arrow-${prodProdImproved ? 'down' : 'up'} trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(4)').className = 
+        prodProdImproved ? 'improved' : 'worsened';
+      
+      // Retrabalho - determinar se melhorou (diminuiu) ou piorou (aumentou)
+      const reworkPilotImproved = data.rework.pilot < data.rework.base;
+      const reworkProdImproved = data.rework.production < data.rework.pilot;
       
       document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(2)').textContent = 
-        projectData[project].rework.base;
+        data.rework.base;
       document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(3)').innerHTML = 
-        `${projectData[project].rework.pilot} <i class="fas fa-arrow-down trend-icon"></i>`;
+        `${data.rework.pilot} <i class="fas fa-arrow-${reworkPilotImproved ? 'down' : 'up'} trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(3)').className = 
+        reworkPilotImproved ? 'improved' : 'worsened';
+        
       document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(4)').innerHTML = 
-        `${projectData[project].rework.production} <i class="fas fa-arrow-up trend-icon"></i>`;
+        `${data.rework.production} <i class="fas fa-arrow-${reworkProdImproved ? 'down' : 'up'} trend-icon"></i>`;
+      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(4)').className = 
+        reworkProdImproved ? 'improved' : 'worsened';
       
       // Atualizar badge de interações
       document.querySelector('.promptx-badge').textContent = 
-        `${projectData[project].interactions} interações no Q3`;
+        `${data.interactions} total de interações`;
       
       // Atualizar resultados consolidados - valores e descrições
       document.querySelector('.results-grid .result-card:nth-child(1) .result-value').textContent = 
-        projectData[project].leadTimeReduction;
+        data.leadTimeReduction;
       document.querySelector('.results-grid .result-card:nth-child(1) .result-desc').textContent = 
-        projectData[project].leadTimeDesc;
+        data.leadTimeDesc;
       
       document.querySelector('.results-grid .result-card:nth-child(2) .result-value').textContent = 
-        projectData[project].productivityReduction;
+        data.productivityReduction;
       document.querySelector('.results-grid .result-card:nth-child(2) .result-desc').textContent = 
-        projectData[project].productivityDesc;
+        data.productivityDesc;
       
       document.querySelector('.results-grid .result-card:nth-child(3) .result-value').textContent = 
-        projectData[project].reworkIncrease;
+        data.reworkIncrease;
       document.querySelector('.results-grid .result-card:nth-child(3) .result-desc').textContent = 
-        projectData[project].reworkDesc;
+        data.reworkDesc;
       
       // Atualizar insights
       updateInsights(project);
@@ -1281,12 +1333,30 @@
       
       // Animar barras de interação
       animateInteractionBars(project);
+      
+      // Atualizar classe do card de retrabalho (positivo ou negativo)
+      const reworkCard = document.querySelector('.results-grid .result-card:nth-child(3)');
+      const reworkValue = document.querySelector('.results-grid .result-card:nth-child(3) .result-value');
+      const reworkLabel = document.querySelector('.results-grid .result-card:nth-child(3) .result-label');
+
+      // Se o retrabalho diminuiu, mostrar como positivo
+      if (data.reworkChangeValue < 0) {
+        reworkCard.classList.remove('negative');
+        reworkValue.classList.remove('negative');
+        reworkValue.classList.add('positive');
+        reworkLabel.textContent = 'Redução de Retrabalho';
+      } else {
+        reworkCard.classList.add('negative');
+        reworkValue.classList.add('negative');
+        reworkValue.classList.remove('positive');
+        reworkLabel.textContent = 'Aumento de Retrabalho';
+      }
     }
     
     // Função para animar as barras de interação
     function animateInteractionBars(project) {
       const maxHeight = 70; // Altura máxima em pixels
-      const maxValue = Math.max(...projectData.safer.interactionValues); // Valor máximo para escala
+      const maxValue = Math.max(...Object.values(projectData).flatMap(p => p.interactionValues)); // Valor máximo para escala
       
       const values = projectData[project].interactionValues;
       const bars = document.querySelectorAll('.bar');
@@ -1460,7 +1530,7 @@
       setTimeout(tryDrawChart, 2000);
     }
     
-    // Função para tentar desenhar o gráfico
+     // Função para tentar desenhar o gráfico
     function tryDrawChart() {
       const canvas = document.getElementById('kpiTrendChart');
       if (canvas && canvas.getContext) {
