@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Taxa de Adoção por Projeto — GenAI Bradesco</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- SheetJS (XLSX) para exportação -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     :root{
       --bg-primary:#0c0e14;
@@ -65,7 +67,7 @@
     .toolbar{
       display:flex;
       align-items:center;
-      justify-content:space-between;   /* filtros à esquerda, legenda à direita */
+      justify-content:space-between;
       gap:16px;
       flex-wrap:wrap;
       margin-bottom:12px
@@ -88,6 +90,19 @@
     }
     .dot{width:12px;height:12px;border-radius:3px;margin-right:6px;display:inline-block}
     .legend-top span{font-size:12px;color:var(--text-secondary)}
+
+    /* Botão Exportar */
+    .export-btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple));
+      color:#fff; font-weight:800; letter-spacing:.2px; cursor:pointer;
+      box-shadow:var(--card-shadow);
+      transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+      text-decoration:none;
+    }
+    .export-btn:hover{ transform:translateY(-1px); box-shadow:0 20px 40px rgba(0,0,0,.4); opacity:.95 }
+    .export-btn svg{ width:16px; height:16px; display:block }
 
     /* GRID (sem coluna Wave) */
     .grid-cols{
@@ -150,7 +165,7 @@
     }
     @media (max-width: 920px){
       .toolbar{ gap:12px }
-      .legend-top{ justify-content:flex-start } /* em telas menores, legenda quebra para baixo à esquerda */
+      .legend-top{ justify-content:flex-start }
       .row{ grid-template-columns: 1fr; align-items:start; }
       .row--header{ display:none }
       .bar-wrap{ height:10px }
@@ -174,7 +189,7 @@
     </div>
 
     <div class="card" style="margin-bottom:14px;">
-      <!-- TOOLBAR: filtros à esquerda, legenda à direita -->
+      <!-- TOOLBAR: filtros à esquerda, legenda à direita + botão de exportação -->
       <div class="toolbar">
         <div class="filters-left" role="group" aria-label="Filtros">
           <label class="filter-label" for="sortBy">Ordenar por:</label>
@@ -201,6 +216,14 @@
           <div><span class="dot" style="background:#7B68EE"></span><span>90–99% de adoção</span></div>
           <div><span class="dot" style="background:#0033A0"></span><span>80–89% de adoção</span></div>
           <div><span class="dot" style="background:#cc0000"></span><span>&lt; 80% de adoção</span></div>
+
+          <!-- Botão Exportar Excel -->
+          <button id="exportExcel" class="export-btn" title="Exportar dados para Excel">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 20h14a1 1 0 0 0 1-1v-6h-2v5H6v-5H4v6a1 1 0 0 0 1 1zm7-3 5-5h-3V4h-4v8H7l5 5z" fill="currentColor"/>
+            </svg>
+            Exportar Excel
+          </button>
         </div>
       </div>
 
@@ -410,7 +433,7 @@
 
         // UI da setinha
         document.querySelectorAll('.row--header div[data-col]').forEach(h=>{
-          const caret = h.querySelector('.sort-caret');
+          const caret = h.querySelector(' .sort-caret');
           if (!caret) return;
           if (h.getAttribute('data-col') === col){
             caret.textContent = (headerSort.dir === 'asc' ? '↑' : '↓');
@@ -426,6 +449,75 @@
         render();
       });
     });
+
+    // --------- EXPORTAÇÃO PARA EXCEL ---------
+    function getCurrentDataView(){
+      const wave = waveFilter.value;
+      let data = projects.slice();
+      if (wave !== 'all') data = data.filter(p => p.wave === wave);
+
+      // respeita ordenação atual
+      data = applySort(data);
+
+      // Mapeia para linhas de exportação
+      const rows = data.map(p => {
+        const avg = avgOf(p);
+        return {
+          'Projeto': p.name,
+          'Wave': p.wave,
+          'Usuários Totais': p.totalUsers,
+          'Usuários Ativos': p.activeUsers,
+          'Taxa de Adoção (%)': Number((p.adoptionRate ?? 0).toFixed(1)),
+          'Interações': p.totalInteractions,
+          'Média por Usuário': Number(avg.toFixed(1)),
+          'Perfis Treinados': getProfilesText(p)
+        };
+      });
+      return rows;
+    }
+
+    function getSummary(rows){
+      const totalProjetos = rows.length;
+      const totalUsers = rows.reduce((acc,r)=> acc + (r['Usuários Totais']||0), 0);
+      const activeUsers = rows.reduce((acc,r)=> acc + (r['Usuários Ativos']||0), 0);
+      const totalInter = rows.reduce((acc,r)=> acc + (r['Interações']||0), 0);
+      const adocaoGeral = totalUsers ? (activeUsers/totalUsers*100) : 0;
+      const mediaGeral = totalUsers ? (totalInter/totalUsers) : 0;
+
+      return [
+        ['Métrica','Valor'],
+        ['Projetos (exibidos)', totalProjetos],
+        ['Usuários Totais', totalUsers],
+        ['Usuários Ativos', activeUsers],
+        ['Taxa de Adoção Geral (%)', Number(adocaoGeral.toFixed(2))],
+        ['Interações Totais', totalInter],
+        ['Média de Interações por Usuário', Number(mediaGeral.toFixed(1))]
+      ];
+    }
+
+    function exportToExcel(){
+      const rows = getCurrentDataView();
+      const wb = XLSX.utils.book_new();
+
+      // Aba Projetos
+      const wsProjects = XLSX.utils.json_to_sheet(rows, {header: [
+        'Projeto','Wave','Usuários Totais','Usuários Ativos','Taxa de Adoção (%)','Interações','Média por Usuário','Perfis Treinados'
+      ]});
+      XLSX.utils.book_append_sheet(wb, wsProjects, 'Projetos');
+
+      // Aba Resumo
+      const resumo = getSummary(rows);
+      const wsResumo = XLSX.utils.aoa_to_sheet(resumo);
+      XLSX.utils.book_append_sheet(wb, wsResumo, 'Resumo');
+
+      const now = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      const fileName = `Taxa_Adocao_Projetos_${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}.xlsx`;
+
+      XLSX.writeFile(wb, fileName);
+    }
+
+    document.getElementById('exportExcel').addEventListener('click', exportToExcel);
 
     // Render inicial
     render();
