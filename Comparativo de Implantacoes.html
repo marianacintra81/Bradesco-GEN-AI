@@ -4,71 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Comparativo - Implantações GenAI</title>
+
+  <!-- Chart.js + Plugin de DataLabels -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+  <!-- Fonte / Ícones -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
   <style>
-    /* Botão Voltar */
-    .back-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: linear-gradient(135deg, #0033A0, #7B68EE);
-      color: #ffffff;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-    }
-    .back-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      background: linear-gradient(135deg, #7B68EE, #0033A0);
-    }
-
-    header { position: relative; }
+    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
 
     :root{
-      /* Cores de Fundo */
+      /* Fundo */
       --background: #0c0e14;
       --card-bg: #1e2130;
       --card-bg-hover: #272936;
       --card-bg-secondary: #151823;
 
-      /* Cores de Texto */
+      /* Texto */
       --text: #ffffff;
       --muted: #a3a8c3;
 
-      /* Cores de Destaque */
+      /* Destaques */
       --red-bradesco: #cc0000;
       --blue-bradesco: #0033A0;
       --purple-highlight: #7B68EE;
       --cyan-highlight: #00e5ff;
 
-      /* Cores dos CARDS (e do gráfico de média) */
+      /* Paleta por onda */
       --piloto: var(--cyan-highlight);
       --wave1: var(--purple-highlight);
       --wave2: var(--red-bradesco);
       --wave3: #ffa500;
       --wave4: #1dd1a1;
 
-      /* Sombras */
+      /* UI */
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
       --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
       --radius: 16px;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
 
     body {
       background: var(--background);
@@ -82,6 +60,7 @@
     .container { max-width: 1280px; margin: 0 auto; }
 
     header {
+      position: relative;
       display: flex; justify-content: center;
       margin-bottom: 18px; padding-bottom: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, .08);
@@ -94,6 +73,36 @@
     }
 
     header p { color: var(--muted); text-align: center; }
+
+    /* Abas sob o título */
+    .tabs { display:flex; gap:8px; justify-content:center; margin:-6px 0 14px; }
+    .tab {
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px;
+      background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight));
+      color:#fff; font-weight:800; letter-spacing:.2px; text-decoration:none; box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+    }
+    .tab:hover { transform: translateY(-1px); box-shadow: var(--shadow-hover); opacity:.95; }
+
+    /* Botão Voltar */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #0033A0, #7B68EE);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; cursor: pointer; z-index: 1000;
+      box-shadow: var(--shadow); transition: all 0.3s ease;
+    }
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(135deg, #7B68EE, #0033A0);
+    }
 
     /* KPIs */
     .kpis {
@@ -157,26 +166,35 @@
     .tag.wave3  { background: rgba(255, 165,   0, .18); color: var(--wave3); }
     .tag.wave4  { background: rgba( 29, 209, 161, .18); color: var(--wave4); }
 
-    /* Gráficos (cards) */
-    .chart-wrap {
+    /* ======= Gráficos (com fix de estabilidade) ======= */
+    .chart-wrap{
       background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
-      padding: 16px; margin-top: 10px; transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, .06);
+      padding: 12px 12px 8px; border: 1px solid rgba(255,255,255,.06);
+      min-height: 0; height: 260px;           /* altura fixa evita “pulos” */
+      position: relative; overflow: hidden;   /* impede estouro do canvas */
+      transition: box-shadow .18s ease, border-color .18s ease;
+      margin-top: 10px;
     }
-    .chart-wrap:hover { box-shadow: var(--shadow-hover); border-color: rgba(255, 255, 255, .12); }
-    .chart-title {
-      font-weight: 800; margin-bottom: 6px;
-      background: linear-gradient(135deg, #0033A0, #7B68EE);
-      -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;
-    }
-    .chart-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
-    .chart-subtitle .n { color: #fff; font-weight: 800; }
-    
-    /* Grid para os gráficos em linha */
-    .charts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-    .chart-card { height: 220px; }
+    .chart-wrap:hover{ box-shadow: var(--shadow-hover); border-color: rgba(255,255,255,.12); }
 
-    /* Seção de Perfis (6 por linha) */
+    .chart-title{
+      font-weight: 800; margin: 6px 8px 0; line-height: 1.2;
+      background: linear-gradient(135deg, #0033A0, #7B68EE);
+      -webkit-background-clip: text; background-clip: text; color: transparent; display:inline-block;
+    }
+
+    .chart-wrap canvas{
+      position: absolute; inset: 36px 8px 8px 8px; /* deixa o título visível */
+      width: calc(100% - 16px) !important;
+      height: calc(100% - 44px) !important;
+      display: block;
+    }
+
+    /* Dois cartões de gráfico lado a lado em telas largas */
+    .charts-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:10px; margin-top:10px; }
+    @media (max-width: 1100px){ .charts-grid{ grid-template-columns: 1fr; } }
+
+    /* Perfis (cards de quantidade) */
     .profiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 12px 0 6px; }
     .profiles .kpi { text-align: center; }
     .profiles .kpi .kpi-head { justify-content: center; }
@@ -185,18 +203,15 @@
     @media (max-width: 1100px) {
       .kpis { grid-template-columns: repeat(3, 1fr); }
       .grid { grid-template-columns: repeat(2, 1fr); }
-      .charts-grid { grid-template-columns: repeat(3, 1fr); }
       .profiles { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 720px) {
       .kpis { grid-template-columns: repeat(2, 1fr); }
-      .charts-grid { grid-template-columns: repeat(2, 1fr); }
       .profiles { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 480px) {
       .kpis { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
-      .charts-grid { grid-template-columns: 1fr; }
       .profiles { grid-template-columns: 1fr; }
     }
   </style>
@@ -207,13 +222,21 @@
       <div><h1>Adoção GEN AI Bradesco</h1></div>
     </header>
 
+    <!-- Aba para a página de Taxa de Adoção -->
+    <nav class="tabs" role="tablist" aria-label="Navegação de seções do dashboard">
+      <a class="tab" role="tab"
+         href="https://marianacintra81.github.io/Bradesco-GEN-AI/Grafico_Taxa%20de%20Adocao.html">
+        <span>Taxa de Adoção</span>
+      </a>
+    </nav>
+
     <!-- Botão Voltar -->
     <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Menu%20Copilot%20e%20PromptX.html" class="back-button" aria-label="Voltar para a página anterior">
       <i class="fas fa-arrow-left" aria-hidden="true"></i>
     </a>
 
-    <!-- KPIs (gerais da planilha) -->
-    <section class="kpis">
+    <!-- KPIs (gerais) -->
+    <section class="kpis" id="kpis">
       <div class="kpi kpi--total">
         <div class="kpi-head"><div class="chip"><i class="fas fa-users"></i></div><h4>Total de Profissionais</h4></div>
         <div class="v" id="k_total">310</div>
@@ -251,10 +274,10 @@
       </div>
     </section>
 
-    <!-- Distribuição por Perfil (preenchida via JS, ordenada do maior→menor) -->
+    <!-- Distribuição por Perfil (cards) -->
     <section class="profiles" id="profilesGrid" aria-label="Distribuição por Perfil"></section>
 
-    <!-- Cabeçalhos – incluindo Wave 4 -->
+    <!-- Cabeçalhos por Wave -->
     <div class="implantation-headers">
       <div class="implantation-header" style="border-top:4px solid var(--piloto);">
         <h2 style="color:var(--piloto)">Piloto</h2>
@@ -273,7 +296,7 @@
       </div>
     </div>
 
-    <!-- 10 CARDS: 2 por wave (dados da planilha) -->
+    <!-- Cards por Wave -->
     <section class="grid">
       <!-- Piloto -->
       <div class="grid-col">
@@ -346,22 +369,14 @@
       </div>
     </section>
 
-    <!-- Gráficos em linha única -->
+    <!-- Grade de gráficos (apenas 2: Mês e Perfil) -->
     <div class="charts-grid">
-      <!-- CARD 1: Top 10 Projetos - Média de Interações -->
-      <section class="chart-wrap chart-card">
-        <div class="chart-title">Top 10 Projetos - Média de Interações</div>
-        <canvas id="topProjectsChart"></canvas>
-      </section>
-
-      <!-- CARD 2: Interações por Mês (placeholder) -->
-      <section class="chart-wrap chart-card">
+      <section class="chart-wrap">
         <div class="chart-title">Interações por Mês</div>
         <canvas id="interactionsByMonth"></canvas>
       </section>
 
-      <!-- CARD 3: Interações por Perfil -->
-      <section class="chart-wrap chart-card">
+      <section class="chart-wrap">
         <div class="chart-title">Interações por Perfil</div>
         <canvas id="interactionsByProfile"></canvas>
       </section>
@@ -370,75 +385,43 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // ===== Config global Chart.js para estabilidade =====
       Chart.register(ChartDataLabels);
       Chart.defaults.color = '#ffffff';
       Chart.defaults.font.family = 'Inter, sans-serif';
+      Chart.defaults.responsive = true;
+      Chart.defaults.maintainAspectRatio = false;
+      Chart.defaults.animation = { duration: 0 }; // sem animação = sem micro-shifts
 
-      /* ======= DATASETS (calculados da planilha) ======= */
-      // Tabela por projeto (profissionais distintos e interações somadas)
-      const projectTable = [
-        { proj:'Plataforma de segurança Safer', prof:36, inter:2563 },
-        { proj:'Reabilitação Financeira', prof:44, inter:1020 },
-        { proj:'BRAIN', prof:27, inter:955 },
-        { proj:'Plataforma A3C', prof:16, inter:822 },
-        { proj:'Contadoria', prof:15, inter:800 },
-        { proj:'Open Finance', prof:5, inter:756 },
-        { proj:'CRM', prof:9, inter:413 },
-        { proj:'Consignado', prof:12, inter:398 },
-        { proj:'Massificado', prof:9, inter:325 },
-        { proj:'ATACADO', prof:2, inter:257 },
-        { proj:'Sala Core', prof:8, inter:251 },
-        { proj:'Abertura de Contas', prof:8, inter:233 },
-        { proj:'Soluçoes PJ', prof:9, inter:229 },
-        { proj:'Transformação', prof:7, inter:228 },
-        { proj:'Bradesco Global Solutions', prof:8, inter:152 },
-        { proj:'Investimentos', prof:1, inter:154 },
-        { proj:'Pessoa Fisica', prof:10, inter:145 },
-        { proj:'CONSIGNADO - E-Social', prof:10, inter:124 },
-        { proj:'Cluster Soluções de Pagamento e Conciliação', prof:1, inter:118 },
-        { proj:'CONSIGNADO - Pleito de Priorização INSS', prof:1, inter:110 },
-        { proj:'BSPI', prof:8, inter:108 },
-        { proj:'PIX-CPF', prof:1, inter:92 },
-        { proj:'SCAP', prof:3, inter:63 },
-        { proj:'INTERNACIONAL E CÂMBIO', prof:5, inter:62 },
-        { proj:'A3C', prof:1, inter:59 },
-        { proj:'Plataforma Atendimento', prof:6, inter:51 },
-        { proj:'PROJETO PT-W50594', prof:1, inter:48 },
-        { proj:'PIX-CPJ', prof:4, inter:46 },
-        { proj:'CONSÓRCIO | Consorcio', prof:5, inter:41 },
-        { proj:'Site Gestor', prof:1, inter:30 },
-        { proj:'Plataforma Atendimento – outro', prof:1, inter:29 },
-        { proj:'Consignado - Portabilidade', prof:3, inter:28 },
-        { proj:'MBPF', prof:4, inter:25 },
-        { proj:'PDPJ', prof:2, inter:25 },
-        { proj:'Internet Banking', prof:2, inter:20 },
-        { proj:'CONSIGNADO - Mktplace Consignado', prof:3, inter:19 },
-        { proj:'Tesouraria', prof:3, inter:18 },
-        { proj:'VATINTR', prof:1, inter:17 },
-        { proj:'Interestellar', prof:2, inter:10 },
-        { proj:'Tribo Canais Assistidos', prof:1, inter:4 },
-        { proj:'PEPF', prof:2, inter:6 },
-        { proj:'MBPJ', prof:2, inter:5 },
-        { proj:'SAFER', prof:1, inter:2 },
-        { proj:'Agora Trader', prof:2, inter:1 },
-        { proj:'AFLUENTES', prof:1, inter:0 },
-        { proj:'Dozer', prof:1, inter:0 }
-      ];
+      // Helper: recalcula sem "pulos"
+      const resizeCanvases = () => {
+        document.querySelectorAll('.chart-wrap').forEach(card => {
+          const canvas = card.querySelector('canvas');
+          if(!canvas) return;
+          const chart = Chart.getChart(canvas);
+          if(chart){
+            chart.resize();
+            chart.update('none');
+          }
+        });
+      };
+      const ro = new ResizeObserver(resizeCanvases);
+      ro.observe(document.body);
 
-      // Interações por mês — (placeholder, pois a planilha não tem coluna de mês/data)
+      /* ======= DATASETS ======= */
+      // Interações por mês — ORDEM: abril→novembro (valores solicitados)
       const monthlyInteractions = [
         { month: "Abril",    interactions: 124 },
-        { month: "Maio",     interactions: 540 },
+        { month: "Maio",     interactions: 523 },
         { month: "Junho",    interactions: 353 },
-        { month: "Julho",    interactions: 1157 },
-        { month: "Agosto",   interactions: 2435 },
+        { month: "Julho",    interactions: 1116 },
+        { month: "Agosto",   interactions: 2395 },
         { month: "Setembro", interactions: 2145 },
-        { month: "Outubro",  interactions: 3733 }
-        
-        
+        { month: "Outubro",  interactions: 3733 },
+        { month: "Novembro", interactions: 622 }
       ];
 
-      // Interações por perfil — geradas da planilha
+      // Interações por perfil
       const profileInteractions = [
         { profile: 'QA', interactions: 7493, users: 174 },
         { profile: 'Scrum Master', interactions: 2668, users: 80 },
@@ -448,10 +431,7 @@
         { profile: 'Analista de Dados', interactions: 1, users: 4 }
       ];
 
-      // Atualiza KPI de projetos a partir da tabela
-      document.getElementById('k_proj_total').textContent = projectTable.length.toString();
-
-      /* ===== Perfis: render cards (ordenados por USERS desc) ===== */
+      // Render cards de perfis (ordenados por usuários)
       function renderProfilesCards(profileList) {
         const grid = document.getElementById('profilesGrid');
         if (!grid) return;
@@ -484,68 +464,7 @@
       }
       renderProfilesCards(profileInteractions);
 
-      /* ====== GRÁFICO 1: Top 10 Projetos — Média de Interações (inter / prof) ====== */
-      (function renderTopProjectsChart(){
-        const computed = projectTable
-          .map(p => ({ ...p, media: p.prof > 0 ? (p.inter / p.prof) : 0 }))
-          .sort((a,b) => b.media - a.media);
-
-        const top10 = computed.slice(0, 10);
-        const labels = top10.map(d => d.proj);
-        const values = top10.map(d => +d.media.toFixed(1));
-
-        const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-        const palette = [css('--piloto'), css('--wave1'), css('--wave2'), css('--wave3'), css('--wave4')];
-        const colors = top10.map((_, i) => palette[i % palette.length]);
-
-        new Chart(document.getElementById('topProjectsChart'), {
-          type: 'bar',
-          data: {
-            labels,
-            datasets: [{
-              label: 'Média de interações',
-              data: values,
-              backgroundColor: colors,
-              borderColor: colors,
-              borderWidth: 1,
-              borderRadius: 6,
-              categoryPercentage: 0.75,
-              barPercentage: 0.7,
-              maxBarThickness: 16,
-              datalabels: {
-                color: '#fff', anchor: 'end', align: 'end', offset: 4,
-                formatter: v => v.toLocaleString('pt-BR', { maximumFractionDigits: 1 }),
-                font: { weight: 'bold', size: 9 }
-              }
-            }]
-          },
-          options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                enabled: true,
-                callbacks: {
-                  afterLabel: (ctx) => {
-                    const p = top10[ctx.dataIndex];
-                    return [
-                      `Profissionais: ${p.prof}`,
-                      `Interações: ${p.inter.toLocaleString('pt-BR')}`,
-                      `Média: ${(p.inter/p.prof).toFixed(0)}`
-                    ];
-                  }
-                }
-              }
-            },
-            scales: {
-              x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 40, minRotation: 40, font: { size: 9 } } },
-              y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' } }
-            }
-          }
-        });
-      })();
-
-      /* ====== GRÁFICO 2: Interações por Mês (placeholder compacto) ====== */
+      // ===== GRÁFICO: Interações por Mês
       (function renderInteractionsByMonth() {
         const labels = monthlyInteractions.map(item => item.month);
         const values = monthlyInteractions.map(item => item.interactions);
@@ -574,7 +493,6 @@
             }]
           },
           options: {
-            responsive: true, maintainAspectRatio: false,
             plugins: {
               legend: { display: false },
               tooltip: { enabled: true, callbacks: { label: ctx => `Interações: ${ctx.parsed.y.toLocaleString('pt-BR')}` } }
@@ -585,14 +503,15 @@
             }
           }
         });
+        resizeCanvases();
       })();
 
-      /* ====== GRÁFICO 3: Interações por Perfil (ordenado por interactions desc) ====== */
+      // ===== GRÁFICO: Interações por Perfil
       (function renderInteractionsByProfile() {
         const sorted = [...profileInteractions].sort((a,b) => b.interactions - a.interactions);
-
         const labels = sorted.map(item => item.profile);
         const values = sorted.map(item => item.interactions);
+
         const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
         const colors = [
           css('--piloto'),
@@ -601,7 +520,7 @@
           css('--wave3'),
           css('--wave4'),
           '#8888ff'
-        ];
+        ].slice(0, values.length);
 
         new Chart(document.getElementById('interactionsByProfile'), {
           type: 'bar',
@@ -610,8 +529,8 @@
             datasets: [{
               label: 'Interações',
               data: values,
-              backgroundColor: colors.slice(0, values.length),
-              borderColor: colors.slice(0, values.length),
+              backgroundColor: colors,
+              borderColor: colors,
               borderWidth: 1,
               borderRadius: 6,
               categoryPercentage: 0.7,
@@ -625,7 +544,6 @@
             }]
           },
           options: {
-            responsive: true, maintainAspectRatio: false,
             plugins: {
               legend: { display: false },
               tooltip: {
@@ -649,12 +567,13 @@
               x: { grid: { display: false } },
               y: {
                 beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                max: Math.ceil(Math.max(...values) * 1.1 / 1000) * 1000,
+                max: Math.ceil(Math.max(...values) * 1.1 / 1000) * 1000 || undefined,
                 ticks: { stepSize: 1000 }
               }
             }
           }
         });
+        resizeCanvases();
       })();
     });
 
