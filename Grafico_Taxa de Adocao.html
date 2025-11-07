@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Grafico_Taxa de Adocao</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
@@ -49,6 +38,19 @@
       background:var(--mixed-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
     }
     .header p{color:var(--text-secondary);font-size:15px}
+
+    /* === Botão Voltar (padrão do dashboard) === */
+    .back-button{
+      position:fixed; top:20px; left:20px;
+      width:50px; height:50px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple));
+      color:#fff; text-decoration:none; box-shadow:var(--card-shadow);
+      border:0; cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      z-index:1000;
+    }
+    .back-button:hover{ transform:translateY(-3px); box-shadow:0 20px 40px rgba(0,0,0,.4); opacity:.95 }
+    .back-button svg{ width:20px; height:20px; display:block }
 
     .card{
       background:var(--bg-card);
@@ -171,6 +173,15 @@
   </style>
 </head>
 <body>
+
+  <!-- Botão Voltar -->
+  <a class="back-button" href="https://marianacintra81.github.io/Bradesco-GEN-AI/Comparativo%20de%20Implantacoes.html">
+    <!-- Ícone seta (SVG) -->
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M15.5 19a1 1 0 0 1-.7-.29l-6-6a1 1 0 0 1 0-1.42l6-6a1 1 0 1 1 1.4 1.42L10.91 12l5.29 5.29A1 1 0 0 1 15.5 19z" fill="currentColor"/>
+    </svg>
+  </a>
+
   <div class="container">
     <div class="header">
       <h1>Taxa de Adoção por Projeto</h1>
@@ -377,8 +388,4 @@
     render();
   </script>
 </body>
-</html>
-    
-  </body>
-  
 </html>
