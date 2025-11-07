@@ -39,7 +39,6 @@
     }
     .header p{color:var(--text-secondary);font-size:15px}
 
-    /* === Botão Voltar (padrão do dashboard) === */
     .back-button{
       position:fixed; top:20px; left:20px;
       width:50px; height:50px; border-radius:50%;
@@ -62,7 +61,12 @@
     }
     .card:hover{ background:var(--bg-card-hover); border-color:rgba(255,255,255,.12) }
 
-    .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    /* === Barra de filtros (pesquisas) + legenda no topo === */
+    .toolbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; flex-wrap:wrap; margin-bottom:12px
+    }
+    .filters{ display:flex; gap:12px; flex-wrap:wrap; align-items:center }
     .filter-label{font-size:13px;color:var(--text-secondary)}
     select{
       background:var(--bg-secondary);
@@ -72,10 +76,19 @@
       padding:8px 10px;font-size:13px
     }
 
+    /* Legenda agora no topo (à direita dos filtros) */
+    .legend{
+      display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+    }
+    .legend .dot{
+      width:12px;height:12px;border-radius:3px;margin-right:6px;display:inline-block
+    }
+    .legend span{font-size:12px;color:var(--text-secondary)}
+
     /* GRID: sem a coluna Wave */
     .grid-cols{
       grid-template-columns: 280px 220px 120px 120px 140px 220px;
-      /* Nome | barra adoção | Interações | Média | Usuários | Perfis Treinados */
+      /* Projeto | barra adoção | Interações | Média | Usuários | Perfis Treinados */
     }
 
     .rows-wrap{display:flex;flex-direction:column;gap:10px}
@@ -88,13 +101,11 @@
       border-radius:12px;
       padding:12px;
     }
-    /* Cabeçalho das colunas */
     .row--header{
       background:transparent;
       border:1px dashed rgba(255,255,255,.12);
       position:sticky;
-      top:0;
-      z-index:2;
+      top:0; z-index:2;
       backdrop-filter: blur(2px);
     }
     .row--header div{
@@ -103,7 +114,13 @@
       letter-spacing:.3px;
       text-transform:uppercase;
       color:var(--text-secondary);
+      user-select:none;
+      display:flex; align-items:center; gap:8px;
     }
+    .th{ cursor:pointer; }
+    .th .arrow{ font-size:10px; opacity:.8 }
+    .th.active{ color:#fff }
+    .th.active .arrow{ color:#fff }
 
     .name{
       font-weight:600;
@@ -111,7 +128,6 @@
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
 
-    /* Barra de adoção com rótulo (%) — agora SEM contraste dinâmico; sempre preto */
     .bar-wrap{
       position:relative;
       width:100%;
@@ -123,8 +139,8 @@
     .bar{
       height:100%;
       border-radius:8px;
-      width:0; /* setado via JS */
-      transition:none; /* estático */
+      width:0;
+      transition:none;
     }
     .bar-label{
       position:absolute;
@@ -137,7 +153,7 @@
       padding:0 6px;
       border-radius:6px;
       white-space:nowrap;
-      color:#000000;                 /* PRETO */
+      color:#000000;
       background:rgba(255,255,255,.90);
       text-shadow:none;
     }
@@ -145,6 +161,7 @@
     .k{ display:flex;flex-direction:column;align-items:center; gap:2px }
     .k .v{ font-weight:700; font-size:14px }
     .k .l{ font-size:10px; color:var(--text-secondary) }
+
     .profiles{
       font-size:12px; line-height:1.35; color:#fff; 
       display:flex; flex-wrap:wrap; gap:6px;
@@ -155,17 +172,12 @@
       padding:2px 8px; border-radius:999px; font-weight:600; font-size:11px;
     }
 
-    .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
-    .legend .dot{width:12px;height:12px;border-radius:3px;margin-right:6px;display:inline-block}
-    .legend span{font-size:12px;color:var(--text-secondary)}
-
-    /* Responsivo controlado */
     @media (max-width: 1100px){
       .grid-cols{ grid-template-columns: 240px 200px 110px 110px 130px 200px; }
     }
     @media (max-width: 920px){
       .row{ grid-template-columns: 1fr; align-items:start; }
-      .row--header{ display:none }
+      .row--header{ display:none } /* no mobile, usa o seletor */
       .bar-wrap{ height:10px }
       .k{ align-items:flex-start }
       .profiles{ gap:4px }
@@ -174,9 +186,7 @@
 </head>
 <body>
 
-  <!-- Botão Voltar -->
-  <a class="back-button" href="https://marianacintra81.github.io/Bradesco-GEN-AI/Comparativo%20de%20Implantacoes.html">
-    <!-- Ícone seta (SVG) -->
+  <a class="back-button" href="https://marianacintra81.github.io/Bradesco-GEN-AI/Comparativo%20de%20Implantacoes.html" aria-label="Voltar">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path d="M15.5 19a1 1 0 0 1-.7-.29l-6-6a1 1 0 0 1 0-1.42l6-6a1 1 0 1 1 1.4 1.42L10.91 12l5.29 5.29A1 1 0 0 1 15.5 19z" fill="currentColor"/>
     </svg>
@@ -185,50 +195,56 @@
   <div class="container">
     <div class="header">
       <h1>Taxa de Adoção por Projeto</h1>
-      <p>Ordenado da maior para a menor taxa • estático (sem animações)</p>
+      <p>Ordene pelos títulos do grid ou pelo seletor • estático (sem animações)</p>
     </div>
 
     <div class="card" style="margin-bottom:14px;">
+      <!-- TOP BAR: filtros + legenda -->
       <div class="toolbar">
-        <label class="filter-label">Ordenar por:</label>
-        <select id="sortBy" aria-label="Ordenação">
-          <option value="adoption" selected>Taxa de Adoção</option>
-          <option value="interactions">Total de Interações</option>
-          <option value="avg">Média de Interações</option>
-          <option value="users">Número de Usuários</option>
-        </select>
+        <div class="filters">
+          <label class="filter-label">Ordenar por:</label>
+          <select id="sortBy" aria-label="Ordenação">
+            <option value="adoption" selected>Taxa de Adoção</option>
+            <option value="interactions">Total de Interações</option>
+            <option value="avg">Média de Interações</option>
+            <option value="users">Número de Usuários</option>
+            <option value="name">Projeto (A–Z)</option>
+            <option value="profiles">Perfis Treinados</option>
+          </select>
 
-        <label class="filter-label" style="margin-left:8px;">Wave:</label>
-        <select id="waveFilter" aria-label="Filtro por wave">
-          <option value="all" selected>Todas</option>
-          <option value="Piloto">Piloto</option>
-          <option value="Wave 1">Wave 1</option>
-          <option value="Wave 2">Wave 2</option>
-          <option value="Wave 3">Wave 3</option>
-          <option value="Wave 4">Wave 4</option>
-        </select>
+          <label class="filter-label" style="margin-left:8px;">Wave:</label>
+          <select id="waveFilter" aria-label="Filtro por wave">
+            <option value="all" selected>Todas</option>
+            <option value="Piloto">Piloto</option>
+            <option value="Wave 1">Wave 1</option>
+            <option value="Wave 2">Wave 2</option>
+            <option value="Wave 3">Wave 3</option>
+            <option value="Wave 4">Wave 4</option>
+          </select>
+        </div>
+
+        <!-- LEGENDA no topo -->
+        <div class="legend" role="note" aria-label="Legenda de faixas de adoção">
+          <div><span class="dot" style="background:#00e5ff"></span><span>100% de adoção</span></div>
+          <div><span class="dot" style="background:#7B68EE"></span><span>90–99% de adoção</span></div>
+          <div><span class="dot" style="background:#0033A0"></span><span>80–89% de adoção</span></div>
+          <div><span class="dot" style="background:#cc0000"></span><span>&lt; 80% de adoção</span></div>
+        </div>
       </div>
 
       <div class="rows-wrap">
         <!-- Cabeçalho fixo (sem coluna Wave) -->
         <div class="row row--header grid-cols" role="row">
-          <div>Projeto</div>
-          <div>Taxa de Adoção</div>
-          <div>Interações</div>
-          <div>Média</div>
-          <div>Usuários</div>
-          <div>Perfis Treinados</div>
+          <div class="th" data-key="name" aria-sort="none">Projeto <span class="arrow"></span></div>
+          <div class="th" data-key="adoption" aria-sort="descending">Taxa de Adoção <span class="arrow">▼</span></div>
+          <div class="th" data-key="interactions" aria-sort="none">Interações <span class="arrow"></span></div>
+          <div class="th" data-key="avg" aria-sort="none">Média <span class="arrow"></span></div>
+          <div class="th" data-key="users" aria-sort="none">Usuários <span class="arrow"></span></div>
+          <div class="th" data-key="profiles" aria-sort="none">Perfis Treinados <span class="arrow"></span></div>
         </div>
 
         <!-- Linhas dinâmicas -->
         <div id="rows"></div>
-      </div>
-
-      <div class="legend" aria-hidden="true">
-        <div><span class="dot" style="background:#00e5ff"></span><span>100% de adoção</span></div>
-        <div><span class="dot" style="background:#7B68EE"></span><span>90–99% de adoção</span></div>
-        <div><span class="dot" style="background:#0033A0"></span><span>80–89% de adoção</span></div>
-        <div><span class="dot" style="background:#cc0000"></span><span>&lt; 80% de adoção</span></div>
       </div>
     </div>
   </div>
@@ -298,6 +314,52 @@
     const rowsMountPoint = document.getElementById('rows');
     const sortBy = document.getElementById('sortBy');
     const waveFilter = document.getElementById('waveFilter');
+    const ths = Array.from(document.querySelectorAll('.row--header .th'));
+
+    let sortKey = 'adoption';
+    let sortDir = 'desc';
+
+    function compare(a,b,key){
+      const dir = sortDir === 'asc' ? 1 : -1;
+      switch(key){
+        case 'name': return dir * a.name.localeCompare(b.name, 'pt-BR', {sensitivity:'base'});
+        case 'adoption': return dir * (a.adoptionRate - b.adoptionRate);
+        case 'interactions': return dir * (a.totalInteractions - b.totalInteractions);
+        case 'avg': {
+          const avA = Number.isFinite(a.avgInteractions) ? a.avgInteractions :
+                      (a.totalInteractions/(a.totalUsers||1));
+          const avB = Number.isFinite(b.avgInteractions) ? b.avgInteractions :
+                      (b.totalInteractions/(b.totalUsers||1));
+          return dir * (avA - avB);
+        }
+        case 'users': {
+          if (a.totalUsers !== b.totalUsers) return dir * (a.totalUsers - b.totalUsers);
+          return dir * (a.activeUsers - b.activeUsers);
+        }
+        case 'profiles': {
+          const lenA = (a.profiles||[]).length;
+          const lenB = (b.profiles||[]).length;
+          if (lenA !== lenB) return dir * (lenA - lenB);
+          return dir * a.name.localeCompare(b.name, 'pt-BR', {sensitivity:'base'});
+        }
+      }
+      return 0;
+    }
+
+    function applyHeaderState(){
+      ths.forEach(th=>{
+        const key = th.dataset.key;
+        th.classList.toggle('active', key === sortKey);
+        const arrow = th.querySelector('.arrow');
+        th.setAttribute('aria-sort', key===sortKey ? (sortDir==='asc'?'ascending':'descending') : 'none');
+        arrow.textContent = key===sortKey ? (sortDir==='asc'?'▲':'▼') : '';
+      });
+    }
+
+    function syncSelect(){
+      const map = { adoption:'adoption', interactions:'interactions', avg:'avg', users:'users', name:'name', profiles:'profiles' };
+      sortBy.value = map[sortKey] || 'adoption';
+    }
 
     function render(){
       rowsMountPoint.innerHTML = '';
@@ -305,25 +367,17 @@
       let data = projects.slice();
 
       if (wave !== 'all') data = data.filter(p => p.wave === wave);
-
-      switch (sortBy.value){
-        case 'adoption': data.sort((a,b)=> b.adoptionRate - a.adoptionRate); break;
-        case 'interactions': data.sort((a,b)=> b.totalInteractions - a.totalInteractions); break;
-        case 'avg': data.sort((a,b)=> b.avgInteractions - a.avgInteractions); break;
-        case 'users': data.sort((a,b)=> b.totalUsers - a.totalUsers); break;
-      }
+      data.sort((a,b)=> compare(a,b,sortKey));
 
       data.forEach(p=>{
         const row = document.createElement('div');
         row.className = 'row grid-cols';
 
-        // Projeto
         const name = document.createElement('div');
         name.className = 'name';
         name.title = p.name;
         name.textContent = p.name;
 
-        // Taxa de Adoção (barra + rótulo %)
         const barWrap = document.createElement('div');
         barWrap.className = 'bar-wrap';
         const bar = document.createElement('div');
@@ -334,28 +388,24 @@
 
         const label = document.createElement('span');
         label.className = 'bar-label';
-        label.textContent = rate.toFixed( (rate % 1 === 0) ? 0 : 1 ) + '%';
+        label.textContent = rate % 1 === 0 ? `${rate.toFixed(0)}%` : `${rate.toFixed(1)}%`;
 
         barWrap.appendChild(bar);
         barWrap.appendChild(label);
 
-        // Interações
         const kInter = document.createElement('div');
         kInter.className = 'k';
         kInter.innerHTML = `<div class="v">${(p.totalInteractions||0).toLocaleString('pt-BR')}</div><div class="l">Interações</div>`;
 
-        // Média
         const kAvg = document.createElement('div');
         kAvg.className = 'k';
         const avg = (p.avgInteractions!=null? p.avgInteractions : (p.totalInteractions/(p.totalUsers||1)));
         kAvg.innerHTML = `<div class="v">${Number(avg).toFixed(1)}</div><div class="l">Média</div>`;
 
-        // Usuários
         const kUsers = document.createElement('div');
         kUsers.className = 'k';
         kUsers.innerHTML = `<div class="v">${p.activeUsers}/${p.totalUsers}</div><div class="l">Usuários</div>`;
 
-        // Perfis Treinados (chips)
         const profilesBox = document.createElement('div');
         profilesBox.className = 'profiles';
         const list = getProfilesText(p).split(',').map(s => s.trim()).filter(Boolean);
@@ -371,7 +421,6 @@
           });
         }
 
-        // Monta linha (SEM a coluna Wave)
         row.appendChild(name);
         row.appendChild(barWrap);
         row.appendChild(kInter);
@@ -383,9 +432,36 @@
       });
     }
 
-    sortBy.addEventListener('change', render);
-    waveFilter.addEventListener('change', render);
+    // Inicialização
+    let sortDirDefaults = { name:'asc', adoption:'desc', interactions:'desc', avg:'desc', users:'desc', profiles:'desc' };
+    applyHeaderState();
+    syncSelect();
     render();
+
+    sortBy.addEventListener('change', ()=>{
+      const value = sortBy.value;
+      sortKey = value;
+      sortDir = sortDirDefaults[value] || 'desc';
+      applyHeaderState();
+      render();
+    });
+
+    waveFilter.addEventListener('change', render);
+
+    ths.forEach(th=>{
+      th.addEventListener('click', ()=>{
+        const key = th.dataset.key;
+        if (sortKey === key){
+          sortDir = (sortDir === 'asc') ? 'desc' : 'asc';
+        } else {
+          sortKey = key;
+          sortDir = sortDirDefaults[key] || 'desc';
+        }
+        applyHeaderState();
+        syncSelect();
+        render();
+      });
+    });
   </script>
 </body>
 </html>
