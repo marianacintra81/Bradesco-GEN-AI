@@ -247,51 +247,54 @@
   <script>
     // ==== DADOS (média = totalInteractions ÷ totalUsers) ====
     const projects = [
-      { name:'Plataforma de segurança Safer', totalUsers:38, activeUsers:37, adoptionRate:97.4, totalInteractions:2621, wave:'Piloto', profiles:['DEV','QA','SRE','Scrum Master'] },
-      { name:'Reabilitação Financeira', totalUsers:46, activeUsers:41, adoptionRate:89.1, totalInteractions:1087, wave:'Wave 3', profiles:['QA'] },
-      { name:'Plataforma A3C', totalUsers:21, activeUsers:18, adoptionRate:85.7, totalInteractions:906, wave:'Wave 1', profiles:['QA','Scrum Master'] },
-      { name:'BRAIN', totalUsers:28, activeUsers:26, adoptionRate:92.9, totalInteractions:975, wave:'Wave 3', profiles:['QA'] },
-      { name:'Contadoria', totalUsers:17, activeUsers:14, adoptionRate:82.4, totalInteractions:822, wave:'Wave 3', profiles:['Analista de Negócios','QA'] },
+      { name:'Plataforma de segurança Safer', totalUsers:39, activeUsers:38, adoptionRate:97.4, totalInteractions:1902, wave:'Piloto', profiles:['DEV','QA','Scrum Master','SRE'] },
       { name:'Open Finance', totalUsers:5, activeUsers:5, adoptionRate:100.0, totalInteractions:756, wave:'Piloto', profiles:['QA'] },
+      { name:'Reabilitação Financeira', totalUsers:46, activeUsers:37, adoptionRate:80.4, totalInteractions:1087, wave:'Wave 2', profiles:['QA','DEV','Scrum Master','Analista de Negócios'] },
+      { name:'Plataforma A3C', totalUsers:21, activeUsers:19, adoptionRate:90.5, totalInteractions:881, wave:'Wave 1', profiles:['QA','Scrum Master','DEV'] },
+      { name:'BRAIN', totalUsers:28, activeUsers:27, totalInteractions:1614, adoptionRate:96.4, wave:'Wave 2', profiles:['QA'] },
+      { name:'Contadoria', totalUsers:17, activeUsers:14, adoptionRate:82.4, totalInteractions:822, wave:'Wave 3', profiles:['Analista de Negócios','QA','Scrum Master','DEV','Analista de Dados'] },
       { name:'CRM', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:413, wave:'Wave 2', profiles:['QA'] },
-      { name:'Consignado', totalUsers:12, activeUsers:11, adoptionRate:91.7, totalInteractions:398, wave:'Wave 3', profiles:['QA','Scrum Master'] },
-      { name:'Massificado', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:325, wave:'Wave 2', profiles:['QA'] },
-      { name:'ATACADO', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:257, wave:'Wave 3', profiles:['QA'] },
-      { name:'Sala Core', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:251, wave:'Wave 2', profiles:['QA'] },
-      { name:'Abertura de Contas', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:233, wave:'Wave 3', profiles:['QA'] },
-      { name:'Soluçoes PJ', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:229, wave:'Wave 3', profiles:['QA','Scrum Master'] },
-      { name:'Transformação', totalUsers:7, activeUsers:7, adoptionRate:100.0, totalInteractions:228, wave:'Wave 3', profiles:['QA'] },
-      { name:'Investimentos', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:154, wave:'Piloto', profiles:['QA'] },
-      { name:'Bradesco Global Solutions', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:152, wave:'Wave 3', profiles:['QA'] },
-      { name:'Pessoa Fisica', totalUsers:12, activeUsers:8, adoptionRate:66.7, totalInteractions:145, wave:'Wave 4', profiles:['QA','Scrum Master'] },
-      { name:'CONSIGNADO - E-Social', totalUsers:10, activeUsers:9, adoptionRate:90.0, totalInteractions:124, wave:'Wave 3', profiles:['QA'] },
+     { name:'Consignado', totalUsers:12, activeUsers:11, adoptionRate:91.7, totalInteractions:442, wave:'Wave 3', profiles:['Scrum Master'] },
+      { name:'Massificado', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:325, wave:'Wave 2', profiles:['QA','Scrum Master'] },
+      { name:'ATACADO', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:298, wave:'Wave 3', profiles:['QA'] },
+      { name:'Sala Core', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:274, wave:'Wave 2', profiles:['QA','Scrum Master'] },
+      { name:'Abertura de Contas', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:233, wave:'Wave 3', profiles:['QA','Scrum Master'] },
+      { name:'Soluçoes PJ', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:318, wave:'Wave 3', profiles:['Scrum Master'] },
+      { name:'Transformação', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:244, wave:'Piloto', profiles:['Analista de Negócios','QA','DEV','Scrum Master'] },
+      { name:'Investimentos', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:167, wave:'Piloto', profiles:['QA'] },
+      { name:'Bradesco Global Solutions', totalUsers:8, activeUsers:7, adoptionRate:87.5, totalInteractions:195, wave:'Wave 1', profiles:['QA','DEV','Scrum Master'] },
+      { name:'Pessoa Fisica', totalUsers:12, activeUsers:10, adoptionRate:83.3, totalInteractions:179, wave:'Wave 4', profiles:['DEV','Scrum Master'] },
+      { name:'CONSIGNADO - E-Social', totalUsers:10, activeUsers:9, adoptionRate:90.0, totalInteractions:169, wave:'Wave 3', profiles:['QA'] },
       { name:'Cluster Soluções de Pagamento e Conciliação', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:118, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'CONSIGNADO - Pleito de Priorização INSS', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:110, wave:'Wave 3', profiles:['QA'] },
-      { name:'BSPI', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:108, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'PIX-CPF', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:92, wave:'Wave 2', profiles:['QA'] },
-      { name:'SCAP', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:63, wave:'Wave 2', profiles:['QA'] },
-      { name:'INTERNACIONAL E CÂMBIO', totalUsers:5, activeUsers:5, adoptionRate:100.0, totalInteractions:62, wave:'Wave 3', profiles:['QA'] },
-      { name:'A3C', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:59, wave:'Wave 3', profiles:['QA'] },
-      { name:'Plataforma Atendimento', totalUsers:6, activeUsers:4, adoptionRate:66.7, totalInteractions:51, wave:'Wave 1', profiles:['QA'] },
-      { name:'PROJETO PT-W50594', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:48, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'PIX-CPJ', totalUsers:4, activeUsers:4, adoptionRate:100.0, totalInteractions:46, wave:'Wave 2', profiles:['QA'] },
-      { name:'CONSÓRCIO | Consorcio', totalUsers:5, activeUsers:5, adoptionRate:100.0, totalInteractions:41, wave:'Wave 3', profiles:['QA'] },
-      { name:'Site Gestor', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:30, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'Plataforma Atendimento – outro', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:29, wave:'Wave 3', profiles:['QA'] },
-      { name:'Consignado - Portabilidade', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:28, wave:'Wave 4', profiles:['Scrum Master'] },
-      { name:'MBPF', totalUsers:4, activeUsers:2, adoptionRate:50.0, totalInteractions:25, wave:'Wave 3', profiles:['DEV'] },
-      { name:'PDPJ', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:25, wave:'Wave 3', profiles:['DEV'] },
-      { name:'Internet Banking', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:20, wave:'Piloto', profiles:['QA'] },
-      { name:'CONSIGNADO - Mktplace Consignado', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:19, wave:'Wave 3', profiles:['QA'] },
-      { name:'Tesouraria', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:18, wave:'Wave 2', profiles:['QA'] },
+      { name:'CONSIGNADO - Pleito de Priorização INSS', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:39, wave:'Wave 3', profiles:['QA'] },
+      { name:'BSPI', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:149, wave:'Wave 3', profiles:['DEV','Scrum Master','QA'] },
+      { name:'PIX-CPF', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:93, wave:'Wave 2', profiles:['QA'] },
+      { name:'SCAP', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:72, wave:'Wave 2', profiles:['QA'] },
+      { name:'INTERNACIONAL E CÂMBIO', totalUsers:6, activeUsers:6, adoptionRate:100.0, totalInteractions:79, wave:'Wave 3', profiles:['QA','Scrum Master'] },
+
+      { name:'Plataforma Atendimento', totalUsers:6, activeUsers:4, adoptionRate:66.7, totalInteractions:29, wave:'Wave 1', profiles:['QA'] },
+      { name:'PROJETO PT-W50594', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:54, wave:'Wave 3', profiles:['Scrum Master'] },
+      { name:'PIX-CPJ', totalUsers:4, activeUsers:4, adoptionRate:100.0, totalInteractions:55, wave:'Wave 2', profiles:['QA'] },
+      { name:'CONSÓRCIO | Consorcio', totalUsers:4, activeUsers:4, adoptionRate:100.0, totalInteractions:41, wave:'Wave 3', profiles:['QA'] },
+      { name:'Site Gestor', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:26, wave:'Wave 3', profiles:['Scrum Master'] },
+    
+      { name:'Consignado - Portabilidade', totalUsers:3, activeUsers:2, adoptionRate:66.7, totalInteractions:69, wave:'Wave 4', profiles:['DEV','Scrum Master'] },
+      { name:'MBPF', totalUsers:4, activeUsers:3, adoptionRate:75.0, totalInteractions:37, wave:'Wave 3', profiles:['DEV','Scrum Master','QA'] },
+      { name:'PDPJ', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:38, wave:'Wave 3', profiles:['DEV','Scrum Master'] },
+      { name:'Internet Banking', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:35, wave:'Piloto', profiles:['QA'] },
+      { name:'CONSIGNADO - Mktplace Consignado', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:24, wave:'Wave 3', profiles:['QA'] },
+      { name:'Tesouraria', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:53, wave:'Wave 2', profiles:['QA','Scrum Master'] },
       { name:'VATINTR', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:17, wave:'Wave 3', profiles:['QA'] },
-      { name:'Interestellar', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:10, wave:'Wave 3', profiles:['QA'] },
-      { name:'PEPF', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:6, wave:'Wave 4', profiles:['QA'] },
-      { name:'MBPJ', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:5, wave:'Wave 4', profiles:['Scrum Master'] },
+  
+      { name:'PEPF', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:12, wave:'Wave 4', profiles:['QA'] },
+      { name:'MBPJ', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:5, wave:'Wave 4', profiles:['DEV','Scrum Master'] },
       { name:'Tribo Canais Assistidos', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:4, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'SAFER', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:2, wave:'Wave 3', profiles:['QA'] },
-      { name:'AFLUENTES', totalUsers:1, activeUsers:0, adoptionRate:0.0, totalInteractions:0, wave:'Wave 3', profiles:[] },
-      { name:'Dozer', totalUsers:1, activeUsers:0, adoptionRate:0.0, totalInteractions:0, wave:'Wave 3', profiles:[] }
+  
+      { name:'AFLUENTES', totalUsers:3, activeUsers:1, adoptionRate:33.3, totalInteractions:16, wave:'Wave 3', profiles:['QA'] },
+      { name:'Agora Trader', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:1, wave:'Wave 4', profiles:['QA'] },
+      { name:'CNPJ Alfanumérico', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:1, wave:'Wave 4', profiles:['Analista de Dados'] },
+      { name:'Tribo Contas e Tarifas', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:80, wave:'Wave 3', profiles:['Scrum Master'] },
+ 
     ];
 
     function colorByAdoption(rate){
@@ -455,8 +458,7 @@
       const wave = waveFilter.value;
       let data = projects.slice();
       if (wave !== 'all') data = data.filter(p => p.wave === wave);
-
-      // respeita ordenação atual
+          // respeita ordenação atual
       data = applySort(data);
 
       // Mapeia para linhas de exportação
@@ -524,3 +526,5 @@
   </script>
 </body>
 </html>
+
+      
