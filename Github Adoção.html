@@ -32,7 +32,7 @@
     .back-button:hover{transform:translateY(-3px);box-shadow:var(--hover-shadow);background:linear-gradient(135deg,var(--accent-purple),var(--bradesco-blue))}
     .kpi-grid{display:grid;gap:1rem;margin-bottom:1rem}
     .kpi-grid.row-1{grid-template-columns:repeat(2,1fr)}
-    .kpi-grid.row-2{grid-template-columns:repeat(4,1fr)} /* 4 cards: W1..W4 */
+    .kpi-grid.row-2{grid-template-columns:repeat(4,1fr)}
     .kpi-card{background:var(--bg-card);border-radius:12px;padding:1rem;box-shadow:var(--card-shadow);position:relative;overflow:hidden;transition:.4s;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:120px}
     .kpi-card:hover{transform:translateY(-10px) scale(1.02);background:var(--bg-card-hover);box-shadow:var(--hover-shadow)}
     .kpi-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;background:var(--mixed-gradient)}
@@ -42,7 +42,7 @@
     .chart-card{background:var(--bg-card);border-radius:16px;padding:1.2rem;box-shadow:var(--card-shadow);position:relative;overflow:hidden}
     .chart-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;background:var(--mixed-gradient)}
     .chart-title{text-align:center;font-weight:600;margin-bottom:1rem}
-    .chart-wrapper{height:420px;position:relative}
+    .chart-wrapper{height:800px;position:relative}
     .footer{text-align:center;margin-top:2rem;padding-top:.8rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem}
     @media (max-width:1100px){.kpi-grid.row-2{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:800px){.kpi-grid.row-1{grid-template-columns:1fr}}
@@ -56,7 +56,7 @@
       <a href="https://codepen.io/Mariana-Cintra-the-sans/pen/jEWrxgV" class="back-button"><i class="fas fa-arrow-left"></i></a>
       <h1>GitHub Copilot | Adoção e Impacto</h1>
       <p class="subtitle">Resultados do Programa de Treinamento</p>
-      <p class="research-info" id="headline">Dados consolidados de <b>285</b> profissionais treinados em <b>31</b> projetos</p>
+      <p class="research-info" id="headline">Dados consolidados de <b>285</b> profissionais treinados em <b>29</b> projetos</p>
     </header>
 
     <!-- Linha 1 -->
@@ -68,7 +68,7 @@
       </div>
       <div class="kpi-card">
         <div class="kpi-icon"><i class="fas fa-project-diagram"></i></div>
-        <div class="kpi-value" id="kpi-projetos">31</div>
+        <div class="kpi-value" id="kpi-projetos">29</div>
         <div class="kpi-label">Projetos Atendidos</div>
       </div>
     </div>
@@ -82,7 +82,7 @@
     </div>
 
     <div class="chart-card">
-      <div class="chart-title">Profissionais por Projeto (ordenado do maior para o menor)</div>
+      <div class="chart-title">Profissionais por Projeto </div>
       <div class="chart-wrapper"><canvas id="projectsChart"></canvas></div>
     </div>
 
@@ -108,74 +108,133 @@
     Chart.defaults.font.family = "'Montserrat', sans-serif";
     Chart.defaults.font.size = 12;
 
-    const paletteBase = ['rgba(0,51,160,.8)','rgba(0,229,255,.8)','rgba(204,0,0,.8)','rgba(123,104,238,.8)','rgba(255,107,107,.8)'];
-    const paletteBorder = ['rgba(0,51,160,1)','rgba(0,229,255,1)','rgba(204,0,0,1)','rgba(123,104,238,1)','rgba(255,107,107,1)'];
+    // Cores dinâmicas
+    function generateColors(count) {
+      const baseColors = [
+        'rgba(0,51,160,.8)','rgba(0,229,255,.8)','rgba(204,0,0,.8)',
+        'rgba(123,104,238,.8)','rgba(255,107,107,.8)','rgba(75,192,192,.8)',
+        'rgba(255,159,64,.8)','rgba(153,102,255,.8)','rgba(255,205,86,.8)',
+        'rgba(54,162,235,.8)','rgba(255,99,132,.8)','rgba(201,203,207,.8)',
+        'rgba(100,149,237,.8)','rgba(144,238,144,.8)','rgba(255,182,193,.8)',
+        'rgba(255,160,122,.8)','rgba(176,196,222,.8)','rgba(173,216,230,.8)',
+        'rgba(152,251,152,.8)','rgba(221,160,221,.8)','rgba(240,230,140,.8)',
+        'rgba(255,228,181,.8)','rgba(255,218,185,.8)','rgba(175,238,238,.8)',
+        'rgba(216,191,216,.8)','rgba(250,235,215,.8)','rgba(240,248,255,.8)',
+        'rgba(245,222,179,.8)','rgba(255,250,205,.8)','rgba(211,211,211,.8)',
+        'rgba(240,255,240,.8)'
+      ];
+      const baseBorders = baseColors.map(c=>c.replace('.8',')').replace('rgba','rgba').replace(')',',1)'));
+      const backgrounds=[], borders=[];
+      for(let i=0;i<count;i++){ backgrounds.push(baseColors[i%baseColors.length]); borders.push(baseBorders[i%baseBorders.length]); }
+      return { backgrounds, borders };
+    }
 
-    // Defaults (substituídos ao carregar a planilha)
-    let defaultAgg = {
-      "BRAIN":86,"Reabilitação Financeira":36,"CONSIGNADO":35,"Internacional e Câmbio":25,"SCAP":18,"Abertura de Contas":15,
-      "Plataforma A3C":12,"Plataforma de segurança Safer":10,"Open Finance":8,"CONSÓRCIO":7
+    // === DADOS INICIAIS (da planilha, já unificados) ===
+    const embeddedRaw = {
+      "BRAIN":86,
+      "Reabilitação Financeira":36,
+      "Projeto Não Informado":24,
+      "CONSIGNADO - E-Social":19,
+      "INTERNACIONAL E CÂMBIO":16,
+      "A3C":15,
+      "SAFER":13,
+      "Abertura de Contas":11,
+      "CONSIGNADO - Mktplace Consignado":8,
+      "Contadoria":7,
+      "OPEN FINANCE":7,
+      "SCAP":7,
+      "CONSÓRCIO":5,
+      "CONSIGNADO - Revitalizar CCB Digital":4,
+      "ATACADO":4,
+      "Bradesco Global Solutions":4,
+      "CONSIGNADO - Pleito de Priorização INSS":3,
+      "Transformação":3,
+      "CONSIGNADO - Revitalização Jornada Consig INSS":2,
+      "Massificado":2,
+      "Consignado - CCB Digital":1,
+      "Tesouraria":1,
+      "Cadastro/Pessoas":1,
+      "CONSIGNADO - Portabilidade Defesa":1,
+      "PDPJ":1,
+      "CNPJ - Alfanumérico":1,
+      "MBPJ":1,
+      "MBPF":1,
+      "PIX-CPJ":1
     };
-    let labels = Object.keys(defaultAgg).sort((a,b)=> defaultAgg[b]-defaultAgg[a]);
-    let values = labels.map(l=> defaultAgg[l]);
+
+    // Monta gráfico inicial
+    const labels0 = Object.keys(embeddedRaw).sort((a,b)=>embeddedRaw[b]-embeddedRaw[a]);
+    const values0 = labels0.map(k=>embeddedRaw[k]);
+    const {backgrounds:bg0,borders:bd0} = generateColors(labels0.length);
 
     const ctx = document.getElementById('projectsChart').getContext('2d');
-    const projectsChart = new Chart(ctx,{
+    const projectsChart = new Chart(ctx, {
       type:'bar',
-      data:{
-        labels: labels,
-        datasets:[{
-          label:'Profissionais únicos',
-          data: values,
-          backgroundColor: labels.map((_,i)=> paletteBase[i%paletteBase.length]),
-          borderColor: labels.map((_,i)=> paletteBorder[i%paletteBorder.length]),
-          borderWidth:2,
-          borderRadius:6
-        }]
-      },
+      data:{ labels:labels0, datasets:[{ label:'Profissionais únicos', data:values0, backgroundColor:bg0, borderColor:bd0, borderWidth:2, borderRadius:6 }]},
       options:{
-        indexAxis:'y',
-        responsive:true,
-        maintainAspectRatio:false,
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
         plugins:{
           legend:{display:false},
           datalabels:{color:'#fff',font:{weight:'bold',size:12},anchor:'end',align:'end',offset:4,formatter:(v)=>v},
-          tooltip:{callbacks:{label:(ctx)=>`${ctx.raw} profissionais`},backgroundColor:'rgba(0,0,0,.85)'}
+          tooltip:{callbacks:{label:(c)=>`${c.raw} profissionais`},backgroundColor:'rgba(0,0,0,.85)'}
         },
-        scales:{
-          x:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},title:{display:true,text:'Número de Profissionais (únicos)'}},
-          y:{grid:{display:false}}
-        },
+        scales:{ x:{beginAtZero:true,grid:{color:'rgba(255,255,255,.08)'},title:{display:true,text:'Número de Profissionais (únicos)'}},
+                 y:{grid:{display:false}} },
         layout:{padding:{top:20,right:25,bottom:10,left:10}}
       }
     });
 
-    // Upload XLSX → atualiza KPIs e gráfico (ordenado desc)
-    document.getElementById('xlsxFile').addEventListener('change', async (e)=>{
-      const file = e.target.files[0];
-      if(!file) return;
+    // === Carregamento futuro via XLSX (Shift+U), com as mesmas regras de unificação ===
+    function canonicalizeProject(raw){
+      if(!raw) return "Projeto Não Informado";
+      const strip = (s)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      const up = strip(String(raw).trim()).toUpperCase();
+      if(!up || ['NAN','NONE','NULL','(BLANK)'].includes(up)) return "Projeto Não Informado";
+      if(up.includes('SAFER') || up.includes('SEGURANCA CORPORATIVA')) return 'SAFER';
+      if(up.includes('A3C')) return 'A3C';
+      if(up.includes('CONSORCIO')) return 'CONSÓRCIO';
+      if(up.includes('INTERNACIONAL') && up.includes('CAMBIO')) return 'INTERNACIONAL E CÂMBIO';
+      if(up.includes('BRAIN')) return 'BRAIN';
+      return String(raw).trim();
+    }
+
+    // KPIs iniciais
+    document.getElementById('kpi-total').textContent = 285;
+    document.getElementById('kpi-projetos').textContent = 29;
+    document.getElementById('kpi-w1').textContent = 107;
+    document.getElementById('kpi-w2').textContent = 125;
+    document.getElementById('kpi-w3').textContent = 36;
+    document.getElementById('kpi-w4').textContent = 17;
+    document.getElementById('headline').innerHTML = `Dados consolidados de <b>285</b> profissionais treinados em <b>29</b> projetos`;
+
+    // Upload futuro
+    document.getElementById('xlsxFile').addEventListener('change', async (e) => {
+      const file = e.target.files[0]; if(!file) return;
       const buf = await file.arrayBuffer();
-      const wb = XLSX.read(buf,{type:'array'});
-      const ws = wb.Sheets[wb.SheetNames[0]];
+      const wb = XLSX.read(buf,{type:'array'}); const ws = wb.Sheets[wb.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json(ws,{defval:''});
 
-      const projUsers = new Map();       // projeto -> Set(usuários)
-      const waveUsers = new Map();       // implantação -> Set(usuários)
-      const usersGlobal = new Set();
-      const projetosSet = new Set();
+      const projUsers = new Map(); const waveUsers = new Map(); const users = new Set(); const projetosSet = new Set();
+
+      const get = (r, keys) => {
+        for(const k of keys){ if(k in r) return r[k]; }
+        // tentativa por includes (variações)
+        const lower = Object.keys(r).reduce((acc,k)=>{acc[k.toLowerCase()]=k;return acc;}, {});
+        for(const k of keys){ if(lower[k.toLowerCase()]) return r[lower[k.toLowerCase()]]; }
+        return '';
+      };
 
       for(const r of rows){
-        const projeto = String(r["Projeto"]||"").trim();
-        const wave = String(r["Implantação"]||"").trim();
-        const user = String(r["Nome do usuário"]||"").trim();
+        const projetoRaw = get(r, ['Projeto','projeto']);
+        const wave = String(get(r, ['Implantação','Implantacao','implantação','implantacao'])).trim();
+        const user = String(get(r, ['Nome do usuário','Nome do usuario','Usuario','Usuário'])).trim();
+        const projeto = canonicalizeProject(projetoRaw);
 
         if(projeto) projetosSet.add(projeto);
         if(user){
-          usersGlobal.add(user);
-          if(projeto){
-            if(!projUsers.has(projeto)) projUsers.set(projeto,new Set());
-            projUsers.get(projeto).add(user);
-          }
+          users.add(user);
+          if(!projUsers.has(projeto)) projUsers.set(projeto,new Set());
+          projUsers.get(projeto).add(user);
           if(wave){
             if(!waveUsers.has(wave)) waveUsers.set(wave,new Set());
             waveUsers.get(wave).add(user);
@@ -184,8 +243,8 @@
       }
 
       // KPIs
-      const total = usersGlobal.size;
-      const projetos = projetosSet.size;
+      const total = users.size;
+      const projetos = projUsers.size;
       const w1 = waveUsers.has("Wave 1") ? waveUsers.get("Wave 1").size : 0;
       const w2 = waveUsers.has("Wave 2") ? waveUsers.get("Wave 2").size : 0;
       const w3 = waveUsers.has("Wave 3") ? waveUsers.get("Wave 3").size : 0;
@@ -199,15 +258,15 @@
       document.getElementById('kpi-w4').textContent = w4;
       document.getElementById('headline').innerHTML = `Dados consolidados de <b>${total}</b> profissionais treinados em <b>${projetos}</b> projetos`;
 
-      // Ordena DESC por quantidade de usuários e atualiza gráfico
-      const labelsSorted = Array.from(projUsers.keys())
-        .sort((a,b)=> projUsers.get(b).size - projUsers.get(a).size);
-      const valuesSorted = labelsSorted.map(k=> projUsers.get(k).size);
+      // Atualiza gráfico (ordenado desc)
+      const labelsSorted = Array.from(projUsers.keys()).sort((a,b)=>projUsers.get(b).size - projUsers.get(a).size);
+      const valuesSorted = labelsSorted.map(k=>projUsers.get(k).size);
+      const {backgrounds,borders} = generateColors(labelsSorted.length);
 
       projectsChart.data.labels = labelsSorted;
       projectsChart.data.datasets[0].data = valuesSorted;
-      projectsChart.data.datasets[0].backgroundColor = labelsSorted.map((_,i)=> paletteBase[i%paletteBase.length]);
-      projectsChart.data.datasets[0].borderColor = labelsSorted.map((_,i)=> paletteBorder[i%paletteBorder.length]);
+      projectsChart.data.datasets[0].backgroundColor = backgrounds;
+      projectsChart.data.datasets[0].borderColor = borders;
       projectsChart.update();
     });
   </script>
