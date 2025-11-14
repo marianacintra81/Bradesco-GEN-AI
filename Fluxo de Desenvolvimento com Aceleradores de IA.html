@@ -7,11 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    legend-icon img {
-  width: 18px;  /* Ligeiramente menor */
-  height: 18px;
-  object-fit: contain;
-}
     :root {
       --bg-primary: #0c0e14;
       --bg-secondary: #151823;
@@ -100,24 +95,25 @@
     }
     
     .legend-icon {
-      width: 28px;
-      height: 28px;
+      width: 40px; /* Aumentado para 40px */
+      height: 40px; /* Aumentado para 40px */
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9rem;
+      font-size: 1.1rem;
       color: white;
+      overflow: hidden; /* Para garantir que as imagens não ultrapassem o círculo */
     }
     
     .legend-icon img {
-      width: 20px;
-      height: 20px;
+      width: 30px; /* Aumentado para 30px */
+      height: 30px; /* Aumentado para 30px */
       object-fit: contain;
     }
     
     .legend-text {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--text-primary);
       font-weight: 600;
     }
@@ -308,6 +304,7 @@
       box-shadow: 0 5px 15px rgba(0, 51, 160, 0.3);
       transition: all 0.3s ease;
       position: relative;
+      overflow: hidden; /* Para garantir que as imagens não ultrapassem o círculo */
     }
     
     .activity-tool:hover {
@@ -317,6 +314,12 @@
     .activity-tool i {
       font-size: 1rem;
       color: white;
+    }
+    
+    .activity-tool img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
     }
     
     /* Tooltip redesenhado para aparecer na lateral */
@@ -455,7 +458,7 @@
       }
     }
     
-    @media (max-width: 768px) {
+     @media (max-width: 768px) {
       .header h1 {
         font-size: 1.8rem;
       }
@@ -485,18 +488,18 @@
 </head>
 <body>
   <div class="container">
-  <div class="header">
+    <div class="header">
       <h1>Fluxo de Desenvolvimento com Aceleradores de IA</h1>
       <p>Transformando o ciclo de desenvolvimento de software com ferramentas de Inteligência Artificial em cada fase</p>
     </div>
     
- <div class="legend">
-  <div class="legend-item">
-    <div class="legend-icon" style="background: white; display: flex; align-items: center; justify-content: center;">
-      <img src="./Imagem_Cap_Icone.png" alt="PromptX">
-    </div>
-    <span class="legend-text">PromptX</span>
-  </div>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-icon" style="background: white; display: flex; align-items: center; justify-content: center;">
+          <img src="./Imagem_Cap_Icone.png" alt="PromptX">
+        </div>
+        <span class="legend-text">PromptX</span>
+      </div>
       <div class="legend-item">
         <div class="legend-icon" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));">
           <i class="fas fa-robot"></i>
@@ -504,14 +507,14 @@
         <span class="legend-text">Agentes Especializados</span>
       </div>
       <div class="legend-item">
-        <div class="legend-icon" style="background: linear-gradient(135deg, #2b3137, #404448);">
-          <i class="fab fa-github"></i>
+        <div class="legend-icon" style="background: linear-gradient(135deg, #2b3137, #404448); display: flex; align-items: center; justify-content: center;">
+          <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
         </div>
         <span class="legend-text">GitHub Copilot</span>
       </div>
       <div class="legend-item">
-        <div class="legend-icon" style="background: linear-gradient(135deg, var(--bradesco-red), var(--accent-purple));">
-          <i class="fas fa-brain"></i>
+        <div class="legend-icon" style="background: linear-gradient(135deg, var(--bradesco-red), var(--accent-purple)); display: flex; align-items: center; justify-content: center;">
+          <img src="./Picture4.png" alt="Base de Conhecimento">
         </div>
         <span class="legend-text">Base de Conhecimento</span>
       </div>
@@ -539,7 +542,7 @@
             <div class="activity-box">
               <div class="activity-title">Entrada da Demanda</div>
               <div class="activity-tool kb">
-                <i class="fas fa-brain"></i>
+                <img src="./Picture4.png" alt="Base de Conhecimento">
                 <span class="tooltip">Base de Conhecimento</span>
               </div>
             </div>
@@ -547,7 +550,7 @@
             <div class="activity-box">
               <div class="activity-title">Histórias de Usuário</div>
               <div class="activity-tool promptx">
-                <i class="fas fa-bolt"></i>
+                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
@@ -590,7 +593,7 @@
             <div class="activity-box">
               <div class="activity-title">Modelagem de Dados</div>
               <div class="activity-tool promptx">
-                <i class="fas fa-bolt"></i>
+                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
@@ -606,7 +609,7 @@
             <div class="activity-box">
               <div class="activity-title">Otimização</div>
               <div class="activity-tool kb">
-                <i class="fas fa-brain"></i>
+                <img src="./Picture4.png" alt="Base de Conhecimento">
                 <span class="tooltip">Base de Conhecimento</span>
               </div>
             </div>
@@ -633,7 +636,7 @@
             <div class="activity-box">
               <div class="activity-title">Codificação</div>
               <div class="activity-tool github">
-                <i class="fab fa-github"></i>
+                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
                 <span class="tooltip">GitHub Copilot</span>
               </div>
             </div>
@@ -649,7 +652,7 @@
             <div class="activity-box">
               <div class="activity-title">Testes Unitários</div>
               <div class="activity-tool github">
-                <i class="fab fa-github"></i>
+                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
                 <span class="tooltip">GitHub Copilot</span>
               </div>
             </div>
@@ -684,7 +687,7 @@
             <div class="activity-box">
               <div class="activity-title">Cenários de Teste</div>
               <div class="activity-tool promptx">
-                <i class="fas fa-bolt"></i>
+                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
@@ -700,7 +703,7 @@
             <div class="activity-box">
               <div class="activity-title">Testes de Aceitação</div>
               <div class="activity-tool promptx">
-                <i class="fas fa-bolt"></i>
+                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
@@ -708,7 +711,7 @@
             <div class="activity-box">
               <div class="activity-title">Automação de Testes</div>
               <div class="activity-tool github">
-                <i class="fab fa-github"></i>
+                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
                 <span class="tooltip">GitHub Copilot</span>
               </div>
             </div>
@@ -743,7 +746,7 @@
             <div class="activity-box">
               <div class="activity-title">Implantação</div>
               <div class="activity-tool github">
-                <i class="fab fa-github"></i>
+                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
                 <span class="tooltip">GitHub Copilot</span>
               </div>
             </div>
@@ -759,7 +762,7 @@
             <div class="activity-box">
               <div class="activity-title">Feedback e Ajustes</div>
               <div class="activity-tool promptx">
-                <i class="fas fa-bolt"></i>
+                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
