@@ -276,7 +276,6 @@
       opacity: 1;
       transform: translateY(0);
       position: relative;
-      cursor: pointer;
     }
     
     .phase-column.collapsed .activity-box {
@@ -420,69 +419,49 @@
       animation: pulse 2s infinite;
     }
     
-    /* Modal Styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* Hover Card Styles */
+    .hover-card {
+      position: absolute;
+      width: 300px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
+      transform: translateY(10px);
       transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
+      overflow: hidden;
+      pointer-events: none;
     }
     
-    .modal-overlay.active {
+    .hover-card.active {
       opacity: 1;
       visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     
-    .modal {
-      background: var(--bg-secondary);
-      width: 90%;
-      max-width: 600px;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      transform: scale(0.8);
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-    }
-    
-    .modal-overlay.active .modal {
-      transform: scale(1);
-      opacity: 1;
-    }
-    
-   .modal-header {
-      padding: 1.5rem;
+    .hover-card-header {
+      padding: 1rem;
       background: var(--capgemini-gradient);
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .modal-title {
-      color: white;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0;
       display: flex;
       align-items: center;
       gap: 0.8rem;
     }
     
-    .modal-title-icon {
-      width: 40px;
-      height: 40px;
+    .hover-card-title {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+      flex-grow: 1;
+    }
+    
+     .hover-card-icon {
+      width: 32px;
+      height: 32px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 50%;
       display: flex;
@@ -490,17 +469,17 @@
       justify-content: center;
     }
     
-    .modal-title-icon img {
-      width: 24px;
-      height: 24px;
+    .hover-card-icon img {
+      width: 20px;
+      height: 20px;
       object-fit: contain;
     }
     
-    .modal-close {
+    .hover-card-close {
+      width: 24px;
+      height: 24px;
       background: rgba(255, 255, 255, 0.2);
       border: none;
-      width: 36px;
-      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -508,76 +487,50 @@
       cursor: pointer;
       transition: all 0.3s ease;
       color: white;
-      font-size: 1.2rem;
+      font-size: 0.8rem;
     }
     
-    .modal-close:hover {
+    .hover-card-close:hover {
       background: rgba(255, 255, 255, 0.3);
       transform: rotate(90deg);
     }
     
-    .modal-body {
-      padding: 1.5rem;
+    .hover-card-body {
+      padding: 1rem;
+      max-height: 250px;
+      overflow-y: auto;
     }
     
-    .modal-content {
+    .hover-card-content {
       color: var(--text-primary);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-    
-    .modal-content p {
-      margin-bottom: 1rem;
-    }
-    
-    .modal-content h3 {
-      margin: 1.5rem 0 0.8rem;
-      color: var(--accent-cyan);
-      font-size: 1.2rem;
-    }
-    
-    .modal-content ul {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .modal-content li {
-      margin-bottom: 0.5rem;
-    }
-    
-    .modal-footer {
-      padding: 1rem 1.5rem;
-      background: var(--bg-card);
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-    }
-    
-    .modal-btn {
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      font-weight: 600;
       font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
+      line-height: 1.6;
     }
     
-    .modal-btn-primary {
-      background: var(--capgemini-gradient);
-      color: white;
+    .hover-card-content p {
+      margin-bottom: 0.8rem;
     }
     
-    .modal-btn-primary:hover {
-      box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
-      transform: translateY(-3px);
+    .hover-card-content h3 {
+      margin: 1rem 0 0.5rem;
+      color: var(--accent-cyan);
+      font-size: 1rem;
     }
     
-    /* Animation for modal content */
+    .hover-card-content ul {
+      margin-left: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .hover-card-content li {
+      margin-bottom: 0.4rem;
+    }
+    
+    /* Animation for hover card content */
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(10px);
       }
       to {
         opacity: 1;
@@ -585,16 +538,15 @@
       }
     }
     
-    .modal-content > * {
-      animation: fadeInUp 0.5s ease forwards;
+    .hover-card-content > * {
+      animation: fadeInUp 0.4s ease forwards;
       opacity: 0;
     }
     
-    .modal-content > *:nth-child(1) { animation-delay: 0.1s; }
-    .modal-content > *:nth-child(2) { animation-delay: 0.2s; }
-    .modal-content > *:nth-child(3) { animation-delay: 0.3s; }
-    .modal-content > *:nth-child(4) { animation-delay: 0.4s; }
-    .modal-content > *:nth-child(5) { animation-delay: 0.5s; }
+    .hover-card-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hover-card-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hover-card-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hover-card-content > *:nth-child(4) { animation-delay: 0.4s; }
     
     /* Responsive */
     @media (max-width: 992px) {
@@ -635,6 +587,10 @@
       .activity-tool:hover .tooltip {
         transform: translateX(-50%) scale(1);
       }
+      
+      .hover-card {
+        width: 280px;
+      }
     }
     
     @media (max-width: 768px) {
@@ -663,12 +619,8 @@
         width: 100%;
       }
       
-      .modal {
-        width: 95%;
-      }
-      
-      .modal-title {
-        font-size: 1.2rem;
+      .hover-card {
+        width: 260px;
       }
     }
   </style>
@@ -720,7 +672,7 @@
             <i class="fas fa-chevron-up"></i>
           </button>
           <div class="activities-container">
-            <div class="activity-box" data-modal="baseConhecimento">
+            <div class="activity-box" data-hover="baseConhecimento">
               <div class="activity-title">Base de Conhecimento</div>
               <div class="activity-tool kb">
                 <img src="./Picture4.png" alt="Base de Conhecimento">
@@ -890,7 +842,7 @@
             <div class="phase-number">5</div>
           </div>
           <div class="phase-header">
-             <h3 class="phase-title">
+            <h3 class="phase-title">
               <i class="fas fa-rocket"></i>
               Deploy
             </h3>
@@ -923,8 +875,7 @@
                 <span class="tooltip">Agente de Monitoramento</span>
               </div>
             </div>
-            
-            <div class="activity-box">
+               <div class="activity-box">
               <div class="activity-title">Feedback e Ajustes</div>
               <div class="activity-tool kb">
                 <img src="./Picture4.png" alt="Base de Conhecimento">
@@ -937,47 +888,30 @@
     </div>
   </div>
 
-  <!-- Modal Base de Conhecimento -->
-  <div class="modal-overlay" id="modalBaseConhecimento">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 class="modal-title">
-          <div class="modal-title-icon">
-            <img src="./Picture4.png" alt="Base de Conhecimento">
-          </div>
-          Base de Conhecimento
-        </h2>
-        <button class="modal-close" aria-label="Fechar">
-          <i class="fas fa-times"></i>
-        </button>
+  <!-- Hover Card para Base de Conhecimento -->
+  <div class="hover-card" id="hoverCardBaseConhecimento">
+    <div class="hover-card-header">
+      <div class="hover-card-icon">
+        <img src="./Picture4.png" alt="Base de Conhecimento">
       </div>
-      <div class="modal-body">
-        <div class="modal-content">
-          <p>A <strong>Base de Conhecimento</strong> é uma ferramenta essencial que armazena e organiza informações críticas para o desenvolvimento de software, permitindo acesso rápido a dados relevantes e melhores práticas.</p>
-          
-          <h3>Principais Benefícios</h3>
-          <ul>
-            <li>Acesso centralizado a documentação técnica e regras de negócio</li>
-            <li>Redução do tempo de pesquisa e tomada de decisão</li>
-            <li>Preservação do conhecimento organizacional</li>
-            <li>Padronização de processos e soluções</li>
-            <li>Suporte à capacitação de novos membros da equipe</li>
-          </ul>
-          
-          <h3>Integração com IA</h3>
-          <p>Nossa Base de Conhecimento é potencializada por inteligência artificial, permitindo:</p>
-          <ul>
-            <li>Busca semântica avançada</li>
-            <li>Recomendações contextuais baseadas no projeto atual</li>
-            <li>Análise preditiva para identificar potenciais problemas</li>
-            <li>Geração automática de documentação</li>
-          </ul>
-          
-          <p>Ao utilizar a Base de Conhecimento em conjunto com outras ferramentas de IA, as equipes conseguem acelerar significativamente o ciclo de desenvolvimento e garantir maior qualidade nas entregas.</p>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="modal-btn modal-btn-primary">Entendi</button>
+      <h2 class="hover-card-title">Base de Conhecimento</h2>
+      <button class="hover-card-close" aria-label="Fechar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="hover-card-body">
+      <div class="hover-card-content">
+        <p>A <strong>Base de Conhecimento</strong> é uma ferramenta essencial que armazena e organiza informações críticas para o desenvolvimento de software.</p>
+        
+        <h3>Principais Benefícios</h3>
+        <ul>
+          <li>Acesso centralizado a documentação técnica</li>
+          <li>Redução do tempo de pesquisa</li>
+          <li>Preservação do conhecimento organizacional</li>
+          <li>Padronização de processos e soluções</li>
+        </ul>
+        
+        <p>Nossa Base de Conhecimento é potencializada por inteligência artificial, permitindo busca semântica avançada e recomendações contextuais.</p>
       </div>
     </div>
   </div>
@@ -1038,38 +972,88 @@
         });
       });
       
-      // Modal functionality
-      const modalOverlay = document.getElementById('modalBaseConhecimento');
-      const modalCloseBtn = modalOverlay.querySelector('.modal-close');
-      const modalPrimaryBtn = modalOverlay.querySelector('.modal-btn-primary');
-      const baseConhecimentoCard = document.querySelector('[data-modal="baseConhecimento"]');
+      // Hover Card functionality
+      const hoverCard = document.getElementById('hoverCardBaseConhecimento');
+      const hoverCardCloseBtn = hoverCard.querySelector('.hover-card-close');
+      const baseConhecimentoCard = document.querySelector('[data-hover="baseConhecimento"]');
+      let isCardFixed = false;
+      let hoverTimeout;
       
-      // Open modal when clicking on Base de Conhecimento card
-      baseConhecimentoCard.addEventListener('click', () => {
-        modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-      });
+      // Position the hover card near the activity box
+      function positionHoverCard(targetElement) {
+        const rect = targetElement.getBoundingClientRect();
+        const cardWidth = 300; // Width of the hover card
+        
+        // Calculate position - prefer right side if there's enough space
+        let left = rect.right + 15;
+        
+        // Check if card would go off-screen to the right
+        if (left + cardWidth > window.innerWidth - 20) {
+          left = rect.left - cardWidth - 15; // Position to the left instead
+        }
+        
+        // If it would go off-screen to the left too, center it
+        if (left < 20) {
+          left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
+        }
+        
+        const top = rect.top - 10;
+        
+        hoverCard.style.left = `${left}px`;
+        hoverCard.style.top = `${top}px`;
+      }
       
-      // Close modal functions
-      const closeModal = () => {
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = ''; // Re-enable scrolling
-      };
-      
-      modalCloseBtn.addEventListener('click', closeModal);
-      modalPrimaryBtn.addEventListener('click', closeModal);
-      
-      // Close modal when clicking outside
-      modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-          closeModal();
+      // Show hover card when hovering over Base de Conhecimento card
+      baseConhecimentoCard.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimeout);
+        if (!isCardFixed) {
+          positionHoverCard(baseConhecimentoCard);
+          hoverCard.classList.add('active');
         }
       });
       
-      // Close modal with Escape key
+      // Hide hover card when mouse leaves, unless it's fixed
+      baseConhecimentoCard.addEventListener('mouseleave', () => {
+        if (!isCardFixed) {
+          hoverTimeout = setTimeout(() => {
+            hoverCard.classList.remove('active');
+          }, 300);
+        }
+      });
+      
+      // Keep hover card visible when mouse enters it
+      hoverCard.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimeout);
+      });
+      
+      // Hide hover card when mouse leaves it, unless it's fixed
+      hoverCard.addEventListener('mouseleave', () => {
+        if (!isCardFixed) {
+          hoverTimeout = setTimeout(() => {
+            hoverCard.classList.remove('active');
+          }, 300);
+        }
+      });
+      
+      // Fix the hover card in place when clicking on Base de Conhecimento card
+      baseConhecimentoCard.addEventListener('click', (e) => {
+        e.preventDefault();
+        isCardFixed = true;
+        positionHoverCard(baseConhecimentoCard);
+        hoverCard.classList.add('active');
+      });
+      
+      // Close hover card when clicking the close button
+      hoverCardCloseBtn.addEventListener('click', () => {
+        isCardFixed = false;
+        hoverCard.classList.remove('active');
+      });
+      
+      // Close hover card with Escape key if it's fixed
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-          closeModal();
+        if (e.key === 'Escape' && isCardFixed && hoverCard.classList.contains('active')) {
+          isCardFixed = false;
+          hoverCard.classList.remove('active');
         }
       });
     });
