@@ -95,20 +95,20 @@
     }
     
     .legend-icon {
-      width: 40px; /* Aumentado para 40px */
-      height: 40px; /* Aumentado para 40px */
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
       color: white;
-      overflow: hidden; /* Para garantir que as imagens não ultrapassem o círculo */
+      overflow: hidden;
     }
     
     .legend-icon img {
-      width: 30px; /* Aumentado para 30px */
-      height: 30px; /* Aumentado para 30px */
+      width: 30px;
+      height: 30px;
       object-fit: contain;
     }
     
@@ -304,7 +304,7 @@
       box-shadow: 0 5px 15px rgba(0, 51, 160, 0.3);
       transition: all 0.3s ease;
       position: relative;
-      overflow: hidden; /* Para garantir que as imagens não ultrapassem o círculo */
+      overflow: hidden;
     }
     
     .activity-tool:hover {
@@ -360,7 +360,7 @@
     }
     
     .activity-tool.promptx {
-      background: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple));
+      background: white; /* Fundo branco para o PromptX */
     }
     
     .activity-tool.github {
@@ -458,7 +458,7 @@
       }
     }
     
-     @media (max-width: 768px) {
+    @media (max-width: 768px) {
       .header h1 {
         font-size: 1.8rem;
       }
@@ -484,7 +484,7 @@
         width: 100%;
       }
     }
-  </style>
+      </style>
 </head>
 <body>
   <div class="container">
@@ -549,7 +549,7 @@
             
             <div class="activity-box">
               <div class="activity-title">Histórias de Usuário</div>
-              <div class="activity-tool promptx">
+              <div class="activity-tool promptx" style="background: white;">
                 <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
@@ -592,7 +592,7 @@
           <div class="activities-container">
             <div class="activity-box">
               <div class="activity-title">Modelagem de Dados</div>
-              <div class="activity-tool promptx">
+              <div class="activity-tool promptx" style="background: white;">
                 <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
@@ -686,7 +686,7 @@
           <div class="activities-container">
             <div class="activity-box">
               <div class="activity-title">Cenários de Teste</div>
-              <div class="activity-tool promptx">
+              <div class="activity-tool promptx" style="background: white;">
                 <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
@@ -702,7 +702,7 @@
             
             <div class="activity-box">
               <div class="activity-title">Testes de Aceitação</div>
-              <div class="activity-tool promptx">
+              <div class="activity-tool promptx" style="background: white;">
                 <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
@@ -761,7 +761,7 @@
             
             <div class="activity-box">
               <div class="activity-title">Feedback e Ajustes</div>
-              <div class="activity-tool promptx">
+              <div class="activity-tool promptx" style="background: white;">
                 <img src="./Imagem_Cap_Icone.png" alt="PromptX">
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
