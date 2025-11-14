@@ -430,7 +430,7 @@
     /* Hover Card Styles */
     .hover-card {
       position: absolute;
-      width: 300px;
+      width: 400px; /* Aumentado de 300px */
       background: var(--bg-secondary);
       border-radius: 12px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
@@ -443,21 +443,22 @@
       pointer-events: none;
     }
     
-       .hover-card.active {
+    .hover-card.active {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
       pointer-events: auto;
     }
     
-    /* Alterar a cor de fundo para o ícone no hover card */
+     /* Alterar a cor de fundo para o ícone no hover card */
     .hover-card-header {
       padding: 1rem;
-      background: linear-gradient(135deg, #0033A0 10%, #ffffff 40%);
+      background: var(--bg-card); /* Alterado para o fundo escuro das outras modais */
       position: relative;
       display: flex;
       align-items: center;
       gap: 0.8rem;
+      border-bottom: 2px solid var(--accent-cyan); /* Adicionar borda para destacar */
     }
     
     .hover-card-title {
@@ -506,8 +507,8 @@
     
     .hover-card-body {
       padding: 1rem;
-      max-height: 250px;
-      overflow-y: auto;
+      max-height: none; /* Remover altura máxima */
+      overflow-y: visible; /* Remover barra de rolagem */
     }
     
     .hover-card-content {
@@ -598,7 +599,7 @@
       }
       
       .hover-card {
-        width: 280px;
+        width: 350px;
       }
     }
     
@@ -629,7 +630,7 @@
       }
       
       .hover-card {
-        width: 260px;
+        width: 320px;
       }
     }
   </style>
@@ -861,7 +862,7 @@
             <i class="fas fa-chevron-up"></i>
           </button>
           <div class="activities-container">
-           <div class="activity-box">
+             <div class="activity-box">
               <div class="activity-title">Preparação do Ambiente</div>
               <div class="activity-tool agent">
                 <i class="fas fa-server"></i>
@@ -992,7 +993,7 @@
       // Position the hover card near the activity box
       function positionHoverCard(targetElement) {
         const rect = targetElement.getBoundingClientRect();
-        const cardWidth = 300; // Width of the hover card
+        const cardWidth = 400; // Width of the hover card - atualizado
         
         // Calculate position - prefer right side if there's enough space
         let left = rect.right + 15;
