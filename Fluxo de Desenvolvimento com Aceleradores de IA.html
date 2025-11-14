@@ -1,373 +1,73 @@
-    @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .header p {
-        font-size: 1rem;
-      }
-      
-      .legend {
-        gap: 0.8rem;
-        padding: 0.8rem;
-      }
-      
-      .legend-item {
-        padding: 0.3rem 0.6rem;
-      }
-      
-      .legend-text {
-        font-size: 0.75rem;
-      }
-      
-      .phase-column {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>Fluxo de Desenvolvimento com Aceleradores de IA</h1>
-      <p>Transformando o ciclo de desenvolvimento de software com ferramentas de Inteligência Artificial em cada fase</p>
-    </div>
-    
-    <div class="legend">
-      <div class="legend-item">
-        <div class="legend-icon" style="background: linear-gradient(135deg, var(--bradesco-red), var(--accent-purple)); display: flex; align-items: center; justify-content: center;">
-          <img src="./Imagem_Cap_Icone.png" alt="PromptX">
-        </div>
-        <span class="legend-text">PromptX</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));">
-          <i class="fas fa-robot"></i>
-        </div>
-        <span class="legend-text">Agentes Especializados</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon" style="background: linear-gradient(135deg, #2b3137, #404448); display: flex; align-items: center; justify-content: center;">
-          <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
-        </div>
-        <span class="legend-text">GitHub Copilot</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon" style="background: linear-gradient(135deg, var(--bradesco-red), var(--accent-purple)); display: flex; align-items: center; justify-content: center;">
-          <img src="./Picture4.png" alt="Base de Conhecimento">
-        </div>
-        <span class="legend-text">Base de Conhecimento</span>
-      </div>
-    </div>
-    
-    <div class="timeline-container">
-      <div class="timeline">
-        <!-- Fase 1: Requisitos -->
-        <div class="phase-column">
-          <div class="phase-circle pulse">
-            <i class="fas fa-file-alt"></i>
-            <div class="phase-number">1</div>
-          </div>
-          <div class="phase-header">
-            <h3 class="phase-title">
-              <i class="fas fa-clipboard-list"></i>
-              Requisitos
-            </h3>
-            <p class="phase-desc">Definição e análise</p>
-          </div>
-          <button class="toggle-activities">
-            <i class="fas fa-chevron-up"></i>
-          </button>
-          <div class="activities-container">
-            <div class="activity-box">
-              <div class="activity-title">Entrada da Demanda</div>
-              <div class="activity-tool kb">
-                <img src="./Picture4.png" alt="Base de Conhecimento">
-                <span class="tooltip">Base de Conhecimento</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Histórias de Usuário</div>
-              <div class="activity-tool promptx">
-                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
-                <span class="tooltip">PromptX Capgemini</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Refinamento</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-robot"></i>
-                <span class="tooltip">Agente de Histórias</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Pontos de Função</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-calculator"></i>
-                <span class="tooltip">Agente de Pontos de Função</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Fase 2: Base de Dados -->
-        <div class="phase-column">
-          <div class="phase-circle">
-            <i class="fas fa-database"></i>
-            <div class="phase-number">2</div>
-          </div>
-          <div class="phase-header">
-            <h3 class="phase-title">
-              <i class="fas fa-database"></i>
-              Base de Dados
-            </h3>
-            <p class="phase-desc">Modelagem e validação</p>
-          </div>
-          <button class="toggle-activities">
-            <i class="fas fa-chevron-up"></i>
-          </button>
-          <div class="activities-container">
-            <div class="activity-box">
-              <div class="activity-title">Modelagem de Dados</div>
-              <div class="activity-tool promptx">
-                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
-                <span class="tooltip">PromptX Capgemini</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Validação de Padrões</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-check-circle"></i>
-                <span class="tooltip">Agente de Validação de Dados</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Otimização</div>
-              <div class="activity-tool kb">
-                <img src="./Picture4.png" alt="Base de Conhecimento">
-                <span class="tooltip">Base de Conhecimento</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Fase 3: Desenvolvimento -->
-        <div class="phase-column">
-          <div class="phase-circle">
-            <i class="fas fa-code"></i>
-            <div class="phase-number">3</div>
-          </div>
-          <div class="phase-header">
-            <h3 class="phase-title">
-              <i class="fas fa-code"></i>
-              Desenvolvimento
-            </h3>
-            <p class="phase-desc">Implementação do código</p>
-          </div>
-          <button class="toggle-activities">
-            <i class="fas fa-chevron-up"></i>
-          </button>
-          <div class="activities-container">
-            <div class="activity-box">
-              <div class="activity-title">Codificação</div>
-              <div class="activity-tool github">
-                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
-                <span class="tooltip">GitHub Copilot</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Code Review</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-code-branch"></i>
-                <span class="tooltip">Agente de Code Review</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Testes Unitários</div>
-              <div class="activity-tool github">
-                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
-                <span class="tooltip">GitHub Copilot</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Integração Contínua</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-cogs"></i>
-                <span class="tooltip">Agente de CI/CD</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Fase 4: Qualidade -->
-        <div class="phase-column">
-          <div class="phase-circle">
-            <i class="fas fa-check-square"></i>
-            <div class="phase-number">4</div>
-          </div>
-          <div class="phase-header">
-            <h3 class="phase-title">
-              <i class="fas fa-check-square"></i>
-              Qualidade
-            </h3>
-            <p class="phase-desc">Garantia da qualidade</p>
-          </div>
-          <button class="toggle-activities">
-            <i class="fas fa-chevron-up"></i>
-          </button>
-          <div class="activities-container">
-            <div class="activity-box">
-              <div class="activity-title">Cenários de Teste</div>
-              <div class="activity-tool promptx">
-                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
-                <span class="tooltip">PromptX Capgemini</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Testes de Integração</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-vial"></i>
-                <span class="tooltip">Agente de Cenários de Teste</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Testes de Aceitação</div>
-              <div class="activity-tool promptx">
-                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
-                <span class="tooltip">PromptX Capgemini</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Automação de Testes</div>
-              <div class="activity-tool github">
-                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
-                <span class="tooltip">GitHub Copilot</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Fase 5: Deploy -->
-        <div class="phase-column">
-          <div class="phase-circle">
-            <i class="fas fa-rocket"></i>
-            <div class="phase-number">5</div>
-          </div>
-          <div class="phase-header">
-            <h3 class="phase-title">
-              <i class="fas fa-rocket"></i>
-              Deploy
-            </h3>
-            <p class="phase-desc">Implantação em produção</p>
-          </div>
-          <button class="toggle-activities">
-            <i class="fas fa-chevron-up"></i>
-          </button>
-          <div class="activities-container">
-            <div class="activity-box">
-              <div class="activity-title">Preparação do Ambiente</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-server"></i>
-                <span class="tooltip">Agente de Infraestrutura</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Implantação</div>
-              <div class="activity-tool github">
-                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
-                <span class="tooltip">GitHub Copilot</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Monitoramento</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-robot"></i>
-                <span class="tooltip">Agente de Monitoramento</span>
-              </div>
-            </div>
-            
-            <div class="activity-box">
-              <div class="activity-title">Feedback e Ajustes</div>
-              <div class="activity-tool promptx">
-                <img src="./Imagem_Cap_Icone.png" alt="PromptX">
-                <span class="tooltip">PromptX Capgemini</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+Fluxo de Desenvolvimento com Aceleradores de IA
+Transformando o ciclo de desenvolvimento de software com ferramentas de Inteligência Artificial em cada fase
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const phaseColumns = document.querySelectorAll('.phase-column');
-      const toggleButtons = document.querySelectorAll('.toggle-activities');
-      
-      // Adiciona a classe visible a todos os itens imediatamente
-      setTimeout(() => {
-        phaseColumns.forEach(phase => {
-          phase.classList.add('visible');
-        });
-      }, 300);
-      
-      // Configurar botões de toggle para as atividades
-      toggleButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-          const phaseColumn = phaseColumns[index];
-          
-          // Alterna a coluna atual
-          phaseColumn.classList.toggle('collapsed');
-          
-          // Alterna o ícone da seta
-          const icon = button.querySelector('i');
-          if (phaseColumn.classList.contains('collapsed')) {
-            icon.classList.remove('fa-chevron-up');
-            icon.classList.add('fa-chevron-down');
-          } else {
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
-          }
-          
-          // Adiciona ou remove a classe pulse
-          const circle = phaseColumn.querySelector('.phase-circle');
-          if (!phaseColumn.classList.contains('collapsed')) {
-            circle.classList.add('pulse');
-          } else if (index !== 0) { // Mantém o pulse no primeiro item
-            circle.classList.remove('pulse');
-          }
-        });
-      });
-      
-      // Adiciona efeito de pulse ao círculo da fase quando o mouse passa sobre o item
-      phaseColumns.forEach((phase, index) => {
-        phase.addEventListener('mouseenter', () => {
-          const circle = phase.querySelector('.phase-circle');
-          circle.classList.add('pulse');
-        });
-        
-        phase.addEventListener('mouseleave', () => {
-          const circle = phase.querySelector('.phase-circle');
-          // Mantém o pulse apenas no primeiro item ou se não estiver recolhido
-          if (index !== 0 && phase.classList.contains('collapsed')) {
-            circle.classList.remove('pulse');
-          }
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+PromptX
+PromptX
+Agentes Especializados
+GitHub Copilot Logo
+GitHub Copilot
+Base de Conhecimento
+Base de Conhecimento
+1
+Requisitos
+Definição e análise
+
+
+Entrada da Demanda
+Base de ConhecimentoBase de Conhecimento
+Histórias de Usuário
+PromptXPromptX Capgemini
+Refinamento
+Agente de Histórias
+Pontos de Função
+Agente de Pontos de Função
+2
+Base de Dados
+Modelagem e validação
+
+
+Modelagem de Dados
+PromptXPromptX Capgemini
+Validação de Padrões
+Agente de Validação de Dados
+Otimização
+Base de ConhecimentoBase de Conhecimento
+3
+Desenvolvimento
+Implementação do código
+
+
+Codificação
+GitHub CopilotGitHub Copilot
+Code Review
+Agente de Code Review
+Testes Unitários
+GitHub CopilotGitHub Copilot
+Integração Contínua
+Agente de CI/CD
+4
+Qualidade
+Garantia da qualidade
+
+
+Cenários de Teste
+PromptXPromptX Capgemini
+Testes de Integração
+Agente de Cenários de Teste
+Testes de Aceitação
+PromptXPromptX Capgemini
+Automação de Testes
+GitHub CopilotGitHub Copilot
+5
+Deploy
+Implantação em produção
+
+
+Preparação do Ambiente
+Agente de Infraestrutura
+Implantação
+GitHub CopilotGitHub Copilot
+Monitoramento
+Agente de Monitoramento
+Feedback e Ajustes
+PromptXPromptX Capgemini
