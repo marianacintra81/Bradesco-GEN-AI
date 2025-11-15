@@ -474,7 +474,7 @@
     }
 
 
-    /* Citações otimizadas */
+     /* Citações otimizadas */
     .quote-box {
       margin-top: 20px;
       padding: 16px;
@@ -710,6 +710,20 @@
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
+        
+        <!-- Card Projeto 3 - Onboarding -->
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3 class="card-title">Base de Conhecimento para Onboarding</h3>
+          <p class="card-description">Centralização de informações sobre configurações de software, VPN, processos da Capgemini e do Bradesco para acelerar a integração de novos profissionais.</p>
+          <!-- Botão com onclick mantido -->
+          <div class="card-action" data-modal="modal-project3">
+            <span>Ver detalhes</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -774,7 +788,7 @@
         <ul>
           <li><strong>Tempo de resposta:</strong> Redução de 40% a 60% no TMR para consultas normativas</li>
           <li><strong>Qualidade:</strong> Diminuição de retrabalho e riscos de não conformidade com respostas citando fontes</li>
-          <li><strong>Produtividade:</strong> aumento da capacidade de atendimento (casos resolvidos/dia) em atendimento, backoffice e jurídico, com menor fila de dúvidas</li>
+          <li><strong>Produtividade:</strong> Aumento da capacidade de atendimento (casos resolvidos/dia) em atendimento, backoffice e jurídico, com menor fila de dúvidas</li>
           <li><strong>Onboarding:</strong> Integração mais rápida de novos analistas com conteúdo unificado e pesquisável</li>
           <li><strong>Escalabilidade:</strong> Crescimento à medida que o portfólio de normas cresce</li>
         </ul>
@@ -797,8 +811,8 @@
           <div style="flex:1">
             <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-circle-info" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
             <p style="font-size:0.95rem; line-height:1.5;">A ideia é centralizar os materiais relacionados às ferramentas da Ping utilizadas no projeto de autenticação, facilitando o acesso às informações por todos os envolvidos, inclusive terceiros e colaboradores do Bradesco.</p>
-            <p style="font-size:0.95rem; line-height:1.5; margin-top:10px;">Como a documentação oficial é extensa e complexa, essa base seria alimentada com os documentos originais e resumos traduzidos, permitindo consultas ágeis e organizadas através do PromptX.</p>
-          </div>
+            <p style="font-size:0.95rem; line-height:1.5; margin-top:10px;">Como a documentação oficial é extensa e complexa, essa base seria alimentada com os documentos originais e resumos traduzidos, permitindo consultas ágeis e 
+                  </div>
           <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(123,104,238,.4);">
             <i class="fas fa-book" style="font-size:2.2rem; color:#fff"></i>
           </div>
@@ -833,13 +847,76 @@
             </ul>
           </div>
         </div>
-        
-      
-      
-        </div>
       </div>
     </div>
   </div>
+  
+  <!-- Modal para Projeto 3 - Onboarding -->
+  <div class="modal-overlay" id="modal-project3" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle3">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle3">Base de Conhecimento para Onboarding</h3>
+        <button class="modal-close" onclick="closeModal('modal-project3')" aria-label="Fechar"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(0,229,255,.08), rgba(204,0,0,.08)); padding:16px; border-radius:14px; border:1px solid rgba(0,229,255,.2);">
+          <div style="flex:1">
+            <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-circle-info" style="color:var(--accent-cyan); font-size:0.9rem;"></i> Visão Geral</h4>
+            <p style="font-size:0.95rem; line-height:1.5;">Esta base de conhecimento foi desenvolvida para acelerar o processo de integração de novos profissionais, fornecendo acesso rápido e centralizado às informações essenciais sobre configurações técnicas e processos organizacionais.</p>
+            <p style="font-size:0.95rem; line-height:1.5; margin-top:10px;">Com consultas simplificadas via PromptX, os novos colaboradores podem obter respostas imediatas sobre configuração de VPN, ambientes de desenvolvimento, ferramentas internas, fluxos de trabalho e procedimentos administrativos tanto da Capgemini quanto do Bradesco.</p>
+          </div>
+          <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, var(--accent-cyan), var(--bradesco-red)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,229,255,.4);">
+            <i class="fas fa-laptop-code" style="font-size:2.2rem; color:#fff"></i>
+          </div>
+        </div>
+        
+        <div class="grid">
+          <div class="card-modal">
+            <h4><i class="fas fa-bullseye"></i> Objetivos</h4>
+            <ul>
+              <li><strong>Acelerar:</strong> Redução do tempo de onboarding</li>
+              <li><strong>Centralizar:</strong> Informações técnicas e processuais</li>
+              <li><strong>Padronizar:</strong> Configurações de ambiente</li>
+              <li><strong>Automatizar:</strong> Respostas para dúvidas frequentes</li>
+            </ul>
+          </div>
+          <div class="card-modal">
+            <h4><i class="fas fa-users"></i> Público-alvo</h4>
+            <ul>
+              <li><strong>Novos colaboradores:</strong> Desenvolvedores e analistas</li>
+              <li><strong>Gestores:</strong> Acompanhamento de integração</li>
+              <li><strong>Equipe de TI:</strong> Suporte técnico</li>
+              <li><strong>RH:</strong> Processos de integração</li>
+            </ul>
+          </div>
+          <div class="card-modal">
+            <h4><i class="fas fa-chart-line"></i> Benefícios</h4>
+            <ul>
+              <li><strong>Produtividade:</strong> Início de atividades 70% mais rápido</li>
+              <li><strong>Autonomia:</strong> 85% menos dependência de suporte</li>
+              <li><strong>Qualidade:</strong> Configurações padronizadas</li>
+              <li><strong>Satisfação:</strong> Melhor experiência de integração</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Conteúdo específico para Onboarding -->
+        <div class="card-modal" style="margin-top: 16px; background: linear-gradient(135deg, rgba(0,51,160,.05), rgba(0,229,255,.05)); border: 1px solid rgba(0,51,160,.2);">
+          <h4><i class="fas fa-list-check" style="color: var(--accent-cyan);"></i> Conteúdos Disponíveis</h4>
+          <div class="kpi-chips">
+            <div class="chip neutral"><i class="fas fa-network-wired"></i> Configuração de VPN</div>
+            <div class="chip neutral"><i class="fas fa-code-branch"></i> Ambientes Git</div>
+            <div class="chip neutral"><i class="fas fa-shield-alt"></i> Políticas de Segurança</div>
+            <div class="chip neutral"><i class="fas fa-id-card"></i> Acessos e Credenciais</div>
+            <div class="chip neutral"><i class="fas fa-server"></i> Ambientes de Desenvolvimento</div>
+            <div class="chip neutral"><i class="fas fa-sitemap"></i> Arquitetura de Sistemas</div>
+            <div class="chip neutral"><i class="fas fa-clipboard-list"></i> Processos Administrativos</div>
+            <div class="chip neutral"><i class="fas fa-handshake"></i> Fluxos de Aprovação</div>
+            <div class="chip neutral"><i class="fas fa-tools"></i> Ferramentas Internas</div>
+          </div>
+        </div>
+        
+     
   
   <script>
   // Substitua o script existente por este:
