@@ -69,8 +69,50 @@
       overflow-x: hidden;
     }
     
+    /* Adicionando estilos para os elementos particles e glow */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.15;
+      z-index: -1;
+    }
+    
+    .glow-1 {
+      top: 20%;
+      left: 20%;
+      width: 600px;
+      height: 600px;
+      background: var(--accent-cyan);
+    }
+    
+    .glow-2 {
+      bottom: 10%;
+      right: 10%;
+      width: 500px;
+      height: 500px;
+      background: var(--accent-purple);
+    }
+    
+    .glow-3 {
+      top: 60%;
+      left: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--bradesco-red);
+    }
+    
     .container {
-      max-width: 1400px;
+      max-width: 1600px; /* Aumentado de 1400px para 1600px */
       margin: 0 auto;
     }
     
@@ -248,7 +290,7 @@
       padding: 1rem;
       margin-top: 1.5rem;
       width: 90%;
-      max-width: 180px;
+      max-width: 200px; /* Aumentado de 180px para 200px */
       border-bottom: 3px solid var(--accent-cyan);
       box-shadow: var(--card-shadow);
       text-align: center;
@@ -284,7 +326,7 @@
       flex-direction: column;
       align-items: center;
       gap: 0.8rem;
-      max-height: 500px;
+      max-height: 800px; /* Aumentado de 500px para 800px */
       overflow: hidden;
       transition: max-height 0.5s ease;
     }
@@ -299,7 +341,7 @@
       border-radius: 10px;
       padding: 0.8rem;
       width: 90%;
-      max-width: 180px;
+      max-width: 200px; /* Aumentado de 180px para 200px */
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -398,7 +440,7 @@
       box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
     }
     
-    .activity-tool.github {
+       .activity-tool.github {
       background: linear-gradient(135deg, #2b3137, #404448);
     }
     
@@ -437,7 +479,7 @@
       transform: rotate(180deg);
     }
     
-    /* Pulse Animation */
+      /* Pulse Animation */
     @keyframes pulse {
       0% {
         box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
@@ -454,10 +496,11 @@
       animation: pulse 2s infinite;
     }
     
-    /* Hover Card Styles */
+    /* Hover Card Styles - CORRIGIDO PARA EVITAR CORTE */
     .hover-card {
       position: absolute;
-      width: 400px; /* Aumentado de 300px */
+      width: 400px;
+      max-height: 80vh; /* Limitar altura máxima a 80% da altura da viewport */
       background: var(--bg-secondary);
       border-radius: 12px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
@@ -513,6 +556,11 @@
       object-fit: contain;
     }
     
+    .hover-card-icon i {
+      font-size: 1.5rem;
+      color: white;
+    }
+    
     .hover-card-close {
       width: 24px;
       height: 24px;
@@ -535,8 +583,8 @@
     
     .hover-card-body {
       padding: 1rem;
-      max-height: none; /* Remover altura máxima */
-      overflow-y: visible; /* Remover barra de rolagem */
+      max-height: calc(80vh - 70px); /* Altura máxima menos altura aproximada do header */
+      overflow-y: auto; /* Adicionar barra de rolagem quando necessário */
     }
     
     .hover-card-content {
@@ -751,6 +799,15 @@
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
+            
+            <!-- Card COBOL Doc Generator com ID específico para depuração -->
+            <div class="activity-box" id="cobolCard" data-hover="cobolAnalyzer">
+              <div class="activity-title">Gerador de Documentação COBOL</div>
+              <div class="activity-tool agent">
+                <i class="fas fa-robot"></i>
+                <span class="tooltip">Gerador de Documentação COBOL</span>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -773,9 +830,10 @@
           <div class="activities-container">
             <div class="activity-box">
               <div class="activity-title">Validação e Padronização de Dados</div>
-              <div class="activity-tool kb">
-                <img src="./Picture4.png" alt="Base de Conhecimento">
-                <span class="tooltip">PromptX Capgemini</span>
+              <!-- Alterado para ícone de agente (robô) -->
+              <div class="activity-tool agent">
+                <i class="fas fa-robot"></i>
+                <span class="tooltip">Agente de Padronização de Dados</span>
               </div>
             </div>
           </div>
@@ -798,7 +856,7 @@
             <i class="fas fa-chevron-up"></i>
           </button>
           <div class="activities-container">
-            <div class="activity-box">
+              <div class="activity-box">
               <div class="activity-title">Codificação</div>
               <div class="activity-tool github">
                 <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
@@ -838,7 +896,7 @@
             <i class="fas fa-check-square"></i>
             <div class="phase-number">4</div>
           </div>
-          <div class="phase-header">
+              <div class="phase-header">
             <h3 class="phase-title">
               <i class="fas fa-check-square"></i>
               Qualidade
@@ -856,7 +914,8 @@
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
-              <div class="activity-box">
+            
+            <div class="activity-box">
               <div class="activity-title">Testes de Integração</div>
               <div class="activity-tool agent">
                 <i class="fas fa-vial"></i>
@@ -963,6 +1022,33 @@
       </div>
     </div>
   </div>
+  
+  <!-- Hover Card para Gerador de Documentação COBOL -->
+  <div class="hover-card" id="hoverCardCobolAnalyzer">
+    <div class="hover-card-header">
+      <div class="hover-card-icon">
+        <i class="fas fa-file-code"></i>
+      </div>
+      <h2 class="hover-card-title">Gerador de Documentação COBOL</h2>
+      <button class="hover-card-close" aria-label="Fechar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="hover-card-body">
+      <div class="hover-card-content">
+        <p>O <strong>Gerador de Documentação COBOL</strong> é um agente especializado que transforma automaticamente código COBOL em documentação funcional detalhada, extraindo regras de negócio e fluxos lógicos diretamente do código fonte.</p>
+        
+        <h3>Principais Benefícios</h3>
+        <ul>
+          <li>Extração automática de regras de negócio a partir do código fonte COBOL</li>
+          <li>Mapeamento de fluxos de processamento e dependências entre programas</li>
+          <li>Geração de documentação técnica e funcional para projetos de modernização</li>
+        </ul>
+        
+        <p>Este agente converte código legado em documentação clara e estruturada, facilitando a compreensão dos sistemas e acelerando projetos de modernização.</p>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1020,90 +1106,212 @@
         });
       });
       
-      // Hover Card functionality
-      const hoverCard = document.getElementById('hoverCardBaseConhecimento');
-      const hoverCardCloseBtn = hoverCard.querySelector('.hover-card-close');
-      const baseConhecimentoCard = document.querySelector('[data-hover="baseConhecimento"]');
-      let isCardFixed = false;
-      let hoverTimeout;
-      
-      // Position the hover card near the activity box
-      function positionHoverCard(targetElement) {
-        const rect = targetElement.getBoundingClientRect();
-        const cardWidth = 400; // Width of the hover card - atualizado
-        
-        // Calculate position - prefer right side if there's enough space
-        let left = rect.right + 15;
-        
-        // Check if card would go off-screen to the right
-        if (left + cardWidth > window.innerWidth - 20) {
-          left = rect.left - cardWidth - 15; // Position to the left instead
+      // Função para posicionar hover cards - MODIFICADA PARA CENTRALIZAR O CARD COBOL
+      function positionHoverCard(targetElement, hoverCard, isCobolCard = false) {
+        if (isCobolCard) {
+          // Posicionamento centralizado para o card COBOL
+          const cardWidth = 400;
+          const cardHeight = hoverCard.offsetHeight || 300;
+          
+          // Centralizar na tela
+          const left = (window.innerWidth - cardWidth) / 2;
+          const top = (window.innerHeight - cardHeight) / 2;
+          
+          hoverCard.style.left = `${left}px`;
+          hoverCard.style.top = `${top}px`;
+        } else {
+          // Posicionamento normal para outros cards
+          const rect = targetElement.getBoundingClientRect();
+          const cardWidth = 400;
+          const cardHeight = hoverCard.offsetHeight || 300;
+          
+          // Calculate position - prefer right side if there's enough space
+          let left = rect.right + 15;
+          
+          // Check if card would go off-screen to the right
+          if (left + cardWidth > window.innerWidth - 20) {
+            left = rect.left - cardWidth - 15; // Position to the left instead
+          }
+          
+          // If it would go off-screen to the left too, center it
+          if (left < 20) {
+            left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
+          }
+          
+          // Calculate vertical position
+          let top = rect.top - 10;
+          
+          // Check if card would go off-screen at the bottom
+          if (top + cardHeight > window.innerHeight - 20) {
+            top = window.innerHeight - cardHeight - 20; // Position higher to fit on screen
+          }
+          
+          // Check if card would go off-screen at the top
+          if (top < 20) {
+            top = 20; // Ensure minimum distance from top
+          }
+          
+          hoverCard.style.left = `${left}px`;
+          hoverCard.style.top = `${top}px`;
         }
-        
-        // If it would go off-screen to the left too, center it
-        if (left < 20) {
-          left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
-        }
-        
-        const top = rect.top - 10;
-        
-        hoverCard.style.left = `${left}px`;
-        hoverCard.style.top = `${top}px`;
       }
       
-      // Show hover card when hovering over Base de Conhecimento card
-      baseConhecimentoCard.addEventListener('mouseenter', () => {
-        clearTimeout(hoverTimeout);
-        if (!isCardFixed) {
-          positionHoverCard(baseConhecimentoCard);
-          hoverCard.classList.add('active');
+      // Setup hover card functionality - MELHORADO
+      function setupHoverCard(cardId, triggerSelector, isCobolCard = false) {
+        console.log("Configurando hover card:", cardId, triggerSelector);
+        const hoverCard = document.getElementById(cardId);
+        if (!hoverCard) {
+          console.error(`Hover card com ID ${cardId} não encontrado`);
+          return;
         }
-      });
-      
-      // Hide hover card when mouse leaves, unless it's fixed
-      baseConhecimentoCard.addEventListener('mouseleave', () => {
-        if (!isCardFixed) {
-          hoverTimeout = setTimeout(() => {
+        
+        const closeBtn = hoverCard.querySelector('.hover-card-close');
+        const triggerElements = document.querySelectorAll(triggerSelector);
+        
+        if (triggerElements.length === 0) {
+          console.error(`Nenhum elemento encontrado com o seletor ${triggerSelector}`);
+          return;
+        }
+        
+        console.log(`Encontrados ${triggerElements.length} elementos para o seletor ${triggerSelector}`);
+        
+        triggerElements.forEach(triggerElement => {
+          let isCardFixed = false;
+          let hoverTimeout;
+          
+          // Show hover card when hovering over trigger element
+          triggerElement.addEventListener('mouseenter', () => {
+            console.log(`Mouse entrou em ${triggerSelector}`);
+            clearTimeout(hoverTimeout);
+            if (!isCardFixed) {
+              positionHoverCard(triggerElement, hoverCard, isCobolCard);
+              hoverCard.classList.add('active');
+            }
+          });
+          
+          // Hide hover card when mouse leaves, unless it's fixed
+          triggerElement.addEventListener('mouseleave', () => {
+            if (!isCardFixed) {
+              hoverTimeout = setTimeout(() => {
+                hoverCard.classList.remove('active');
+              }, 300);
+            }
+          });
+          
+          // Keep hover card visible when mouse enters it
+          hoverCard.addEventListener('mouseenter', () => {
+            clearTimeout(hoverTimeout);
+          });
+          
+          // Hide hover card when mouse leaves it, unless it's fixed
+          hoverCard.addEventListener('mouseleave', () => {
+            if (!isCardFixed) {
+              hoverTimeout = setTimeout(() => {
+                hoverCard.classList.remove('active');
+              }, 300);
+            }
+          });
+          
+          // Fix the hover card in place when clicking on trigger element
+          triggerElement.addEventListener('click', (e) => {
+            console.log(`Clique em ${triggerSelector}`);
+            e.preventDefault();
+            isCardFixed = true;
+            positionHoverCard(triggerElement, hoverCard, isCobolCard);
+            hoverCard.classList.add('active');
+          });
+          
+          // Close hover card when clicking the close button
+          closeBtn.addEventListener('click', () => {
+            isCardFixed = false;
             hoverCard.classList.remove('active');
-          }, 300);
-        }
-      });
-      
-      // Keep hover card visible when mouse enters it
-      hoverCard.addEventListener('mouseenter', () => {
-        clearTimeout(hoverTimeout);
-      });
-      
-      // Hide hover card when mouse leaves it, unless it's fixed
-      hoverCard.addEventListener('mouseleave', () => {
-        if (!isCardFixed) {
-          hoverTimeout = setTimeout(() => {
+          });
+          
+           // Close hover card when clicking the close button
+          closeBtn.addEventListener('click', () => {
+            isCardFixed = false;
             hoverCard.classList.remove('active');
-          }, 300);
-        }
-      });
+          });
+          
+          // Close hover card with Escape key if it's fixed
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isCardFixed && hoverCard.classList.contains('active')) {
+              isCardFixed = false;
+              hoverCard.classList.remove('active');
+            }
+          });
+        });
+      }
       
-      // Fix the hover card in place when clicking on Base de Conhecimento card
-      baseConhecimentoCard.addEventListener('click', (e) => {
-        e.preventDefault();
-        isCardFixed = true;
-        positionHoverCard(baseConhecimentoCard);
-        hoverCard.classList.add('active');
-      });
+      // Verificar se o card COBOL está visível
+      const cobolCard = document.getElementById('cobolCard');
+      if (cobolCard) {
+        console.log("Card COBOL encontrado:", cobolCard);
+        // Destacar o card COBOL temporariamente para depuração
+        setTimeout(() => {
+          cobolCard.style.borderColor = "var(--accent-cyan)";
+          cobolCard.style.borderWidth = "3px";
+          
+          // Restaurar após 3 segundos
+          setTimeout(() => {
+            cobolCard.style.borderColor = "";
+            cobolCard.style.borderWidth = "";
+          }, 3000);
+        }, 1000);
+      }
       
-      // Close hover card when clicking the close button
-      hoverCardCloseBtn.addEventListener('click', () => {
-        isCardFixed = false;
-        hoverCard.classList.remove('active');
-      });
+      // Setup hover cards com verificação adicional
+      console.log("Iniciando configuração dos hover cards");
       
-      // Close hover card with Escape key if it's fixed
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isCardFixed && hoverCard.classList.contains('active')) {
-          isCardFixed = false;
-          hoverCard.classList.remove('active');
-        }
-      });
+      // Configurar hover cards - Passando true para o card COBOL para centralizar na tela
+      setupHoverCard('hoverCardBaseConhecimento', '[data-hover="baseConhecimento"]', false);
+      setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]', true); // Passando true para centralizar
+      
+      // Verificação adicional para o card COBOL
+      const cobolAnalyzerCard = document.getElementById('hoverCardCobolAnalyzer');
+      const cobolAnalyzerTrigger = document.querySelector('[data-hover="cobolAnalyzer"]');
+      
+      if (cobolAnalyzerCard && cobolAnalyzerTrigger) {
+        console.log("Elementos COBOL encontrados, configurando manualmente");
+        
+        // Configuração manual para o card COBOL
+        cobolAnalyzerTrigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Centralizar o card COBOL na tela
+          const cardWidth = 400;
+          const cardHeight = cobolAnalyzerCard.offsetHeight || 300;
+          
+          // Centralizar na tela
+          const left = (window.innerWidth - cardWidth) / 2;
+          const top = (window.innerHeight - cardHeight) / 2;
+          
+          cobolAnalyzerCard.style.left = `${left}px`;
+          cobolAnalyzerCard.style.top = `${top}px`;
+          
+          cobolAnalyzerCard.classList.add('active');
+        });
+        
+        // Mostrar o card COBOL brevemente para depuração
+        setTimeout(() => {
+          // Centralizar o card COBOL na tela
+          const cardWidth = 400;
+          const cardHeight = cobolAnalyzerCard.offsetHeight || 300;
+          
+          // Centralizar na tela
+          const left = (window.innerWidth - cardWidth) / 2;
+          const top = (window.innerHeight - cardHeight) / 2;
+          
+          cobolAnalyzerCard.style.left = `${left}px`;
+          cobolAnalyzerCard.style.top = `${top}px`;
+          
+          cobolAnalyzerCard.classList.add('active');
+          
+          // Ocultar após 2 segundos
+          setTimeout(() => {
+            cobolAnalyzerCard.classList.remove('active');
+          }, 2000);
+        }, 2000);
+      }
     });
   </script>
 </body>
