@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentes PromptX</title>
+    <title>Agentes </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
@@ -23,6 +23,8 @@
             --cyan-highlight: #00e5ff;
             --green-highlight: #4CAF50;
             --orange-highlight: #FF9800;
+            --pink-highlight: #E91E63;
+            --teal-highlight: #009688;
             
             /* Cores de Texto */
             --text-primary: #ffffff;
@@ -279,6 +281,15 @@
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(255, 152, 0, 0.2));
         }
         
+        /* Novas classes para os headers dos novos agentes */
+        .agent-header.code {
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.2), rgba(156, 39, 176, 0.2));
+        }
+        
+         .agent-header.test {
+            background: linear-gradient(135deg, rgba(0, 150, 136, 0.2), rgba(76, 175, 80, 0.2));
+        }
+        
         /* Efeito de circuito no header do card */
         .agent-header::after {
             content: '';
@@ -345,6 +356,17 @@
             animation: iconPulse 2s infinite;
         }
         
+        /* Novas classes para os ícones dos novos agentes */
+        .agent-icon.code {
+            color: var(--pink-highlight);
+            animation: iconPulse 2s infinite;
+        }
+        
+        .agent-icon.test {
+            color: var(--teal-highlight);
+            animation: iconPulse 2s infinite;
+        }
+        
         .agent-icon.business::after {
             background: linear-gradient(135deg, var(--purple-highlight), var(--red-bradesco));
         }
@@ -352,6 +374,15 @@
         /* Nova classe para o fundo do ícone do agente COBOL */
         .agent-icon.legacy::after {
             background: linear-gradient(135deg, var(--green-highlight), var(--orange-highlight));
+        }
+        
+        /* Novas classes para os fundos dos ícones dos novos agentes */
+        .agent-icon.code::after {
+            background: linear-gradient(135deg, var(--pink-highlight), var(--purple-highlight));
+        }
+        
+        .agent-icon.test::after {
+            background: linear-gradient(135deg, var(--teal-highlight), var(--green-highlight));
         }
         
         .agent-card:hover .agent-icon {
@@ -370,6 +401,15 @@
         /* Hover para o ícone do agente COBOL */
         .agent-card:hover .agent-icon.legacy {
             color: var(--green-highlight);
+        }
+        
+        /* Hover para os ícones dos novos agentes */
+        .agent-card:hover .agent-icon.code {
+            color: var(--pink-highlight);
+        }
+        
+        .agent-card:hover .agent-icon.test {
+            color: var(--teal-highlight);
         }
         
         .agent-title-area {
@@ -409,6 +449,15 @@
             background: var(--green-highlight);
         }
         
+        /* Novas classes para os destaques dos títulos dos novos agentes */
+        .agent-card:hover .agent-header.code .agent-title::after {
+            background: var(--pink-highlight);
+        }
+        
+        .agent-card:hover .agent-header.test .agent-title::after {
+            background: var(--teal-highlight);
+        }
+        
         .agent-category {
             display: inline-block;
             padding: 3px 10px;
@@ -433,6 +482,17 @@
         .agent-category.legacy {
             background: rgba(76, 175, 80, 0.2);
             color: var(--green-highlight);
+        }
+        
+        /* Novas classes para as categorias dos novos agentes */
+        .agent-category.code {
+            background: rgba(233, 30, 99, 0.2);
+            color: var(--pink-highlight);
+        }
+        
+        .agent-category.test {
+            background: rgba(0, 150, 136, 0.2);
+            color: var(--teal-highlight);
         }
         
         .agent-body {
@@ -528,6 +588,17 @@
             color: var(--green-highlight);
         }
         
+        /* Novas classes para os ícones de feature dos novos agentes */
+        .feature-icon.code {
+            background: rgba(233, 30, 99, 0.15);
+            color: var(--pink-highlight);
+        }
+        
+        .feature-icon.test {
+            background: rgba(0, 150, 136, 0.15);
+            color: var(--teal-highlight);
+        }
+        
         .feature-text {
             font-size: 0.85rem;
             color: var(--text-secondary);
@@ -587,12 +658,23 @@
             color: var(--green-highlight);
         }
         
+        /* Novas classes para as tags de benefício dos novos agentes */
+        .benefit-tag.code {
+            background: rgba(233, 30, 99, 0.15);
+            color: var(--pink-highlight);
+        }
+        
+        .benefit-tag.test {
+            background: rgba(0, 150, 136, 0.15);
+            color: var(--teal-highlight);
+        }
+        
         .agent-card:hover .benefit-tag {
             transform: translateY(-3px);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
         
-        .agent-footer {
+          .agent-footer {
             padding: 20px 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
@@ -626,6 +708,15 @@
         /* Nova classe para o ícone de usuários do agente COBOL */
         .agent-users i.legacy {
             color: var(--green-highlight);
+        }
+        
+        /* Novas classes para os ícones de usuários dos novos agentes */
+        .agent-users i.code {
+            color: var(--pink-highlight);
+        }
+        
+        .agent-users i.test {
+            color: var(--teal-highlight);
         }
         
         /* Efeito de destaque AI */
@@ -698,7 +789,7 @@
                 gap: 15px;
             }
         }
-        </style>
+    </style>
 </head>
 <body>
     <!-- Partículas de fundo -->
@@ -712,7 +803,7 @@
                 <i class="fas fa-arrow-left"></i>
             </a>
             
-            <h1>Agentes PromptX </h1>
+            <h1>Agentes  </h1>
             <p> Potencializando seu Trabalho com IA </p>
         </div>
     </section>
@@ -909,6 +1000,131 @@
                         </div>
                     </div>
                 </div>
+                 <!-- Code Review Agent (NOVO) -->
+                <div class="agent-card floating">
+                    <div class="ai-badge">
+                      
+                    </div>
+                    <div class="agent-header code">
+                        <div class="agent-icon code">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="agent-title-area">
+                            <h3 class="agent-title">Agente de Code Review</h3>
+                            <span class="agent-category code">GitHub Copilot</span>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <!-- Fundo de código binário -->
+                        <div class="binary-bg" id="binary-bg-code"></div>
+                        
+                        <p class="agent-description">
+                            Um agente especializado em revisão de código que utiliza o GitHub Copilot para identificar problemas, sugerir melhorias e garantir a qualidade do código seguindo as melhores práticas de desenvolvimento.
+                        </p>
+                        
+                        <div class="agent-features">
+                            <div class="feature-item">
+                                <div class="feature-icon code">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Detecção automática de vulnerabilidades de segurança e bugs potenciais
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon code">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Sugestões de refatoração para melhorar a legibilidade e manutenção
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon code">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Verificação de conformidade com padrões de codificação da empresa
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-benefits">
+                            <span class="benefit-tag code">+75% detecção de bugs</span>
+                            <span class="benefit-tag code">+60% qualidade de código</span>
+                            <span class="benefit-tag code">-50% tempo de revisão</span>
+                        </div>
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-users">
+                            <i class="fas fa-users code"></i>
+                            <span>Desenvolvedores e Tech Leads</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Test Automation Agent (NOVO) -->
+                <div class="agent-card floating">
+                    <div class="ai-badge">
+                      
+                    </div>
+                    <div class="agent-header test">
+                        <div class="agent-icon test">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <div class="agent-title-area">
+                            <h3 class="agent-title">Agente de Testes Automatizados</h3>
+                            <span class="agent-category test">GitHub Copilot</span>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <!-- Fundo de código binário -->
+                        <div class="binary-bg" id="binary-bg-test"></div>
+                        
+                        <p class="agent-description">
+                            Um agente especializado na criação e otimização de testes automatizados utilizando o GitHub Copilot, acelerando o desenvolvimento de testes unitários, de integração e end-to-end.
+                        </p>
+                        
+                        <div class="agent-features">
+                            <div class="feature-item">
+                                <div class="feature-icon test">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Geração automática de testes unitários com alta cobertura de código
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon test">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Criação de casos de teste baseados em comportamentos esperados
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon test">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="feature-text">
+                                    Otimização de testes existentes para melhor desempenho e confiabilidade
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="agent-benefits">
+                            <span class="benefit-tag test">+80% cobertura de testes</span>
+                            <span class="benefit-tag test">+70% detecção de regressões</span>
+                            <span class="benefit-tag test">-60% tempo de desenvolvimento</span>
+                        </div>
+                    </div>
+                    <div class="agent-footer">
+                        <div class="agent-users">
+                            <i class="fas fa-users test"></i>
+                            <span>QAs e Desenvolvedores</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -976,6 +1192,8 @@
             generateBinaryBackground('binary-bg-data', 'rgba(0, 229, 255, 0.2)');
             generateBinaryBackground('binary-bg-business', 'rgba(123, 104, 238, 0.2)');
             generateBinaryBackground('binary-bg-cobol', 'rgba(76, 175, 80, 0.2)');
+            generateBinaryBackground('binary-bg-code', 'rgba(233, 30, 99, 0.2)');
+            generateBinaryBackground('binary-bg-test', 'rgba(0, 150, 136, 0.2)');
             
             // Efeito hover nos cards
             const agentCards = document.querySelectorAll('.agent-card');
