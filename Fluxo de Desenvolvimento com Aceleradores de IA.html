@@ -444,7 +444,7 @@
       background: linear-gradient(135deg, #2b3137, #404448);
     }
     
-      .activity-tool.agent {
+    .activity-tool.agent {
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
     }
     
@@ -513,6 +513,19 @@
       pointer-events: none;
     }
     
+    /* Estilo específico para o card COBOL para exibir na parte inferior e mais à esquerda */
+    #hoverCardCobolAnalyzer {
+      position: fixed;
+      bottom: 30px;
+      left: 25%; /* Movido mais para a esquerda (era 50%) */
+      transform: translateX(-50%) translateY(10px);
+      width: 500px;
+    }
+    
+    #hoverCardCobolAnalyzer.active {
+      transform: translateX(-50%) translateY(0);
+    }
+    
     .hover-card.active {
       opacity: 1;
       visibility: visible;
@@ -548,6 +561,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    
+    /* Estilo específico para o ícone do card COBOL (agente) */
+    #hoverCardCobolAnalyzer .hover-card-icon {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); /* Gradiente do agente */
     }
     
     .hover-card-icon img {
@@ -682,6 +700,11 @@
       .hover-card {
         width: 350px;
       }
+      
+      #hoverCardCobolAnalyzer {
+        width: 90%;
+        max-width: 450px;
+      }
     }
     
     @media (max-width: 768px) {
@@ -712,6 +735,11 @@
       
       .hover-card {
         width: 320px;
+      }
+      
+      #hoverCardCobolAnalyzer {
+        width: 90%;
+        max-width: 400px;
       }
     }
   </style>
@@ -887,9 +915,9 @@
             
             <div class="activity-box">
               <div class="activity-title">Integração Contínua</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-cogs"></i>
-                <span class="tooltip">Agente de CI/CD</span>
+           <div class="activity-tool github">
+                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
+                <span class="tooltip">GitHub Copilot</span>
               </div>
             </div>
           </div>
@@ -1032,7 +1060,7 @@
   <div class="hover-card" id="hoverCardCobolAnalyzer">
     <div class="hover-card-header">
       <div class="hover-card-icon">
-        <i class="fas fa-file-code"></i>
+        <i class="fas fa-robot"></i> <!-- Alterado para ícone de robô (agente) -->
       </div>
       <h2 class="hover-card-title">Gerador de Documentação COBOL</h2>
       <button class="hover-card-close" aria-label="Fechar">
@@ -1111,42 +1139,31 @@
         });
       });
       
-      // Função para posicionar hover cards - MODIFICADA PARA POSICIONAR O CARD COBOL AO LADO
+      // Função para posicionar hover cards - MODIFICADA PARA POSICIONAR O CARD COBOL NA PARTE INFERIOR
       function positionHoverCard(targetElement, hoverCard, isCobolCard = false) {
-        const rect = targetElement.getBoundingClientRect();
-        const cardWidth = 400;
-        const cardHeight = hoverCard.offsetHeight || 300;
-        
-        // Calculate position - prefer right side if there's enough space
-        let left = rect.right + 15;
-        
-        // Check if card would go off-screen to the right
-        if (left + cardWidth > window.innerWidth - 20) {
-          left = rect.left - cardWidth - 15; // Position to the left instead
-        }
-        
-        // If it would go off-screen to the left too, center it
-        if (left < 20) {
-          left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
-        }
-        
-        // Calculate vertical position - align with the card for COBOL
-        let top;
         if (isCobolCard) {
-          // Alinhar verticalmente com o card COBOL
-          top = rect.top - (cardHeight / 2) + (rect.height / 2);
-          
-          // Verificar se o card ficaria cortado na parte superior
-          if (top < 20) {
-            top = 20;
-          }
-          
-          // Verificar se o card ficaria cortado na parte inferior
-          if (top + cardHeight > window.innerHeight - 20) {
-            top = window.innerHeight - cardHeight - 20;
-          }
+          // Para o card COBOL, não precisamos fazer nada, pois o CSS já o posiciona na parte inferior
+          return;
         } else {
-          top = rect.top - 10;
+          // Posicionamento normal para outros cards
+          const rect = targetElement.getBoundingClientRect();
+          const cardWidth = 400;
+          const cardHeight = hoverCard.offsetHeight || 300;
+          
+          // Calculate position - prefer right side if there's enough space
+          let left = rect.right + 15;
+          
+          // Check if card would go off-screen to the right
+          if (left + cardWidth > window.innerWidth - 20) {
+            left = rect.left - cardWidth - 15; // Position to the left instead
+          }
+          
+          // If it would go off-screen to the left too, center it
+          if (left < 20) {
+            left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
+          }
+          
+          let top = rect.top - 10;
           
           // Check if card would go off-screen at the bottom
           if (top + cardHeight > window.innerHeight - 20) {
@@ -1157,10 +1174,10 @@
           if (top < 20) {
             top = 20;
           }
+          
+          hoverCard.style.left = `${left}px`;
+          hoverCard.style.top = `${top}px`;
         }
-        
-        hoverCard.style.left = `${left}px`;
-        hoverCard.style.top = `${top}px`;
       }
       
       // Setup hover card functionality - MELHORADO
@@ -1205,7 +1222,7 @@
             }
           });
           
-          // Keep hover card visible when mouse enters it
+                // Keep hover card visible when mouse enters it
           hoverCard.addEventListener('mouseenter', () => {
             clearTimeout(hoverTimeout);
           });
@@ -1229,12 +1246,6 @@
           });
           
           // Close hover card when clicking the close button
-          closeBtn.addEventListener('click', () => {
-            isCardFixed = false;
-            hoverCard.classList.remove('active');
-          });
-          
-            // Close hover card when clicking the close button
           closeBtn.addEventListener('click', () => {
             isCardFixed = false;
             hoverCard.classList.remove('active');
@@ -1270,11 +1281,11 @@
       // Setup hover cards com verificação adicional
       console.log("Iniciando configuração dos hover cards");
       
-      // Configurar hover cards - Passando true para o card COBOL para posicionar ao lado
+      // Configurar hover cards - Passando true para o card COBOL para posicionar na parte inferior
       setupHoverCard('hoverCardBaseConhecimento', '[data-hover="baseConhecimento"]', false);
-      setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]', true); // Passando true para posicionar ao lado
+      setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]', true); // Passando true para posicionar na parte inferior
       
-      // Verificação adicional para o card COBOL
+      // Configuração especial para o card COBOL
       const cobolAnalyzerCard = document.getElementById('hoverCardCobolAnalyzer');
       const cobolAnalyzerTrigger = document.querySelector('[data-hover="cobolAnalyzer"]');
       
@@ -1284,33 +1295,19 @@
         // Configuração manual para o card COBOL
         cobolAnalyzerTrigger.addEventListener('click', (e) => {
           e.preventDefault();
-          // Posicionar o card COBOL ao lado do trigger
-          const rect = cobolAnalyzerTrigger.getBoundingClientRect();
-          const cardWidth = 400;
-          const cardHeight = cobolAnalyzerCard.offsetHeight || 300;
-          
-          // Posicionar à direita do card
-          let left = rect.right + 15;
-          
-          // Se não couber à direita, posicionar à esquerda
-          if (left + cardWidth > window.innerWidth - 20) {
-            left = rect.left - cardWidth - 15;
-          }
-          
-          // Alinhar verticalmente com o card
-          let top = rect.top - (cardHeight / 2) + (rect.height / 2);
-          
-          // Verificar limites superior e inferior
-          if (top < 20) top = 20;
-          if (top + cardHeight > window.innerHeight - 20) {
-            top = window.innerHeight - cardHeight - 20;
-          }
-          
-          cobolAnalyzerCard.style.left = `${left}px`;
-          cobolAnalyzerCard.style.top = `${top}px`;
-          
+          // Não precisamos definir posição aqui, pois o CSS já posiciona na parte inferior
           cobolAnalyzerCard.classList.add('active');
         });
+        
+        // Mostrar o card COBOL brevemente para depuração
+        setTimeout(() => {
+          cobolAnalyzerCard.classList.add('active');
+          
+          // Ocultar após 2 segundos
+          setTimeout(() => {
+            cobolAnalyzerCard.classList.remove('active');
+          }, 2000);
+        }, 2000);
       }
     });
   </script>
