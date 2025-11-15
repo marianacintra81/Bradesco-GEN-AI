@@ -53,7 +53,13 @@
 
   <div class="container">
     <header>
-      <a href="https://codepen.io/Mariana-Cintra-the-sans/pen/jEWrxgV" class="back-button"><i class="fas fa-arrow-left"></i></a>
+<!-- Abordagem combinada -->
+<a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Menu%20Copilot%20e%20PromptX.html" 
+   class="back-button" 
+   target="_top" 
+   onclick="window.top.location.href='https://marianacintra81.github.io/Bradesco-GEN-AI/Menu%20Copilot%20e%20PromptX.html'; return false;">
+  <i class="fas fa-arrow-left"></i>
+</a>
       <h1>GitHub Copilot | Adoção e Impacto</h1>
      
       <p class="research-info" id="headline">Dados consolidados de <b>285</b> profissionais treinados em <b>29</b> projetos</p>
@@ -95,8 +101,12 @@
   <input type="file" id="xlsxFile" accept=".xlsx,.xls" style="display:none"/>
 
   <script>
-    function goBack(){ window.history.back(); }
-    document.addEventListener('keydown', (e)=>{ if(e.shiftKey && e.key.toUpperCase()==='U'){ document.getElementById('xlsxFile').click(); }});
+    // Atalho para upload
+    document.addEventListener('keydown', (e)=>{ 
+      if(e.shiftKey && e.key.toUpperCase()==='U'){ 
+        document.getElementById('xlsxFile').click(); 
+      }
+    });
 
     // Data atual
     document.getElementById('current-date').textContent =
@@ -168,7 +178,7 @@
     const {backgrounds:bg0,borders:bd0} = generateColors(labels0.length);
 
     const ctx = document.getElementById('projectsChart').getContext('2d');
-    const projectsChart = new Chart(ctx, {
+       const projectsChart = new Chart(ctx, {
       type:'bar',
       data:{ labels:labels0, datasets:[{ label:'Profissionais únicos', data:values0, backgroundColor:bg0, borderColor:bd0, borderWidth:2, borderRadius:6 }]},
       options:{
@@ -268,6 +278,12 @@
       projectsChart.data.datasets[0].backgroundColor = backgrounds;
       projectsChart.data.datasets[0].borderColor = borders;
       projectsChart.update();
+    });
+
+    // Garantir que o botão voltar funcione corretamente
+    document.querySelector('.back-button').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'https://marianacintra81.github.io/Bradesco-GEN-AI/Menu%20Copilot%20e%20PromptX.html';
     });
   </script>
 </body>
