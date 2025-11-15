@@ -9,33 +9,39 @@
   <style>
     /* Adicione estes estilos ao seu CSS existente */
 
-/* Efeito de clique nos textos dentro dos cards */
-.card-title, .card-description {
-  transition: transform 0.2s, color 0.2s;
-}
+    /* Estilo específico para imagens nos card-icons */
+    .card-icon img {
+      width: 45px;
+      height: 45px;
+    }
 
-.card:active .card-title,
-.card:active .card-description {
-  transform: scale(0.98);
-  color: var(--accent-cyan) !important;
-}
+    /* Efeito de clique nos textos dentro dos cards */
+    .card-title, .card-description {
+      transition: transform 0.2s, color 0.2s;
+    }
 
-/* Garantir que o card inteiro seja clicável */
-.card {
-  position: relative;
-  z-index: 1;
-}
+    .card:active .card-title,
+    .card:active .card-description {
+      transform: scale(0.98);
+      color: var(--accent-cyan) !important;
+    }
 
-/* Efeito de feedback ao clicar no card */
-.card:active {
-  transform: scale(0.98);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
+    /* Garantir que o card inteiro seja clicável */
+    .card {
+      position: relative;
+      z-index: 1;
+    }
 
-/* Melhorar a transição ao clicar */
-.card {
-  transition: all 0.3s ease, transform 0.1s ease;
-}
+    /* Efeito de feedback ao clicar no card */
+    .card:active {
+      transform: scale(0.98);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Melhorar a transição ao clicar */
+    .card {
+      transition: all 0.3s ease, transform 0.1s ease;
+    }
     :root {
       --bg-primary: #0c0e14;
       --bg-secondary: #151823;
@@ -435,7 +441,7 @@
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
     
-    /* Animações */
+     /* Animações */
     @keyframes pulse {
       0% {
         box-shadow: 0 0 0 0 rgba(71, 179, 225, 0.4);
@@ -448,7 +454,7 @@
       }
     }
     
-      @keyframes pulse-node {
+    @keyframes pulse-node {
       0% {
         transform: scale(1);
         opacity: 0.7;
@@ -613,22 +619,23 @@
     <p class="card-description">Acompanhe o progresso e status das implementações de IA Generativa.</p>
   </a>
   
-  <!-- Card PromptX -->
+  <!-- Card PromptX (CORRIGIDO) -->
   <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Casos%20de%20Uso%20PromptX.html" class="card">
-   <div class="card-icon">
-  <img src="./Picture4.png" alt="Ícone GEN AI" />
+    <div class="card-icon">
+      <img src="./Picture4.png" alt="Ícone GEN AI" />
     </div>
     <h3 class="card-title">PromptX</h3>
     <p class="card-description">Acelerando o ciclo de desenvolvimento de software com automação através de prompts avançados.</p>
   </a>
-              <!-- Card Agentes Inteligentes (agora clicável) -->
-<a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Agentes_PromptX.html" class="card">
-  <div class="card-icon">
-    <i class="fas fa-microchip"></i>
-  </div>
-  <h3 class="card-title">Agentes Inteligentes</h3>
-  <p class="card-description">Potencialize seu ciclo de desenvolvimento com assistentes AI que automatizam tarefas, aumentam a produtividade e elevam a qualidade do código.</p>
-</a>
+              
+  <!-- Card Agentes Inteligentes (agora clicável) -->
+  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Agentes_PromptX.html" class="card">
+    <div class="card-icon">
+      <i class="fas fa-microchip"></i>
+    </div>
+    <h3 class="card-title">Agentes Inteligentes</h3>
+    <p class="card-description">Potencialize seu ciclo de desenvolvimento com assistentes AI que automatizam tarefas, aumentam a produtividade e elevam a qualidade do código.</p>
+  </a>
   
   <!-- Card Pesquisa de Efetividade -->
   <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20de%20efetividade.html" class="card">
@@ -648,22 +655,23 @@
     <p class="card-description">Métricas de performance das soluções de IA Generativa.</p>
   </a>
    
-         <!-- Card Base de Conhecimento (não clicável) -->
+  <!-- Card Base de Conhecimento (não clicável) -->
   <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Base%20de%20conhecimento.html" class="card">
     <div class="card-icon">
       <i class="fas fa-book-open"></i>
     </div>
     <h3 class="card-title">Base de Conhecimento</h3>
     <p class="card-description">Repositório inteligente que acelera a imersão na cultura Bradesco, facilitando o acesso e compartilhamento de informações essenciais para todos os colaboradores.</p>
- </a>
-         <!-- Card Cases de Sucesso e Depoimentos -->
-<a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Cases%20de%20Sucesso%20e%20Depoimentos.html" class="card">
-  <div class="card-icon">
-    <i class="fas fa-star"></i>
-  </div>
-  <h3 class="card-title">Cases de Sucesso e Depoimentos</h3>
-  <p class="card-description">Conheça histórias reais de transformação e resultados alcançados com nossas soluções de IA Generativa.</p>
-</a>
+  </a>
+  
+  <!-- Card Cases de Sucesso e Depoimentos -->
+  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Cases%20de%20Sucesso%20e%20Depoimentos.html" class="card">
+    <div class="card-icon">
+      <i class="fas fa-star"></i>
+    </div>
+    <h3 class="card-title">Cases de Sucesso e Depoimentos</h3>
+    <p class="card-description">Conheça histórias reais de transformação e resultados alcançados com nossas soluções de IA Generativa.</p>
+  </a>
 </div>
   </div>
 
@@ -811,7 +819,7 @@
       network.appendChild(connection);
     }
     
-    // Criar fluxos de dados
+   // Criar fluxos de dados
     for (let i = 0; i < dataStreamCount; i++) {
       const dataStream = document.createElement('div');
       dataStream.classList.add('data-stream');
