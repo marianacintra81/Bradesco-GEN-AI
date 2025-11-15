@@ -440,11 +440,11 @@
       box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
     }
     
-       .activity-tool.github {
+    .activity-tool.github {
       background: linear-gradient(135deg, #2b3137, #404448);
     }
     
-    .activity-tool.agent {
+      .activity-tool.agent {
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
     }
     
@@ -585,6 +585,11 @@
       padding: 1rem;
       max-height: calc(80vh - 70px); /* Altura máxima menos altura aproximada do header */
       overflow-y: auto; /* Adicionar barra de rolagem quando necessário */
+    }
+    
+    /* Remover barra de rolagem para o card COBOL */
+    #hoverCardCobolAnalyzer .hover-card-body {
+      overflow-y: hidden; /* Remover barra de rolagem vertical */
     }
     
     .hover-card-content {
@@ -1106,54 +1111,56 @@
         });
       });
       
-      // Função para posicionar hover cards - MODIFICADA PARA CENTRALIZAR O CARD COBOL
+      // Função para posicionar hover cards - MODIFICADA PARA POSICIONAR O CARD COBOL AO LADO
       function positionHoverCard(targetElement, hoverCard, isCobolCard = false) {
+        const rect = targetElement.getBoundingClientRect();
+        const cardWidth = 400;
+        const cardHeight = hoverCard.offsetHeight || 300;
+        
+        // Calculate position - prefer right side if there's enough space
+        let left = rect.right + 15;
+        
+        // Check if card would go off-screen to the right
+        if (left + cardWidth > window.innerWidth - 20) {
+          left = rect.left - cardWidth - 15; // Position to the left instead
+        }
+        
+        // If it would go off-screen to the left too, center it
+        if (left < 20) {
+          left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
+        }
+        
+        // Calculate vertical position - align with the card for COBOL
+        let top;
         if (isCobolCard) {
-          // Posicionamento centralizado para o card COBOL
-          const cardWidth = 400;
-          const cardHeight = hoverCard.offsetHeight || 300;
+          // Alinhar verticalmente com o card COBOL
+          top = rect.top - (cardHeight / 2) + (rect.height / 2);
           
-          // Centralizar na tela
-          const left = (window.innerWidth - cardWidth) / 2;
-          const top = (window.innerHeight - cardHeight) / 2;
+          // Verificar se o card ficaria cortado na parte superior
+          if (top < 20) {
+            top = 20;
+          }
           
-          hoverCard.style.left = `${left}px`;
-          hoverCard.style.top = `${top}px`;
+          // Verificar se o card ficaria cortado na parte inferior
+          if (top + cardHeight > window.innerHeight - 20) {
+            top = window.innerHeight - cardHeight - 20;
+          }
         } else {
-          // Posicionamento normal para outros cards
-          const rect = targetElement.getBoundingClientRect();
-          const cardWidth = 400;
-          const cardHeight = hoverCard.offsetHeight || 300;
-          
-          // Calculate position - prefer right side if there's enough space
-          let left = rect.right + 15;
-          
-          // Check if card would go off-screen to the right
-          if (left + cardWidth > window.innerWidth - 20) {
-            left = rect.left - cardWidth - 15; // Position to the left instead
-          }
-          
-          // If it would go off-screen to the left too, center it
-          if (left < 20) {
-            left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
-          }
-          
-          // Calculate vertical position
-          let top = rect.top - 10;
+          top = rect.top - 10;
           
           // Check if card would go off-screen at the bottom
           if (top + cardHeight > window.innerHeight - 20) {
-            top = window.innerHeight - cardHeight - 20; // Position higher to fit on screen
+            top = window.innerHeight - cardHeight - 20;
           }
           
           // Check if card would go off-screen at the top
           if (top < 20) {
-            top = 20; // Ensure minimum distance from top
+            top = 20;
           }
-          
-          hoverCard.style.left = `${left}px`;
-          hoverCard.style.top = `${top}px`;
         }
+        
+        hoverCard.style.left = `${left}px`;
+        hoverCard.style.top = `${top}px`;
       }
       
       // Setup hover card functionality - MELHORADO
@@ -1227,7 +1234,7 @@
             hoverCard.classList.remove('active');
           });
           
-           // Close hover card when clicking the close button
+            // Close hover card when clicking the close button
           closeBtn.addEventListener('click', () => {
             isCardFixed = false;
             hoverCard.classList.remove('active');
@@ -1263,9 +1270,9 @@
       // Setup hover cards com verificação adicional
       console.log("Iniciando configuração dos hover cards");
       
-      // Configurar hover cards - Passando true para o card COBOL para centralizar na tela
+      // Configurar hover cards - Passando true para o card COBOL para posicionar ao lado
       setupHoverCard('hoverCardBaseConhecimento', '[data-hover="baseConhecimento"]', false);
-      setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]', true); // Passando true para centralizar
+      setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]', true); // Passando true para posicionar ao lado
       
       // Verificação adicional para o card COBOL
       const cobolAnalyzerCard = document.getElementById('hoverCardCobolAnalyzer');
@@ -1277,40 +1284,33 @@
         // Configuração manual para o card COBOL
         cobolAnalyzerTrigger.addEventListener('click', (e) => {
           e.preventDefault();
-          // Centralizar o card COBOL na tela
+          // Posicionar o card COBOL ao lado do trigger
+          const rect = cobolAnalyzerTrigger.getBoundingClientRect();
           const cardWidth = 400;
           const cardHeight = cobolAnalyzerCard.offsetHeight || 300;
           
-          // Centralizar na tela
-          const left = (window.innerWidth - cardWidth) / 2;
-          const top = (window.innerHeight - cardHeight) / 2;
+          // Posicionar à direita do card
+          let left = rect.right + 15;
+          
+          // Se não couber à direita, posicionar à esquerda
+          if (left + cardWidth > window.innerWidth - 20) {
+            left = rect.left - cardWidth - 15;
+          }
+          
+          // Alinhar verticalmente com o card
+          let top = rect.top - (cardHeight / 2) + (rect.height / 2);
+          
+          // Verificar limites superior e inferior
+          if (top < 20) top = 20;
+          if (top + cardHeight > window.innerHeight - 20) {
+            top = window.innerHeight - cardHeight - 20;
+          }
           
           cobolAnalyzerCard.style.left = `${left}px`;
           cobolAnalyzerCard.style.top = `${top}px`;
           
           cobolAnalyzerCard.classList.add('active');
         });
-        
-        // Mostrar o card COBOL brevemente para depuração
-        setTimeout(() => {
-          // Centralizar o card COBOL na tela
-          const cardWidth = 400;
-          const cardHeight = cobolAnalyzerCard.offsetHeight || 300;
-          
-          // Centralizar na tela
-          const left = (window.innerWidth - cardWidth) / 2;
-          const top = (window.innerHeight - cardHeight) / 2;
-          
-          cobolAnalyzerCard.style.left = `${left}px`;
-          cobolAnalyzerCard.style.top = `${top}px`;
-          
-          cobolAnalyzerCard.classList.add('active');
-          
-          // Ocultar após 2 segundos
-          setTimeout(() => {
-            cobolAnalyzerCard.classList.remove('active');
-          }, 2000);
-        }, 2000);
       }
     });
   </script>
