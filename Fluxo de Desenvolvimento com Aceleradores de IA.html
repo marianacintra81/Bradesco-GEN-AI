@@ -51,6 +51,7 @@
       --blue-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan));
       --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
       --capgemini-gradient: linear-gradient(135deg, var(--bradesco-red), var(--accent-purple)); /* Gradiente para Capgemini */
+      --github-gradient: linear-gradient(135deg, #2b3137, #404448); /* Gradiente do GitHub Copilot */
     }
     
     * {
@@ -136,12 +137,12 @@
     
     /* Alterar a cor de fundo do ícone na legenda */
     .legend-item:first-child .legend-icon {
-      background: #ffffff; /* Alterado para branco sólido */
+      background: linear-gradient(135deg, #2b3137, #404448); /* Mesmo gradiente do GitHub Copilot */
     }
     
     .legend-icon img {
-      width: 36px;  /* Aumentado de 30px */
-      height: 36px; /* Aumentado de 30px */
+      width: 42px;  /* Aumentado */
+      height: 42px; /* Aumentado */
       object-fit: contain;
     }
     
@@ -350,8 +351,8 @@
     }
     
     .activity-tool img {
-      width: 30px;  /* Aumentado de 24px */
-      height: 30px; /* Aumentado de 24px */
+      width: 36px;  /* Aumentado */
+      height: 36px; /* Aumentado */
       object-fit: contain;
     }
     
@@ -407,8 +408,8 @@
     
     /* Alterar a cor de fundo para o ícone nos cards de atividade */
     .activity-tool.kb {
-      background: #ffffff; /* Alterado para branco sólido */
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra ajustada para combinar com fundo branco */
+      background: linear-gradient(135deg, #2b3137, #404448); /* Mesmo gradiente do GitHub Copilot */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra ajustada para combinar com fundo escuro */
     }
     
     /* Toggle Button */
@@ -436,7 +437,7 @@
       transform: rotate(180deg);
     }
     
-   /* Pulse Animation */
+    /* Pulse Animation */
     @keyframes pulse {
       0% {
         box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
@@ -495,11 +496,11 @@
       flex-grow: 1;
     }
     
-    /* Ajuste para o ícone no hover card ter fundo branco */
+    /* Ajuste para o ícone no hover card ter fundo cinza */
     .hover-card-icon {
       width: 40px;
       height: 40px;
-      background: #ffffff; /* Alterado para branco sólido */
+      background: linear-gradient(135deg, #2b3137, #404448); /* Mesmo gradiente do GitHub Copilot */
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -507,8 +508,8 @@
     }
     
     .hover-card-icon img {
-      width: 26px;  /* Aumentado de 20px */
-      height: 26px; /* Aumentado de 20px */
+      width: 32px;  /* Aumentado */
+      height: 32px; /* Aumentado */
       object-fit: contain;
     }
     
@@ -681,7 +682,7 @@
     
     <div class="legend">
       <div class="legend-item">
-        <div class="legend-icon" style="background: #ffffff;">
+        <div class="legend-icon" style="background: linear-gradient(135deg, #2b3137, #404448);">
           <img src="./Picture4.png" alt="PromptX">
         </div>
         <span class="legend-text">PromptX</span>
@@ -855,8 +856,7 @@
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
-            
-            <div class="activity-box">
+              <div class="activity-box">
               <div class="activity-title">Testes de Integração</div>
               <div class="activity-tool agent">
                 <i class="fas fa-vial"></i>
