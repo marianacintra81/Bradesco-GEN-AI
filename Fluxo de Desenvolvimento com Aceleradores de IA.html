@@ -1,4 +1,862 @@
-  <div class="activity-box">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluxo de Desenvolvimento com Aceleradores de IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Estilo para o botão de voltar */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #0033A0, #7B68EE);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(135deg, #7B68EE, #0033A0);
+    }
+    
+    :root {
+      --bg-primary: #0c0e14;
+      --bg-secondary: #151823;
+      --bg-card: #1e2130;
+      --bg-card-hover: #272936;
+      --bradesco-red: #cc0000;
+      --bradesco-blue: #0033A0;
+      --accent-purple: #7B68EE;
+      --accent-cyan: #00e5ff;
+      --success: #22c55e;
+      --text-primary: #ffffff;
+      --text-secondary: #a3a8c3;
+      --card-shadow: 0 10px 25px -5px rgba(0,0,0,.3);
+      --red-gradient: linear-gradient(135deg, var(--bradesco-red), #ff6b6b);
+      --blue-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan));
+      --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
+      --capgemini-gradient: linear-gradient(135deg, var(--bradesco-red), var(--accent-purple)); /* Gradiente para Capgemini */
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 1.5rem;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .header p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .legend-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    .legend-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: white;
+      overflow: hidden;
+    }
+    
+    /* Alterar a cor de fundo do ícone na legenda */
+    .legend-item:first-child .legend-icon {
+      background: #ffffff; /* Alterado para branco sólido */
+    }
+    
+    .legend-icon img {
+      width: 36px;  /* Aumentado de 30px */
+      height: 36px; /* Aumentado de 30px */
+      object-fit: contain;
+    }
+    
+    .legend-text {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    /* Timeline Container */
+    .timeline-container {
+      position: relative;
+      margin: 2rem auto;
+    }
+    
+    /* Timeline */
+    .timeline {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 1rem;
+    }
+    
+    /* Timeline central line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      height: 6px;
+      background: var(--blue-gradient);
+      top: 60px;
+      left: 0;
+      right: 0;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+    }
+    
+    /* Phase */
+    .phase-column {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    
+    .phase-column.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Phase Circle */
+    .phase-circle {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      background: var(--bg-primary);
+      border: 4px solid var(--accent-cyan);
+      border-radius: 50%;
+      margin-top: 38px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+      transition: all 0.4s ease;
+    }
+    
+    .phase-circle i {
+      font-size: 1.5rem;
+      color: var(--accent-cyan);
+    }
+    
+    .phase-column:hover .phase-circle {
+      transform: scale(1.2);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
+    }
+    
+    /* Phase Number */
+    .phase-number {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 25px;
+      height: 25px;
+      background: var(--bradesco-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      box-shadow: 0 0 10px rgba(204, 0, 0, 0.5);
+    }
+    
+    /* Phase Header */
+    .phase-header {
+      background: var(--bg-card);
+      border-radius: 15px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      width: 90%;
+      max-width: 180px;
+      border-bottom: 3px solid var(--accent-cyan);
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .phase-column:hover .phase-header {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    .phase-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .phase-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Activities Container */
+    .activities-container {
+      width: 100%;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      max-height: 500px;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    
+    .phase-column.collapsed .activities-container {
+      max-height: 0;
+    }
+    
+    /* Activity Box */
+    .activity-box {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 0.8rem;
+      width: 90%;
+      max-width: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: var(--card-shadow);
+      border-left: 3px solid var(--text-secondary);
+      transition: all 0.3s ease;
+      opacity: 1;
+      transform: translateY(0);
+      position: relative;
+    }
+    
+    .phase-column.collapsed .activity-box {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .activity-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    .activity-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .activity-tool {
+      align-self: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0, 51, 160, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .activity-tool:hover {
+      transform: scale(1.2);
+    }
+    
+    .activity-tool i {
+      font-size: 1rem;
+      color: white;
+    }
+    
+    .activity-tool img {
+      width: 30px;  /* Aumentado de 24px */
+      height: 30px; /* Aumentado de 24px */
+      object-fit: contain;
+    }
+    
+    /* Tooltip redesenhado para aparecer na lateral */
+    .tooltip {
+      position: absolute;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      font-weight: 500;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      left: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%) scale(0.8);
+      letter-spacing: -0.01em;
+    }
+    
+    .tooltip::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -6px;
+      transform: translateY(-50%);
+      border-width: 6px 6px 6px 0;
+      border-style: solid;
+      border-color: transparent var(--bg-secondary) transparent transparent;
+    }
+    
+    .activity-tool:hover .tooltip {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+    
+    .activity-tool.promptx {
+      background: var(--capgemini-gradient); /* Mesmo gradiente da Base de Conhecimento */
+      box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
+    }
+    
+    .activity-tool.github {
+      background: linear-gradient(135deg, #2b3137, #404448);
+    }
+    
+    .activity-tool.agent {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    }
+    
+    /* Alterar a cor de fundo para o ícone nos cards de atividade */
+    .activity-tool.kb {
+      background: #ffffff; /* Alterado para branco sólido */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra ajustada para combinar com fundo branco */
+    }
+    
+    /* Toggle Button */
+    .toggle-activities {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+    }
+    
+    .toggle-activities:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    .phase-column.collapsed .toggle-activities i {
+      transform: rotate(180deg);
+    }
+    
+   /* Pulse Animation */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(0, 229, 255, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+      }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Hover Card Styles */
+    .hover-card {
+      position: absolute;
+      width: 400px; /* Aumentado de 300px */
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    
+    .hover-card.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    
+    /* Alterar a cor de fundo para o ícone no hover card */
+    .hover-card-header {
+      padding: 1rem;
+      background: var(--bg-card); /* Alterado para o fundo escuro das outras modais */
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border-bottom: 2px solid var(--accent-cyan); /* Adicionar borda para destacar */
+    }
+    
+    .hover-card-title {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+      flex-grow: 1;
+    }
+    
+    /* Ajuste para o ícone no hover card ter fundo branco */
+    .hover-card-icon {
+      width: 40px;
+      height: 40px;
+      background: #ffffff; /* Alterado para branco sólido */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .hover-card-icon img {
+      width: 26px;  /* Aumentado de 20px */
+      height: 26px; /* Aumentado de 20px */
+      object-fit: contain;
+    }
+    
+    .hover-card-close {
+      width: 24px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 0.8rem;
+    }
+    
+    .hover-card-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+    
+    .hover-card-body {
+      padding: 1rem;
+      max-height: none; /* Remover altura máxima */
+      overflow-y: visible; /* Remover barra de rolagem */
+    }
+    
+    .hover-card-content {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .hover-card-content p {
+      margin-bottom: 0.8rem;
+    }
+    
+    .hover-card-content h3 {
+      margin: 1rem 0 0.5rem;
+      color: var(--accent-cyan);
+      font-size: 1rem;
+    }
+    
+    .hover-card-content ul {
+      margin-left: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .hover-card-content li {
+      margin-bottom: 0.4rem;
+    }
+    
+    /* Animation for hover card content */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hover-card-content > * {
+      animation: fadeInUp 0.4s ease forwards;
+      opacity: 0;
+    }
+    
+    .hover-card-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hover-card-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hover-card-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hover-card-content > *:nth-child(4) { animation-delay: 0.4s; }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+      .timeline {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+      }
+      
+      .timeline::before {
+        display: none;
+      }
+      
+      .phase-column {
+        width: 45%;
+        flex: none;
+      }
+      
+      .phase-circle {
+        margin-top: 0;
+      }
+      
+      /* Ajuste para tooltips em telas menores */
+      .tooltip {
+        left: 50%;
+        top: calc(100% + 10px);
+        transform: translateX(-50%) scale(0.8);
+      }
+      
+      .tooltip::before {
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 0 6px 6px 6px;
+        border-color: transparent transparent var(--bg-secondary) transparent;
+      }
+      
+      .activity-tool:hover .tooltip {
+        transform: translateX(-50%) scale(1);
+      }
+      
+      .hover-card {
+        width: 350px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .header p {
+        font-size: 1rem;
+      }
+      
+      .legend {
+        gap: 0.8rem;
+        padding: 0.8rem;
+      }
+      
+      .legend-item {
+        padding: 0.3rem 0.6rem;
+      }
+      
+      .legend-text {
+        font-size: 0.75rem;
+      }
+      
+      .phase-column {
+        width: 100%;
+      }
+      
+      .hover-card {
+        width: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Botão de Voltar -->
+  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  
+  <div class="particles" id="particles"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  
+  <div class="container">
+    <div class="header">
+      <h1>Fluxo de Desenvolvimento com Aceleradores de IA</h1>
+      <p>Transformando o ciclo de desenvolvimento de software com ferramentas de Inteligência Artificial em cada fase</p>
+    </div>
+    
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-icon" style="background: #ffffff;">
+          <img src="./Picture4.png" alt="PromptX">
+        </div>
+        <span class="legend-text">PromptX</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));">
+          <i class="fas fa-robot"></i>
+        </div>
+        <span class="legend-text">Agentes Especializados</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon" style="background: linear-gradient(135deg, #2b3137, #404448); display: flex; align-items: center; justify-content: center;">
+          <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
+        </div>
+        <span class="legend-text">GitHub Copilot</span>
+      </div>
+    </div>
+    
+    <div class="timeline-container">
+      <div class="timeline">
+        <!-- Fase 1: Requisitos -->
+        <div class="phase-column">
+          <div class="phase-circle pulse">
+            <i class="fas fa-file-alt"></i>
+            <div class="phase-number">1</div>
+          </div>
+          <div class="phase-header">
+            <h3 class="phase-title">
+              <i class="fas fa-clipboard-list"></i>
+              Requisitos
+            </h3>
+            <p class="phase-desc">Definição e análise</p>
+          </div>
+          <button class="toggle-activities">
+            <i class="fas fa-chevron-up"></i>
+          </button>
+          <div class="activities-container">
+            <div class="activity-box" data-hover="baseConhecimento">
+              <div class="activity-title">Base de Conhecimento</div>
+              <div class="activity-tool kb">
+                <img src="./Picture4.png" alt="Base de Conhecimento">
+                <span class="tooltip">Base de Conhecimento</span>
+              </div>
+            </div>
+            
+            <div class="activity-box">
+              <div class="activity-title">Histórias de Usuário</div>
+              <div class="activity-tool kb">
+                <img src="./Picture4.png" alt="Base de Conhecimento">
+                <span class="tooltip">PromptX Capgemini</span>
+              </div>
+            </div>
+            
+            <div class="activity-box">
+              <div class="activity-title">Contagem de Ponto de Função</div>
+              <div class="activity-tool kb">
+                <img src="./Picture4.png" alt="Base de Conhecimento">
+                <span class="tooltip">PromptX Capgemini</span>
+              </div>
+            </div>
+            
+            <div class="activity-box">
+              <div class="activity-title">Diagrama de Sequência UML</div>
+              <div class="activity-tool kb">
+                <img src="./Picture4.png" alt="Base de Conhecimento">
+                <span class="tooltip">PromptX Capgemini</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fase 2: Base de Dados -->
+        <div class="phase-column">
+          <div class="phase-circle">
+            <i class="fas fa-database"></i>
+            <div class="phase-number">2</div>
+          </div>
+          <div class="phase-header">
+            <h3 class="phase-title">
+              <i class="fas fa-database"></i>
+              Base de Dados
+            </h3>
+            <p class="phase-desc">Modelagem e validação</p>
+          </div>
+          <button class="toggle-activities">
+            <i class="fas fa-chevron-up"></i>
+          </button>
+          <div class="activities-container">
+            <div class="activity-box">
+              <div class="activity-title">Validação e Padronização de Dados</div>
+              <div class="activity-tool kb">
+                <img src="./Picture4.png" alt="Base de Conhecimento">
+                <span class="tooltip">PromptX Capgemini</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fase 3: Desenvolvimento -->
+        <div class="phase-column">
+          <div class="phase-circle">
+            <i class="fas fa-code"></i>
+            <div class="phase-number">3</div>
+          </div>
+          <div class="phase-header">
+            <h3 class="phase-title">
+              <i class="fas fa-code"></i>
+              Desenvolvimento
+            </h3>
+            <p class="phase-desc">Implementação do código</p>
+          </div>
+          <button class="toggle-activities">
+            <i class="fas fa-chevron-up"></i>
+          </button>
+          <div class="activities-container">
+            <div class="activity-box">
+              <div class="activity-title">Codificação</div>
+              <div class="activity-tool github">
+                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
+                <span class="tooltip">GitHub Copilot</span>
+              </div>
+            </div>
+            
+            <div class="activity-box">
+              <div class="activity-title">Code Review</div>
+              <div class="activity-tool agent">
+                <i class="fas fa-robot"></i>
+                <span class="tooltip">Agente de Code Review</span>
+              </div>
+            </div>
+            
+            <div class="activity-box">
+              <div class="activity-title">Testes Unitários</div>
+              <div class="activity-tool github">
+                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
+                <span class="tooltip">GitHub Copilot</span>
+              </div>
+            </div>
+            
+            <div class="activity-box">
+              <div class="activity-title">Integração Contínua</div>
+              <div class="activity-tool agent">
+                <i class="fas fa-cogs"></i>
+                <span class="tooltip">Agente de CI/CD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fase 4: Qualidade -->
+        <div class="phase-column">
+          <div class="phase-circle">
+            <i class="fas fa-check-square"></i>
+            <div class="phase-number">4</div>
+          </div>
+          <div class="phase-header">
+            <h3 class="phase-title">
+              <i class="fas fa-check-square"></i>
+              Qualidade
+            </h3>
+            <p class="phase-desc">Garantia da qualidade</p>
+          </div>
+          <button class="toggle-activities">
+            <i class="fas fa-chevron-up"></i>
+          </button>
+          <div class="activities-container">
+            <div class="activity-box">
+              <div class="activity-title">Cenários de Teste</div>
+              <div class="activity-tool kb">
+                <img src="./Picture4.png" alt="Base de Conhecimento">
+                <span class="tooltip">PromptX Capgemini</span>
+              </div>
+            </div>
+            
+            <div class="activity-box">
               <div class="activity-title">Testes de Integração</div>
               <div class="activity-tool agent">
                 <i class="fas fa-vial"></i>
