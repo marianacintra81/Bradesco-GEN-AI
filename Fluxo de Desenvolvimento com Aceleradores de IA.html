@@ -52,6 +52,7 @@
       --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
       --capgemini-gradient: linear-gradient(135deg, var(--bradesco-red), var(--accent-purple)); /* Gradiente para Capgemini */
       --github-gradient: linear-gradient(135deg, #2b3137, #404448); /* Gradiente do GitHub Copilot */
+      --gray-gradient: linear-gradient(135deg, #555555, #777777); /* Gradiente cinza para fase de deploy */
     }
     
     * {
@@ -266,6 +267,28 @@
       box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
     }
     
+    /* Estilo para a fase de Deploy (cinza) */
+    .phase-column.deploy .phase-circle {
+      border-color: #777777;
+      box-shadow: 0 0 15px rgba(119, 119, 119, 0.5);
+    }
+    
+    .phase-column.deploy .phase-circle i {
+      color: #777777;
+    }
+    
+    .phase-column.deploy:hover .phase-circle {
+      box-shadow: 0 0 25px rgba(119, 119, 119, 0.8);
+    }
+    
+    .phase-column.deploy .phase-header {
+      border-bottom: 3px solid #777777;
+    }
+    
+    .phase-column.deploy .phase-title {
+      color: #777777;
+    }
+    
     /* Phase Number */
     .phase-number {
       position: absolute;
@@ -281,6 +304,12 @@
       font-weight: 700;
       font-size: 0.8rem;
       box-shadow: 0 0 10px rgba(204, 0, 0, 0.5);
+    }
+    
+    /* Número cinza para fase de Deploy */
+    .phase-column.deploy .phase-number {
+      background: #777777;
+      box-shadow: 0 0 10px rgba(119, 119, 119, 0.5);
     }
     
     /* Phase Header */
@@ -396,6 +425,12 @@
       width: 36px;  /* Aumentado */
       height: 36px; /* Aumentado */
       object-fit: contain;
+    }
+    
+    /* Ícones cinza para fase de Deploy */
+    .phase-column.deploy .activity-tool {
+      background: linear-gradient(135deg, #555555, #777777) !important;
+      box-shadow: 0 5px 15px rgba(119, 119, 119, 0.3);
     }
     
     /* Tooltip redesenhado para aparecer na lateral */
@@ -824,8 +859,7 @@
                 <span class="tooltip">PromptX Capgemini</span>
               </div>
             </div>
-            
-            <div class="activity-box">
+              <div class="activity-box">
               <div class="activity-title">Diagrama de Sequência UML</div>
               <div class="activity-tool kb">
                 <img src="./Picture4.png" alt="Base de Conhecimento">
@@ -863,7 +897,6 @@
           <div class="activities-container">
             <div class="activity-box">
               <div class="activity-title">Validação e Padronização de Dados</div>
-              <!-- Alterado para ícone de agente (robô) -->
               <div class="activity-tool agent">
                 <i class="fas fa-robot"></i>
                 <span class="tooltip">Agente de Padronização de Dados</span>
@@ -912,8 +945,6 @@
                 <span class="tooltip">GitHub Copilot</span>
               </div>
             </div>
-            
-   
           </div>
         </div>
         
@@ -923,7 +954,7 @@
             <i class="fas fa-check-square"></i>
             <div class="phase-number">4</div>
           </div>
-              <div class="phase-header">
+          <div class="phase-header">
             <h3 class="phase-title">
               <i class="fas fa-check-square"></i>
               Qualidade
@@ -968,8 +999,8 @@
           </div>
         </div>
         
-        <!-- Fase 5: Deploy -->
-        <div class="phase-column">
+        <!-- Fase 5: Deploy (com classe deploy para estilo cinza) -->
+        <div class="phase-column deploy">
           <div class="phase-circle">
             <i class="fas fa-rocket"></i>
             <div class="phase-number">5</div>
@@ -987,7 +1018,7 @@
           <div class="activities-container">
              <div class="activity-box">
               <div class="activity-title">Preparação do Ambiente</div>
-              <div class="activity-tool agent">
+              <div class="activity-tool">
                 <i class="fas fa-server"></i>
                 <span class="tooltip">Agente de Infraestrutura</span>
               </div>
@@ -995,21 +1026,19 @@
             
             <div class="activity-box">
               <div class="activity-title">Implantação</div>
-              <div class="activity-tool github">
-                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
-                <span class="tooltip">GitHub Copilot</span>
+              <div class="activity-tool">
+                <i class="fas fa-upload"></i>
+                <span class="tooltip">Ferramenta de Implantação</span>
               </div>
             </div>
             
             <div class="activity-box">
               <div class="activity-title">Monitoramento</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-robot"></i>
+              <div class="activity-tool">
+                <i class="fas fa-chart-line"></i>
                 <span class="tooltip">Agente de Monitoramento</span>
               </div>
             </div>
-            
-
           </div>
         </div>
       </div>
@@ -1065,8 +1094,6 @@
           <li>Mapeamento de fluxos de processamento e dependências entre programas</li>
           <li>Geração de documentação técnica e funcional para projetos de modernização</li>
         </ul>
-        
-    
       </div>
     </div>
   </div>
@@ -1197,7 +1224,7 @@
             clearTimeout(hoverTimeout);
             if (!isCardFixed) {
               positionHoverCard(triggerElement, hoverCard, isCobolCard);
-              hoverCard.classList.add('active');
+                hoverCard.classList.add('active');
             }
           });
           
@@ -1210,7 +1237,7 @@
             }
           });
           
-                // Keep hover card visible when mouse enters it
+          // Keep hover card visible when mouse enters it
           hoverCard.addEventListener('mouseenter', () => {
             clearTimeout(hoverTimeout);
           });
