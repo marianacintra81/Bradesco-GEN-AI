@@ -1497,7 +1497,7 @@
         <h3>Impacto nos Resultados</h3>
         <p>A implementação do PromptX resultou em uma redução média de 58% no tempo necessário para criar cenários de teste, com alguns usuários relatando economias de até 75% do tempo.</p>
         
-        <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/depoimentos.html" class="testimonials-link">Ver depoimentos de usuários <i class="fas fa-external-link-alt"></i></a>
+ <a href="javascript:void(0);" onclick="showDepoimentos()" class="testimonials-link">Ver depoimentos de usuários <i class="fas fa-external-link-alt"></i></a>
       </div>
     </div>
   </div>
@@ -1611,7 +1611,171 @@
       setupHoverCard('hoverCardBaseConhecimento', '[data-hover="baseConhecimento"]');
       setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]');
       setupHoverCard('hoverCardCenariosTeste', '[data-hover="cenariosTeste"]');
+      
     });
+  // Função para mostrar depoimentos em um modal
+function showDepoimentos() {
+  // Criar um modal de depoimentos dinamicamente
+  const modal = document.createElement('div');
+  modal.className = 'depoimentos-modal';
+  modal.innerHTML = `
+    <div class="depoimentos-content">
+      <div class="depoimentos-header">
+        <h2>Depoimentos de Usuários</h2>
+        <button class="depoimentos-close">&times;</button>
+      </div>
+      <div class="depoimentos-body">
+        <div class="depoimento">
+          <p>"A ferramenta se destaca pela capacidade de compreender comandos em linguagem natural, o que facilita a interação mesmo para quem não tem conhecimento técnico profundo. Além disso, ela oferece respostas rápidas, contextualizadas e com sugestões práticas, o que acelera tarefas como escrita de código, documentação, testes automatizados e resolução de dúvidas técnicas."</p>
+          <div class="depoimento-author">Tatiana Vargas, QA Analyst</div>
+        </div>
+        <div class="depoimento">
+          <p>"A extração de casos de teste a partir da imagem para mim é sensacional. A rapidez em ler a documentação e nos dar os casos de teste que ela conseguiu extrair nos permite criar novos casos de teste mais ricos e em menos tempo."</p>
+          <div class="depoimento-author">Taiana Floriano, QA Analyst</div>
+        </div>
+        <div class="depoimento">
+          <p>"Ganhamos tempo na criação de cenários de testes. Ferramenta excelente. O PromptX tem sido extremamente útil para criar agentes especializados com contexto profissional."</p>
+          <div class="depoimento-author">Aline Assunção, QA Analyst</div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // Adicionar estilos ao modal
+  const style = document.createElement('style');
+  style.textContent = `
+    .depoimentos-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .depoimentos-content {
+      background: var(--bg-secondary);
+      width: 90%;
+      max-width: 700px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.4s ease;
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .depoimentos-header {
+      background: var(--bg-card);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--accent-cyan);
+    }
+    
+    .depoimentos-header h2 {
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      margin: 0;
+    }
+    
+    .depoimentos-close {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .depoimentos-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+    
+    .depoimentos-body {
+      padding: 1.5rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    
+    .depoimento {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid var(--accent-cyan);
+      transition: all 0.3s ease;
+    }
+    
+    .depoimento:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .depoimento p {
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    
+    .depoimento-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      text-align: right;
+    }
+  `;
+  
+  document.head.appendChild(style);
+  
+  // Adicionar evento para fechar o modal
+  const closeBtn = modal.querySelector('.depoimentos-close');
+  closeBtn.addEventListener('click', () => {
+    document.body.removeChild(modal);
+    document.head.removeChild(style);
+  });
+  
+  // Fechar o modal ao clicar fora do conteúdo
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+      document.head.removeChild(style);
+    }
+  });
+  
+  // Fechar o modal com a tecla ESC
+  document.addEventListener('keydown', function closeModal(e) {
+    if (e.key === 'Escape') {
+      document.body.removeChild(modal);
+      document.head.removeChild(style);
+      document.removeEventListener('keydown', closeModal);
+    }
+  });
+}
   </script>
 </body>
 </html>
