@@ -1045,8 +1045,7 @@
                 <span class="tooltip">Base de Conhecimento</span>
               </div>
             </div>
-            
-<div class="activity-box">
+<div class="activity-box" data-hover="historiasUsuario">
   <div class="activity-title">Histórias de Usuário</div>
   <div style="position: relative; display: flex; justify-content: center; height: 40px;">
     <!-- Círculo com ícone do agente (posicionado acima) -->
@@ -1055,11 +1054,11 @@
       <span class="tooltip">Agente</span>
     </div>
     
-<!-- Círculo com ícone Picture4 (movido mais para a direita) -->
-<div class="activity-tool kb" style="width: 24px; height: 24px; position: absolute; bottom: -6px; right: calc(50% - 32px); z-index: 1; border: 1px solid var(--bg-card); box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-  <img src="./Picture4.png" alt="PromptX Capgemini" style="width: 18px; height: 18px; object-fit: contain;">
-  <span class="tooltip">PromptX</span>
-</div>
+    <!-- Círculo com ícone Picture4 (movido mais para a direita) -->
+    <div class="activity-tool kb" style="width: 24px; height: 24px; position: absolute; bottom: -6px; right: calc(50% - 32px); z-index: 1; border: 1px solid var(--bg-card); box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+      <img src="./Picture4.png" alt="PromptX Capgemini" style="width: 18px; height: 18px; object-fit: contain;">
+      <span class="tooltip">PromptX</span>
+    </div>
   </div>
 </div>
             
@@ -1070,13 +1069,13 @@
     <span class="tooltip">PromptX Capgemini</span>
   </div>
 </div>
-              <div class="activity-box">
-              <div class="activity-title">Diagrama de Sequência UML</div>
-              <div class="activity-tool kb">
-                <img src="./Picture4.png" alt="Base de Conhecimento">
-                <span class="tooltip">PromptX Capgemini</span>
-              </div>
-            </div>
+         <div class="activity-box" data-hover="diagramaSequencia">
+  <div class="activity-title">Diagrama de Sequência UML</div>
+  <div class="activity-tool kb">
+    <img src="./Picture4.png" alt="Base de Conhecimento">
+    <span class="tooltip">PromptX Capgemini</span>
+  </div>
+</div>
             
 <!-- Card COBOL Doc Generator com layout atualizado -->
 <div class="activity-box" id="cobolCard" data-hover="cobolAnalyzer">
@@ -1518,6 +1517,192 @@
     </div>
   </div>
 </div>
+  <!-- Hover Card para Diagrama de Sequência UML -->
+<div class="hover-card" id="hoverCardDiagramaSequencia">
+  <div class="hover-card-header">
+    <h2 class="hover-card-title">PromptX: Criação de Diagramas de Sequência</h2>
+    <button class="hover-card-close" aria-label="Fechar">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="hover-card-body">
+    <div class="hover-card-content">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-lightbulb" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+          <p style="font-size:0.95rem; line-height:1.5;">O <strong style="color:#fff">PromptX</strong> simplifica a criação de diagramas de sequência UML, permitindo que mesmo usuários sem conhecimento prévio possam gerar documentação técnica de alta qualidade.</p>
+        </div>
+        <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, #2b3137, #404448); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(123,104,238,.4);">
+          <div style="position:relative; width:60px; height:60px;">
+            <img src="./Picture4.png" alt="PromptX" style="width:100%; height:100%; object-fit:contain;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="card">
+          <h4><i class="fas fa-chart-line"></i> Principais Indicadores</h4>
+          <ul>
+            <li>Redução média de <strong>53% no tempo</strong> de criação</li>
+            <li><strong>100% dos usuários</strong> consideram a ferramenta fácil de usar</li>
+            <li><strong>100% taxa de recomendação</strong> entre analistas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-check-circle"></i> Principais Benefícios</h4>
+          <ul>
+            <li><strong>Criação rápida</strong> de diagramas sem conhecimento prévio</li>
+            <li><strong>Economia significativa</strong> de tempo (média de 53% de redução)</li>
+            <li><strong>Interface intuitiva</strong> que facilita a adoção pela equipe</li>
+            <li><strong>Melhoria na legibilidade</strong> dos diagramas existentes</li>
+            <li><strong>Conversão automática</strong> entre formatos (imagem para PlantUML)</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Casos de Uso -->
+      <div style="margin-top:30px;">
+        <h4 style="text-align:center; margin-bottom:20px; color:var(--accent-cyan);"><i class="fas fa-project-diagram" style="color:var(--accent-purple); margin-right:8px;"></i> Casos de Uso</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+          <!-- Caso de Uso 1 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-code-branch" style="margin-right:8px;"></i> Criação de Novos Diagramas</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Geração de diagramas de sequência a partir de descrições textuais, mesmo para usuários sem experiência prévia em UML.</p>
+          </div>
+          
+          <!-- Caso de Uso 2 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-exchange-alt" style="margin-right:8px;"></i> Conversão de Formatos</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Transformação de imagens de diagramas existentes em código PlantUML editável, facilitando a manutenção e atualização.</p>
+          </div>
+          
+          <!-- Caso de Uso 3 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-sitemap" style="margin-right:8px;"></i> Melhoria de Legibilidade</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Aprimoramento de diagramas existentes para aumentar a clareza e compreensão, tornando a documentação técnica mais acessível.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Depoimentos -->
+      <div style="margin-top:30px;">
+        <h4 style="text-align:center; margin-bottom:20px; color:var(--accent-cyan);"><i class="fas fa-quote-left" style="color:var(--accent-purple); margin-right:8px;"></i> Depoimentos de Usuários</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+          <!-- Depoimento 1 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"Nunca fiz um diagrama de sequência antes, e para ser honesta me parecia bem complicado. Com o PromptX esse medo acabou. Com um pouco de refinamento nos prompts de pedidos, em pouco tempo consegui o diagrama de sequência corretamente."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Melissa Cunha</div>
+          </div>
+          
+          <!-- Depoimento 2 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"Excelente ferramenta. Precisa de alguns de melhoria, provavelmente teremos novidades."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Rodrigo Bondezan</div>
+          </div>
+          
+          <!-- Depoimento 3 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"Utilizo a ferramenta para dúvidas gerais, para melhorar legibilidade dos diagramas de sequência já existentes, criar novos a partir de PlantUML e gerar a partir de uma imagem o UML; também usado na formatação de documentos."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Douglas Violante</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Hover Card para Histórias de Usuário -->
+<div class="hover-card" id="hoverCardHistoriasUsuario">
+  <div class="hover-card-header">
+    <h2 class="hover-card-title">PromptX: Criação de Histórias de Usuário</h2>
+    <button class="hover-card-close" aria-label="Fechar">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="hover-card-body">
+    <div class="hover-card-content">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-lightbulb" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+          <p style="font-size:0.95rem; line-height:1.5;">O <strong style="color:#fff">PromptX</strong> otimiza a criação de histórias de usuário com templates personalizados e estruturação padronizada, acelerando o processo de documentação de requisitos.</p>
+        </div>
+        <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, #2b3137, #404448); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(123,104,238,.4);">
+          <div style="position:relative; width:60px; height:60px;">
+            <img src="./Picture4.png" alt="PromptX" style="width:100%; height:100%; object-fit:contain;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="card">
+          <h4><i class="fas fa-chart-line"></i> Principais Indicadores</h4>
+          <ul>
+            <li>Redução média de <strong>25% no tempo</strong> de criação</li>
+            <li><strong>100% dos usuários</strong> consideram a ferramenta fácil de usar</li>
+            <li><strong>100% taxa de recomendação</strong> entre analistas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-check-circle"></i> Principais Benefícios</h4>
+          <ul>
+            <li><strong>Templates personalizados</strong> para criação de histórias de usuário</li>
+            <li><strong>Economia significativa</strong> de tempo (média de 25% de redução)</li>
+            <li><strong>Estruturação padronizada</strong> de narrativas</li>
+            <li><strong>Geração rápida</strong> de rascunhos bem formatados</li>
+            <li><strong>Função de "revisor inteligente"</strong> para elevar a qualidade</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Casos de Uso -->
+      <div style="margin-top:30px;">
+        <h4 style="text-align:center; margin-bottom:20px; color:var(--accent-cyan);"><i class="fas fa-tasks" style="color:var(--accent-purple); margin-right:8px;"></i> Aplicações Práticas</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+          <!-- Caso de Uso 1 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-pencil-alt" style="margin-right:8px;"></i> Criação de Histórias</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Geração rápida de histórias de usuário bem estruturadas a partir de descrições básicas de funcionalidades desejadas.</p>
+          </div>
+          
+          <!-- Caso de Uso 2 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-check-double" style="margin-right:8px;"></i> Revisão de Qualidade</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Análise e aprimoramento de histórias existentes, garantindo clareza, completude e aderência às melhores práticas.</p>
+          </div>
+          
+          <!-- Caso de Uso 3 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-list-ul" style="margin-right:8px;"></i> Padronização</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Uniformização do formato e linguagem das histórias de usuário em todo o projeto, facilitando a compreensão por todas as partes interessadas.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Depoimentos -->
+      <div style="margin-top:30px;">
+        <h4 style="text-align:center; margin-bottom:20px; color:var(--accent-cyan);"><i class="fas fa-quote-left" style="color:var(--accent-purple); margin-right:8px;"></i> Depoimentos de Usuários</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+          <!-- Depoimento 1 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"O uso do PromptX na escrita de histórias de usuário tem se mostrado uma adição benéfica. Tem contribuído para gerar ideias iniciais, estruturação de narrativas e padronização de linguagem. A principal vantagem é a agilidade com que o PromptX consegue propor rascunhos de histórias bem formatadas, respeitando a estrutura fornecida como parâmetro."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Rumena Bittencourt</div>
+          </div>
+          
+          <!-- Depoimento 2 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"A possibilidade de utilizar um modelo de template customizado para a criação da história é um grande diferencial. Mesmo em histórias complexas, o PromptX ajuda a estruturar o conteúdo de forma mais eficiente, economizando tempo valioso no processo."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Fabio Domingues</div>
+          </div>
+          
+          <!-- Depoimento 3 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"A ferramenta tem se mostrado grande aliada na escrita de histórias de usuário, oferecendo sugestões rápidas e estruturadas que agilizam o processo e aumentam a consistência na documentação dos requisitos. O uso do PromptX tem ajudado oferecendo sugestões valiosas."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Analista de Negócios</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1643,6 +1828,8 @@
       setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]');
       setupHoverCard('hoverCardCenariosTeste', '[data-hover="cenariosTeste"]');
       setupHoverCard('hoverCardPontosFuncao', '[data-hover="pontosFuncao"]');
+      setupHoverCard('hoverCardDiagramaSequencia', '[data-hover="diagramaSequencia"]');
+      setupHoverCard('hoverCardHistoriasUsuario', '[data-hover="historiasUsuario"]');
     });
     
     // Função para mostrar depoimentos em um modal
