@@ -7,34 +7,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            /* Cores de Fundo */
-            --bg-primary: #0c0e14;
-            --bg-secondary: #151823;
-            --bg-card: #1e2130;
-            --bg-card-hover: #272936;
-            
-            /* Cores de Destaque */
-            --red-bradesco: #cc0000;
-            --blue-bradesco: #0033A0;
-            --purple-highlight: #7B68EE;
-            --cyan-highlight: #00e5ff;
-            --green-highlight: #4CAF50;
-            --orange-highlight: #FF9800;
-            --pink-highlight: #E91E63;
-            --teal-highlight: #009688;
-            
-            /* Cores de Texto */
-            --text-primary: #ffffff;
-            --text-secondary: #a3a8c3;
-            
-            /* Outras variáveis */
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-      /* Adicione este estilo ao seu CSS existente */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Cores de Fundo */
+    --bg-primary: #0c0e14;
+    --bg-secondary: #151823;
+    --bg-card: #1e2130;
+    --bg-card-hover: #272936;
+    
+    /* Cores de Destaque */
+    --red-bradesco: #cc0000;
+    --blue-bradesco: #0033A0;
+    --purple-highlight: #7B68EE;
+    --cyan-highlight: #00e5ff;
+    --green-highlight: #4CAF50;
+    --orange-highlight: #FF9800;
+    --blue-code: #4FC3F7; /* Nova cor para o Code Review */
+    --teal-highlight: #009688;
+    
+    /* Cores de Texto */
+    --text-primary: #ffffff;
+    --text-secondary: #a3a8c3;
+    
+    /* Outras variáveis */
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Adicione este estilo ao seu CSS existente */
 .card-image {
     position: absolute;
     top: 20px;
@@ -60,735 +61,735 @@
 .agent-header {
     padding-right: 110px; /* Espaço extra para a imagem */
 }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.4;
-            overflow-x: hidden;
-            font-size: 14px;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%),
-                radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
-        }
-        
-        /* Efeito de partículas no fundo */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            animation: float 15s infinite linear;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header Section */
-        .header-section {
-            text-align: center;
-            padding: 40px 0 20px;
-            position: relative;
-            background-color: var(--bg-secondary);
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        
-        /* Efeito de circuito no header */
-        .circuit-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjQwIiB5Mj0iMCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMTAiIHgyPSI0MCIgeTI9IjEwIiBzdHJva2U9IiMwMDMzQTAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGxpbmUgeDE9IjAiIHkxPSIyMCIgeDI9IjQwIiB5Mj0iMjAiIHN0cm9rZT0iIzAwMzNBMCIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48bGluZSB4MT0iMCIgeTE9IjMwIiB4Mj0iNDAiIHkyPSIzMCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSI0MCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjQwIiBzdHJva2U9IiMwMDMzQTAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGxpbmUgeDE9IjIwIiB5MT0iMCIgeDI9IjIwIiB5Mj0iNDAiIHN0cm9rZT0iIzAwMzNBMCIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48bGluZSB4MT0iMzAiIHkxPSIwIiB4Mj0iMzAiIHkyPSI0MCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-            opacity: 0.3;
-            z-index: 0;
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .header-section h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-            text-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
-        }
-        
-        .header-section p {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-        
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, #0033A0, #7B68EE);
-            color: #ffffff;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .back-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(135deg, #7B68EE, #0033A0);
-        }
-        
-        /* Agents Section */
-        .agents-section {
-            padding: 20px 0 60px;
-        }
-        
-        .agents-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        .agent-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            box-shadow: var(--card-shadow);
-            margin-top: 20px; /* Aumentado espaço no topo para a tag AI Agent */
-        }
-        
-        .agent-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--card-shadow-hover);
-            background: var(--bg-card-hover);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Efeito de brilho ao redor do card */
-        .agent-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--cyan-highlight), 
-                transparent, 
-                var(--purple-highlight), 
-                transparent, 
-                var(--red-bradesco));
-            z-index: -1;
-            border-radius: 22px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            background-size: 400%;
-            animation: glowing 20s linear infinite;
-        }
-        
-        .agent-card:hover::before {
-            opacity: 1;
-        }
-        
-        @keyframes glowing {
-            0% { background-position: 0 0; }
-            50% { background-position: 400% 0; }
-            100% { background-position: 0 0; }
-        }
-        
-        .agent-header {
-            padding: 25px 20px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .agent-header.data {
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 51, 160, 0.2));
-        }
-        
-        .agent-header.business {
-            background: linear-gradient(135deg, rgba(123, 104, 238, 0.2), rgba(204, 0, 0, 0.2));
-        }
-        
-        /* Nova classe para o header do agente COBOL */
-        .agent-header.legacy {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(255, 152, 0, 0.2));
-        }
-        
-        /* Novas classes para os headers dos novos agentes */
-        .agent-header.code {
-            background: linear-gradient(135deg, rgba(233, 30, 99, 0.2), rgba(156, 39, 176, 0.2));
-        }
-        
-         .agent-header.test {
-            background: linear-gradient(135deg, rgba(0, 150, 136, 0.2), rgba(76, 175, 80, 0.2));
-        }
-        
-        /* Efeito de circuito no header do card */
-        .agent-header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjQwIiB5Mj0iMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMTAiIHgyPSI0MCIgeTI9IjEwIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+');
-            opacity: 0.1;
-            z-index: 0;
-        }
-        
-        .agent-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            transition: all 0.5s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            flex-shrink: 0;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 1;
-        }
-        
-        .agent-icon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--cyan-highlight), var(--blue-bradesco));
-            opacity: 0.2;
-            z-index: -1;
-        }
-        
-        /* Efeito de pulso no ícone */
-        @keyframes iconPulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 229, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
-        }
-        
-        .agent-icon.data {
-            color: var(--cyan-highlight);
-            animation: iconPulse 2s infinite;
-        }
-        
-        .agent-icon.business {
-            color: var(--purple-highlight);
-            animation: iconPulse 2s infinite;
-        }
-        
-        /* Nova classe para o ícone do agente COBOL */
-        .agent-icon.legacy {
-            color: var(--green-highlight);
-            animation: iconPulse 2s infinite;
-        }
-        
-        /* Novas classes para os ícones dos novos agentes */
-        .agent-icon.code {
-            color: var(--pink-highlight);
-            animation: iconPulse 2s infinite;
-        }
-        
-        .agent-icon.test {
-            color: var(--teal-highlight);
-            animation: iconPulse 2s infinite;
-        }
-        
-        .agent-icon.business::after {
-            background: linear-gradient(135deg, var(--purple-highlight), var(--red-bradesco));
-        }
-        
-        /* Nova classe para o fundo do ícone do agente COBOL */
-        .agent-icon.legacy::after {
-            background: linear-gradient(135deg, var(--green-highlight), var(--orange-highlight));
-        }
-        
-        /* Novas classes para os fundos dos ícones dos novos agentes */
-        .agent-icon.code::after {
-            background: linear-gradient(135deg, var(--pink-highlight), var(--purple-highlight));
-        }
-        
-        .agent-icon.test::after {
-            background: linear-gradient(135deg, var(--teal-highlight), var(--green-highlight));
-        }
-        
-        .agent-card:hover .agent-icon {
-            transform: rotateY(360deg);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .agent-card:hover .agent-icon.data {
-            color: var(--cyan-highlight);
-        }
-        
-        .agent-card:hover .agent-icon.business {
-            color: var(--purple-highlight);
-        }
-        
-        /* Hover para o ícone do agente COBOL */
-        .agent-card:hover .agent-icon.legacy {
-            color: var(--green-highlight);
-        }
-        
-        /* Hover para os ícones dos novos agentes */
-        .agent-card:hover .agent-icon.code {
-            color: var(--pink-highlight);
-        }
-        
-        .agent-card:hover .agent-icon.test {
-            color: var(--teal-highlight);
-        }
-        
-        .agent-title-area {
-            flex-grow: 1;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .agent-title {
-            font-size: 1.4rem;
-            margin: 0 0 5px;
-            color: var(--text-primary);
-            font-weight: 600;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Efeito de destaque no título */
-        .agent-title::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background: var(--cyan-highlight);
-            transition: width 0.3s ease;
-        }
-        
-        .agent-card:hover .agent-title::after {
-            width: 100%;
-        }
-        
-        .agent-card:hover .agent-header.business .agent-title::after {
-            background: var(--purple-highlight);
-        }
-        
-        /* Nova classe para o destaque do título do agente COBOL */
-        .agent-card:hover .agent-header.legacy .agent-title::after {
-            background: var(--green-highlight);
-        }
-        
-        /* Novas classes para os destaques dos títulos dos novos agentes */
-        .agent-card:hover .agent-header.code .agent-title::after {
-            background: var(--pink-highlight);
-        }
-        
-        .agent-card:hover .agent-header.test .agent-title::after {
-            background: var(--teal-highlight);
-        }
-        
-        .agent-category {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            color: var(--text-primary);
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        
-        .agent-category.data {
-            background: rgba(0, 229, 255, 0.2);
-            color: var(--cyan-highlight);
-        }
-        
-        .agent-category.business {
-            background: rgba(123, 104, 238, 0.2);
-            color: var(--purple-highlight);
-        }
-        
-        /* Nova classe para a categoria do agente COBOL */
-        .agent-category.legacy {
-            background: rgba(76, 175, 80, 0.2);
-            color: var(--green-highlight);
-        }
-        
-        /* Novas classes para as categorias dos novos agentes */
-        .agent-category.code {
-            background: rgba(233, 30, 99, 0.2);
-            color: var(--pink-highlight);
-        }
-        
-        .agent-category.test {
-            background: rgba(0, 150, 136, 0.2);
-            color: var(--teal-highlight);
-        }
-        
-        .agent-body {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 1;
-            overflow: visible; /* Garante que o conteúdo não seja cortado */
-        }
-        
-        /* Efeito de código binário no fundo */
-        .binary-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.03;
-            font-family: monospace;
-            font-size: 10px;
-            color: var(--text-primary);
-            overflow: hidden;
-        }
-        
-        .binary-text {
-            position: absolute;
-            white-space: nowrap;
-        }
-        
-        .agent-description {
-            margin-bottom: 25px;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            flex-grow: 1;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .agent-features {
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-item:hover {
-            transform: translateX(5px);
-        }
-        
-        .feature-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-        
-        .feature-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-        
-        .feature-icon.data {
-            background: rgba(0, 229, 255, 0.15);
-            color: var(--cyan-highlight);
-        }
-        
-        .feature-icon.business {
-            background: rgba(123, 104, 238, 0.15);
-            color: var(--purple-highlight);
-        }
-        
-        /* Nova classe para o ícone de feature do agente COBOL */
-        .feature-icon.legacy {
-            background: rgba(76, 175, 80, 0.15);
-            color: var(--green-highlight);
-        }
-        
-        /* Novas classes para os ícones de feature dos novos agentes */
-        .feature-icon.code {
-            background: rgba(233, 30, 99, 0.15);
-            color: var(--pink-highlight);
-        }
-        
-        .feature-icon.test {
-            background: rgba(0, 150, 136, 0.15);
-            color: var(--teal-highlight);
-        }
-        
-        .feature-text {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        
-        .agent-benefits {
-            margin-top: auto;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .benefit-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Efeito de brilho nos benefícios */
-        .benefit-tag::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-            opacity: 0;
-        }
-        
-        .benefit-tag:hover::after {
-            left: 100%;
-            opacity: 1;
-        }
-        
-        .benefit-tag.data {
-            background: rgba(0, 229, 255, 0.15);
-            color: var(--cyan-highlight);
-        }
-        
-        .benefit-tag.business {
-            background: rgba(123, 104, 238, 0.15);
-            color: var(--purple-highlight);
-        }
-        
-        /* Nova classe para as tags de benefício do agente COBOL */
-        .benefit-tag.legacy {
-            background: rgba(76, 175, 80, 0.15);
-            color: var(--green-highlight);
-        }
-        
-        /* Novas classes para as tags de benefício dos novos agentes */
-        .benefit-tag.code {
-            background: rgba(233, 30, 99, 0.15);
-            color: var(--pink-highlight);
-        }
-        
-        .benefit-tag.test {
-            background: rgba(0, 150, 136, 0.15);
-            color: var(--teal-highlight);
-        }
-        
-        .agent-card:hover .benefit-tag {
-            transform: translateY(-3px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        }
-        
-          .agent-footer {
-            padding: 20px 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Centralizado já que removemos o botão */
-            background-color: rgba(0, 0, 0, 0.15);
-            position: relative;
-            z-index: 1;
-        }
-        
-        .agent-users {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .agent-users i {
-            font-size: 1rem;
-        }
-        
-        .agent-users i.data {
-            color: var(--cyan-highlight);
-        }
-        
-        .agent-users i.business {
-            color: var(--purple-highlight);
-        }
-        
-        /* Nova classe para o ícone de usuários do agente COBOL */
-        .agent-users i.legacy {
-            color: var(--green-highlight);
-        }
-        
-        /* Novas classes para os ícones de usuários dos novos agentes */
-        .agent-users i.code {
-            color: var(--pink-highlight);
-        }
-        
-        .agent-users i.test {
-            color: var(--teal-highlight);
-        }
-        
-        /* Efeito de destaque AI */
-        .ai-badge {
-            position: absolute;
-            top: -10px; /* Ajustado para ficar mais visível */
-            right: 20px; /* Ajustado para não ficar cortado */
-            background: linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight));
-            color: var(--text-primary);
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 5px 10px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 2;
-            animation: pulse 2s infinite;
-        }
-        
-        /* Animações */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .agents-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header-section h1 {
-                font-size: 2rem;
-            }
-            
-            .header-section p {
-                font-size: 1rem;
-            }
-            
-            .agent-header {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            
-            .agent-title-area {
-                text-align: center;
-            }
-            
-            .agent-category {
-                margin-top: 5px;
-            }
-            
-            .agent-footer {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.4;
+    overflow-x: hidden;
+    font-size: 14px;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%),
+        radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+}
+
+/* Efeito de partículas no fundo */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    animation: float 15s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+    }
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Header Section */
+.header-section {
+    text-align: center;
+    padding: 40px 0 20px;
+    position: relative;
+    background-color: var(--bg-secondary);
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Efeito de circuito no header */
+.circuit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjQwIiB5Mj0iMCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMTAiIHgyPSI0MCIgeTI9IjEwIiBzdHJva2U9IiMwMDMzQTAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGxpbmUgeDE9IjAiIHkxPSIyMCIgeDI9IjQwIiB5Mj0iMjAiIHN0cm9rZT0iIzAwMzNBMCIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48bGluZSB4MT0iMCIgeTE9IjMwIiB4Mj0iNDAiIHkyPSIzMCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSI0MCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjQwIiBzdHJva2U9IiMwMDMzQTAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGxpbmUgeDE9IjIwIiB5MT0iMCIgeDI9IjIwIiB5Mj0iNDAiIHN0cm9rZT0iIzAwMzNBMCIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48bGluZSB4MT0iMzAiIHkxPSIwIiB4Mj0iMzAiIHkyPSI0MCIgc3Ryb2tlPSIjMDAzM0EwIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.header-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    text-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
+}
+
+.header-section p {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, #0033A0, #7B68EE);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #7B68EE, #0033A0);
+}
+
+/* Agents Section */
+.agents-section {
+    padding: 20px 0 60px;
+}
+
+.agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.agent-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--card-shadow);
+    margin-top: 20px; /* Aumentado espaço no topo para a tag AI Agent */
+}
+
+.agent-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--card-shadow-hover);
+    background: var(--bg-card-hover);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Efeito de brilho ao redor do card */
+.agent-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        var(--cyan-highlight), 
+        transparent, 
+        var(--purple-highlight), 
+        transparent, 
+        var(--red-bradesco));
+    z-index: -1;
+    border-radius: 22px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-size: 400%;
+    animation: glowing 20s linear infinite;
+}
+
+.agent-card:hover::before {
+    opacity: 1;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+.agent-header {
+    padding: 25px 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.agent-header.data {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 51, 160, 0.2));
+}
+
+.agent-header.business {
+    background: linear-gradient(135deg, rgba(123, 104, 238, 0.2), rgba(204, 0, 0, 0.2));
+}
+
+/* Nova classe para o header do agente COBOL */
+.agent-header.legacy {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(255, 152, 0, 0.2));
+}
+
+/* Novas classes para os headers dos novos agentes */
+.agent-header.code {
+    background: linear-gradient(135deg, rgba(79, 195, 247, 0.2), rgba(33, 150, 243, 0.2)); /* Azul claro */
+}
+
+.agent-header.test {
+    background: linear-gradient(135deg, rgba(0, 150, 136, 0.2), rgba(76, 175, 80, 0.2));
+}
+
+/* Efeito de circuito no header do card */
+.agent-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjQwIiB5Mj0iMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxsaW5lIHgxPSIwIiB5MT0iMTAiIHgyPSI0MCIgeTI9IjEwIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+');
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.agent-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    transition: all 0.5s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.agent-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan-highlight), var(--blue-bradesco));
+    opacity: 0.2;
+    z-index: -1;
+}
+
+/* Efeito de pulso no ícone */
+@keyframes iconPulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 229, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
+}
+
+.agent-icon.data {
+    color: var(--cyan-highlight);
+    animation: iconPulse 2s infinite;
+}
+
+.agent-icon.business {
+    color: var(--purple-highlight);
+    animation: iconPulse 2s infinite;
+}
+
+/* Nova classe para o ícone do agente COBOL */
+.agent-icon.legacy {
+    color: var(--green-highlight);
+    animation: iconPulse 2s infinite;
+}
+
+/* Novas classes para os ícones dos novos agentes */
+.agent-icon.code {
+    color: var(--blue-code);
+    animation: iconPulse 2s infinite;
+}
+
+.agent-icon.test {
+    color: var(--teal-highlight);
+    animation: iconPulse 2s infinite;
+}
+
+.agent-icon.business::after {
+    background: linear-gradient(135deg, var(--purple-highlight), var(--red-bradesco));
+}
+
+/* Nova classe para o fundo do ícone do agente COBOL */
+.agent-icon.legacy::after {
+    background: linear-gradient(135deg, var(--green-highlight), var(--orange-highlight));
+}
+
+/* Novas classes para os fundos dos ícones dos novos agentes */
+.agent-icon.code::after {
+    background: linear-gradient(135deg, var(--blue-code), #2196F3);
+}
+
+.agent-icon.test::after {
+    background: linear-gradient(135deg, var(--teal-highlight), var(--green-highlight));
+}
+
+.agent-card:hover .agent-icon {
+    transform: rotateY(360deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.agent-card:hover .agent-icon.data {
+    color: var(--cyan-highlight);
+}
+
+.agent-card:hover .agent-icon.business {
+    color: var(--purple-highlight);
+}
+
+/* Hover para o ícone do agente COBOL */
+.agent-card:hover .agent-icon.legacy {
+    color: var(--green-highlight);
+}
+
+/* Hover para os ícones dos novos agentes */
+.agent-card:hover .agent-icon.code {
+    color: var(--blue-code);
+}
+
+.agent-card:hover .agent-icon.test {
+    color: var(--teal-highlight);
+}
+
+.agent-title-area {
+    flex-grow: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.agent-title {
+    font-size: 1.4rem;
+    margin: 0 0 5px;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Efeito de destaque no título */
+.agent-title::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--cyan-highlight);
+    transition: width 0.3s ease;
+}
+
+.agent-card:hover .agent-title::after {
+    width: 100%;
+}
+
+.agent-card:hover .agent-header.business .agent-title::after {
+    background: var(--purple-highlight);
+}
+
+/* Nova classe para o destaque do título do agente COBOL */
+.agent-card:hover .agent-header.legacy .agent-title::after {
+    background: var(--green-highlight);
+}
+
+/* Novas classes para os destaques dos títulos dos novos agentes */
+.agent-card:hover .agent-header.code .agent-title::after {
+    background: var(--blue-code);
+}
+
+.agent-card:hover .agent-header.test .agent-title::after {
+    background: var(--teal-highlight);
+}
+
+.agent-category {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.agent-category.data {
+    background: rgba(0, 229, 255, 0.2);
+    color: var(--cyan-highlight);
+}
+
+.agent-category.business {
+    background: rgba(123, 104, 238, 0.2);
+    color: var(--purple-highlight);
+}
+
+/* Nova classe para a categoria do agente COBOL */
+.agent-category.legacy {
+    background: rgba(76, 175, 80, 0.2);
+    color: var(--green-highlight);
+}
+
+/* Novas classes para as categorias dos novos agentes */
+.agent-category.code {
+    background: rgba(79, 195, 247, 0.2);
+    color: var(--blue-code);
+}
+
+.agent-category.test {
+    background: rgba(0, 150, 136, 0.2);
+    color: var(--teal-highlight);
+}
+
+.agent-body {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    overflow: visible; /* Garante que o conteúdo não seja cortado */
+}
+
+/* Efeito de código binário no fundo */
+.binary-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.03;
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+.binary-text {
+    position: absolute;
+    white-space: nowrap;
+}
+
+.agent-description {
+    margin-bottom: 25px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.agent-features {
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateX(5px);
+}
+
+.feature-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.feature-icon.data {
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--cyan-highlight);
+}
+
+.feature-icon.business {
+    background: rgba(123, 104, 238, 0.15);
+    color: var(--purple-highlight);
+}
+
+/* Nova classe para o ícone de feature do agente COBOL */
+.feature-icon.legacy {
+    background: rgba(76, 175, 80, 0.15);
+    color: var(--green-highlight);
+}
+
+/* Novas classes para os ícones de feature dos novos agentes */
+.feature-icon.code {
+    background: rgba(79, 195, 247, 0.15);
+    color: var(--blue-code);
+}
+
+.feature-icon.test {
+    background: rgba(0, 150, 136, 0.15);
+    color: var(--teal-highlight);
+}
+
+.feature-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.agent-benefits {
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.benefit-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito de brilho nos benefícios */
+.benefit-tag::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.benefit-tag:hover::after {
+    left: 100%;
+    opacity: 1;
+}
+
+.benefit-tag.data {
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--cyan-highlight);
+}
+
+.benefit-tag.business {
+    background: rgba(123, 104, 238, 0.15);
+    color: var(--purple-highlight);
+}
+
+/* Nova classe para as tags de benefício do agente COBOL */
+.benefit-tag.legacy {
+    background: rgba(76, 175, 80, 0.15);
+    color: var(--green-highlight);
+}
+
+/* Novas classes para as tags de benefício dos novos agentes */
+.benefit-tag.code {
+    background: rgba(79, 195, 247, 0.15);
+    color: var(--blue-code);
+}
+
+.benefit-tag.test {
+    background: rgba(0, 150, 136, 0.15);
+    color: var(--teal-highlight);
+}
+
+.agent-card:hover .benefit-tag {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.agent-footer {
+    padding: 20px 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizado já que removemos o botão */
+    background-color: rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 1;
+}
+
+.agent-users {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.agent-users i {
+    font-size: 1rem;
+}
+
+.agent-users i.data {
+    color: var(--cyan-highlight);
+}
+
+.agent-users i.business {
+    color: var(--purple-highlight);
+}
+
+/* Nova classe para o ícone de usuários do agente COBOL */
+.agent-users i.legacy {
+    color: var(--green-highlight);
+}
+
+/* Novas classes para os ícones de usuários dos novos agentes */
+.agent-users i.code {
+    color: var(--blue-code);
+}
+
+.agent-users i.test {
+    color: var(--teal-highlight);
+}
+
+/* Efeito de destaque AI */
+.ai-badge {
+    position: absolute;
+    top: -10px; /* Ajustado para ficar mais visível */
+    right: 20px; /* Ajustado para não ficar cortado */
+    background: linear-gradient(135deg, var(--cyan-highlight), var(--purple-highlight));
+    color: var(--text-primary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    animation: pulse 2s infinite;
+}
+
+/* Animações */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .agents-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-section h1 {
+        font-size: 2rem;
+    }
+    
+    .header-section p {
+        font-size: 1rem;
+    }
+    
+    .agent-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .agent-title-area {
+        text-align: center;
+    }
+    
+    .agent-category {
+        margin-top: 5px;
+    }
+    
+    .agent-footer {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1001,67 +1002,67 @@
                     </div>
                 </div>
                  <!-- Code Review Agent (NOVO) -->
-                <div class="agent-card floating">
-                    <div class="ai-badge">
-                      
-                    </div>
-                    <div class="agent-header code">
-                        <div class="agent-icon code">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div class="agent-title-area">
-                            <h3 class="agent-title">Agente de Code Review</h3>
-                            <span class="agent-category code">GitHub Copilot</span>
-                        </div>
-                    </div>
-                    <div class="agent-body">
-                        <!-- Fundo de código binário -->
-                        <div class="binary-bg" id="binary-bg-code"></div>
-                        
-                        <p class="agent-description">
-                            Um agente especializado em revisão de código que utiliza o GitHub Copilot para identificar problemas, sugerir melhorias e garantir a qualidade do código seguindo as melhores práticas de desenvolvimento.
-                        </p>
-                        
-                        <div class="agent-features">
-                            <div class="feature-item">
-                                <div class="feature-icon code">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="feature-text">
-                                    Detecção automática de vulnerabilidades de segurança e bugs potenciais
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon code">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="feature-text">
-                                    Sugestões de refatoração para melhorar a legibilidade e manutenção
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon code">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="feature-text">
-                                    Verificação de conformidade com padrões de codificação da empresa
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="agent-benefits">
-                            <span class="benefit-tag code">+75% detecção de bugs</span>
-                            <span class="benefit-tag code">+60% qualidade de código</span>
-                            <span class="benefit-tag code">-50% tempo de revisão</span>
-                        </div>
-                    </div>
-                    <div class="agent-footer">
-                        <div class="agent-users">
-                            <i class="fas fa-users code"></i>
-                            <span>Desenvolvedores e Tech Leads</span>
-                        </div>
-                    </div>
+              <div class="agent-card floating">
+    <div class="ai-badge">
+      
+    </div>
+    <div class="agent-header code">
+        <div class="agent-icon code">
+            <i class="fas fa-code"></i>
+        </div>
+        <div class="agent-title-area">
+            <h3 class="agent-title">Agente de Code Review</h3>
+            <span class="agent-category code">GitHub Copilot</span>
+        </div>
+    </div>
+    <div class="agent-body">
+        <!-- Fundo de código binário -->
+        <div class="binary-bg" id="binary-bg-code"></div>
+        
+        <p class="agent-description">
+            Um agente inteligente integrado ao GitHub Copilot Chat no VS Code, capaz de revisar código em tempo real com base nos padrões corporativos, utilizando Model Context Protocol (MCP) para fornecer contexto.
+        </p>
+        
+        <div class="agent-features">
+            <div class="feature-item">
+                <div class="feature-icon code">
+                    <i class="fas fa-check"></i>
                 </div>
+                <div class="feature-text">
+                    Revisão baseada em padrões corporativos (nomenclatura, arquitetura, segurança)
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon code">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="feature-text">
+                    Feedback imediato com sugestões inline e explicações detalhadas
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon code">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="feature-text">
+                    ChatMode com MCP para carregamento dinâmico do corpus e memória contextual
+                </div>
+            </div>
+        </div>
+        
+        <div class="agent-benefits">
+            <span class="benefit-tag code">Redução de retrabalho</span>
+            <span class="benefit-tag code">Conformidade com padrões</span>
+            <span class="benefit-tag code">Suporte contextual</span>
+        </div>
+    </div>
+    <div class="agent-footer">
+        <div class="agent-users">
+            <i class="fas fa-users code"></i>
+            <span>Desenvolvedores e Tech Leads</span>
+        </div>
+    </div>
+</div>
                 
                 <!-- Test Automation Agent (NOVO) -->
                 <div class="agent-card floating">
