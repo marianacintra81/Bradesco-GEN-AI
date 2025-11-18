@@ -70,6 +70,26 @@
       overflow-x: hidden;
     }
     
+    /* Estilo personalizado para a barra de rolagem */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--bg-card);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-cyan);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-purple);
+    }
+    
     /* Adicionando estilos para os elementos particles e glow */
     .particles {
       position: fixed;
@@ -382,6 +402,13 @@
       position: relative;
     }
     
+    /* Estilo para atividades na fase de deploy */
+    .phase-column.deploy .activity-box {
+      opacity: 0.7; /* Reduzido de 1 para 0.7 */
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    
     .phase-column.collapsed .activity-box {
       opacity: 0;
       transform: translateY(20px);
@@ -390,6 +417,25 @@
     .activity-box:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Efeito especial para os cards com hover */
+    .activity-box[data-hover] {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .activity-box[data-hover]:active {
+      background: var(--accent-cyan);
+      transform: scale(0.95);
+    }
+    
+    .activity-box[data-hover]:active .activity-title {
+      color: var(--bg-primary);
+    }
+    
+    .activity-box[data-hover]:active .activity-tool {
+      background: var(--bg-primary) !important;
     }
     
     .activity-title {
@@ -534,7 +580,7 @@
     /* Hover Card Styles - CORRIGIDO PARA EVITAR CORTE */
     .hover-card {
       position: absolute;
-      width: 400px;
+      width: 500px; /* Aumentado de 400px para 500px para evitar scroll horizontal */
       max-height: 80vh; /* Limitar altura máxima a 80% da altura da viewport */
       background: var(--bg-secondary);
       border-radius: 12px;
@@ -559,6 +605,35 @@
     
     #hoverCardCobolAnalyzer.active {
       transform: translateX(-50%) translateY(0);
+    }
+    
+    /* Estilo específico para o card de Cenários de Teste */
+    #hoverCardCenariosTeste {
+      width: 650px; /* Ainda mais largo para garantir que não haja scroll */
+      position: fixed; /* Posição fixa */
+      top: 50%; /* Centralizado verticalmente */
+      right: 30px; /* Alinhado à direita */
+      transform: translateY(-50%) translateX(100%); /* Inicialmente fora da tela */
+      max-height: 90vh; /* Altura máxima aumentada */
+      overflow-y: hidden; /* Remover barra de rolagem vertical */
+    }
+    
+    #hoverCardCenariosTeste.active {
+      transform: translateY(-50%) translateX(0); /* Desliza da direita */
+    }
+    
+    /* Estilo específico para o card de Base de Conhecimento */
+    #hoverCardBaseConhecimento {
+      position: fixed;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%) translateX(-100%);
+      width: 500px;
+      overflow-y: hidden;
+    }
+    
+    #hoverCardBaseConhecimento.active {
+      transform: translateY(-50%) translateX(0);
     }
     
     .hover-card.active {
@@ -636,12 +711,23 @@
     
     .hover-card-body {
       padding: 1rem;
-      max-height: calc(80vh - 70px); /* Altura máxima menos altura aproximada do header */
+      max-height: calc(90vh - 70px); /* Altura máxima menos altura aproximada do header */
       overflow-y: auto; /* Adicionar barra de rolagem quando necessário */
+      overflow-x: hidden; /* Remover barra de rolagem horizontal */
     }
     
     /* Remover barra de rolagem para o card COBOL */
     #hoverCardCobolAnalyzer .hover-card-body {
+      overflow-y: hidden; /* Remover barra de rolagem vertical */
+    }
+    
+    /* Remover barra de rolagem para o card de Cenários de Teste */
+    #hoverCardCenariosTeste .hover-card-body {
+      overflow-y: hidden; /* Remover barra de rolagem vertical */
+    }
+    
+    /* Remover barra de rolagem para o card de Base de Conhecimento */
+    #hoverCardBaseConhecimento .hover-card-body {
       overflow-y: hidden; /* Remover barra de rolagem vertical */
     }
     
@@ -692,6 +778,52 @@
     .hover-card-content > *:nth-child(3) { animation-delay: 0.3s; }
     .hover-card-content > *:nth-child(4) { animation-delay: 0.4s; }
     
+    /* Animações para os cards */
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+    
+    @keyframes slideInBottom {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    
+    #hoverCardCenariosTeste.active {
+      animation: slideInRight 0.5s ease forwards;
+    }
+    
+    #hoverCardBaseConhecimento.active {
+      animation: slideInLeft 0.5s ease forwards;
+    }
+    
+    #hoverCardCobolAnalyzer.active {
+      animation: slideInBottom 0.5s ease forwards;
+    }
+    
     /* Responsive */
     @media (max-width: 992px) {
       .timeline {
@@ -733,7 +865,19 @@
       }
       
       .hover-card {
-        width: 350px;
+        width: 450px;
+      }
+      
+      #hoverCardCenariosTeste {
+        width: 90%;
+        max-width: 550px;
+        right: 5%;
+      }
+      
+      #hoverCardBaseConhecimento {
+        width: 90%;
+        max-width: 450px;
+        left: 5%;
       }
       
       #hoverCardCobolAnalyzer {
@@ -756,7 +900,7 @@
         padding: 0.8rem;
       }
       
-      .legend-item {
+         .legend-item {
         padding: 0.3rem 0.6rem;
       }
       
@@ -769,12 +913,205 @@
       }
       
       .hover-card {
-        width: 320px;
+        width: 90%;
+        max-width: 400px;
+      }
+      
+      #hoverCardCenariosTeste {
+        width: 90%;
+        max-width: 500px;
+        right: 5%;
+      }
+      
+      #hoverCardBaseConhecimento {
+        width: 90%;
+        max-width: 400px;
+        left: 5%;
       }
       
       #hoverCardCobolAnalyzer {
         width: 90%;
         max-width: 400px;
+      }
+      
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateY(0) translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) translateX(0);
+        }
+      }
+      
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateY(0) translateX(-100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) translateX(0);
+        }
+      }
+      
+      #hoverCardCenariosTeste {
+        top: 50%;
+        transform: translateY(-50%) translateX(100%);
+      }
+      
+      #hoverCardCenariosTeste.active {
+        transform: translateY(-50%) translateX(0);
+      }
+      
+      #hoverCardBaseConhecimento {
+        top: 50%;
+        transform: translateY(-50%) translateX(-100%);
+      }
+      
+      #hoverCardBaseConhecimento.active {
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+    
+    /* Estilos para o card de Cenários de Teste */
+    .stats-highlight {
+      display: flex;
+      justify-content: space-around;
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: rgba(0, 51, 160, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: var(--blue-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .metrics-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 120px;
+    }
+
+    .metric-circle {
+      width: 70px; /* Reduzido de 80px para 70px */
+      height: 70px; /* Reduzido de 80px para 70px */
+      border-radius: 50%;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem; /* Reduzido de 1.2rem para 1rem */
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 5px 15px rgba(0, 229, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .metric-item:hover .metric-circle {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 229, 255, 0.4);
+    }
+
+    .metric-label {
+      font-size: 0.75rem; /* Reduzido de 0.8rem para 0.75rem */
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .metric-item.highlight .metric-circle {
+      background: var(--blue-gradient);
+      color: white;
+      border: none;
+      width: 65px; /* Reduzido de 80px para 65px */
+      height: 65px; /* Reduzido de 80px para 65px */
+      font-size: 0.9rem; /* Reduzido de 1.2rem para 0.9rem */
+    }
+
+    /* Link para depoimentos */
+    .testimonials-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 229, 255, 0.1);
+      border-radius: 5px;
+    }
+
+    .testimonials-link:hover {
+      background: rgba(0, 229, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .testimonials-link i {
+      margin-left: 0.5rem;
+    }
+    
+    /* Destaque para a informação de 100% dos QAs */
+    .highlight-info {
+      background: rgba(0, 51, 160, 0.15); /* Tonalidade mais discreta */
+      color: var(--text-secondary); /* Cor mais discreta */
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-weight: 500; /* Menos negrito */
+      text-align: center;
+      margin: 1rem 0;
+      box-shadow: 0 5px 15px rgba(0, 51, 160, 0.1); /* Sombra mais sutil */
+      font-size: 0.9rem; /* Fonte menor */
+    }
+
+    /* Responsividade para o card de Cenários de Teste */
+    @media (max-width: 768px) {
+      .metrics-container {
+        gap: 0.5rem;
+      }
+      
+      .metric-item {
+        width: 100px;
+      }
+      
+      .metric-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 0.9rem;
+      }
+      
+      .stats-highlight {
+        flex-direction: column;
+        gap: 1rem;
       }
     }
   </style>
@@ -965,7 +1302,7 @@
             <i class="fas fa-chevron-up"></i>
           </button>
           <div class="activities-container">
-            <div class="activity-box">
+            <div class="activity-box" data-hover="cenariosTeste">
               <div class="activity-title">Cenários de Teste</div>
               <div class="activity-tool kb">
                 <img src="./Picture4.png" alt="Base de Conhecimento">
@@ -973,7 +1310,7 @@
               </div>
             </div>
             
-            <div class="activity-box">
+                 <div class="activity-box">
               <div class="activity-title">Testes de Integração</div>
               <div class="activity-tool agent">
                 <i class="fas fa-vial"></i>
@@ -1097,6 +1434,73 @@
       </div>
     </div>
   </div>
+  
+  <!-- Hover Card para Cenários de Teste -->
+  <div class="hover-card" id="hoverCardCenariosTeste">
+    <div class="hover-card-header">
+      <div class="hover-card-icon">
+        <img src="./Picture4.png" alt="PromptX">
+      </div>
+      <h2 class="hover-card-title">PromptX: Criação de Cenários de Teste</h2>
+      <button class="hover-card-close" aria-label="Fechar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="hover-card-body">
+      <div class="hover-card-content">
+        <p><strong>O PromptX gera cenários de teste precisos com IA avançada.</strong></p>
+        
+        <div class="highlight-info">
+          100% dos profissionais de QA utilizam esta ferramenta
+        </div>
+        
+        <div class="stats-highlight">
+          <div class="stat-item">
+            <div class="stat-value">-40%</div>
+            <div class="stat-label">tempo</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">+30%</div>
+            <div class="stat-label">cobertura</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">padronização</div>
+          </div>
+        </div>
+        
+        <h3>Resultados de Produtividade e Eficiência</h3>
+        
+        <div class="metrics-container">
+          <div class="metric-item">
+            <div class="metric-circle">94,7%</div>
+            <div class="metric-label">Facilidade de uso</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-circle">89,3%</div>
+            <div class="metric-label">Economia de tempo</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-circle">89,5%</div>
+            <div class="metric-label">Eficácia na criação</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-circle">92,1%</div>
+            <div class="metric-label">Precisão dos cenários</div>
+          </div>
+          <div class="metric-item highlight">
+            <div class="metric-circle">100%</div>
+            <div class="metric-label">Taxa de Recomendação</div>
+          </div>
+        </div>
+        
+        <h3>Impacto nos Resultados</h3>
+        <p>A implementação do PromptX resultou em uma redução média de 58% no tempo necessário para criar cenários de teste, com alguns usuários relatando economias de até 75% do tempo.</p>
+        
+        <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/depoimentos.html" class="testimonials-link">Ver depoimentos de usuários <i class="fas fa-external-link-alt"></i></a>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1154,49 +1558,8 @@
         });
       });
       
-      // Função para posicionar hover cards - MODIFICADA PARA POSICIONAR O CARD COBOL NA PARTE INFERIOR
-      function positionHoverCard(targetElement, hoverCard, isCobolCard = false) {
-        if (isCobolCard) {
-          // Para o card COBOL, não precisamos fazer nada, pois o CSS já o posiciona na parte inferior
-          return;
-        } else {
-          // Posicionamento normal para outros cards
-          const rect = targetElement.getBoundingClientRect();
-          const cardWidth = 400;
-          const cardHeight = hoverCard.offsetHeight || 300;
-          
-          // Calculate position - prefer right side if there's enough space
-          let left = rect.right + 15;
-          
-          // Check if card would go off-screen to the right
-          if (left + cardWidth > window.innerWidth - 20) {
-            left = rect.left - cardWidth - 15; // Position to the left instead
-          }
-          
-          // If it would go off-screen to the left too, center it
-          if (left < 20) {
-            left = Math.max(20, rect.left + (rect.width - cardWidth) / 2);
-          }
-          
-          let top = rect.top - 10;
-          
-          // Check if card would go off-screen at the bottom
-          if (top + cardHeight > window.innerHeight - 20) {
-            top = window.innerHeight - cardHeight - 20;
-          }
-          
-          // Check if card would go off-screen at the top
-          if (top < 20) {
-            top = 20;
-          }
-          
-          hoverCard.style.left = `${left}px`;
-          hoverCard.style.top = `${top}px`;
-        }
-      }
-      
       // Setup hover card functionality - MELHORADO
-      function setupHoverCard(cardId, triggerSelector, isCobolCard = false) {
+      function setupHoverCard(cardId, triggerSelector) {
         console.log("Configurando hover card:", cardId, triggerSelector);
         const hoverCard = document.getElementById(cardId);
         if (!hoverCard) {
@@ -1216,47 +1579,12 @@
         
         triggerElements.forEach(triggerElement => {
           let isCardFixed = false;
-          let hoverTimeout;
           
-          // Show hover card when hovering over trigger element
-          triggerElement.addEventListener('mouseenter', () => {
-            console.log(`Mouse entrou em ${triggerSelector}`);
-            clearTimeout(hoverTimeout);
-            if (!isCardFixed) {
-              positionHoverCard(triggerElement, hoverCard, isCobolCard);
-                hoverCard.classList.add('active');
-            }
-          });
-          
-          // Hide hover card when mouse leaves, unless it's fixed
-          triggerElement.addEventListener('mouseleave', () => {
-            if (!isCardFixed) {
-              hoverTimeout = setTimeout(() => {
-                hoverCard.classList.remove('active');
-              }, 300);
-            }
-          });
-          
-          // Keep hover card visible when mouse enters it
-          hoverCard.addEventListener('mouseenter', () => {
-            clearTimeout(hoverTimeout);
-          });
-          
-          // Hide hover card when mouse leaves it, unless it's fixed
-          hoverCard.addEventListener('mouseleave', () => {
-            if (!isCardFixed) {
-              hoverTimeout = setTimeout(() => {
-                hoverCard.classList.remove('active');
-              }, 300);
-            }
-          });
-          
-          // Fix the hover card in place when clicking on trigger element
+          // Mostrar apenas no clique, não no hover
           triggerElement.addEventListener('click', (e) => {
             console.log(`Clique em ${triggerSelector}`);
             e.preventDefault();
             isCardFixed = true;
-            positionHoverCard(triggerElement, hoverCard, isCobolCard);
             hoverCard.classList.add('active');
           });
           
@@ -1276,54 +1604,13 @@
         });
       }
       
-      // Verificar se o card COBOL está visível
-      const cobolCard = document.getElementById('cobolCard');
-      if (cobolCard) {
-        console.log("Card COBOL encontrado:", cobolCard);
-        // Destacar o card COBOL temporariamente para depuração
-        setTimeout(() => {
-          cobolCard.style.borderColor = "var(--accent-cyan)";
-          cobolCard.style.borderWidth = "3px";
-          
-          // Restaurar após 3 segundos
-          setTimeout(() => {
-            cobolCard.style.borderColor = "";
-            cobolCard.style.borderWidth = "";
-          }, 3000);
-        }, 1000);
-      }
-      
       // Setup hover cards com verificação adicional
       console.log("Iniciando configuração dos hover cards");
       
-      // Configurar hover cards - Passando true para o card COBOL para posicionar na parte inferior
-      setupHoverCard('hoverCardBaseConhecimento', '[data-hover="baseConhecimento"]', false);
-      setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]', true); // Passando true para posicionar na parte inferior
-      
-      // Configuração especial para o card COBOL
-      const cobolAnalyzerCard = document.getElementById('hoverCardCobolAnalyzer');
-      const cobolAnalyzerTrigger = document.querySelector('[data-hover="cobolAnalyzer"]');
-      
-      if (cobolAnalyzerCard && cobolAnalyzerTrigger) {
-        console.log("Elementos COBOL encontrados, configurando manualmente");
-        
-        // Configuração manual para o card COBOL
-        cobolAnalyzerTrigger.addEventListener('click', (e) => {
-          e.preventDefault();
-          // Não precisamos definir posição aqui, pois o CSS já posiciona na parte inferior
-          cobolAnalyzerCard.classList.add('active');
-        });
-        
-        // Mostrar o card COBOL brevemente para depuração
-        setTimeout(() => {
-          cobolAnalyzerCard.classList.add('active');
-          
-          // Ocultar após 2 segundos
-          setTimeout(() => {
-            cobolAnalyzerCard.classList.remove('active');
-          }, 2000);
-        }, 2000);
-      }
+      // Configurar hover cards
+      setupHoverCard('hoverCardBaseConhecimento', '[data-hover="baseConhecimento"]');
+      setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]');
+      setupHoverCard('hoverCardCenariosTeste', '[data-hover="cenariosTeste"]');
     });
   </script>
 </body>
