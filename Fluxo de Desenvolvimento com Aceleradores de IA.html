@@ -1160,13 +1160,23 @@
               </div>
             </div>
             
-            <div class="activity-box">
-              <div class="activity-title">Code Review</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-robot"></i>
-                <span class="tooltip">Agente de Code Review</span>
-              </div>
-            </div>
+    <!-- Card Code Review com layout atualizado -->
+<div class="activity-box">
+  <div class="activity-title">Code Review</div>
+  <div style="position: relative; display: flex; justify-content: center; height: 40px;">
+    <!-- Círculo com ícone do agente (posicionado acima) -->
+    <div class="activity-tool agent" style="width: 30px; height: 30px; position: relative; z-index: 2;">
+      <i class="fas fa-robot" style="font-size: 0.9rem;"></i>
+      <span class="tooltip">Agente</span>
+    </div>
+    
+    <!-- Círculo com ícone do GitHub Copilot (movido mais para a direita) -->
+    <div class="activity-tool github" style="width: 24px; height: 24px; position: absolute; bottom: -6px; right: calc(50% - 32px); z-index: 1; border: 1px solid var(--bg-card); box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+      <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot" style="width: 18px; height: 18px; object-fit: contain;">
+      <span class="tooltip">GitHub Copilot</span>
+    </div>
+  </div>
+</div>
             
             <div class="activity-box">
               <div class="activity-title">Testes Unitários</div>
@@ -1219,13 +1229,23 @@
               </div>
             </div>
             
-            <div class="activity-box">
-              <div class="activity-title">Testes Automatizados</div>
-              <div class="activity-tool agent">
-                <i class="fas fa-robot"></i>
-                <span class="tooltip">Agente de Automação de Testes</span>
-              </div>
-            </div>
+<!-- Card Testes Automatizados com layout atualizado -->
+<div class="activity-box">
+  <div class="activity-title">Testes Automatizados</div>
+  <div style="position: relative; display: flex; justify-content: center; height: 40px;">
+    <!-- Círculo com ícone do agente (posicionado acima) -->
+    <div class="activity-tool agent" style="width: 30px; height: 30px; position: relative; z-index: 2;">
+      <i class="fas fa-robot" style="font-size: 0.9rem;"></i>
+      <span class="tooltip">Agente</span>
+    </div>
+    
+    <!-- Círculo com ícone do GitHub Copilot (movido mais para a direita) -->
+    <div class="activity-tool github" style="width: 24px; height: 24px; position: absolute; bottom: -6px; right: calc(50% - 32px); z-index: 1; border: 1px solid var(--bg-card); box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+      <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot" style="width: 18px; height: 18px; object-fit: contain;">
+      <span class="tooltip">GitHub Copilot</span>
+    </div>
+  </div>
+</div>
           </div>
         </div>
         
@@ -1397,7 +1417,7 @@
         <div class="card">
           <h4><i class="fas fa-chart-line"></i> Principais Indicadores</h4>
           <ul>
-            <li>Redução de <strong>40% no tempo</strong> de criação</li>
+            <li>Redução média de <strong>40% no tempo</strong> de criação</li>
             <li>Aumento de <strong>30% na cobertura</strong> de testes</li>
             <li><strong>100% de padronização</strong> nos cenários</li>
             <li><strong>100% dos QAs</strong> utilizam esta ferramenta</li>
