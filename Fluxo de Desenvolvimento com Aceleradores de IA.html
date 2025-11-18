@@ -452,7 +452,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 5px 15px rgba(0, 51, 160, 0.3);
+           box-shadow: 0 5px 15px rgba(0, 51, 160, 0.3);
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -926,7 +926,7 @@
         border-color: transparent transparent var(--bg-secondary) transparent;
       }
       
-      .activity-tool:hover .tooltip {
+         .activity-tool:hover .tooltip {
         transform: translateX(-50%) scale(1);
       }
     }
@@ -1063,13 +1063,13 @@
   </div>
 </div>
             
-            <div class="activity-box">
-              <div class="activity-title">Contagem de Ponto de Função</div>
-              <div class="activity-tool kb">
-                <img src="./Picture4.png" alt="Base de Conhecimento">
-                <span class="tooltip">PromptX Capgemini</span>
-              </div>
-            </div>
+           <div class="activity-box" data-hover="pontosFuncao">
+  <div class="activity-title">Contagem de Ponto de Função</div>
+  <div class="activity-tool kb">
+    <img src="./Picture4.png" alt="Base de Conhecimento">
+    <span class="tooltip">PromptX Capgemini</span>
+  </div>
+</div>
               <div class="activity-box">
               <div class="activity-title">Diagrama de Sequência UML</div>
               <div class="activity-tool kb">
@@ -1236,7 +1236,7 @@
     <!-- Círculo com ícone do agente (posicionado acima) -->
     <div class="activity-tool agent" style="width: 30px; height: 30px; position: relative; z-index: 2;">
       <i class="fas fa-robot" style="font-size: 0.9rem;"></i>
-      <span class="tooltip">Agente</span>
+        <span class="tooltip">Agente</span>
     </div>
     
     <!-- Círculo com ícone do GitHub Copilot (movido mais para a direita) -->
@@ -1447,6 +1447,78 @@
   </div>
 </div>
 
+<!-- Hover Card para Contagem de Pontos de Função -->
+<div class="hover-card" id="hoverCardPontosFuncao">
+  <div class="hover-card-header">
+    <h2 class="hover-card-title">PromptX: Contagem de Pontos de Função com IA</h2>
+    <button class="hover-card-close" aria-label="Fechar">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="hover-card-body">
+    <div class="hover-card-content">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-lightbulb" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+          <p style="font-size:0.95rem; line-height:1.5;">O <strong style="color:#fff">PromptX</strong> revoluciona a contagem de pontos de função com IA avançada, aumentando a precisão e reduzindo o tempo necessário para análises.</p>
+        </div>
+        <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, #2b3137, #404448); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(123,104,238,.4);">
+          <div style="position:relative; width:60px; height:60px;">
+            <img src="./Picture4.png" alt="PromptX" style="width:100%; height:100%; object-fit:contain;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="card">
+          <h4><i class="fas fa-chart-line"></i> Principais Indicadores</h4>
+          <ul>
+            <li>Redução média de <strong>60% no tempo</strong> de contagem</li>
+            <li><strong>100% dos usuários</strong> consideram a ferramenta eficaz</li>
+            <li><strong>100% taxa de recomendação</strong> entre analistas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-check-circle"></i> Principais Benefícios</h4>
+          <ul>
+            <li><strong>Identificação precisa</strong> e classificação dos tipos de função</li>
+            <li><strong>Reescrita inteligente</strong> de histórias conforme diretrizes do cliente</li>
+            <li><strong>Recuperação</strong> de pontos de função potencialmente perdidos</li>
+            <li><strong>Argumentação técnica</strong> para justificar pontuações</li>
+            <li><strong>Interface intuitiva</strong> que facilita a adoção pela equipe</li>
+          </ul>
+        </div>
+      </div>
+      
+   
+      
+      <!-- Depoimentos -->
+      <div style="margin-top:30px;">
+        <h4 style="text-align:center; margin-bottom:20px; color:var(--accent-cyan);"><i class="fas fa-quote-left" style="color:var(--accent-purple); margin-right:8px;"></i> Depoimentos de Usuários</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+          <!-- Depoimento 1 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"Consegui recuperar muitos pontos e identificar oportunidades de melhoria nas histórias. O PromptX transformou nossa abordagem de contagem."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Sofia P.</div>
+          </div>
+          
+          <!-- Depoimento 2 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"Tive a oportunidade de apoiar as validações do PromptX. A sugestão para reescrever histórias com base no PRD já foi implementada e trouxe resultados excelentes."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Marcella S.</div>
+          </div>
+          
+          <!-- Depoimento 3 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <p style="font-style:italic; font-size:0.9rem; margin-bottom:10px;">"Consegui apoiar em diversas revisões que antes não era possível. O ganho de tempo e a facilidade de uso fazem toda a diferença."</p>
+            <div style="text-align:right; font-size:0.8rem; font-weight:600; color:var(--accent-cyan);">- Roger G.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const phaseColumns = document.querySelectorAll('.phase-column');
@@ -1570,6 +1642,7 @@
       setupHoverCard('hoverCardBaseConhecimento', '[data-hover="baseConhecimento"]');
       setupHoverCard('hoverCardCobolAnalyzer', '[data-hover="cobolAnalyzer"]');
       setupHoverCard('hoverCardCenariosTeste', '[data-hover="cenariosTeste"]');
+      setupHoverCard('hoverCardPontosFuncao', '[data-hover="pontosFuncao"]');
     });
     
     // Função para mostrar depoimentos em um modal
