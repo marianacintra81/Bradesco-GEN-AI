@@ -1094,6 +1094,8 @@
     </div>
   </div>
 </div>
+
+
         
           </div>
         </div>
@@ -1160,8 +1162,8 @@
               </div>
             </div>
             
-    <!-- Card Code Review com layout atualizado -->
-<div class="activity-box">
+ <!-- Card Code Review com layout atualizado na fase 3 -->
+<div class="activity-box" data-hover="codeReview">
   <div class="activity-title">Code Review</div>
   <div style="position: relative; display: flex; justify-content: center; height: 40px;">
     <!-- Círculo com ícone do agente (posicionado acima) -->
@@ -1808,6 +1810,103 @@
     </div>
   </div>
 </div>
+<!-- 2. Adicionar a modal de Code Review -->
+<div class="hover-card" id="hoverCardCodeReview">
+  <div class="hover-card-header">
+    <h2 class="hover-card-title">Code Review Inteligente</h2>
+    <button class="hover-card-close" aria-label="Fechar">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="hover-card-body">
+    <div class="hover-card-content">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-lightbulb" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+          <p style="font-size:0.95rem; line-height:1.5;">Um <strong style="color:#fff">agente inteligente</strong> integrado ao GitHub Copilot Chat no VS Code, capaz de revisar código em tempo real com base nos padrões corporativos, utilizando Model Context Protocol (MCP) para fornecer contexto.</p>
+        </div>
+        <!-- Layout atualizado para corresponder ao card, com dois ícones sobrepostos -->
+        <div style="width:90px; height:90px; flex-shrink:0; position:relative; display:flex; align-items:center; justify-content:center;">
+          <!-- Círculo com ícone do agente (posicionado acima) -->
+          <div style="width:70px; height:70px; background:linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(123,104,238,.4); position:relative; z-index:2;">
+            <i class="fas fa-robot" style="font-size:2rem; color:#fff;"></i>
+          </div>
+          
+          <!-- Círculo com ícone do GitHub Copilot (posicionado abaixo e à direita) -->
+          <div style="width:40px; height:40px; background:linear-gradient(135deg, #2b3137, #404448); border-radius:50%; position:absolute; bottom:-5px; right:-5px; z-index:3; border:2px solid var(--bg-secondary); box-shadow:0 5px 15px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;">
+            <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot" style="width:30px; height:30px; object-fit:contain;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="card">
+          <h4><i class="fas fa-cogs"></i> Principais Funcionalidades</h4>
+          <ul>
+            <li><strong>Revisão baseada em padrões corporativos</strong> (nomenclatura, arquitetura, segurança)</li>
+            <li><strong>Feedback imediato</strong> com sugestões inline e explicações detalhadas</li>
+            <li><strong>ChatMode com MCP</strong> para carregamento dinâmico do corpus e memória contextual</li>
+            <li><strong>Integração nativa</strong> com o ambiente de desenvolvimento VS Code</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-chart-line"></i> Principais Benefícios</h4>
+          <ul>
+            <li><strong>Redução de retrabalho</strong> através de detecção precoce de problemas</li>
+            <li><strong>Conformidade com padrões</strong> corporativos garantida em todo o código</li>
+            <li><strong>Suporte contextual</strong> que entende a arquitetura específica do projeto</li>
+            <li><strong>Aceleração</strong> do processo de revisão de código</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Casos de Uso -->
+      <div style="margin-top:30px;">
+        <h4 style="text-align:center; margin-bottom:20px; color:var(--accent-cyan);"><i class="fas fa-tasks" style="color:var(--accent-purple); margin-right:8px;"></i> Casos de Uso</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
+          <!-- Caso de Uso 1 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-shield-alt" style="margin-right:8px;"></i> Verificação de Segurança</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Identificação automática de vulnerabilidades de segurança como injeção SQL, XSS e exposição de dados sensíveis durante o desenvolvimento.</p>
+          </div>
+          
+          <!-- Caso de Uso 2 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-sitemap" style="margin-right:8px;"></i> Conformidade Arquitetural</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Verificação da aderência do código aos padrões arquiteturais definidos, garantindo consistência em todo o projeto.</p>
+          </div>
+          
+          <!-- Caso de Uso 3 -->
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px; border-left:3px solid var(--accent-cyan);">
+            <h5 style="color:var(--accent-cyan); margin-bottom:10px; font-size:0.95rem;"><i class="fas fa-tachometer-alt" style="margin-right:8px;"></i> Otimização de Performance</h5>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Sugestões de melhorias de performance baseadas em análise de código e padrões de uso identificados no repositório.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Métricas de Impacto -->
+      <div style="margin-top:30px;">
+        <h4 style="text-align:center; margin-bottom:20px; color:var(--accent-cyan);"><i class="fas fa-chart-bar" style="color:var(--accent-purple); margin-right:8px;"></i> Métricas de Impacto</h4>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; text-align:center;">
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px;">
+            <div style="font-size:2.5rem; font-weight:700; color:var(--accent-cyan); margin-bottom:8px;">-40%</div>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Redução em bugs encontrados em produção</p>
+          </div>
+          
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px;">
+            <div style="font-size:2.5rem; font-weight:700; color:var(--accent-cyan); margin-bottom:8px;">+35%</div>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Aumento na velocidade de revisão de código</p>
+          </div>
+          
+          <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:16px;">
+            <div style="font-size:2.5rem; font-weight:700; color:var(--accent-cyan); margin-bottom:8px;">98%</div>
+            <p style="font-size:0.9rem; color:var(--text-secondary);">Taxa de conformidade com padrões corporativos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -1949,6 +2048,7 @@
   setupHoverCard('hoverCardDiagramaSequencia', '[data-hover="diagramaSequencia"]');
   setupHoverCard('hoverCardHistoriasUsuario', '[data-hover="historiasUsuario"]');
   setupHoverCard('hoverCardPadronizacaoDados', '[data-hover="padronizacaoDados"]');
+   setupHoverCard('hoverCardCodeReview', '[data-hover="codeReview"]');
   
   // Adicionar verificação específica para o card de padronização de dados
   const padronizacaoCard = document.querySelector('[data-hover="padronizacaoDados"]');
