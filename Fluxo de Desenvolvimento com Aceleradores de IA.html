@@ -1154,13 +1154,13 @@
             <i class="fas fa-chevron-up"></i>
           </button>
           <div class="activities-container">
-              <div class="activity-box">
-              <div class="activity-title">Codificação</div>
-              <div class="activity-tool github">
-                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
-                <span class="tooltip">GitHub Copilot</span>
-              </div>
-            </div>
+<div class="activity-box" data-hover="codificacao">
+  <div class="activity-title">Codificação</div>
+  <div class="activity-tool github">
+    <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
+    <span class="tooltip">GitHub Copilot</span>
+  </div>
+</div>
             
  <!-- Card Code Review com layout atualizado na fase 3 -->
 <div class="activity-box" data-hover="codeReview">
@@ -1180,13 +1180,13 @@
   </div>
 </div>
             
-            <div class="activity-box">
-              <div class="activity-title">Testes Unitários</div>
-              <div class="activity-tool github">
-                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
-                <span class="tooltip">GitHub Copilot</span>
-              </div>
-            </div>
+    <div class="activity-box" data-hover="testesUnitarios">
+  <div class="activity-title">Testes Unitários</div>
+  <div class="activity-tool github">
+    <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot">
+    <span class="tooltip">GitHub Copilot</span>
+  </div>
+</div>
           </div>
           
         </div>
@@ -1907,6 +1907,149 @@
     </div>
   </div>
 </div>
+// 2. Adicione a estrutura HTML da modal antes da tag de fechamento Codificação </body>:
+<div class="hover-card" id="hoverCardCodificacao">
+  <div class="hover-card-header">
+    <h2 class="hover-card-title">Codificação com GitHub Copilot</h2>
+    <button class="hover-card-close" aria-label="Fechar">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="hover-card-body">
+    <div class="hover-card-content">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-lightbulb" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+          <p style="font-size:0.95rem; line-height:1.5;">O <strong style="color:#fff">GitHub Copilot</strong>é um assistente de IA que transforma o desenvolvimento de software, gerando código em tempo real com base no contexto do projeto e na intenção do desenvolvedor.</p>
+        </div>
+        <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, #2b3137, #404448); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,0,0,.4);">
+          <div style="position:relative; width:60px; height:60px;">
+            <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot" style="width:100%; height:100%; object-fit:contain;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="card">
+          <h4><i class="fas fa-rocket"></i> Principais Recursos</h4>
+          <ul>
+            <li><strong>Sugestões em tempo real</strong> baseadas no contexto do código</li>
+            <li><strong>Autocompletar</strong> funções e blocos de código completos</li>
+            <li><strong>Conversão de comentários</strong> em código funcional</li>
+            <li><strong>Suporte a múltiplas linguagens</strong> de programação</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-chart-line"></i> Benefícios Estimados</h4>
+          <ul>
+            <li><strong>+55%</strong> de aumento médio na produtividade</li>
+            <li><strong>-30%</strong> no tempo de desenvolvimento</li>
+            <li><strong>+70%</strong> de taxa média de aceitação de sugestões</li>
+   
+          </ul>
+        </div>
+      </div>
+      
+      <div class="grid" style="margin-top: 16px;">
+        <div class="card">
+          <h4><i class="fas fa-code"></i> Casos de Uso</h4>
+          <ul>
+            <li><strong>Geração de código</strong> a partir de comentários descritivos</li>
+            <li><strong>Implementação de algoritmos</strong> complexos com menos esforço</li>
+            <li><strong>Criação de testes unitários</strong> automaticamente</li>
+            <li><strong>Refatoração</strong> de código existente</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-brain"></i> Tecnologia</h4>
+          <ul>
+            <li>Baseado no modelo <strong>OpenAI Codex</strong></li>
+            <li>Treinado com <strong>bilhões de linhas</strong> de código público</li>
+            <li>Integração nativa com <strong>VS Code</strong> e outros IDEs</li>
+            <li>Suporte a <strong>+20 linguagens</strong> de programação</li>
+          </ul>
+        </div>
+      </div>
+      
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+// 2. Modal Testes Unitários</body>:
+<div class="hover-card" id="hoverCardTestesUnitarios">
+  <div class="hover-card-header">
+    <h2 class="hover-card-title">Testes Unitários com GitHub Copilot</h2>
+    <button class="hover-card-close" aria-label="Fechar">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="hover-card-body">
+    <div class="hover-card-content">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; background:linear-gradient(135deg, rgba(123,104,238,.08), rgba(0,229,255,.08)); padding:16px; border-radius:14px; border:1px solid rgba(123,104,238,.2);">
+        <div style="flex:1">
+          <h4 style="font-size:1.1rem; margin-bottom:10px;"><i class="fas fa-lightbulb" style="color:var(--accent-purple); font-size:0.9rem;"></i> Visão Geral</h4>
+          <p style="font-size:0.95rem; line-height:1.5;">O <strong style="color:#fff">GitHub Copilot</strong> revoluciona a criação de testes unitários, automatizando a geração de casos de teste com base no código existente e aumentando significativamente a cobertura e qualidade dos testes.</p>
+        </div>
+        <div style="width:90px; height:90px; flex-shrink:0; background:linear-gradient(135deg, #2b3137, #404448); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 25px rgba(0,0,0,.4);">
+          <div style="position:relative; width:60px; height:60px;">
+            <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot" style="width:100%; height:100%; object-fit:contain;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="card">
+          <h4><i class="fas fa-check-circle"></i> Principais Recursos</h4>
+          <ul>
+            <li><strong>Geração automática</strong> de casos de teste para funções</li>
+            <li><strong>Sugestão de mocks</strong> e dados de teste realistas</li>
+            <li><strong>Cobertura abrangente</strong> de cenários de teste</li>
+            <li><strong>Suporte a frameworks</strong> como Jest, JUnit, pytest e outros</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-chart-line"></i> Benefícios Mensuráveis</h4>
+          <ul>
+            <li><strong>+60%</strong> de aumento na cobertura de código</li>
+            <li><strong>-45%</strong> no tempo de criação de testes</li>
+            <li><strong>+30%</strong> de detecção de bugs em fase inicial</li>
+            <li><strong>92%</strong> de precisão nos testes gerados</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="grid" style="margin-top: 16px;">
+        <div class="card">
+          <h4><i class="fas fa-code"></i> Casos de Uso</h4>
+          <ul>
+            <li><strong>Geração completa</strong> de suítes de teste para novas funções</li>
+            <li><strong>Identificação</strong> de edge cases frequentemente esquecidos</li>
+            <li><strong>Criação de mocks</strong> para dependências externas</li>
+            <li><strong>Refatoração</strong> e melhoria de testes existentes</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i class="fas fa-cogs"></i> Metodologia</h4>
+          <ul>
+            <li><strong>Análise contextual</strong> do código a ser testado</li>
+            <li><strong>Identificação automática</strong> de cenários críticos</li>
+            <li><strong>Geração de dados</strong> de teste representativos</li>
+            <li><strong>Validação</strong> de resultados esperados</li>
+          </ul>
+        </div>
+      </div>
+      
+    
+     
+      
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -2049,6 +2192,8 @@
   setupHoverCard('hoverCardHistoriasUsuario', '[data-hover="historiasUsuario"]');
   setupHoverCard('hoverCardPadronizacaoDados', '[data-hover="padronizacaoDados"]');
    setupHoverCard('hoverCardCodeReview', '[data-hover="codeReview"]');
+    setupHoverCard('hoverCardCodificacao', '[data-hover="codificacao"]');
+    setupHoverCard('hoverCardTestesUnitarios', '[data-hover="testesUnitarios"]');
   
   // Adicionar verificação específica para o card de padronização de dados
   const padronizacaoCard = document.querySelector('[data-hover="padronizacaoDados"]');
