@@ -3,1575 +3,927 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Executivo - Impacto GenAI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Bradesco GenAI Hub | Centro de Inovação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      /* Cores de Fundo */
       --bg-primary: #0c0e14;
       --bg-secondary: #151823;
       --bg-card: #1e2130;
       --bg-card-hover: #272936;
-      
-      /* Cores de Destaque */
-      --red-bradesco: #ff6666;
-      --blue-bradesco: #0033A0;
-      --purple-highlight: #7B68EE;
-      --cyan-highlight: #00e5ff;
-      
-      /* Cores de Texto */
+      --bradesco-red: #cc0000;
+      --bradesco-blue: #0033A0;
+      --accent-purple: #7B68EE;
+      --accent-cyan: #00e5ff;
       --text-primary: #ffffff;
       --text-secondary: #a3a8c3;
-      
-      /* Cores de Status */
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ff6666;
-      
-      /* Cores de Fases */
-      --pilot-color: #00e5ff;
-      --production-color: #7B68EE;
-      --future-color: #0033A0;
-      --pre-genai-color: #a3a8c3;
-      
-      /* Outras cores */
-      --border-color: rgba(163, 168, 195, 0.2);
       --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-      --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
-      --max-width: 1200px;
+      --red-gradient: linear-gradient(135deg, var(--bradesco-red), #ff6b6b);
+      --blue-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-cyan));
+      --mixed-gradient: linear-gradient(135deg, var(--bradesco-blue), var(--accent-purple), var(--bradesco-red));
     }
-
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
+    
     body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Montserrat', sans-serif;
       background-color: var(--bg-primary);
       color: var(--text-primary);
-      line-height: 1.5;
-      padding: 15px;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 51, 160, 0.15) 0%, rgba(0, 51, 160, 0) 70%),
-        radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-
-    .dashboard {
-      max-width: var(--max-width);
+    
+    .container {
+      max-width: 1400px;
       margin: 0 auto;
-      width: 100%;
+      padding: 0 2rem;
     }
-
-    /* Cabeçalho */
-    .header {
+    
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 0;
+      height: 120px;
+      overflow: hidden;
+      background-color: var(--bg-secondary);
+      margin-bottom: 0;
+    }
+    
+    .header-content {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-color);
+      height: 100%;
+      position: relative;
+      z-index: 5;
     }
-
-    .header-title {
-      flex: 1;
-      text-align: center;
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
-
-    .header-title h1 {
-      font-size: 22px;
+    
+    .logo img {
+      height: 50px;
+    }
+    
+    .logo-text {
       font-weight: 700;
-      background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight), var(--red-bradesco));
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+    
+    .main-content {
+      min-height: calc(100vh - 220px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+      position: relative;
+    }
+    
+    /* Animação GenAI para todo o header */
+    .header-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .neural-network {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .node {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 15px var(--accent-cyan);
+      animation: pulse-node 3s infinite alternate;
+    }
+    
+    .connection {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0,229,255,0.1), rgba(0,229,255,0.7), rgba(0,229,255,0.1));
+      transform-origin: left center;
+      animation: pulse-connection 4s infinite alternate;
+    }
+    
+    .data-stream {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--bradesco-red);
+      box-shadow: 0 0 10px var(--bradesco-red);
+      animation: data-flow 6s infinite linear;
+    }
+    
+    .financial-icon {
+      position: absolute;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      opacity: 0.8;
+      animation: float-icon 5s infinite ease-in-out;
+    }
+    
+    .ai-brain {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123, 104, 238, 0.3) 0%, rgba(123, 104, 238, 0.1) 70%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 40px rgba(123, 104, 238, 0.3);
+      animation: pulse-brain 4s infinite alternate;
+    }
+    
+    .ai-brain i {
+      font-size: 1.8rem;
+      background: var(--mixed-gradient);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-
-    .back-button {
-      margin-right: 15px;
-      background: linear-gradient(135deg, var(--blue-bradesco), var(--purple-highlight));
-      color: var(--text-primary);
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
-    }
-
-    .back-button:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    /* Seletor de projetos */
-    .project-selector {
-      display: flex;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      overflow: hidden;
-      background-color: var(--bg-secondary);
-    }
-
-    .project-tab {
-      flex: 1;
-      padding: 12px;
+    
+    .hub-title {
       text-align: center;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
+      margin: 2rem 0;
     }
-
-    .project-tab.active {
-      background-color: var(--bg-card);
-      border-bottom: 3px solid var(--purple-highlight);
-      color: var(--purple-highlight);
+    
+    .hub-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-
-    .project-tab:hover:not(.active) {
-      background-color: var(--bg-card-hover);
+    
+    .hub-title p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
     }
-
-    /* Timeline compacta */
-    .timeline-compact {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 12px 15px;
-      margin-bottom: 20px;
-    }
-
-    .timeline-phase {
+    
+    .cards-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
-      flex: 1;
+      width: 100%;
+      max-width: 1200px;
     }
-
-    .timeline-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      margin-bottom: 6px;
-    }
-
-    .timeline-phase.pre-genai .timeline-dot {
-      background-color: var(--pre-genai-color);
-    }
-
-    .timeline-phase.pilot .timeline-dot {
-      background-color: var(--pilot-color);
-    }
-
-    .timeline-phase.production .timeline-dot {
-      background-color: var(--production-color);
-    }
-
-    .timeline-phase.future .timeline-dot {
-      background-color: var(--future-color);
-    }
-
-    .timeline-phase.active .timeline-dot {
-      transform: scale(1.2);
-      box-shadow: 0 0 0 4px rgba(123, 104, 238, 0.3);
-    }
-
-    .timeline-label {
-      font-size: 11px;
-      text-align: center;
-      color: var(--text-secondary);
-    }
-
-    .timeline-phase.active .timeline-label {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .timeline-connector {
-      height: 2px;
-      background-color: var(--border-color);
-      flex: 1;
-      margin: 0 5px;
-      position: relative;
-      top: -10px;
-    }
-
-    /* Layout principal de duas colunas */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    /* Resultados consolidados */
-    .results-grid {
+    
+    .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      width: 100%;
     }
-
-    .result-card {
-      background-color: var(--bg-card);
-      border-radius: 8px;
-      padding: 15px;
-      text-align: center;
+    
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.8rem;
       box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none !important;
+      color: var(--text-primary) !important;
+      animation: fadeInUp 0.8s ease-out;
+      height: 100%;
+      cursor: pointer; /* Garantir que todos os cards pareçam clicáveis */
+    }
+    
+    /* Efeito de clique nos textos dentro dos cards */
+    .card-title, .card-description {
+      transition: transform 0.2s, color 0.2s;
     }
 
-    .result-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--card-shadow-hover);
+    .card:active .card-title,
+    .card:active .card-description {
+      transform: scale(0.98);
+      color: var(--accent-cyan) !important;
     }
 
-    .result-card::after {
+    /* Garantir que o card inteiro seja clicável */
+    .card {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Efeito de feedback ao clicar no card */
+    .card:active {
+      transform: scale(0.98);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Melhorar a transição ao clicar */
+    .card {
+      transition: all 0.3s ease, transform 0.1s ease;
+    }
+    
+    /* Garantir que os links dentro do card não mudem a cor */
+    .card * {
+      color: inherit;
+    }
+    
+    /* Efeito de hover para TODOS os cards */
+    .card:hover {
+      transform: translateY(-15px) scale(1.03);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .card::before {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--blue-bradesco), var(--success));
+      height: 5px;
+      background: var(--mixed-gradient);
     }
-
-    .result-card.negative::after {
-      background: linear-gradient(90deg, var(--blue-bradesco), var(--red-bradesco));
-    }
-
-    .result-value {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--success);
-    }
-
-    .result-value.negative {
-      color: var(--red-bradesco);
-    }
-
-    .result-label {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: var(--text-primary);
-    }
-
-    .result-desc {
-      font-size: 11px;
-      color: var(--text-secondary);
-    }
-
-    /* Painel de KPIs do banco */
-    .bank-kpis {
-      background-color: var(--bg-card);
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: var(--card-shadow);
-    }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-title i {
-      color: var(--blue-bradesco);
-    }
-
-    .kpi-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 15px;
-    }
-
-    .kpi-table th, .kpi-table td {
-      padding: 10px;
-      text-align: center;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .kpi-table th {
-      font-size: 12px;
-      color: var(--text-secondary);
-      font-weight: 600;
-    }
-
-    .kpi-table td {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .kpi-table .metric-name {
-      text-align: left;
-      color: var(--text-primary);
-    }
-
-    .improved {
-      color: var(--success);
-    }
-
-    .worsened {
-      color: var(--danger);
-    }
-
-    .trend-icon {
-      margin-left: 5px;
-      font-size: 12px;
-    }
-
-    .kpi-chart {
-      height: 150px;
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 15px;
-      position: relative;
-    }
-
-    #kpiTrendChart {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Insights Executivos */
-    .insights-section {
-      grid-column: 1 / -1;
-      margin-top: 20px;
-      background-color: var(--bg-card);
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: var(--card-shadow);
-    }
-
-    .insight-item {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .insight-item:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .insight-icon {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background-color: rgba(245, 158, 11, 0.1);
-      color: var(--warning);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 12px;
-      font-size: 12px;
-    }
-
-    .insight-content {
-      flex: 1;
-    }
-
-    .insight-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-primary);
-    }
-
-    .insight-desc {
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-
-    .insight-item.positive .insight-icon {
-      background-color: rgba(16, 185, 129, 0.1);
-      color: var(--success);
-    }
-
-    .insight-item.negative .insight-icon {
-      background-color: rgba(255, 102, 102, 0.1);
-      color: var(--danger);
-    }
-
-    .insight-item.neutral .insight-icon {
-      background-color: rgba(123, 104, 238, 0.1);
-      color: var(--purple-highlight);
-    }
-
-    /* Painel de impacto GenAI */
-    .genai-impact {
-      background-color: var(--bg-card);
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: var(--card-shadow);
-    }
-
-    .section-title.genai i {
-      color: var(--purple-highlight);
-    }
-
-    .promptx-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .promptx-badge {
-      background-color: rgba(123, 104, 238, 0.2);
-      color: var(--purple-highlight);
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    .interaction-chart {
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-      height: 120px;
-      position: relative;
-    }
-
-    .interaction-bars {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-around;
-      height: 80px;
-      position: absolute;
-      bottom: 10px;
-      left: 15px;
-      right: 15px;
-    }
-
-    .bar-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 40px;
-    }
-
-    .bar {
-      width: 30px;
-      border-radius: 3px 3px 0 0;
-      transition: height 1s ease;
-    }
-
-    .bar.q1 {
-      background-color: var(--pre-genai-color);
-      height: 0px;
-    }
-
-    .bar.q2 {
-      background-color: var(--pilot-color);
-      height: 20px;
-    }
-      .bar.q3 {
-      background-color: var(--production-color);
+    
+    .card-icon {
+      width: 70px;
       height: 70px;
-    }
-
-    .bar.q4 {
-      background-color: var(--future-color);
-      height: 0px;
-    }
-
-     .bar-label {
-      font-size: 10px;
-      color: var(--text-secondary);
-      margin-top: 5px;
-      text-align: center;
-    }
-
-    /* Casos de uso */
-    .use-cases {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .use-case {
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 12px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .use-case:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--card-shadow-hover);
-      background-color: var(--bg-card-hover);
-    }
-
-    .use-case-value {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--success);
-      margin-bottom: 5px;
-    }
-
-    .use-case-label {
-      font-size: 10px;
-      color: var(--text-secondary);
-    }
-
-    /* Próximas iniciativas */
-    .initiatives {
-      background-color: var(--bg-card);
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 20px;
-    }
-
-    .initiatives-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .initiative-card {
-      background-color: var(--bg-secondary);
-      border-radius: 8px;
-          padding: 15px;
-      transition: all 0.3s ease;
-      border-left: 3px solid var(--purple-highlight);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-   .initiative-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--card-shadow-hover);
-      background-color: var(--bg-card-hover);
-    }
-
-    .initiative-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      background-color: rgba(123, 104, 238, 0.1);
-      color: var(--purple-highlight);
-      margin-bottom: 12px;
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 1;
+      transition: all 0.4s ease;
     }
-
-    .initiative-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text-primary);
+    
+    /* Efeito de hover para TODOS os ícones de card */
+    .card:hover .card-icon {
+      transform: scale(1.15);
+      box-shadow: 0 0 30px rgba(123, 104, 238, 0.4);
     }
-
-    .initiative-desc {
-      font-size: 12px;
+    
+    .card-icon i {
+      font-size: 2rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    /* Estilo para imagens nos ícones */
+    .card-icon img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+    
+    /* Estilo específico para o card do PromptX */
+    #promptx-card .card-icon {
+      background-color: var(--bg-card);
+    }
+    
+    #promptx-card .card-icon i {
+      font-size: 2.2rem; /* Ligeiramente maior para compensar a falta da imagem */
+    }
+    
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    
+    .card-description {
+      font-size: 0.9rem;
       color: var(--text-secondary);
-      line-height: 1.5;
+      margin-bottom: 1rem;
     }
-
-    /* Rodapé */
+    
+    .stats-section {
+      padding: 1.5rem 0;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 2rem auto;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .stat-card {
+      text-align: center;
+      padding: 1.2rem;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: var(--mixed-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 15s infinite linear;
+    }
+    
+    .glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 51, 160, 0.2) 0%, rgba(0, 51, 160, 0) 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+    
+    .glow-1 {
+      top: -400px;
+      right: -300px;
+      background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0) 70%);
+    }
+    
+    .glow-2 {
+      bottom: -300px;
+      left: -200px;
+      background: radial-gradient(circle, rgba(0, 51, 160, 0.15) 0%, rgba(0, 51, 160, 0) 70%);
+    }
+    
+    .glow-3 {
+      top: 30%;
+      left: 20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0) 70%);
+    }
+    
     .footer {
+      padding: 1.5rem 0;
       text-align: center;
       color: var(--text-secondary);
-      font-size: 11px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border-color);
+      font-size: 0.9rem;
+      background-color: var(--bg-secondary);
     }
-
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
     /* Animações */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(71, 179, 225, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(71, 179, 225, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(71, 179, 225, 0);
+      }
     }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease-out forwards;
+    
+    @keyframes pulse-node {
+      0% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 1;
+      }
     }
-
-    /* Responsividade */
+    
+    @keyframes pulse-connection {
+      0% {
+        opacity: 0.3;
+      }
+      100% {
+        opacity: 0.8;
+      }
+    }
+    
+     @keyframes data-flow {
+      0% {
+        transform: translateX(-100%) translateY(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(100%) translateY(0);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes float-icon {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse-brain {
+      0% {
+        box-shadow: 0 0 20px rgba(123, 104, 238, 0.3);
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        box-shadow: 0 0 50px rgba(123, 104, 238, 0.5);
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Animações para os cards */
+    .cards-grid .card:nth-child(1) { animation-delay: 0.1s; }
+    .cards-grid .card:nth-child(2) { animation-delay: 0.2s; }
+    .cards-grid .card:nth-child(3) { animation-delay: 0.3s; }
+    .cards-grid .card:nth-child(4) { animation-delay: 0.4s; }
+    .cards-grid .card:nth-child(5) { animation-delay: 0.5s; }
+    .cards-grid .card:nth-child(6) { animation-delay: 0.6s; }
+    .cards-grid .card:nth-child(7) { animation-delay: 0.7s; }
+    
+    @media (max-width: 1200px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
     @media (max-width: 992px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .initiatives-grid {
+      .stats-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
-
+    
     @media (max-width: 768px) {
-      .results-grid,
-      .use-cases {
-        grid-template-columns: repeat(2, 1fr);
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .hub-title h2 {
+        font-size: 1.7rem;
       }
     }
-
-    @media (max-width: 576px) {
-      .results-grid,
-      .use-cases,
-      .initiatives-grid {
+    
+    @media (max-width: 480px) {
+      .stats-grid {
         grid-template-columns: 1fr;
       }
       
-      .timeline-compact {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-      }
-      
-      .timeline-phase {
-        flex-direction: row;
-        width: 100%;
-        gap: 10px;
-      }
-      
-      .timeline-connector {
-        display: none;
+      .hub-title h2 {
+        font-size: 1.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard">
-    <!-- Cabeçalho com botão de voltar à esquerda e título centralizado -->
-    <div class="header">
-      <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html" class="back-button">
-        <i class="fas fa-arrow-left"></i>
-      </a>
-      <div class="header-title">
-        <h1>Dashboard de Maturidade GenAI - Bradesco</h1>
+  <div class="particles" id="particles"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  
+  <header>
+    <div class="header-animation" id="header-animation">
+      <div class="neural-network" id="neural-network">
+        <!-- Será preenchido via JavaScript -->
+      </div>
+      <div class="ai-brain">
+        <i class="fas fa-brain"></i>
       </div>
     </div>
     
-    <!-- Seletor de projetos -->
-    <div class="project-selector">
-      <div class="project-tab active" onclick="switchProject('safer', event)">PLATAFORMA SAFER</div>
-      <div class="project-tab" onclick="switchProject('sala-core', event)">SALA CORE</div>
-      <div class="project-tab" onclick="switchProject('massificado', event)">MASSIFICADO</div>
-      <div class="project-tab" onclick="switchProject('contadoria', event)">CONTADORIA</div>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+       <img src="Bradesco Logo.png" alt="Bradesco Logo">
+        </div>
+      </div>
     </div>
-    
-    <!-- Timeline compacta -->
-    <div class="timeline-compact">
-      <div class="timeline-phase pre-genai">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">Base<br>Jan-Mar/2025</div>
+  </header>
+  
+  <div class="container">
+    <div class="main-content">
+      <div class="hub-title">
+        <h2>GenAI Hub | Centro de Inovação</h2>
       </div>
-      <div class="timeline-connector"></div>
-      <div class="timeline-phase pilot">
-        <div class="timeline-dot"></div>
-        <div class="timeline-label">Piloto GenAI<br>Abr-Jun/2025</div>
-      </div>
-      <div class="timeline-connector"></div>
-   <div class="timeline-phase production">
-  <div class="timeline-dot"></div>
-  <div class="timeline-label">Produção GenAI<br>Jul-Set/2025</div>
+      
+      <div class="cards-container">
+        <div class="cards-grid">
+          <!-- Card Implantações -->
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Menu%20Copilot%20e%20PromptX.html" class="card">
+            <div class="card-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h3 class="card-title">Implantações</h3>
+            <p class="card-description">Acompanhe o progresso e status das implementações de IA Generativa.</p>
+          </a>
+          
+          <!-- Card PromptX - Agora usando ícone em vez de imagem -->
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Casos%20de%20Uso%20PromptX.html" class="card" id="promptx-card">
+  <div class="card-icon">
+  <img src="./Picture4.png" alt="PromptX" style="width: 65px; height: 65px; object-fit: contain;">
 </div>
-      <div class="timeline-connector"></div>
-   <div class="timeline-phase future active">
-  <div class="timeline-dot"></div>
-  <div class="timeline-label">Expansão GenAI<br>Out-Dez/2025</div>
-</div>
+<h3 class="card-title">PromptX</h3>
+<p class="card-description">Acelerando o ciclo de desenvolvimento de software com automação através de prompts avançados.</p>
+          </a>
+           <!-- Card Ciclo de Desenvolvimento de Software -->
+  <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Fluxo%20de%20Desenvolvimento%20com%20Aceleradores%20de%20IA.html" class="card">
+    <div class="card-icon">
+      <i class="fas fa-sync-alt"></i>
     </div>
-    
-    <!-- Resultados consolidados -->
-    <div class="results-grid fade-in">
-      <div class="result-card">
-        <div class="result-value">40.2%</div>
-        <div class="result-label">Redução no Lead Time</div>
-        <div class="result-desc">De 107 para 64 dias em média</div>
-      </div>
-      <div class="result-card">
-        <div class="result-value">2.6%</div>
-        <div class="result-label">Redução em Horas/PF</div>
-        <div class="result-desc">De 31 para 30.2 horas por ponto de função</div>
-      </div>
-      <div class="result-card negative">
-        <div class="result-value negative">25.8%</div>
-        <div class="result-label">Aumento de Retrabalho</div>
-        <div class="result-desc">De 0.62% para 0.78%</div>
-      </div>
-    </div>
-    
-    <!-- Layout principal de duas colunas -->
-    <div class="main-grid">
-      <!-- Painel de KPIs do banco -->
-      <div class="bank-kpis fade-in">
-        <div class="section-title">
-          <i class="fas fa-chart-line"></i> KPIs do Banco - PLATAFORMA SAFER
-        </div>
-        
-        <table class="kpi-table">
-          <thead>
-            <tr>
-              <th>Métrica</th>
-              <th>Base<br>(Q1 2025)</th>
-              <th>Piloto<br>(Q2 2025)</th>
-              <th>Produção<br>(Q3 2025)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="metric-name">Lead Time (dias)</td>
-              <td>107</td>
-              <td class="improved">92.4 <i class="fas fa-arrow-down trend-icon"></i></td>
-              <td class="improved">64 <i class="fas fa-arrow-down trend-icon"></i></td>
-            </tr>
-            <tr>
-              <td class="metric-name">Produtividade (h/PF)</td>
-              <td>31</td>
-              <td class="worsened">32.3 <i class="fas fa-arrow-up trend-icon"></i></td>
-              <td class="improved">30.2 <i class="fas fa-arrow-down trend-icon"></i></td>
-            </tr>
-            <tr>
-              <td class="metric-name">Retrabalho (%)</td>
-              <td>0.62</td>
-              <td class="improved">0.28 <i class="fas fa-arrow-down trend-icon"></i></td>
-              <td class="worsened">0.78 <i class="fas fa-arrow-up trend-icon"></i></td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <div class="kpi-chart">
-          <canvas id="kpiTrendChart"></canvas>
-        </div>
-      </div>
-          <!-- Painel de impacto GenAI -->
-      <div class="genai-impact fade-in">
-        <div class="section-title genai">
-          <i class="fas fa-robot"></i> Impacto GenAI - PromptX
-        </div>
-        
-        <div class="promptx-header">
-          <div class="promptx-badge">2638 total de interações</div>
-        </div>
-        
-        <div class="interaction-chart">
-          <div class="interaction-bars">
-            <div class="bar-container">
-              <div class="bar q1"></div>
-              <div class="bar-label">Q1<br>0</div>
+    <h3 class="card-title">Ciclo DevOps AI</h3>
+    <p class="card-description">Otimize cada fase do desenvolvimento de software com IA Generativa, desde o planejamento até a entrega contínua.</p>
+  </a>
+          
+          <!-- Card Agentes Inteligentes -->
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Agentes_PromptX.html" class="card">
+            <div class="card-icon">
+              <i class="fas fa-microchip"></i>
             </div>
-            <div class="bar-container">
-              <div class="bar q2"></div>
-              <div class="bar-label">Q2<br>395</div>
+            <h3 class="card-title">Agentes Inteligentes</h3>
+            <p class="card-description">Potencialize seu ciclo de desenvolvimento com assistentes AI que automatizam tarefas, aumentam a produtividade e elevam a qualidade do código.</p>
+          </a>
+          
+          <!-- Card Pesquisa de Efetividade -->
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Pesquisa%20de%20efetividade.html" class="card">
+            <div class="card-icon">
+              <i class="fas fa-magnifying-glass-chart"></i>
             </div>
-            <div class="bar-container">
-              <div class="bar q3"></div>
-              <div class="bar-label">Q3<br>1449</div>
+            <h3 class="card-title">Pesquisa de Efetividade</h3>
+            <p class="card-description">Resultados e insights das pesquisas de satisfação e eficácia das soluções GenAI.</p>
+          </a>
+          
+          <!-- Card KPIs GenAI -->
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/" class="card">
+            <div class="card-icon">
+              <i class="fas fa-chart-line"></i>
             </div>
-            <div class="bar-container">
-              <div class="bar q4"></div>
-              <div class="bar-label">Q4<br>-</div>
+            <h3 class="card-title">KPIs GenAI</h3>
+            <p class="card-description">Métricas de performance das soluções de IA Generativa.</p>
+          </a>
+          
+          <!-- Card Base de Conhecimento -->
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Base%20de%20conhecimento.html" class="card">
+            <div class="card-icon">
+              <i class="fas fa-book-open"></i>
             </div>
-          </div>
-        </div>
-        
-        <div class="section-title genai" style="font-size: 14px;">
-          <i class="fas fa-bullseye"></i> Impacto por Caso de Uso - Cenários de Teste
-        </div>
-        
-        <div class="use-cases">
-          <div class="use-case">
-            <div class="use-case-value">+65%</div>
-            <div class="use-case-label">Mais cenários gerados</div>
-          </div>
-          <div class="use-case">
-            <div class="use-case-value">3x</div>
-            <div class="use-case-label">Mais rápido na criação</div>
-          </div>
-          <div class="use-case">
-            <div class="use-case-value">95%</div>
-            <div class="use-case-label">Precisão nos cenários</div>
-          </div>
-          <div class="use-case">
-            <div class="use-case-value">2x</div>
-            <div class="use-case-label">Mais cenários revisados/dia</div>
-          </div>
-          <div class="use-case">
-            <div class="use-case-value">85%</div>
-            <div class="use-case-label">Funcionalidades atingidas</div>
-          </div>
-          <div class="use-case">
-            <div class="use-case-value">-45%</div>
-            <div class="use-case-label">Redução média do tempo</div>
-          </div>
+            <h3 class="card-title">Base de Conhecimento</h3>
+            <p class="card-description">Repositório inteligente que acelera a imersão na cultura Bradesco, facilitando o acesso e compartilhamento de informações essenciais para todos os colaboradores.</p>
+          </a>
+          
+          <!-- Card Cases de Sucesso e Depoimentos -->
+          <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Cases%20de%20Sucesso%20e%20Depoimentos.html" class="card">
+            <div class="card-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3 class="card-title">Cases de Sucesso e Depoimentos</h3>
+            <p class="card-description">Conheça histórias reais de transformação e resultados alcançados com nossas soluções de IA Generativa.</p>
+          </a>
         </div>
       </div>
       
-      <!-- Insights Executivos (agora como um card separado que ocupa toda a largura) -->
-      <div class="insights-section fade-in">
-        <div class="section-title">
-          <i class="fas fa-lightbulb" style="color: var(--warning);"></i> Insights Executivos
-        </div>
-        <div id="projectInsights">
-          <!-- Os insights serão inseridos dinamicamente aqui -->
+      <div class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="stat1">58%</div>
+            <div class="stat-label">Produtividade</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat3">+44</div>
+            <div class="stat-label">Projetos Envolvidos</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat4">+15.000</div>
+            <div class="stat-label">Total de Interações </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-value" id="stat2">92%</div>
+            <div class="stat-label">Taxa de Adoção</div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Rodapé -->
-    <div class="footer">
-      <p>© 2025 Bradesco - Dashboard de Maturidade GenAI | Última atualização: <span id="data-atualizacao">Outubro/2025</span></p>
     </div>
   </div>
   
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Bradesco GenAI Hub | Transformando o futuro com inteligência artificial</p>
+    </div>
+  </footer>
+ 
   <script>
-    // Dados dos projetos
-    const projectData = {
-      'safer': {
-        title: 'PLATAFORMA SAFER',
-        leadTime: { base: 107, pilot: 92.4, production: 64 },
-        productivity: { base: 31, pilot: 32.3, production: 30.2 },
-        rework: { base: 0.62, pilot: 0.28, production: 0.78 },
-        interactions: 3473,
-        interactionValues: [0, 395, 1449, 1629],
-        insights: [
-          {
-            type: 'positive',
-            icon: 'fa-chart-line',
-            title: 'Redução significativa no Lead Time',
-            description: 'A redução de 40.2% no Lead Time indica que a implementação do GenAI está acelerando  o ciclo de desenvolvimento.'
-          },
-          {
-            type: 'negative',
-            icon: 'fa-exclamation-triangle',
-            title: 'Aumento no índice de retrabalho',
-            description: 'O aumento de 25.8% no retrabalho pode estar relacionado à maior cobertura e quantidade de casos de teste gerados pela IA, o que identifica mais pontos de melhoria inicialmente.'
-          },
-          {
-            type: 'neutral',
-            icon: 'fa-robot',
-            title: 'Alta adoção da ferramenta PromptX',
-            description: 'O crescimento de 395 para 1449 interações do Q2 para Q3 indica forte adoção pela equipe.'
-          }
-        ]
-      },
-      'sala-core': {
-        title: 'SALA CORE',
-        leadTime: { base: 168.9, pilot: 146.0, production: 101.0 },
-        productivity: { base: 20.1, pilot: 21.0, production: 19.6 },
-        rework: { base: 6.78, pilot: 3.06, production: 8.53 },
-        interactions: 215,
-        interactionValues: [0, 0, 215, 0],
-            insights: [
-          {
-            type: 'positive',
-            icon: 'fa-chart-line',
-            title: 'Redução expressiva no Lead Time',
-            description: 'A redução de 40.2% no Lead Time demonstra ganhos significativos de eficiência no ciclo de desenvolvimento da Sala Core.'
-          },
-          {
-            type: 'negative',
-            icon: 'fa-exclamation-triangle',
-            title: 'Aumento no índice de retrabalho',
-            description: 'O aumento no retrabalho pode estar relacionado à maior cobertura dos testes.'
-          },
-          {
-            type: 'neutral',
-            icon: 'fa-lightbulb',
-            title: 'Oportunidade de expansão',
-            description: 'Com base nos resultados positivos de produtividade, recomenda-se expandir o uso de GenAI para outras áreas da Sala Core.'
-          }
-        ]
-      },
-      'massificado': {
-        title: 'MASSIFICADO',
-        leadTime: { base: 190.1, pilot: 164.2, production: 113.7 },
-        productivity: { base: 13.5, pilot: 14.1, production: 13.2 },
-        rework: { base: 7.41, pilot: 3.35, production: 9.32 },
-        interactions: 243,
-        interactionValues: [0, 0, 243, 0],
-        insights: [
-          {
-            type: 'positive',
-            icon: 'fa-chart-line',
-            title: 'Melhoria consistente na produtividade',
-            description: 'A redução de 2.2% nas horas por ponto de função indica ganhos de eficiência sustentáveis no projeto Massificado.'
-          },
-          {
-            type: 'negative',
-            icon: 'fa-exclamation-triangle',
-            title: 'Aumento temporário no retrabalho',
-            description: 'O aumento no retrabalho é um efeito esperado da maior cobertura de testes (65% mais cenários gerados), o que tende a normalizar conforme o processo amadurece.'
-          },
-          {
-            type: 'neutral',
-            icon: 'fa-search',
-            title: 'Adoção moderada da ferramenta',
-            description: 'Com 243 interações no Q3, há espaço para aumentar a adoção do GenAI entre as equipes do projeto Massificado.'
-          }
-        ]
-      },
-      'contadoria': {
-        title: 'CONTADORIA',
-        leadTime: { base: 127.5, pilot: 59.6, production: 59.5 },
-        productivity: { base: 31.6, pilot: 30.1, production: 26.2 },
-        rework: { base: 5.79, pilot: 1.74, production: 0.93 },
-        interactions: 1000,
-        interactionValues: [0, 189, 292, 519],
-        insights: [
-          {
-            type: 'positive',
-            icon: 'fa-chart-line',
-            title: 'Redução expressiva no Lead Time',
-            description: 'Redução de 53,3% no Lead Time, impulsionada pelo uso do PromptX e de aceleradores GenAI, como a criação de cenários de teste. A incorporação gradual dessas soluções tem contribuído para ciclos mais ágeis e eficientes'
-          },
-          {
-            type: 'positive',
-            icon: 'fa-tachometer-alt',
-            title: 'Melhoria contínua na produtividade',
-            description: 'Redução de 17.1% nas horas por ponto de função refletindo maior eficiência nas entregas com apoio de GenAI. O crescimento no uso do PromptX que saltou de 189 interações no Q2 para 519 no Q4  indica que quanto maior o uso, maior o ganho operacional.'
-          },
-          {
-            type: 'positive',
-            icon: 'fa-check-circle',
-            title: 'Redução significativa no retrabalho',
-            description: 'Queda de 83.9% no índice de retrabalho, de 5.79% para 0.93%, evidenciando maior maturidade e qualidade nos processos automatizados com o PromptX. A ampliação do uso de soluções GenAI tem favorecido maior clareza na documentação e geração de artefatos de teste, contribuindo para entregas mais estáveis.'
-          }
-        ]
+    // Criar partículas
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      const particleCount = 30;
+      
+      // Limpar partículas existentes
+      particles.innerHTML = '';
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Tamanho aleatório
+        const size = Math.random() * 8 + 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Posição aleatória
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        
+        // Cor aleatória
+        const colors = ['rgba(204, 0, 0, 0.3)', 'rgba(0, 51, 160, 0.3)', 'rgba(123, 104, 238, 0.3)', 'rgba(0, 229, 255, 0.3)'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.backgroundColor = color;
+        
+        // Duração aleatória
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Atraso aleatório
+        const delay = Math.random() * 10;
+        particle.style.animationDelay = `${delay}s`;
+        
+        particles.appendChild(particle);
       }
-    };
-
-    // Função para calcular os valores percentuais para cada projeto
-    function calculateProjectResults() {
-      for (const project in projectData) {
-        const data = projectData[project];
-        
-        // Calcular redução percentual do Lead Time
-        const leadTimeReduction = ((data.leadTime.base - data.leadTime.production) / data.leadTime.base) * 100;
-        data.leadTimeReduction = leadTimeReduction.toFixed(1) + '%';
-        data.leadTimeDesc = `De ${data.leadTime.base} para ${data.leadTime.production} dias em média`;
-        
-        // Calcular redução percentual da Produtividade
-        const productivityReduction = ((data.productivity.base - data.productivity.production) / data.productivity.base) * 100;
-        data.productivityReduction = productivityReduction.toFixed(1) + '%';
-        data.productivityDesc = `De ${data.productivity.base} para ${data.productivity.production} horas por ponto de função`;
-        
-        // Calcular variação percentual do Retrabalho
-        const reworkChange = ((data.rework.production - data.rework.base) / data.rework.base) * 100;
-        
-        // Se for uma redução (valor negativo), exibir como positivo sem o sinal de menos
-        if (reworkChange < 0) {
-          data.reworkIncrease = Math.abs(reworkChange).toFixed(1) + '%';
-          data.reworkDesc = `Redução de ${data.rework.base}% para ${data.rework.production}%`;
-        } else {
-          data.reworkIncrease = reworkChange.toFixed(1) + '%';
-          data.reworkDesc = `Aumento de ${data.rework.base}% para ${data.rework.production}%`;
-        }
-        
-        // Armazenar o valor original para determinar se é positivo ou negativo
-        data.reworkChangeValue = reworkChange;
-      }
-    }
-
-    // Atualizar data no rodapé
-    function atualizarDataRodape() {
-      const dataAtual = new Date();
-      const meses = [
-        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-      ];
-      const mes = meses[dataAtual.getMonth()];
-      const ano = dataAtual.getFullYear();
-      const dataFormatada = `${mes}/${ano}`;
-      document.getElementById('data-atualizacao').textContent = dataFormatada;
     }
     
-    // Função para desenhar o gráfico de tendência dos KPIs
-    function drawKpiTrendChart(project) {
-      console.log(`Desenhando gráfico para o projeto: ${project}`); // Log para debug
+    // Criar rede neural
+    function createNeuralNetwork() {
+      const network = document.getElementById('neural-network');
       
-      const canvas = document.getElementById('kpiTrendChart');
-      if (!canvas || !canvas.getContext) {
-        console.error('Canvas não está disponível');
-        return;
+      // Limpar rede existente
+      network.innerHTML = '';
+      
+      const nodeCount = 15;
+      const connectionCount = 20;
+      const dataStreamCount = 10;
+      const iconCount = 6;
+      
+      // Criar nós
+      const nodes = [];
+      for (let i = 0; i < nodeCount; i++) {
+        const node = document.createElement('div');
+        node.classList.add('node');
+        
+        // Posição aleatória
+        const posX = Math.random() * 90 + 5;
+        const posY = Math.random() * 90 + 5;
+        node.style.left = `${posX}%`;
+        node.style.top = `${posY}%`;
+        
+        // Atraso na animação
+        const delay = Math.random() * 3;
+        node.style.animationDelay = `${delay}s`;
+        
+        network.appendChild(node);
+        nodes.push({x: posX, y: posY, element: node});
       }
       
-      // Forçar dimensões explícitas para o canvas
-      canvas.width = canvas.parentElement.clientWidth || 300;
-      canvas.height = canvas.parentElement.clientHeight || 150;
-      
-      const ctx = canvas.getContext('2d');
-      
-      // Limpar o canvas completamente
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Dados do projeto selecionado
-      const data = projectData[project];
-      console.log('Dados do projeto:', data); // Log para debug
-      
-      // Calcular valores absolutos para cada métrica
-      const leadTimeValues = [
-        data.leadTime.base,
-        data.leadTime.pilot,
-        data.leadTime.production
-      ];
-      
-      const productivityValues = [
-        data.productivity.base,
-        data.productivity.pilot,
-        data.productivity.production
-      ];
-      
-      const reworkValues = [
-        data.rework.base,
-        data.rework.pilot,
-        data.rework.production
-      ];
-      
-      console.log('Lead Time Values:', leadTimeValues);
-      console.log('Productivity Values:', productivityValues);
-      console.log('Rework Values:', reworkValues);
-      
-      // Encontrar os valores mínimos e máximos para cada métrica para normalização
-      const leadTimeMin = Math.min(...leadTimeValues) * 0.8;
-      const leadTimeMax = Math.max(...leadTimeValues) * 1.2;
-      
-      const productivityMin = Math.min(...productivityValues) * 0.8;
-      const productivityMax = Math.max(...productivityValues) * 1.2;
-      
-      const reworkMin = Math.min(...reworkValues) * 0.8;
-      const reworkMax = Math.max(...reworkValues) * 1.2;
-      
-      // Configurações do gráfico
-      const width = canvas.width;
-      const height = canvas.height;
-      const padding = 20;
-      const chartWidth = width - 2 * padding;
-      const chartHeight = height - 2 * padding;
-      
-      // Pontos X para os trimestres
-      const xPoints = [
-        padding,
-        padding + chartWidth / 2,
-        padding + chartWidth
-      ];
-      
-      // Função para normalizar um valor dentro de um intervalo
-      function normalize(value, min, max) {
-        if (min === max) return 0.5; // Evitar divisão por zero
-        return (value - min) / (max - min);
+      // Criar conexões
+      for (let i = 0; i < connectionCount; i++) {
+        const connection = document.createElement('div');
+        connection.classList.add('connection');
+        
+        // Selecionar dois nós aleatórios
+        const nodeA = nodes[Math.floor(Math.random() * nodes.length)];
+        const nodeB = nodes[Math.floor(Math.random() * nodes.length)];
+        
+        // Calcular posição e comprimento
+        const x1 = nodeA.x;
+        const y1 = nodeA.y;
+        const x2 = nodeB.x;
+        const y2 = nodeB.y;
+        
+        const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+        
+        connection.style.width = `${length}%`;
+        connection.style.left = `${x1}%`;
+        connection.style.top = `${y1}%`;
+        connection.style.transform = `rotate(${angle}deg)`;
+        
+        // Atraso na animação
+        const delay = Math.random() * 4;
+        connection.style.animationDelay = `${delay}s`;
+        
+        network.appendChild(connection);
       }
       
-      // Função para converter valor para coordenada Y
-      function valueToY(value, min, max) {
-        const normalizedValue = normalize(value, min, max);
-        // Inverter a escala Y (0 = topo, 1 = base)
-        return padding + (1 - normalizedValue) * chartHeight;
+      // Criar fluxos de dados
+      for (let i = 0; i < dataStreamCount; i++) {
+        const dataStream = document.createElement('div');
+        dataStream.classList.add('data-stream');
+        
+        // Selecionar uma conexão aleatória
+        const startX = Math.random() * 90 + 5;
+        const startY = Math.random() * 90 + 5;
+        dataStream.style.left = `${startX}%`;
+        dataStream.style.top = `${startY}%`;
+        
+        // Atraso na animação
+        const delay = Math.random() * 10;
+        dataStream.style.animationDelay = `${delay}s`;
+        
+        network.appendChild(dataStream);
       }
       
-      // Desenhar eixos
-      ctx.strokeStyle = 'rgba(163, 168, 195, 0.3)';
-      ctx.lineWidth = 1;
+      // Adicionar ícones financeiros
+      const icons = ['fa-dollar-sign', 'fa-credit-card', 'fa-chart-pie', 'fa-piggy-bank', 'fa-hand-holding-usd', 'fa-landmark'];
       
-      // Eixo X
-      ctx.beginPath();
-      ctx.moveTo(padding, height - padding);
-      ctx.lineTo(width - padding, height - padding);
-      ctx.stroke();
-      
-      // Eixo Y
-      ctx.beginPath();
-      ctx.moveTo(padding, padding);
-      ctx.lineTo(padding, height - padding);
-      ctx.stroke();
-      
-      // Linhas de grade horizontais
-      const gridLines = 3;
-      for (let i = 0; i <= gridLines; i++) {
-        const y = padding + (i / gridLines) * chartHeight;
-        ctx.beginPath();
-        ctx.moveTo(padding, y);
-        ctx.lineTo(width - padding, y);
-        ctx.stroke();
+      for (let i = 0; i < iconCount; i++) {
+        const icon = document.createElement('i');
+        icon.classList.add('fas', icons[i % icons.length], 'financial-icon');
+        
+         // Posição aleatória
+        const posX = Math.random() * 80 + 10;
+        const posY = Math.random() * 80 + 10;
+        icon.style.left = `${posX}%`;
+        icon.style.top = `${posY}%`;
+        
+        // Atraso na animação
+        const delay = Math.random() * 5;
+        icon.style.animationDelay = `${delay}s`;
+        
+        network.appendChild(icon);
       }
-      
-      // Rótulos dos trimestres
-      ctx.fillStyle = 'rgba(163, 168, 195, 0.7)';
-      ctx.font = '10px Segoe UI';
-      ctx.textAlign = 'center';
-      
-      ctx.fillText('Q1', xPoints[0], height - padding + 15);
-      ctx.fillText('Q2', xPoints[1], height - padding + 15);
-      ctx.fillText('Q3', xPoints[2], height - padding + 15);
-      
-      // Desenhar linhas para cada métrica
-      // Lead Time (azul)
-      ctx.strokeStyle = '#00e5ff';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(xPoints[0], valueToY(leadTimeValues[0], leadTimeMin, leadTimeMax));
-      ctx.lineTo(xPoints[1], valueToY(leadTimeValues[1], leadTimeMin, leadTimeMax));
-      ctx.lineTo(xPoints[2], valueToY(leadTimeValues[2], leadTimeMin, leadTimeMax));
-      ctx.stroke();
-      
-      // Produtividade (roxo)
-      ctx.strokeStyle = '#7B68EE';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(xPoints[0], valueToY(productivityValues[0], productivityMin, productivityMax));
-      ctx.lineTo(xPoints[1], valueToY(productivityValues[1], productivityMin, productivityMax));
-      ctx.lineTo(xPoints[2], valueToY(productivityValues[2], productivityMin, productivityMax));
-      ctx.stroke();
-      
-      // Retrabalho (vermelho)
-      ctx.strokeStyle = '#cc0000';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(xPoints[0], valueToY(reworkValues[0], reworkMin, reworkMax));
-      ctx.lineTo(xPoints[1], valueToY(reworkValues[1], reworkMin, reworkMax));
-      ctx.lineTo(xPoints[2], valueToY(reworkValues[2], reworkMin, reworkMax));
-      ctx.stroke();
-      
-      // Adicionar pontos nos dados
-      function drawPoint(x, y, color) {
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#151823'; // Cor de fundo
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-      
-      // Pontos para Lead Time
-      for (let i = 0; i < 3; i++) {
-        drawPoint(xPoints[i], valueToY(leadTimeValues[i], leadTimeMin, leadTimeMax), '#00e5ff');
-      }
-      
-      // Pontos para Produtividade
-      for (let i = 0; i < 3; i++) {
-        drawPoint(xPoints[i], valueToY(productivityValues[i], productivityMin, productivityMax), '#7B68EE');
-      }
-      
-      // Pontos para Retrabalho
-      for (let i = 0; i < 3; i++) {
-        drawPoint(xPoints[i], valueToY(reworkValues[i], reworkMin, reworkMax), '#cc0000');
-      }
-      
-      // Legenda
-      const legendY = padding + 15;
-      const legendSpacing = 70;
-      
-      // Lead Time
-      ctx.fillStyle = '#00e5ff';
-      ctx.fillRect(padding, legendY - 6, 10, 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.font = '10px Segoe UI';
-      ctx.textAlign = 'left';
-      ctx.fillText('Lead Time', padding + 15, legendY);
-      
-      // Produtividade
-      ctx.fillStyle = '#7B68EE';
-      ctx.fillRect(padding + legendSpacing, legendY - 6, 10, 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.fillText('Produtividade', padding + legendSpacing + 15, legendY);
-      
-      // Retrabalho
-      ctx.fillStyle = '#cc0000';
-      ctx.fillRect(padding + 2 * legendSpacing, legendY - 6, 10, 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.fillText('Retrabalho', padding + 2 * legendSpacing + 15, legendY);
     }
     
-    // Função para atualizar os insights
-    function updateInsights(project) {
-      const insightsContainer = document.getElementById('projectInsights');
-      insightsContainer.innerHTML = '';
-         // Adicionar novos insights
-      projectData[project].insights.forEach(insight => {
-        const insightElement = document.createElement('div');
-        insightElement.className = `insight-item ${insight.type}`;
+    // Animação de contagem para estatísticas
+    function animateStats() {
+      const stats = [
+        { id: 'stat1', end: 50, prefix: '+', suffix: '%' },
+        { id: 'stat2', end: 92, prefix: '', suffix: '%' },
+        { id: 'stat3', end: 44, prefix: '+', suffix: '' },
+        { id: 'stat4', end: 15, prefix: '+', suffix: '.000' }
+      ];
+      
+      stats.forEach(stat => {
+        const element = document.getElementById(stat.id);
+        if (!element) return; // Verificar se o elemento existe
         
-        insightElement.innerHTML = `
-          <div class="insight-icon">
-            <i class="fas ${insight.icon}"></i>
-          </div>
-          <div class="insight-content">
-            <div class="insight-title">${insight.title}</div>
-            <div class="insight-desc">${insight.description}</div>
-          </div>
-        `;
+        const end = stat.end;
+        const prefix = stat.prefix || '';
+        const suffix = stat.suffix || '';
+        let current = 0;
         
-        insightsContainer.appendChild(insightElement);
+        const duration = 2000; // 2 segundos
+        const interval = 20;
+        const steps = duration / interval;
+        const step = end / steps;
+        
+        const counter = setInterval(() => {
+          current += step;
+          if (current >= end) {
+            current = end;
+            clearInterval(counter);
+          }
+          
+          if (suffix === 'M') {
+            element.textContent = prefix + current.toFixed(1) + suffix;
+          } else if (suffix === 'k') {
+            element.textContent = prefix + Math.floor(current) + suffix;
+          } else {
+            element.textContent = prefix + Math.floor(current) + suffix;
+          }
+        }, interval);
       });
     }
     
-    // Função para alternar entre projetos
-    function switchProject(project, event) {
-      // Atualizar tabs ativas
-      document.querySelectorAll('.project-tab').forEach(tab => {
-        tab.classList.remove('active');
+    // Iniciar animações imediatamente
+    document.addEventListener('DOMContentLoaded', () => {
+      // Executar as funções de animação imediatamente
+      createParticles();
+      createNeuralNetwork();
+      
+      // Iniciar animação de estatísticas quando o usuário rolar até a seção
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateStats();
+            observer.disconnect();
+          }
+        });
       });
       
-      // Ativar a tab selecionada
-      event.currentTarget.classList.add('active');
-      
-      // Obter dados do projeto
-      const data = projectData[project];
-      
-      // Atualizar título da seção de KPIs
-      document.querySelector('.bank-kpis .section-title').innerHTML = 
-        `<i class="fas fa-chart-line"></i> KPIs do Banco - ${data.title}`;
-      
-      // Atualizar tabela de KPIs - usando innerHTML para os elementos com ícones
-      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(2)').textContent = 
-        data.leadTime.base;
-        
-      // Lead Time - determinar se melhorou (diminuiu) ou piorou (aumentou)
-      const leadTimePilotImproved = data.leadTime.pilot < data.leadTime.base;
-      const leadTimeProdImproved = data.leadTime.production < data.leadTime.pilot;
-      
-      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(3)').innerHTML = 
-        `${data.leadTime.pilot} <i class="fas fa-arrow-${leadTimePilotImproved ? 'down' : 'up'} trend-icon"></i>`;
-      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(3)').className = 
-        leadTimePilotImproved ? 'improved' : 'worsened';
-        
-      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(4)').innerHTML = 
-        `${data.leadTime.production} <i class="fas fa-arrow-${leadTimeProdImproved ? 'down' : 'up'} trend-icon"></i>`;
-      document.querySelector('.kpi-table tbody tr:nth-child(1) td:nth-child(4)').className = 
-        leadTimeProdImproved ? 'improved' : 'worsened';
-      
-      // Produtividade - determinar se melhorou (diminuiu) ou piorou (aumentou)
-      const prodPilotImproved = data.productivity.pilot < data.productivity.base;
-      const prodProdImproved = data.productivity.production < data.productivity.pilot;
-      
-      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(2)').textContent = 
-        data.productivity.base;
-      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(3)').innerHTML = 
-        `${data.productivity.pilot} <i class="fas fa-arrow-${prodPilotImproved ? 'down' : 'up'} trend-icon"></i>`;
-      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(3)').className = 
-        prodPilotImproved ? 'improved' : 'worsened';
-        
-      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(4)').innerHTML = 
-        `${data.productivity.production} <i class="fas fa-arrow-${prodProdImproved ? 'down' : 'up'} trend-icon"></i>`;
-      document.querySelector('.kpi-table tbody tr:nth-child(2) td:nth-child(4)').className = 
-        prodProdImproved ? 'improved' : 'worsened';
-      
-      // Retrabalho - determinar se melhorou (diminuiu) ou piorou (aumentou)
-      const reworkPilotImproved = data.rework.pilot < data.rework.base;
-      const reworkProdImproved = data.rework.production < data.rework.pilot;
-      
-      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(2)').textContent = 
-        data.rework.base;
-      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(3)').innerHTML = 
-        `${data.rework.pilot} <i class="fas fa-arrow-${reworkPilotImproved ? 'down' : 'up'} trend-icon"></i>`;
-      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(3)').className = 
-        reworkPilotImproved ? 'improved' : 'worsened';
-        
-      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(4)').innerHTML = 
-        `${data.rework.production} <i class="fas fa-arrow-${reworkProdImproved ? 'down' : 'up'} trend-icon"></i>`;
-      document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(4)').className = 
-        reworkProdImproved ? 'improved' : 'worsened';
-      
-      // Atualizar badge de interações
-      document.querySelector('.promptx-badge').textContent = 
-        `${data.interactions} total de interações`;
-      
-      // Atualizar resultados consolidados - valores e descrições
-      document.querySelector('.results-grid .result-card:nth-child(1) .result-value').textContent = 
-        data.leadTimeReduction;
-      document.querySelector('.results-grid .result-card:nth-child(1) .result-desc').textContent = 
-        data.leadTimeDesc;
-      
-      document.querySelector('.results-grid .result-card:nth-child(2) .result-value').textContent = 
-        data.productivityReduction;
-      document.querySelector('.results-grid .result-card:nth-child(2) .result-desc').textContent = 
-        data.productivityDesc;
-      
-      document.querySelector('.results-grid .result-card:nth-child(3) .result-value').textContent = 
-        data.reworkIncrease;
-      document.querySelector('.results-grid .result-card:nth-child(3) .result-desc').textContent = 
-        data.reworkDesc;
-      
-      // Atualizar insights
-      updateInsights(project);
-      
-      // Limpar o canvas existente e redesenhar o gráfico com os novos dados
-      const canvas = document.getElementById('kpiTrendChart');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Forçar um pequeno atraso para garantir que o canvas esteja limpo antes de redesenhar
-      setTimeout(() => {
-        drawKpiTrendChart(project);
-      }, 50);
-      
-      // Animar barras de interação
-      animateInteractionBars(project);
-      
-      // Atualizar classe do card de retrabalho (positivo ou negativo)
-      const reworkCard = document.querySelector('.results-grid .result-card:nth-child(3)');
-      const reworkValue = document.querySelector('.results-grid .result-card:nth-child(3) .result-value');
-      const reworkLabel = document.querySelector('.results-grid .result-card:nth-child(3) .result-label');
-
-      // Se o retrabalho diminuiu, mostrar como positivo
-      if (data.reworkChangeValue < 0) {
-        reworkCard.classList.remove('negative');
-        reworkValue.classList.remove('negative');
-        reworkValue.classList.add('positive');
-        reworkLabel.textContent = 'Redução de Retrabalho';
-      } else {
-        reworkCard.classList.add('negative');
-        reworkValue.classList.add('negative');
-        reworkValue.classList.remove('positive');
-        reworkLabel.textContent = 'Aumento de Retrabalho';
+      const statsSection = document.querySelector('.stats-section');
+      if (statsSection) {
+        observer.observe(statsSection);
       }
-    }
-    
-    // Função para animar as barras de interação
-    function animateInteractionBars(project) {
-      const maxHeight = 70; // Altura máxima em pixels
-      const maxValue = Math.max(...Object.values(projectData).flatMap(p => p.interactionValues)); // Valor máximo para escala
       
-      const values = projectData[project].interactionValues;
-      const bars = document.querySelectorAll('.bar');
-      
-      // Reset heights
-      bars.forEach(bar => {
-        bar.style.height = '0px';
+      // Adicionar efeito de hover a TODOS os cards
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          const cardIcon = card.querySelector('.card-icon');
+          if (cardIcon) {
+            cardIcon.classList.add('pulse');
+          }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          const cardIcon = card.querySelector('.card-icon');
+          if (cardIcon) {
+            cardIcon.classList.remove('pulse');
+          }
+        });
       });
-      
-      // Animate with delay
-      setTimeout(() => {
-        bars[0].style.height = (values[0] / maxValue * maxHeight) + 'px';
-        bars[0].style.transition = 'height 0.5s ease';
-        
-        setTimeout(() => {
-          bars[1].style.height = (values[1] / maxValue * maxHeight) + 'px';
-          bars[1].style.transition = 'height 0.5s ease';
-          
-          setTimeout(() => {
-            bars[2].style.height = (values[2] / maxValue * maxHeight) + 'px';
-            bars[2].style.transition = 'height 0.5s ease';
-            
-            setTimeout(() => {
-              bars[3].style.height = (values[3] / maxValue * maxHeight) + 'px';
-              bars[3].style.transition = 'height 0.5s ease';
-            }, 100);
-          }, 100);
-        }, 100);
-      }, 100);
-      
-      // Atualizar os rótulos das barras
-      document.querySelectorAll('.bar-label').forEach((label, index) => {
-        label.innerHTML = `Q${index+1}<br>${values[index] || '-'}`;
-      });
-    }
-    
-   // Função para destacar o indicador de retrabalho
-    function highlightReworkIndicator() {
-      const reworkCell = document.querySelector('.kpi-table tbody tr:nth-child(3) td:nth-child(4)');
-      
-      if (reworkCell) {
-        reworkCell.style.position = 'relative';
-        
-        const highlight = document.createElement('div');
-        highlight.style.position = 'absolute';
-        highlight.style.top = '0';
-        highlight.style.left = '0';
-        highlight.style.width = '100%';
-        highlight.style.height = '100%';
-        highlight.style.backgroundColor = 'rgba(204, 0, 0, 0.2)';
-        highlight.style.borderRadius = '4px';
-        highlight.style.animation = 'fadeOut 2s forwards';
-        
-        const style = document.createElement('style');
-        style.textContent = `
-          @keyframes fadeOut {
-            0% { opacity: 0.8; }
-            100% { opacity: 0; }
-          }
-        `;
-        document.head.appendChild(style);
-        
-        reworkCell.appendChild(highlight);
-        
-        setTimeout(() => {
-          if (highlight.parentNode === reworkCell) {
-            reworkCell.removeChild(highlight);
-          }
-        }, 2000);
-      }
-    }
-    
-    // Função para ajustar o tamanho do canvas quando a janela for redimensionada
-    function resizeCanvas() {
-      const currentProject = document.querySelector('.project-tab.active').textContent.toLowerCase().replace(/\s+/g, '-');
-      drawKpiTrendChart(currentProject);
-    }
-    
-    // Função para criar uma imagem estática do gráfico como fallback
-    function createFallbackImage() {
-      // Criar um canvas temporário fora da tela
-      const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = 300;
-      tempCanvas.height = 150;
-      const tempCtx = tempCanvas.getContext('2d');
-      
-      // Desenhar um gráfico simples
-      tempCtx.fillStyle = '#151823';
-      tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-      
-      // Desenhar linhas de exemplo
-      tempCtx.strokeStyle = '#00e5ff';
-      tempCtx.lineWidth = 2;
-      tempCtx.beginPath();
-      tempCtx.moveTo(20, 75);
-      tempCtx.lineTo(150, 50);
-      tempCtx.lineTo(280, 30);
-      tempCtx.stroke();
-      
-      tempCtx.strokeStyle = '#7B68EE';
-      tempCtx.beginPath();
-      tempCtx.moveTo(20, 75);
-      tempCtx.lineTo(150, 85);
-      tempCtx.lineTo(280, 70);
-      tempCtx.stroke();
-      
-      tempCtx.strokeStyle = '#cc0000';
-      tempCtx.beginPath();
-      tempCtx.moveTo(20, 75);
-      tempCtx.lineTo(150, 40);
-      tempCtx.lineTo(280, 90);
-      tempCtx.stroke();
-      
-      // Converter para imagem
-      const imageUrl = tempCanvas.toDataURL('image/png');
-      
-      // Substituir o canvas por uma imagem
-      const kpiChart = document.querySelector('.kpi-chart');
-      const canvas = document.getElementById('kpiTrendChart');
-      
-      if (kpiChart && canvas) {
-        const img = document.createElement('img');
-        img.src = imageUrl;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.borderRadius = '8px';
-        
-        canvas.style.display = 'none';
-        kpiChart.appendChild(img);
-        
-        // Tentar inicializar o canvas real após um tempo
-        setTimeout(() => {
-          canvas.style.display = 'block';
-          img.style.display = 'none';
-          drawKpiTrendChart('safer');
-        }, 1000);
-      }
-    }
-    
-    // Inicialização quando o DOM estiver carregado
-    document.addEventListener('DOMContentLoaded', function() {
-      // Calcular resultados para todos os projetos
-      calculateProjectResults();
-      
-      // Atualizar data no rodapé
-      atualizarDataRodape();
-      
-      // Inicializar insights para o projeto padrão (SAFER)
-      updateInsights('safer');
-      
-      // Criar imagem de fallback para o gráfico
-      createFallbackImage();
-      
-      // Garantir que o canvas seja inicializado corretamente
-      initializeCanvas();
-      
-      // Adicionar listener para redimensionamento da janela
-      window.addEventListener('resize', resizeCanvas);
-    });
-    
-    // Função para inicializar o canvas com várias tentativas
-    function initializeCanvas() {
-      // Primeira tentativa imediata
-      tryDrawChart();
-      
-      // Tentativas adicionais com intervalos crescentes
-      setTimeout(tryDrawChart, 100);
-      setTimeout(tryDrawChart, 300);
-      setTimeout(tryDrawChart, 500);
-      setTimeout(tryDrawChart, 1000);
-      setTimeout(tryDrawChart, 2000);
-    }
-    
-     // Função para tentar desenhar o gráfico
-    function tryDrawChart() {
-      const canvas = document.getElementById('kpiTrendChart');
-      if (canvas && canvas.getContext) {
-        console.log('Tentando desenhar o gráfico...');
-        
-        // Verificar se o canvas tem dimensões válidas
-        if (canvas.clientWidth > 0 && canvas.clientHeight > 0) {
-          console.log('Canvas tem dimensões válidas, desenhando gráfico...');
-          
-          // Desenhar o gráfico para o projeto inicial (SAFER)
-          drawKpiTrendChart('safer');
-          
-          // Animar barras de interação para o projeto inicial
-          animateInteractionBars('safer');
-          
-          // Adicionar efeito de destaque para o indicador de retrabalho
-          highlightReworkIndicator();
-        } else {
-          console.log('Canvas não tem dimensões válidas ainda...');
-          // Forçar dimensões
-          canvas.style.width = '100%';
-          canvas.style.height = '150px';
-        }
-      } else {
-        console.log('Canvas ainda não está disponível...');
-      }
-    }
-    
-    // Garantir que o gráfico seja desenhado mesmo após o carregamento completo da página
-    window.addEventListener('load', function() {
-      setTimeout(function() {
-        const canvas = document.getElementById('kpiTrendChart');
-        if (canvas) {
-          // Forçar dimensões explícitas se necessário
-          if (canvas.clientWidth === 0) {
-            canvas.style.width = '100%';
-            canvas.style.height = '150px';
-          }
-          drawKpiTrendChart('safer');
-        }
-      }, 200);
     });
   </script>
 </body>
