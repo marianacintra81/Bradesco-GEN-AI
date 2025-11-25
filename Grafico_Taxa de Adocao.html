@@ -35,12 +35,7 @@
       overflow-x:hidden;
     }
 
-    .container{
-      width:100%;
-      max-width:none;
-      margin:0 auto;
-      overflow-x:hidden;
-    }
+    .container{width:100%;max-width:none;margin:0 auto;overflow-x:hidden}
 
     .header{ text-align:center; margin-bottom:20px }
     .header h1{
@@ -302,7 +297,6 @@
   <input type="file" id="hiddenSheetInput" accept=".xlsx,.xls,.csv" style="display:none" />
 
   <script>
-    /* ============== DADOS INICIAIS ============== */
     const baseProjects = [
       { name:'Plataforma de segurança Safer', totalUsers:39, activeUsers:38, adoptionRate:97.4, totalInteractions:1902, wave:'Piloto', profiles:['DEV','QA','Scrum Master','SRE'], useCases:[] },
       { name:'Open Finance', totalUsers:5, activeUsers:5, adoptionRate:100.0, totalInteractions:756, wave:'Piloto', profiles:['QA'], useCases:[] },
@@ -349,25 +343,79 @@
       { name:'Tribo Contas e Tarifas', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:80, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
     ];
 
-    let projectsData = baseProjects.slice();
+    // Cópia inicial
+    let projectsData = baseProjects.map(p => ({...p, profiles:[...(p.profiles||[])], useCases:[...(p.useCases||[])] }));
 
-    /* ============== PERSISTÊNCIA ============== */
-    const STORAGE_KEY = 'genai_taxa_adocao_por_projeto__projectsData_v2';
-    function persistProjectsData(){
-      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(projectsData)); }
-      catch(e){ console.warn('[Persistência] Falha ao salvar:', e); }
+    /* =======================
+       IMPORTAÇÃO + DEDUPE (SEM PROJETOS “FUZY”)
+       Requisito: não pode “unir” projetos por nomes parecidos (evita casos iguais com casos diferentes).
+       Portanto: match de projeto = EXATO por chave normalizada.
+       ======================= */
+
+    function normalizeLabel(str){
+      return String(str ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g,'')
+        .toLowerCase()
+        .trim();
     }
+    function normalizeKey(str){ return normalizeLabel(str).replace(/\s+/g,''); }
+
+    // Dedupe forte: mesmo nome (ignorando acentos/caixa/espaços) = 1 por projeto
+    function dedupeLabelsByNorm(list){
+      const m = new Map(); // norm -> raw escolhido
+      (Array.isArray(list) ? list : []).forEach(v => {
+        if (typeof v !== 'string') return;
+        const raw = v.trim().replace(/\s+/g, ' ');
+        if (!raw) return;
+        const norm = normalizeLabel(raw);
+        if (!norm) return;
+
+        // regra de escolha: mantém o mais “descritivo” (maior)
+        if (!m.has(norm)) {
+          m.set(norm, raw);
+        } else {
+          const prev = m.get(norm);
+          if ((String(raw).length || 0) > (String(prev).length || 0)) m.set(norm, raw);
+        }
+      });
+      return Array.from(m.values());
+    }
+
+    /* =======================
+       PERSISTÊNCIA (localStorage)
+       ======================= */
+    const STORAGE_KEY = 'genai_taxa_adocao_por_projeto__projectsData_v3';
+
+    function persistProjectsData(){
+      try{
+        // garante que sempre salva “limpo”
+        const payload = projectsData.map(p => ({
+          ...p,
+          profiles: Array.isArray(p.profiles) ? p.profiles : [],
+          useCases: dedupeLabelsByNorm(p.useCases)
+        }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      }catch(e){
+        console.warn('[Persistência] Falha ao salvar:', e);
+      }
+    }
+
     function restoreProjectsData(){
       try{
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return false;
         const parsed = JSON.parse(raw);
         if (!Array.isArray(parsed)) return false;
+
         projectsData = parsed.map(p => ({
           ...p,
           profiles: Array.isArray(p.profiles) ? p.profiles : [],
-          useCases: Array.isArray(p.useCases) ? p.useCases : []
+          useCases: dedupeLabelsByNorm(p.useCases)
         }));
+
+        // regrava já higienizado (corrige duplicações antigas)
+        persistProjectsData();
         return true;
       }catch(e){
         console.warn('[Persistência] Falha ao restaurar:', e);
@@ -376,7 +424,6 @@
     }
     restoreProjectsData();
 
-    /* ============== HELPERS ============== */
     function colorByAdoption(rate){
       if (rate === 100) return '#00e5ff';
       if (rate >= 90) return '#7B68EE';
@@ -387,7 +434,8 @@
       return (Array.isArray(p.profiles) && p.profiles.length) ? p.profiles.join(', ') : '-';
     }
     function getUseCasesText(p){
-      return (Array.isArray(p.useCases) && p.useCases.length) ? [...new Set(p.useCases)].join(', ') : '-';
+      const unique = dedupeLabelsByNorm(p.useCases);
+      return unique.length ? unique.join(', ') : '-';
     }
     const avgOf = p => (p.totalUsers ? (p.totalInteractions / p.totalUsers) : 0);
 
@@ -402,14 +450,27 @@
       const dir = (headerSort.dir === 'asc') ? 1 : -1;
 
       const cmp = {
-        name: (a,b)=> a.name.localeCompare(b.name, 'pt-BR') * dir,
-        adoptionRate: (a,b)=> (a.adoptionRate === b.adoptionRate ? a.name.localeCompare(b.name,'pt-BR')*dir : (b.adoptionRate - a.adoptionRate) * (dir===1?-1:1)),
-        totalInteractions: (a,b)=> (a.totalInteractions === b.totalInteractions ? a.name.localeCompare(b.name,'pt-BR')*dir : (b.totalInteractions - a.totalInteractions) * (dir===1?-1:1)),
+        name: (a,b)=> a.name.localeCompare(b.name) * dir,
+        adoptionRate: (a,b)=> {
+          const av = Number(a.adoptionRate)||0, bv = Number(b.adoptionRate)||0;
+          if (av === bv) return a.name.localeCompare(b.name)*dir;
+          return (av - bv) * dir;
+        },
+        totalInteractions: (a,b)=> {
+          const av = Number(a.totalInteractions)||0, bv = Number(b.totalInteractions)||0;
+          if (av === bv) return a.name.localeCompare(b.name)*dir;
+          return (av - bv) * dir;
+        },
         avg: (a,b)=> {
           const av = avgOf(a), bv = avgOf(b);
-          return (av === bv ? a.name.localeCompare(b.name,'pt-BR')*dir : (bv - av) * (dir===1?-1:1));
+          if (av === bv) return a.name.localeCompare(b.name)*dir;
+          return (av - bv) * dir;
         },
-        totalUsers: (a,b)=> (a.totalUsers === b.totalUsers ? a.name.localeCompare(b.name,'pt-BR')*dir : (b.totalUsers - a.totalUsers) * (dir===1?-1:1)),
+        totalUsers: (a,b)=> {
+          const av = Number(a.totalUsers)||0, bv = Number(b.totalUsers)||0;
+          if (av === bv) return a.name.localeCompare(b.name)*dir;
+          return (av - bv) * dir;
+        },
       }[key];
 
       return data.sort(cmp);
@@ -483,13 +544,13 @@
 
         const useCasesBox = document.createElement('div');
         useCasesBox.className = 'profiles usecases';
-        const useCasesList = Array.isArray(p.useCases) ? p.useCases : [];
+
+        const useCasesList = dedupeLabelsByNorm(p.useCases);
         if (useCasesList.length === 0) {
           const t = document.createElement('span'); t.className = 'tag'; t.textContent = '-';
           useCasesBox.appendChild(t);
         } else {
-          const uniqueUseCases = [...new Set(useCasesList)];
-          uniqueUseCases.forEach(useCase=>{
+          useCasesList.forEach(useCase=>{
             const t = document.createElement('span'); t.className = 'tag'; t.textContent = useCase;
             useCasesBox.appendChild(t);
           });
@@ -522,7 +583,7 @@
         headerSort.col = col;
 
         document.querySelectorAll('.row--header div[data-col]').forEach(h=>{
-          const caret = h.querySelector('.sort-caret');
+          const caret = h.querySelector(' .sort-caret');
           if (!caret) return;
           if (h.getAttribute('data-col') === col){
             caret.textContent = (headerSort.dir === 'asc' ? '↑' : '↓');
@@ -538,7 +599,6 @@
       });
     });
 
-    /* ============== EXPORTAR EXCEL ============== */
     function getCurrentDataView(){
       const wave = waveFilter.value;
       let data = projectsData.slice();
@@ -552,7 +612,7 @@
           'Wave': p.wave,
           'Usuários Totais': p.totalUsers,
           'Usuários Ativos': p.activeUsers,
-          'Taxa de Adoção (%)': Number((p.adoptionRate ?? 0).toFixed(1)),
+          'Taxa de Adoção (%)': Number((Number(p.adoptionRate ?? 0)).toFixed(1)),
           'Interações': p.totalInteractions,
           'Média por Usuário': Number(avg.toFixed(1)),
           'Perfis Treinados': getProfilesText(p),
@@ -601,15 +661,14 @@
     }
     document.getElementById('exportExcel').addEventListener('click', exportToExcel);
 
-    /* ============== IMPORTAÇÃO (SEM DUPLICAR, SEM ACUMULAR) ============== */
-    function normalizeLabel(str){
-      return String(str ?? '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g,'')
-        .toLowerCase()
-        .trim();
-    }
-    function normalizeKey(str){ return normalizeLabel(str).replace(/\s+/g,''); }
+    /* =======================
+       IMPORTAÇÃO ROBUSTA (Projetos + Casos de Uso)
+       Regras:
+       - Extrair de: "Caso de Uso" e "CasoDeUsoNome" (ou variações) e "Caso de Uso Treinado" (variações).
+       - Se cu1 == cu2 (mesmo nome normalizado), manter só 1.
+       - NÃO misturar projetos por similaridade: só match EXATO por nome normalizado.
+       - Ao importar de novo (Ctrl+U), NÃO acumular: substitui os casos de uso do projeto pela nova leitura.
+       ======================= */
 
     function findKey(allKeys, candidates){
       const candNorm = candidates.map(c => normalizeKey(c));
@@ -617,6 +676,7 @@
         const nk = normalizeKey(k);
         if (candNorm.includes(nk)) return k;
       }
+      // fallback “contém”, apenas para CABEÇALHO (seguro)
       for (const k of allKeys){
         const nk = normalizeKey(k);
         for (const c of candNorm){
@@ -636,44 +696,69 @@
 
       const projKey = findKey(keys, ['Projeto','Nome do Projeto','Nome Projeto','Project']);
       const cuKey   = findKey(keys, ['Caso de Uso','Casos de Uso','Use Case','UseCase','Case de Uso','CasodeUso','CasoUso']);
-      const cu2Key  = findKey(keys, ['CasoDeUsoNome','Nome do Caso de Uso','Caso de Uso Nome','Use Case Name','UseCaseName']);
+      const cu2Key  = findKey(keys, ['CasoDeUsoNome','Caso de Uso Nome','Nome do Caso de Uso','Use Case Name','UseCaseName','Caso de usonome']);
+      const cu3Key  = findKey(keys, ['Caso de Uso Treinado','Casos de Uso Treinados','Use Case Trained','UseCaseTrained','Treinado','Treinados']);
 
-      return { projKey, cuKey, cu2Key };
+      return { projKey, cuKey, cu2Key, cu3Key };
     }
 
     function aggregateUseCasesFromSheet(rows, schema){
-      const projMap = new Map();
-      const { projKey, cuKey, cu2Key } = schema;
+      const projMap = new Map(); // projNorm -> Map(useCaseNorm -> raw)
+      const { projKey, cuKey, cu2Key, cu3Key } = schema;
 
       rows.forEach(row => {
         const projName = projKey ? row[projKey] : null;
         if (!projName) return;
 
-        const rawProj = projName.toString().trim();
+        const rawProj = String(projName).trim().replace(/\s+/g, ' ');
         if (!rawProj) return;
 
-        const keyProjNorm = normalizeLabel(rawProj);
+        const projNorm = normalizeLabel(rawProj);
 
-        let labelsMap = projMap.get(keyProjNorm);
+        let labelsMap = projMap.get(projNorm);
         if (!labelsMap) {
           labelsMap = new Map();
-          projMap.set(keyProjNorm, labelsMap);
+          projMap.set(projNorm, labelsMap);
         }
 
-        const cu1 = cuKey ? row[cuKey] : null;
-        const cu2 = cu2Key ? row[cu2Key] : null;
+        const candidates = [
+          cuKey  ? row[cuKey]  : null,
+          cu2Key ? row[cu2Key] : null,
+          cu3Key ? row[cu3Key] : null,
+        ];
 
-        [cu1, cu2].forEach(v => {
-          if (typeof v === 'string') {
-            const raw = v.trim();
-            if (!raw) return;
-            const norm = normalizeLabel(raw);
-            if (!labelsMap.has(norm)) labelsMap.set(norm, raw);
+        candidates.forEach(v => {
+          if (typeof v !== 'string') return;
+          const raw = v.trim().replace(/\s+/g, ' ');
+          if (!raw) return;
+          const norm = normalizeLabel(raw);
+          if (!norm) return;
+
+          // regra de escolha: mantém o mais “descritivo”
+          if (!labelsMap.has(norm)) {
+            labelsMap.set(norm, raw);
+          } else {
+            const prev = labelsMap.get(norm);
+            if ((String(raw).length || 0) > (String(prev).length || 0)) labelsMap.set(norm, raw);
           }
         });
       });
 
       return projMap;
+    }
+
+    function applyUseCasesToProjects(useCasesByProject){
+      // substitui (não acumula) e deduplica
+      projectsData = projectsData.map(p => {
+        const projNorm = normalizeLabel(String(p.name || '').trim().replace(/\s+/g,' '));
+        const labelsMap = useCasesByProject.get(projNorm);
+        const fromSheet = labelsMap ? Array.from(labelsMap.values()) : [];
+        return { ...p, useCases: dedupeLabelsByNorm(fromSheet) };
+      });
+
+      persistProjectsData();
+      render();
+      console.log('[Taxa Adoção Projetos] Casos de uso aplicados (substituição) + persistência.');
     }
 
     function handleSheetFile(file){
@@ -694,8 +779,8 @@
             alert('Não encontrei a coluna de Projeto na planilha (ex.: "Projeto"). Verifique o cabeçalho.');
             return;
           }
-          if (!schema.cuKey && !schema.cu2Key){
-            alert('Não encontrei a coluna de Caso de Uso (ex.: "Caso de Uso" / "Casos de Uso"). Verifique o cabeçalho (coluna H).');
+          if (!schema.cuKey && !schema.cu2Key && !schema.cu3Key){
+            alert('Não encontrei colunas de Caso de Uso (ex.: "Caso de Uso" / "CasoDeUsoNome" / "Caso de Uso Treinado"). Verifique o cabeçalho.');
             return;
           }
 
@@ -705,44 +790,9 @@
             return;
           }
 
-          /* >>>> PONTO CHAVE:
-                 - A CADA NOVA PLANILHA:
-                     1) ZERA todos os useCases
-                     2) Carrega somente os casos da planilha atual
-                 - NÃO ACUMULA, NÃO DUPLICA ENTRE IMPORTAÇÕES
-           */
-          projectsData = projectsData.map(p => {
-            const key = normalizeLabel((p.name || '').toString().trim());
-
-            let labelsMap = useCasesByProject.get(key);
-            if (!labelsMap) {
-              for (const [k, v] of useCasesByProject.entries()) {
-                if (k.includes(key) || key.includes(k)) { labelsMap = v; break; }
-              }
-            }
-
-            const fromSheet = labelsMap ? Array.from(labelsMap.values()) : [];
-
-            // dedupe só dentro da própria planilha
-            const dedupMap = new Map();
-            fromSheet.forEach(label => {
-              if (typeof label === 'string') {
-                const raw = label.trim();
-                if (!raw) return;
-                const norm = normalizeLabel(raw);
-                if (!dedupMap.has(norm)) dedupMap.set(norm, raw);
-              }
-            });
-
-            return {
-              ...p,
-              useCases: Array.from(dedupMap.values())  // SOBRESCREVE – não soma com o que já tinha
-            };
-          });
-
-          persistProjectsData();
-          render();
-          console.log('[Taxa Adoção Projetos] Casos de uso carregados (sem acumular, sem duplicar entre imports).');
+          // Regra: NÃO misturar projetos parecidos.
+          // Se a planilha tiver um projeto não cadastrado no baseProjects, ele será ignorado (não cria projeto novo).
+          applyUseCasesToProjects(useCasesByProject);
         } catch(err){
           console.error('Erro ao processar planilha:', err);
           alert('Não foi possível ler a planilha. Verifique se existe coluna de Projeto e Caso(s) de Uso.');
@@ -759,6 +809,7 @@
       e.target.value = '';
     });
 
+    // Ctrl+U para anexar planilha (pode ser usado quantas vezes precisar)
     document.addEventListener('keydown', (e)=>{
       if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey && e.key.toLowerCase() === 'u') {
         e.preventDefault();
