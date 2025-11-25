@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
-  <!-- XLSX (para ler planilhas Excel no navegador) -->
+  <!-- XLSX (ler Excel no navegador) -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
   <!-- Fonte / Ícones -->
@@ -22,30 +22,25 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
 
     :root{
-      /* Fundo */
       --background: #0c0e14;
       --card-bg: #1e2130;
       --card-bg-hover: #272936;
       --card-bg-secondary: #151823;
 
-      /* Texto */
       --text: #ffffff;
       --muted: #a3a8c3;
 
-      /* Destaques */
       --red-bradesco: #cc0000;
       --blue-bradesco: #0033A0;
       --purple-highlight: #7B68EE;
       --cyan-highlight: #00e5ff;
 
-      /* Paleta por onda */
       --piloto: var(--cyan-highlight);
       --wave1: var(--purple-highlight);
       --wave2: var(--red-bradesco);
       --wave3: #ffa500;
       --wave4: #1dd1a1;
 
-      /* UI */
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
       --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
       --radius: 16px;
@@ -75,8 +70,6 @@
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
 
-    header p { color: var(--muted); text-align: center; }
-
     /* Abas sob o título */
     .tabs { display:flex; gap:8px; justify-content:center; margin:-6px 0 14px; }
     .tab {
@@ -101,6 +94,7 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 20px; cursor: pointer; z-index: 1000;
       box-shadow: var(--shadow); transition: all 0.3s ease;
+      text-decoration: none;
     }
     .back-button:hover {
       transform: translateY(-3px);
@@ -224,13 +218,14 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header>
       <div><h1>Adoção GEN AI Bradesco</h1></div>
     </header>
 
-    <!-- Aba para a página de Taxa de Adoção (com ícone + nome) -->
+    <!-- Aba -->
     <nav class="tabs" role="tablist" aria-label="Navegação de seções do dashboard">
       <a class="tab" role="tab"
          href="https://marianacintra81.github.io/Bradesco-GEN-AI/Grafico_Taxa%20de%20Adocao.html">
@@ -240,11 +235,12 @@
     </nav>
 
     <!-- Botão Voltar -->
-    <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Menu%20Copilot%20e%20PromptX.html" class="back-button" aria-label="Voltar para a página anterior">
+    <a href="https://marianacintra81.github.io/Bradesco-GEN-AI/Menu%20Copilot%20e%20PromptX.html"
+       class="back-button" aria-label="Voltar para a página anterior">
       <i class="fas fa-arrow-left" aria-hidden="true"></i>
     </a>
 
-    <!-- KPIs (gerais) -->
+    <!-- KPIs -->
     <section class="kpis" id="kpis">
       <div class="kpi kpi--total">
         <div class="kpi-head"><div class="chip"><i class="fas fa-users"></i></div><h4>Total de Profissionais</h4></div>
@@ -252,7 +248,7 @@
         <small>Treinados</small>
       </div>
 
-       <div class="kpi kpi--ativos">
+      <div class="kpi kpi--ativos">
         <div class="kpi-head"><div class="chip"><i class="fas fa-user-check"></i></div><h4>Usuários ativos</h4></div>
         <div class="v" id="k_ativos">—</div>
         <small><strong id="k_adocao">—</strong> de adoção</small>
@@ -266,8 +262,8 @@
 
       <div class="kpi kpi--inter">
         <div class="kpi-head"><div class="chip"><i class="fas fa-bolt"></i></div><h4>Total de Interações</h4></div>
-        <div class="v" id="k_inter">13.464</div>
-        <small id="k_media_global">Média: 43,4 por usuário ativo</small>
+        <div class="v" id="k_inter">—</div>
+        <small id="k_media_global">—</small>
       </div>
 
       <div class="kpi kpi--proj">
@@ -283,29 +279,19 @@
       </div>
     </section>
 
-    <!-- Distribuição por Perfil (cards) -->
+    <!-- Distribuição por Perfil -->
     <section class="profiles" id="profilesGrid" aria-label="Distribuição por Perfil"></section>
 
     <!-- Cabeçalhos por Wave -->
     <div class="implantation-headers">
-      <div class="implantation-header" style="border-top:4px solid var(--piloto);">
-        <h2 style="color:var(--piloto)">Piloto</h2>
-      </div>
-      <div class="implantation-header" style="border-top:4px solid var(--wave1);">
-        <h2 style="color:var(--wave1)">Wave 1</h2>
-      </div>
-      <div class="implantation-header" style="border-top:4px solid var(--wave2);">
-        <h2 style="color:var(--wave2)">Wave 2</h2>
-      </div>
-      <div class="implantation-header" style="border-top:4px solid var(--wave3);">
-        <h2 style="color:var(--wave3)">Wave 3</h2>
-      </div>
-      <div class="implantation-header" style="border-top:4px solid var(--wave4);">
-        <h2 style="color:var(--wave4)">Wave 4</h2>
-      </div>
+      <div class="implantation-header" style="border-top:4px solid var(--piloto);"><h2 style="color:var(--piloto)">Piloto</h2></div>
+      <div class="implantation-header" style="border-top:4px solid var(--wave1);"><h2 style="color:var(--wave1)">Wave 1</h2></div>
+      <div class="implantation-header" style="border-top:4px solid var(--wave2);"><h2 style="color:var(--wave2)">Wave 2</h2></div>
+      <div class="implantation-header" style="border-top:4px solid var(--wave3);"><h2 style="color:var(--wave3)">Wave 3</h2></div>
+      <div class="implantation-header" style="border-top:4px solid var(--wave4);"><h2 style="color:var(--wave4)">Wave 4</h2></div>
     </div>
 
-    <!-- Cards por Wave -->
+    <!-- Cards por Wave (mantidos) -->
     <section class="grid">
       <!-- Piloto -->
       <div class="grid-col">
@@ -378,7 +364,7 @@
       </div>
     </section>
 
-    <!-- Grade de gráficos (1 gráfico por linha) -->
+    <!-- Gráficos -->
     <div class="charts-grid">
       <section class="chart-wrap">
         <div class="chart-title">Interações por Mês</div>
@@ -392,14 +378,12 @@
     </div>
   </div>
 
-  <!-- Input oculto para upload de planilha (Ctrl+U) -->
+  <!-- Input oculto (Ctrl+U) -->
   <input type="file" id="hiddenSheetInput" accept=".xlsx,.xls,.csv" style="display:none" />
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const STORAGE_KEY = 'genai_dashboard_metrics_v1';
-
-      // ===== Config global Chart.js para estabilidade =====
+      // ===== Chart.js defaults =====
       Chart.register(ChartDataLabels);
       Chart.defaults.color = '#ffffff';
       Chart.defaults.font.family = 'Inter, sans-serif';
@@ -407,35 +391,61 @@
       Chart.defaults.maintainAspectRatio = false;
       Chart.defaults.animation = { duration: 0 };
 
-      // --- KPIs iniciais (fallback fixo, caso não haja nada salvo) ---
-      const totalsFallback = {
-        projetos: 49,
-        profissionais: 351,
-        ativos: 310,
-        semInteracao: 41,
-        totalInteracoes: 13464
-      };
-      const adocaoPctFallback = (totalsFallback.ativos / totalsFallback.profissionais) * 100;
-      const mediaGlobalFallback = totalsFallback.ativos ? (totalsFallback.totalInteracoes / totalsFallback.ativos) : 0;
+      // =========================
+      // FIXOS MANUAIS (editar "na mão")
+      // =========================
+      const FIXED_ADOPTION_GENERAL_PCT = 92.00; // <-- edite aqui (ex: 92.00)
+      const FIXED_W4_ADOPTION_PCT      = 68.9;  // <-- edite aqui (ex: 68.9)
+      const FIXED_W4_TAG_TEXT          = '71 de 103 ativos'; // <-- edite aqui
 
-      // Preenche KPIs com o fallback (se houver dados salvos, eles vão sobrescrever em seguida)
-      document.getElementById('k_proj_total').textContent = totalsFallback.projetos;
-      document.getElementById('k_total').textContent = totalsFallback.profissionais;
-      document.getElementById('k_ativos').textContent = totalsFallback.ativos;
-      document.getElementById('k_adocao').textContent =
-        adocaoPctFallback.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
-      document.getElementById('k_sem').textContent = totalsFallback.semInteracao;
-      document.getElementById('k_sem_pct').textContent =
-        ((totalsFallback.semInteracao / totalsFallback.profissionais) * 100)
-          .toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
-      document.getElementById('k_taxa_v').textContent =
-        adocaoPctFallback.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
-      document.getElementById('k_taxa_desc').textContent =
-        `${totalsFallback.ativos} de ${totalsFallback.profissionais} usuários ativos`;
-      document.getElementById('k_inter').textContent =
-        totalsFallback.totalInteracoes.toLocaleString('pt-BR');
-      document.getElementById('k_media_global').textContent =
-        `Média: ${mediaGlobalFallback.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
+      // =========================
+      // Persistência
+      // =========================
+      const STORAGE_KEY = 'genai_dashboard_metrics_v1';
+
+      function saveMetricsToStorage(metrics) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            savedAt: new Date().toISOString(),
+            metrics
+          }));
+        } catch (e) {
+          console.warn('Não foi possível persistir no localStorage:', e);
+        }
+      }
+
+      function loadMetricsFromStorage() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          return parsed && parsed.metrics ? parsed.metrics : null;
+        } catch (e) {
+          console.warn('Não foi possível ler do localStorage:', e);
+          return null;
+        }
+      }
+
+      function applyFixedAdoptionRates() {
+        const general = Number(FIXED_ADOPTION_GENERAL_PCT);
+        if (Number.isFinite(general)) {
+          const generalTxt = general.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%';
+          const elK = document.getElementById('k_adocao');
+          const elV = document.getElementById('k_taxa_v');
+          if (elK) elK.textContent = generalTxt;
+          if (elV) elV.textContent = generalTxt;
+        }
+
+        const w4 = Number(FIXED_W4_ADOPTION_PCT);
+        if (Number.isFinite(w4)) {
+          const w4Txt = w4.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%';
+          const elPct = document.getElementById('pct_w4');
+          if (elPct) elPct.textContent = w4Txt;
+        }
+
+        const elTag = document.getElementById('tag_w4');
+        if (elTag && FIXED_W4_TAG_TEXT) elTag.textContent = FIXED_W4_TAG_TEXT;
+      }
 
       // Helper: manter gráficos responsivos sem "pulos"
       const resizeCanvases = () => {
@@ -452,9 +462,9 @@
       const ro = new ResizeObserver(resizeCanvases);
       ro.observe(document.body);
 
-      /* ======= DATASETS dos gráficos ======= */
+      /* ======= DATASETS ======= */
 
-      // Dados atualizados da planilha "Interações por mês - 24.09"
+      // Mantido fixo (se quiser, posso adaptar para também vir da planilha)
       const monthlyInteractions = [
         { month: "Abril",    interactions: 124 },
         { month: "Maio",     interactions: 533 },
@@ -466,7 +476,6 @@
         { month: "Novembro", interactions: 2518 }
       ];
 
-      // Distribuição por perfil - fallback inicial
       const profileInteractionsInitial = [
         { profile: 'QA',                   interactions: 7000, users: 176 },
         { profile: 'Scrum Master',         interactions: 4200, users: 93  },
@@ -475,41 +484,17 @@
         { profile: 'Analista de Negócios', interactions: 600,  users: 7   },
         { profile: 'Analista de Dados',    interactions: 64,   users: 6   }
       ];
-      // (soma = 13.464, consistente com o KPI de Total de Interações)
 
-      // Variável global para armazenar a referência ao gráfico de barras
+      // Variável global para armazenar o chart de barras
       let interactionsByProfileChart;
 
-      // Funções de persistência
-      function saveMetricsToStorage(metrics) {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(metrics));
-        } catch (e) {
-          console.warn('Não foi possível salvar métricas no localStorage:', e);
-        }
-      }
-
-      function loadMetricsFromStorage() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return null;
-          const parsed = JSON.parse(raw);
-          if (!parsed || typeof parsed.profissionais !== 'number') return null;
-          return parsed;
-        } catch (e) {
-          console.warn('Não foi possível ler métricas do localStorage:', e);
-          return null;
-        }
-      }
-
-      // Render cards de perfis (ordenados por usuários)
       function renderProfilesCards(profileList) {
         const grid = document.getElementById('profilesGrid');
         if (!grid) return;
-        const ordered = [...profileList].sort((a,b) => b.users - a.users);
+        const ordered = [...profileList].sort((a,b) => (b.users||0) - (a.users||0));
 
         const iconByProfile = (p) => {
-          const key = p.toLowerCase();
+          const key = (p || '').toLowerCase();
           if (key.includes('scrum')) return 'fa-user-tie';
           if (key.includes('sre')) return 'fa-vial';
           if (key.includes('dev')) return 'fa-code';
@@ -525,15 +510,12 @@
               <div class="chip"><i class="fas ${iconByProfile(profile)}"></i></div>
               <h4>${profile}</h4>
             </div>
-            <div class="v">${users}</div>
+            <div class="v">${(users ?? 0).toLocaleString('pt-BR')}</div>
             <small>Qtde de profissionais</small>
           </div>
         `;
         grid.innerHTML = ordered.map(item).join('');
       }
-
-      // Fallback inicial de perfis
-      renderProfilesCards(profileInteractionsInitial);
 
       // ===== GRÁFICO: Interações por Mês (linha) =====
       (function renderInteractionsByMonth() {
@@ -561,7 +543,7 @@
                 anchor: 'end',
                 align: 'top',
                 offset: 4,
-                formatter: v => v.toLocaleString('pt-BR'),
+                formatter: v => Number(v || 0).toLocaleString('pt-BR'),
                 font: { weight: 'bold', size: 16 }
               }
             }]
@@ -571,15 +553,11 @@
               legend: { display: false },
               tooltip: {
                 enabled: true,
-                callbacks: {
-                  label: ctx => `Interações: ${ctx.parsed.y.toLocaleString('pt-BR')}`
-                }
+                callbacks: { label: ctx => `Interações: ${ctx.parsed.y.toLocaleString('pt-BR')}` }
               }
             },
             scales: {
-              x: {
-                grid: { display: false }
-              },
+              x: { grid: { display: false } },
               y: {
                 beginAtZero: true,
                 grid: { color: 'rgba(255, 255, 255, 0.1)' },
@@ -594,7 +572,7 @@
 
       // ===== GRÁFICO: Interações por Perfil (barras) =====
       function renderInteractionsByProfile(profileData) {
-        const sorted = [...profileData].sort((a,b) => b.interactions - a.interactions);
+        const sorted = [...profileData].sort((a,b) => (b.interactions||0) - (a.interactions||0));
         const labels = sorted.map(item => item.profile);
         const values = sorted.map(item => item.interactions);
 
@@ -608,9 +586,7 @@
           '#8888ff'
         ].slice(0, values.length);
 
-        if (interactionsByProfileChart) {
-          interactionsByProfileChart.destroy();
-        }
+        if (interactionsByProfileChart) interactionsByProfileChart.destroy();
 
         interactionsByProfileChart = new Chart(document.getElementById('interactionsByProfile'), {
           type: 'bar',
@@ -631,7 +607,7 @@
                 anchor: 'end',
                 align: 'end',
                 offset: 3,
-                formatter: v => v.toLocaleString('pt-BR'),
+                formatter: v => Number(v || 0).toLocaleString('pt-BR'),
                 font: { weight: 'bold', size: 14 }
               }
             }]
@@ -645,11 +621,11 @@
                   afterLabel: (tooltipItem) => {
                     const idx = tooltipItem.dataIndex;
                     const p = sorted[idx];
-                    const total = values.reduce((a,b)=>a+b,0);
+                    const total = values.reduce((a,b)=>a+b,0) || 1;
                     const percentage = ((p.interactions / total) * 100).toFixed(1);
                     return [
-                      `Usuários: ${p.users}`,
-                      `Média por usuário: ${(p.interactions / p.users).toFixed(1)}`,
+                      `Usuários: ${p.users ?? 0}`,
+                      `Média por usuário: ${((p.users ?? 0) ? (p.interactions / p.users) : 0).toFixed(1)}`,
                       `Percentual: ${percentage}%`
                     ];
                   }
@@ -661,70 +637,133 @@
               y: {
                 beginAtZero: true,
                 grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                max: Math.ceil(Math.max(...values) * 1.1 / 1000) * 1000 || undefined,
+                max: Math.ceil((Math.max(...values, 0) * 1.1) / 1000) * 1000 || undefined,
                 ticks: { stepSize: 1000 }
               }
             }
           }
         });
+
         resizeCanvases();
       }
 
-      // Fallback inicial do gráfico de barras
-      renderInteractionsByProfile(profileInteractionsInitial);
+      // =========================
+      // Leitura da planilha (Ctrl+U) + normalização de colunas
+      // =========================
+      const KEY_USER_ALIASES    = ['nome do usuário','nome do usuario','usuario','usuário','user','nome'];
+      const KEY_PROFILE_ALIASES = ['perfil','profile','cargo'];
+      const KEY_PROJ_ALIASES    = ['projeto','project'];
+      const KEY_WAVE_ALIASES    = ['implantação','implantacao','wave','onda'];
+      const KEY_INTER_ALIASES   = ['interações','interacoes','interação','interacao','qtd interacoes','qtde interacoes','interactions'];
 
-      // ===== LÓGICA DO RECURSO OCULTO (Ctrl + U) =====
+      function stripAccents(s) {
+        return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      }
+      function normKey(s) {
+        return stripAccents(String(s || ''))
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, ' ')
+          .replace(/[^\w ]+/g, ''); // remove pontuação
+      }
+      function buildKeyMapFromRow(row) {
+        const map = new Map(); // normalized => actualKey
+        Object.keys(row || {}).forEach(k => map.set(normKey(k), k));
+        return map;
+      }
+      function getByAliases(row, keyMap, aliases) {
+        for (const a of aliases) {
+          const nk = normKey(a);
+          const actual = keyMap.get(nk);
+          if (actual && row[actual] !== undefined && row[actual] !== null && String(row[actual]).trim() !== '') {
+            return row[actual];
+          }
+        }
+        // fallback: tentativa por "contains"
+        const keys = Array.from(keyMap.keys());
+        for (const a of aliases) {
+          const na = normKey(a);
+          const found = keys.find(k => k.includes(na));
+          if (found) {
+            const actual = keyMap.get(found);
+            if (actual && row[actual] !== undefined && row[actual] !== null && String(row[actual]).trim() !== '') {
+              return row[actual];
+            }
+          }
+        }
+        return null;
+      }
+      function parseNumberBR(value) {
+        if (value === null || value === undefined) return 0;
+        if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+        const s = String(value).trim();
+        if (!s) return 0;
 
-      // Nomes das colunas na planilha — alinhados ao seu Excel principal
-      const COLUMN_USER    = 'Nome do usuário';
-      const COLUMN_PROFILE = 'Perfil';
-      const COLUMN_PROJ    = 'Projeto';
-      const COLUMN_WAVE    = 'Implantação';
-      const COLUMN_INTER   = 'Interações';
+        // aceita "1.234", "1.234,56", "1234,56" etc.
+        const cleaned = s
+          .replace(/\u00A0/g, ' ')
+          .replace(/\s/g, '')
+          .replace(/\.(?=\d{3}(\D|$))/g, '') // remove . de milhar
+          .replace(',', '.');
+
+        const n = Number(cleaned);
+        return Number.isFinite(n) ? n : 0;
+      }
 
       function normalizePerfil(perfilRaw) {
-        const p = (perfilRaw || '').toLowerCase();
+        const p = stripAccents(perfilRaw || '').toLowerCase();
         if (p.includes('scrum')) return 'Scrum Master';
-        if (p.includes('qa'))    return 'QA';
-        if (p.includes('sre'))   return 'SRE';
-        if (p.includes('dev'))   return 'DEV';
-        if (p.includes('negócios') || p.includes('negocios')) return 'Analista de Negócios';
-        if (p.includes('dados') || p.includes('iam'))        return 'Analista de Dados';
+        if (p.includes('qa')) return 'QA';
+        if (p.includes('sre')) return 'SRE';
+        if (p.includes('dev')) return 'DEV';
+        if (p.includes('analista de negocio') || p.includes('analista de negocios') || p.includes('negocio') || p.includes('negocios')) return 'Analista de Negócios';
+        if (p.includes('analista de dados') || p.includes('dados') || p.includes('iam')) return 'Analista de Dados';
         return 'Outros';
       }
 
       function recalculateFromSheet(rows) {
+        if (!Array.isArray(rows) || rows.length === 0) {
+          return null;
+        }
+
+        const keyMap = buildKeyMapFromRow(rows[0]);
+
         const userMap = new Map();
         const projetosSet = new Set();
 
-        rows.forEach(row => {
-          const user = row[COLUMN_USER];
-          if (!user) return;
+        for (const row of rows) {
+          const user = getByAliases(row, keyMap, KEY_USER_ALIASES);
+          if (!user) continue;
 
-          const perfilRaw = row[COLUMN_PROFILE] || '';
-          const proj      = row[COLUMN_PROJ] || null;
-          const wave      = row[COLUMN_WAVE] || '';
-          let interRaw    = row[COLUMN_INTER];
-          let inter       = Number(interRaw);
-          if (!Number.isFinite(inter)) inter = 0;
+          const perfilRaw = getByAliases(row, keyMap, KEY_PROFILE_ALIASES) || '';
+          const proj      = getByAliases(row, keyMap, KEY_PROJ_ALIASES);
+          const wave      = getByAliases(row, keyMap, KEY_WAVE_ALIASES) || '';
+          const interRaw  = getByAliases(row, keyMap, KEY_INTER_ALIASES);
+          const inter     = parseNumberBR(interRaw);
 
-          let u = userMap.get(user);
+          const userId = String(user).trim();
+
+          let u = userMap.get(userId);
           if (!u) {
             u = {
-              nome: user,
-              perfilRaw,
-              wave,
+              nome: userId,
+              perfilRaw: perfilRaw || '',
+              wave: wave || '',
               interactions: 0,
               projetos: new Set()
             };
-            userMap.set(user, u);
+            userMap.set(userId, u);
           }
           u.interactions += inter;
+
           if (proj) {
-            u.projetos.add(proj);
-            projetosSet.add(proj);
+            const projId = String(proj).trim();
+            if (projId) {
+              u.projetos.add(projId);
+              projetosSet.add(projId);
+            }
           }
-        });
+        }
 
         const totalProf = userMap.size;
         let totalInteracoes = 0;
@@ -735,10 +774,10 @@
         for (const [,u] of userMap) {
           totalInteracoes += u.interactions;
           if (u.interactions > 0) ativos++;
+
           const label = normalizePerfil(u.perfilRaw);
-          if (!perfilAgg.has(label)) {
-            perfilAgg.set(label, { interactions: 0, users: new Set() });
-          }
+          if (!perfilAgg.has(label)) perfilAgg.set(label, { interactions: 0, users: new Set() });
+
           const agg = perfilAgg.get(label);
           agg.interactions += u.interactions;
           agg.users.add(u.nome);
@@ -760,6 +799,12 @@
           }
         });
 
+        // inclui Outros (se existir)
+        const outros = perfilAgg.get('Outros');
+        if (outros && outros.users.size) {
+          profileArray.push({ profile: 'Outros', interactions: outros.interactions, users: outros.users.size });
+        }
+
         return {
           profissionais: totalProf,
           ativos,
@@ -775,33 +820,39 @@
       function applyMetricsToDashboard(m) {
         if (!m || !m.profissionais) return;
 
-        // KPIs gerais
-        document.getElementById('k_proj_total').textContent = m.projetos;
-        document.getElementById('k_total').textContent = m.profissionais;
-        document.getElementById('k_ativos').textContent = m.ativos;
+        document.getElementById('k_proj_total').textContent = (m.projetos ?? 0).toLocaleString('pt-BR');
+        document.getElementById('k_total').textContent = (m.profissionais ?? 0).toLocaleString('pt-BR');
+        document.getElementById('k_ativos').textContent = (m.ativos ?? 0).toLocaleString('pt-BR');
+
         document.getElementById('k_adocao').textContent =
-          m.adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
-        document.getElementById('k_sem').textContent = m.semInteracao;
+          (m.adocaoPct ?? 0).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+
+        document.getElementById('k_sem').textContent = (m.semInteracao ?? 0).toLocaleString('pt-BR');
+        const semPct = m.profissionais ? ((m.semInteracao / m.profissionais) * 100) : 0;
         document.getElementById('k_sem_pct').textContent =
-          ((m.semInteracao / m.profissionais) * 100)
-            .toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+          semPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+
         document.getElementById('k_taxa_v').textContent =
-          m.adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+          (m.adocaoPct ?? 0).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+
         document.getElementById('k_taxa_desc').textContent =
-          `${m.ativos} de ${m.profissionais} usuários ativos`;
+          `${(m.ativos ?? 0).toLocaleString('pt-BR')} de ${(m.profissionais ?? 0).toLocaleString('pt-BR')} usuários ativos`;
+
         document.getElementById('k_inter').textContent =
-          m.totalInteracoes.toLocaleString('pt-BR');
+          (m.totalInteracoes ?? 0).toLocaleString('pt-BR');
+
         document.getElementById('k_media_global').textContent =
-          `Média: ${m.mediaAtivo.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
+          `Média: ${(m.mediaAtivo ?? 0).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
 
-        // Atualiza os cards de perfil com base na nova planilha
-        if (Array.isArray(m.profiles) && m.profiles.length) {
-          renderProfilesCards(m.profiles);
-          renderInteractionsByProfile(m.profiles);
-        }
+        // Atualiza cards + gráfico
+        renderProfilesCards(m.profiles || []);
+        renderInteractionsByProfile(m.profiles || []);
 
-        // Persiste no navegador
+        // Persistir
         saveMetricsToStorage(m);
+
+        // Aplicar SEMPRE os fixos manuais (não deixa a planilha sobrescrever)
+        applyFixedAdoptionRates();
 
         console.log('[GenAI Dashboard] KPIs aplicados e métricas persistidas no localStorage.');
       }
@@ -813,52 +864,73 @@
           try {
             const data = new Uint8Array(e.target.result);
             const workbook = XLSX.read(data, { type: 'array' });
+
+            // Sugestão: tentar achar a primeira aba com conteúdo
             const sheetName = workbook.SheetNames[0];
             const sheet = workbook.Sheets[sheetName];
             const rows = XLSX.utils.sheet_to_json(sheet, { defval: null });
 
             const metrics = recalculateFromSheet(rows);
+            if (!metrics || !metrics.profissionais) {
+              alert('Não foi possível extrair métricas. Verifique se a planilha tem cabeçalhos e linhas preenchidas.');
+              return;
+            }
             applyMetricsToDashboard(metrics);
           } catch (err) {
             console.error('Erro ao processar a planilha:', err);
-            alert('Não foi possível ler a planilha. Verifique se o formato está correto e se os nomes das colunas batem com o esperado.');
+            alert('Não foi possível ler a planilha. Verifique o formato e os cabeçalhos das colunas.');
           }
         };
         reader.readAsArrayBuffer(file);
       }
 
-      // Input oculto + atalho Ctrl+U
+      // Ctrl+U -> abrir seletor
       const hiddenInput = document.getElementById('hiddenSheetInput');
-
       hiddenInput.addEventListener('change', (e) => {
         const file = e.target.files && e.target.files[0];
-        if (file) {
-          handleSheetFile(file);
-        }
+        if (file) handleSheetFile(file);
         e.target.value = '';
       });
-
       document.addEventListener('keydown', (e) => {
-        // Ctrl + U -> abrir seletor de planilha
         if (e.ctrlKey && e.key.toLowerCase() === 'u') {
           e.preventDefault();
           hiddenInput.click();
         }
       });
 
-      // ===== AO CARREGAR A PÁGINA, TENTAR REAPLICAR MÉTRICAS SALVAS =====
+      // =========================
+      // Estado inicial (fallback) ou persistido
+      // =========================
       const persistedMetrics = loadMetricsFromStorage();
+
       if (persistedMetrics) {
         applyMetricsToDashboard(persistedMetrics);
       } else {
-        // se não há nada salvo, manter fallback de perfis
+        // Fallback (iniciais)
+        const totals = { projetos: 49, profissionais: 351, ativos: 310, semInteracao: 41, totalInteracoes: 13464 };
+        const adocaoPct = totals.profissionais ? (totals.ativos / totals.profissionais) * 100 : 0;
+        const mediaGlobal = totals.ativos ? (totals.totalInteracoes / totals.ativos) : 0;
+
+        document.getElementById('k_proj_total').textContent = totals.projetos;
+        document.getElementById('k_total').textContent = totals.profissionais;
+        document.getElementById('k_ativos').textContent = totals.ativos;
+        document.getElementById('k_adocao').textContent = adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        document.getElementById('k_sem').textContent = totals.semInteracao;
+        document.getElementById('k_sem_pct').textContent =
+          ((totals.semInteracao / totals.profissionais) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        document.getElementById('k_taxa_v').textContent = adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        document.getElementById('k_taxa_desc').textContent = `${totals.ativos} de ${totals.profissionais} usuários ativos`;
+        document.getElementById('k_inter').textContent = totals.totalInteracoes.toLocaleString('pt-BR');
+        document.getElementById('k_media_global').textContent =
+          `Média: ${mediaGlobal.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
+
+        renderProfilesCards(profileInteractionsInitial);
         renderInteractionsByProfile(profileInteractionsInitial);
+
+        // Aplica fixos manuais também no fallback
+        applyFixedAdoptionRates();
       }
     });
-
-    function goBack() {
-      window.location.href = 'https://marianacintra81.github.io/Bradesco-GEN-AI/GenAI%20Hub%20%20Centro%20de%20Inovacao.html';
-    }
   </script>
 </body>
 </html>
