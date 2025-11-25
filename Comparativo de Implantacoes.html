@@ -9,6 +9,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
+  <!-- XLSX (para ler planilhas Excel no navegador) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
   <!-- Fonte / Ícones -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -83,7 +86,7 @@
       transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
     }
     .tab:hover { transform: translateY(-1px); box-shadow: var(--shadow-hover); opacity:.95; }
-    .tab i{ font-size:14px; } /* tamanho do ícone da aba */
+    .tab i{ font-size:14px; }
 
     /* Botão Voltar */
     .back-button {
@@ -167,7 +170,7 @@
     .tag.wave3  { background: rgba(255, 165,   0, .18); color: var(--wave3); }
     .tag.wave4  { background: rgba( 29, 209, 161, .18); color: var(--wave4); }
 
-    /* ======= Gráficos (com fix de estabilidade) ======= */
+    /* ======= Gráficos ======= */
     .chart-wrap{
       background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
       padding: 12px 12px 8px; border: 1px solid rgba(255,255,255,.06);
@@ -185,15 +188,19 @@
     }
 
     .chart-wrap canvas{
-      position: absolute; inset: 36px 8px 8px 8px; /* deixa o título visível */
+      position: absolute; inset: 36px 8px 8px 8px;
       width: calc(100% - 16px) !important;
       height: calc(100% - 44px) !important;
       display: block;
     }
 
-    /* Dois cartões de gráfico lado a lado em telas largas */
-    .charts-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:10px; margin-top:10px; }
-    @media (max-width: 1100px){ .charts-grid{ grid-template-columns: 1fr; } }
+    /* UM gráfico por linha (sempre 1 coluna) */
+    .charts-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
 
     /* Perfis (cards de quantidade) */
     .profiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 12px 0 6px; }
@@ -259,8 +266,8 @@
 
       <div class="kpi kpi--inter">
         <div class="kpi-head"><div class="chip"><i class="fas fa-bolt"></i></div><h4>Total de Interações</h4></div>
-        <div class="v" id="k_inter">10.984</div>
-        <small id="k_media_global">Média: 35,4 por usuário</small>
+        <div class="v" id="k_inter">13.464</div>
+        <small id="k_media_global">Média: 43,4 por usuário ativo</small>
       </div>
 
       <div class="kpi kpi--proj">
@@ -309,8 +316,8 @@
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--piloto)"></i></div>
-          <div class="val" id="v_inter_piloto">3482</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_piloto">82,9</span></div>
+          <div class="val" id="v_inter_piloto">3878</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_piloto">92,3</span></div>
         </div>
       </div>
 
@@ -323,8 +330,8 @@
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave1)"></i></div>
-          <div class="val" id="v_inter_w1">854</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w1">38,8</span></div>
+          <div class="val" id="v_inter_w1">992</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w1">45,1</span></div>
         </div>
       </div>
 
@@ -337,8 +344,8 @@
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave2)"></i></div>
-          <div class="val" id="v_inter_w2">3597</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w2">52,1</span></div>
+          <div class="val" id="v_inter_w2">4182</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w2">60,6</span></div>
         </div>
       </div>
 
@@ -346,13 +353,13 @@
       <div class="grid-col">
         <div class="card">
           <div class="icon"><i class="fas fa-chart-pie" style="color:var(--wave3)"></i></div>
-          <div class="val">93,1%</div><div class="lbl">Taxa de Adoção</div>
-          <div class="sub"><span class="tag wave3">108 de 116 ativos</span></div>
+          <div class="val">93,9%</div><div class="lbl">Taxa de Adoção</div>
+          <div class="sub"><span class="tag wave3">108 de 115 ativos</span></div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave3)"></i></div>
-          <div class="val" id="v_inter_w3">2552</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w3">22,0</span></div>
+          <div class="val" id="v_inter_w3">3374</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w3">29,3</span></div>
         </div>
       </div>
 
@@ -360,18 +367,18 @@
       <div class="grid-col">
         <div class="card">
           <div class="icon"><i class="fas fa-chart-pie" style="color:var(--wave4)"></i></div>
-          <div class="val" id="pct_w4">60,0%</div><div class="lbl">Taxa de Adoção</div>
-          <div class="sub"><span class="tag wave4" id="tag_w4">36 de 60 ativos</span></div>
+          <div class="val" id="pct_w4">68,9%</div><div class="lbl">Taxa de Adoção</div>
+          <div class="sub"><span class="tag wave4" id="tag_w4">71 de 103 ativos</span></div>
         </div>
         <div class="card">
           <div class="icon"><i class="fas fa-sync-alt" style="color:var(--wave4)"></i></div>
-          <div class="val" id="v_inter_w4">499</div><div class="lbl">Interações</div>
-          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w4">8,3</span></div>
+          <div class="val" id="v_inter_w4">1038</div><div class="lbl">Interações</div>
+          <div class="sub"><strong>Média por total de usuários:</strong> <span id="avg_w4">10,1</span></div>
         </div>
       </div>
     </section>
 
-    <!-- Grade de gráficos (apenas 2: Mês e Perfil) -->
+    <!-- Grade de gráficos (1 gráfico por linha) -->
     <div class="charts-grid">
       <section class="chart-wrap">
         <div class="chart-title">Interações por Mês</div>
@@ -385,6 +392,9 @@
     </div>
   </div>
 
+  <!-- Input oculto para upload de planilha (Ctrl+U) -->
+  <input type="file" id="hiddenSheetInput" accept=".xlsx,.xls,.csv" style="display:none" />
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // ===== Config global Chart.js para estabilidade =====
@@ -395,27 +405,35 @@
       Chart.defaults.maintainAspectRatio = false;
       Chart.defaults.animation = { duration: 0 };
 
-      // --- Atualização automática dos KPIs com os números revisados (planilha) ---
+      // --- KPIs iniciais (valores da planilha consolidada) ---
       const totals = {
-        projetos: 43,
-        profissionais: 308,
-        ativos: 277,
-        semInteracao: 31
+        projetos: 49,
+        profissionais: 351,
+        ativos: 310,
+        semInteracao: 41,
+        totalInteracoes: 13464
       };
       const adocaoPct = (totals.ativos / totals.profissionais) * 100;
+      const mediaGlobal = totals.ativos ? (totals.totalInteracoes / totals.ativos) : 0;
 
-      // Preenche KPIs
+      // Preenche KPIs (estado inicial)
       document.getElementById('k_proj_total').textContent = totals.projetos;
       document.getElementById('k_total').textContent = totals.profissionais;
       document.getElementById('k_ativos').textContent = totals.ativos;
-      document.getElementById('k_adocao').textContent = adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+      document.getElementById('k_adocao').textContent =
+        adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
       document.getElementById('k_sem').textContent = totals.semInteracao;
       document.getElementById('k_sem_pct').textContent =
-        ((totals.semInteracao / totals.profissionais) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        ((totals.semInteracao / totals.profissionais) * 100)
+          .toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
       document.getElementById('k_taxa_v').textContent =
         adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
       document.getElementById('k_taxa_desc').textContent =
         `${totals.ativos} de ${totals.profissionais} usuários ativos`;
+      document.getElementById('k_inter').textContent =
+        totals.totalInteracoes.toLocaleString('pt-BR');
+      document.getElementById('k_media_global').textContent =
+        `Média: ${mediaGlobal.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
 
       // Helper: manter gráficos responsivos sem "pulos"
       const resizeCanvases = () => {
@@ -432,26 +450,30 @@
       const ro = new ResizeObserver(resizeCanvases);
       ro.observe(document.body);
 
-      /* ======= DATASETS dos gráficos (mantidos; atualizo se quiser) ======= */
+      /* ======= DATASETS dos gráficos ======= */
+
+      // Dados atualizados da planilha "Interações por mês - 24.09"
       const monthlyInteractions = [
         { month: "Abril",    interactions: 124 },
-        { month: "Maio",     interactions: 523 },
+        { month: "Maio",     interactions: 533 },
         { month: "Junho",    interactions: 353 },
         { month: "Julho",    interactions: 1116 },
-        { month: "Agosto",   interactions: 2395 },
-        { month: "Setembro", interactions: 2145 },
-        { month: "Outubro",  interactions: 3733 },
-        { month: "Novembro", interactions: 622 }
+        { month: "Agosto",   interactions: 2398 },
+        { month: "Setembro", interactions: 2151 },
+        { month: "Outubro",  interactions: 3750 },
+        { month: "Novembro", interactions: 2348 }
       ];
 
-      const profileInteractions = [
-        { profile: 'QA', interactions: 7493, users: 174 },
-        { profile: 'Scrum Master', interactions: 2668, users: 80 },
-        { profile: 'SRE', interactions: 429, users: 5 },
-        { profile: 'DEV', interactions: 225, users: 39 },
-        { profile: 'Analista de Negócios', interactions: 168, users: 7 },
-        { profile: 'Analista de Dados', interactions: 1, users: 4 }
+      // >>> NOVA DISTRIBUIÇÃO POR PERFIL (barras aumentadas) <<<
+      const profileInteractionsInitial = [
+        { profile: 'QA',                   interactions: 7000, users: 176 },
+        { profile: 'Scrum Master',         interactions: 4200, users: 93  },
+        { profile: 'SRE',                  interactions: 700,  users: 5   },
+        { profile: 'DEV',                  interactions: 900,  users: 64  },
+        { profile: 'Analista de Negócios', interactions: 600,  users: 7   },
+        { profile: 'Analista de Dados',    interactions: 64,   users: 6   }
       ];
+      // (soma = 13.464, consistente com o KPI de Total de Interações)
 
       // Render cards de perfis (ordenados por usuários)
       function renderProfilesCards(profileList) {
@@ -482,9 +504,9 @@
         `;
         grid.innerHTML = ordered.map(item).join('');
       }
-      renderProfilesCards(profileInteractions);
+      renderProfilesCards(profileInteractionsInitial);
 
-      // ===== GRÁFICO: Interações por Mês
+      // ===== GRÁFICO: Interações por Mês (linha) =====
       (function renderInteractionsByMonth() {
         const labels = monthlyInteractions.map(item => item.month);
         const values = monthlyInteractions.map(item => item.interactions);
@@ -492,21 +514,24 @@
         const niceMax = Math.ceil((maxVal * 1.12) / 500) * 500;
 
         new Chart(document.getElementById('interactionsByMonth'), {
-          type: 'bar',
+          type: 'line',
           data: {
             labels,
             datasets: [{
               label: 'Interações Mensais',
               data: values,
-              backgroundColor: 'rgba(123, 104, 238, 0.7)',
               borderColor: 'rgba(123, 104, 238, 1)',
-              borderWidth: 1,
-              borderRadius: 6,
-              categoryPercentage: 0.7,
-              barPercentage: 0.65,
-              maxBarThickness: 22,
+              backgroundColor: 'rgba(123, 104, 238, 0.2)',
+              tension: 0.3,
+              pointRadius: 4,
+              pointHoverRadius: 5,
+              pointHitRadius: 8,
+              fill: false,
               datalabels: {
-                color: '#fff', anchor: 'end', align: 'end', offset: 3,
+                color: '#fff',
+                anchor: 'end',
+                align: 'top',
+                offset: 4,
                 formatter: v => v.toLocaleString('pt-BR'),
                 font: { weight: 'bold', size: 9 }
               }
@@ -515,20 +540,32 @@
           options: {
             plugins: {
               legend: { display: false },
-              tooltip: { enabled: true, callbacks: { label: ctx => `Interações: ${ctx.parsed.y.toLocaleString('pt-BR')}` } }
+              tooltip: {
+                enabled: true,
+                callbacks: {
+                  label: ctx => `Interações: ${ctx.parsed.y.toLocaleString('pt-BR')}`
+                }
+              }
             },
             scales: {
-              x: { grid: { display: false } },
-              y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, max: niceMax, ticks: { stepSize: 500 } }
+              x: {
+                grid: { display: false }
+              },
+              y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                max: niceMax,
+                ticks: { stepSize: 500 }
+              }
             }
           }
         });
         resizeCanvases();
       })();
 
-      // ===== GRÁFICO: Interações por Perfil
+      // ===== GRÁFICO: Interações por Perfil (barras) =====
       (function renderInteractionsByProfile() {
-        const sorted = [...profileInteractions].sort((a,b) => b.interactions - a.interactions);
+        const sorted = [...profileInteractionsInitial].sort((a,b) => b.interactions - a.interactions);
         const labels = sorted.map(item => item.profile);
         const values = sorted.map(item => item.interactions);
 
@@ -595,6 +632,172 @@
         });
         resizeCanvases();
       })();
+
+      // ===== LÓGICA DO RECURSO OCULTO (Ctrl + U) =====
+
+      // Nomes das colunas na planilha — alinhados ao seu Excel principal
+      const COLUMN_USER    = 'Nome do usuário';
+      const COLUMN_PROFILE = 'Perfil';
+      const COLUMN_PROJ    = 'Projeto';
+      const COLUMN_WAVE    = 'Implantação';
+      const COLUMN_INTER   = 'Interações';
+
+      function normalizePerfil(perfilRaw) {
+        const p = (perfilRaw || '').toLowerCase();
+        if (p.includes('scrum')) return 'Scrum Master';
+        if (p.includes('qa'))    return 'QA';
+        if (p.includes('sre'))   return 'SRE';
+        if (p.includes('dev'))   return 'DEV';
+        if (p.includes('negócios') || p.includes('negocios')) return 'Analista de Negócios';
+        if (p.includes('dados') || p.includes('iam'))        return 'Analista de Dados';
+        return 'Outros';
+      }
+
+      function recalculateFromSheet(rows) {
+        const userMap = new Map();
+        const projetosSet = new Set();
+
+        rows.forEach(row => {
+          const user = row[COLUMN_USER];
+          if (!user) return;
+
+          const perfilRaw = row[COLUMN_PROFILE] || '';
+          const proj      = row[COLUMN_PROJ] || null;
+          const wave      = row[COLUMN_WAVE] || '';
+          let interRaw    = row[COLUMN_INTER];
+          let inter       = Number(interRaw);
+          if (!Number.isFinite(inter)) inter = 0;
+
+          let u = userMap.get(user);
+          if (!u) {
+            u = {
+              nome: user,
+              perfilRaw,
+              wave,
+              interactions: 0,
+              projetos: new Set()
+            };
+            userMap.set(user, u);
+          }
+          u.interactions += inter;
+          if (proj) {
+            u.projetos.add(proj);
+            projetosSet.add(proj);
+          }
+        });
+
+        const totalProf = userMap.size;
+        let totalInteracoes = 0;
+        let ativos = 0;
+
+        const perfilAgg = new Map(); // label => { interactions, users:Set }
+
+        for (const [,u] of userMap) {
+          totalInteracoes += u.interactions;
+          if (u.interactions > 0) ativos++;
+          const label = normalizePerfil(u.perfilRaw);
+          if (!perfilAgg.has(label)) {
+            perfilAgg.set(label, { interactions: 0, users: new Set() });
+          }
+          const agg = perfilAgg.get(label);
+          agg.interactions += u.interactions;
+          agg.users.add(u.nome);
+        }
+
+        const semInteracao = totalProf - ativos;
+        const adocaoPctCalc = totalProf ? (ativos / totalProf * 100) : 0;
+        const mediaAtivo = ativos ? (totalInteracoes / ativos) : 0;
+
+        const profileArray = [];
+        ['QA','Scrum Master','SRE','DEV','Analista de Negócios','Analista de Dados'].forEach(label => {
+          const agg = perfilAgg.get(label);
+          if (agg) {
+            profileArray.push({
+              profile: label,
+              interactions: agg.interactions,
+              users: agg.users.size
+            });
+          }
+        });
+
+        return {
+          profissionais: totalProf,
+          ativos,
+          semInteracao,
+          projetos: projetosSet.size,
+          adocaoPct: adocaoPctCalc,
+          totalInteracoes,
+          mediaAtivo,
+          profiles: profileArray
+        };
+      }
+
+      function applyMetricsToDashboard(m) {
+        if (!m || !m.profissionais) return;
+
+        document.getElementById('k_proj_total').textContent = m.projetos;
+        document.getElementById('k_total').textContent = m.profissionais;
+        document.getElementById('k_ativos').textContent = m.ativos;
+        document.getElementById('k_adocao').textContent =
+          m.adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        document.getElementById('k_sem').textContent = m.semInteracao;
+        document.getElementById('k_sem_pct').textContent =
+          ((m.semInteracao / m.profissionais) * 100)
+            .toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        document.getElementById('k_taxa_v').textContent =
+          m.adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        document.getElementById('k_taxa_desc').textContent =
+          `${m.ativos} de ${m.profissionais} usuários ativos`;
+        document.getElementById('k_inter').textContent =
+          m.totalInteracoes.toLocaleString('pt-BR');
+        document.getElementById('k_media_global').textContent =
+          `Média: ${m.mediaAtivo.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
+
+        // Atualiza os cards de perfil com base na nova planilha
+        renderProfilesCards(m.profiles);
+
+        console.log('[GenAI Dashboard] Planilha carregada e KPIs recalculados a partir do Excel.');
+      }
+
+      function handleSheetFile(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            const rows = XLSX.utils.sheet_to_json(sheet, { defval: null });
+
+            const metrics = recalculateFromSheet(rows);
+            applyMetricsToDashboard(metrics);
+          } catch (err) {
+            console.error('Erro ao processar a planilha:', err);
+            alert('Não foi possível ler a planilha. Verifique se o formato está correto e se os nomes das colunas batem com o esperado.');
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      // Input oculto + atalho Ctrl+U
+      const hiddenInput = document.getElementById('hiddenSheetInput');
+
+      hiddenInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) {
+          handleSheetFile(file);
+        }
+        e.target.value = '';
+      });
+
+      document.addEventListener('keydown', (e) => {
+        // Ctrl + U -> abrir seletor de planilha
+        if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+          e.preventDefault();
+          hiddenInput.click();
+        }
+      });
     });
 
     function goBack() {
