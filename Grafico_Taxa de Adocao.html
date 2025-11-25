@@ -32,14 +32,14 @@
       background-image:
         radial-gradient(circle at 10% 20%,rgba(0,51,160,.15) 0, rgba(0,51,160,0) 70%),
         radial-gradient(circle at 90% 80%,rgba(204,0,0,.15) 0, rgba(204,0,0,0) 70%);
-      overflow-x:hidden; /* garante: sem scroll horizontal na página */
+      overflow-x:hidden;
     }
 
     .container{
       width:100%;
       max-width:none;
       margin:0 auto;
-      overflow-x:hidden; /* sem scroll horizontal */
+      overflow-x:hidden;
     }
 
     .header{ text-align:center; margin-bottom:20px }
@@ -68,7 +68,7 @@
       box-shadow:var(--card-shadow);
       padding:16px;
       transition:background .2s ease,border-color .2s ease;
-      overflow:hidden; /* <<< remove barra horizontal */
+      overflow:hidden;
     }
     .card:hover{ background:var(--bg-card-hover); border-color:rgba(255,255,255,.12) }
 
@@ -111,25 +111,24 @@
     .export-btn:hover{ transform:translateY(-1px); box-shadow:0 20px 40px rgba(0,0,0,.4); opacity:.95 }
     .export-btn svg{ width:16px; height:16px; display:block }
 
-    /* >>> SEM SCROLL HORIZONTAL: grade responsiva usando minmax/fr, última coluna cresce e quebra linha */
     .grid-cols{
       grid-template-columns:
-        minmax(220px, 1.2fr)  /* Projeto */
-        minmax(180px, 1fr)    /* Taxa */
-        minmax(92px, 0.55fr)  /* Interações */
-        minmax(92px, 0.55fr)  /* Média */
-        minmax(110px, 0.65fr) /* Usuários */
-        minmax(180px, 1fr)    /* Perfis */
-        minmax(260px, 1.6fr); /* Casos de Uso */
+        minmax(220px, 1.2fr)
+        minmax(180px, 1fr)
+        minmax(92px, 0.55fr)
+        minmax(92px, 0.55fr)
+        minmax(110px, 0.65fr)
+        minmax(180px, 1fr)
+        minmax(260px, 1.6fr);
     }
 
     .rows-wrap{
       display:flex;
       flex-direction:column;
       gap:10px;
-      overflow:hidden;   /* sem scroll */
+      overflow:hidden;
       width:100%;
-      min-width:0;       /* crucial p/ permitir "encolher" ao invés de criar overflow */
+      min-width:0;
     }
 
     .row{
@@ -141,7 +140,7 @@
       width:100%;
       min-width:0;
     }
-    .row > *{ min-width:0; } /* evita overflow por conteúdo */
+    .row > *{ min-width:0; }
 
     .row--header{
       background:transparent;
@@ -196,15 +195,14 @@
       min-width:0;
     }
 
-    /* >>> Casos de Uso: quebrar em ATÉ 2 LINHAS e não "estourar" layout */
     .usecases .tag{
       border-radius:12px;
-      white-space:normal;    /* permite quebra */
-      overflow:hidden;       /* corta excesso */
+      white-space:normal;
+      overflow:hidden;
       text-overflow:ellipsis;
       display:-webkit-box;
       -webkit-box-orient:vertical;
-      -webkit-line-clamp:2;  /* exatamente 2 linhas */
+      -webkit-line-clamp:2;
       line-height:1.25;
       max-width:100%;
     }
@@ -304,6 +302,7 @@
   <input type="file" id="hiddenSheetInput" accept=".xlsx,.xls,.csv" style="display:none" />
 
   <script>
+    /* ============== DADOS INICIAIS ============== */
     const baseProjects = [
       { name:'Plataforma de segurança Safer', totalUsers:39, activeUsers:38, adoptionRate:97.4, totalInteractions:1902, wave:'Piloto', profiles:['DEV','QA','Scrum Master','SRE'], useCases:[] },
       { name:'Open Finance', totalUsers:5, activeUsers:5, adoptionRate:100.0, totalInteractions:756, wave:'Piloto', profiles:['QA'], useCases:[] },
@@ -352,9 +351,7 @@
 
     let projectsData = baseProjects.slice();
 
-    /* =======================
-       PERSISTÊNCIA (localStorage)
-       ======================= */
+    /* ============== PERSISTÊNCIA ============== */
     const STORAGE_KEY = 'genai_taxa_adocao_por_projeto__projectsData_v2';
     function persistProjectsData(){
       try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(projectsData)); }
@@ -379,6 +376,7 @@
     }
     restoreProjectsData();
 
+    /* ============== HELPERS ============== */
     function colorByAdoption(rate){
       if (rate === 100) return '#00e5ff';
       if (rate >= 90) return '#7B68EE';
@@ -404,14 +402,14 @@
       const dir = (headerSort.dir === 'asc') ? 1 : -1;
 
       const cmp = {
-        name: (a,b)=> a.name.localeCompare(b.name) * dir,
-        adoptionRate: (a,b)=> (a.adoptionRate === b.adoptionRate ? a.name.localeCompare(b.name)*dir : (b.adoptionRate - a.adoptionRate) * (dir===1?-1:1)),
-        totalInteractions: (a,b)=> (a.totalInteractions === b.totalInteractions ? a.name.localeCompare(b.name)*dir : (b.totalInteractions - a.totalInteractions) * (dir===1?-1:1)),
+        name: (a,b)=> a.name.localeCompare(b.name, 'pt-BR') * dir,
+        adoptionRate: (a,b)=> (a.adoptionRate === b.adoptionRate ? a.name.localeCompare(b.name,'pt-BR')*dir : (b.adoptionRate - a.adoptionRate) * (dir===1?-1:1)),
+        totalInteractions: (a,b)=> (a.totalInteractions === b.totalInteractions ? a.name.localeCompare(b.name,'pt-BR')*dir : (b.totalInteractions - a.totalInteractions) * (dir===1?-1:1)),
         avg: (a,b)=> {
           const av = avgOf(a), bv = avgOf(b);
-          return (av === bv ? a.name.localeCompare(b.name)*dir : (bv - av) * (dir===1?-1:1));
+          return (av === bv ? a.name.localeCompare(b.name,'pt-BR')*dir : (bv - av) * (dir===1?-1:1));
         },
-        totalUsers: (a,b)=> (a.totalUsers === b.totalUsers ? a.name.localeCompare(b.name)*dir : (b.totalUsers - a.totalUsers) * (dir===1?-1:1)),
+        totalUsers: (a,b)=> (a.totalUsers === b.totalUsers ? a.name.localeCompare(b.name,'pt-BR')*dir : (b.totalUsers - a.totalUsers) * (dir===1?-1:1)),
       }[key];
 
       return data.sort(cmp);
@@ -524,7 +522,7 @@
         headerSort.col = col;
 
         document.querySelectorAll('.row--header div[data-col]').forEach(h=>{
-          const caret = h.querySelector(' .sort-caret');
+          const caret = h.querySelector('.sort-caret');
           if (!caret) return;
           if (h.getAttribute('data-col') === col){
             caret.textContent = (headerSort.dir === 'asc' ? '↑' : '↓');
@@ -540,6 +538,7 @@
       });
     });
 
+    /* ============== EXPORTAR EXCEL ============== */
     function getCurrentDataView(){
       const wave = waveFilter.value;
       let data = projectsData.slice();
@@ -602,9 +601,7 @@
     }
     document.getElementById('exportExcel').addEventListener('click', exportToExcel);
 
-    /* =======================
-       IMPORTAÇÃO ROBUSTA (coluna H / variações de nome)
-       ======================= */
+    /* ============== IMPORTAÇÃO (SEM DUPLICAR, SEM ACUMULAR) ============== */
     function normalizeLabel(str){
       return String(str ?? '')
         .normalize('NFD')
@@ -708,6 +705,12 @@
             return;
           }
 
+          /* >>>> PONTO CHAVE:
+                 - A CADA NOVA PLANILHA:
+                     1) ZERA todos os useCases
+                     2) Carrega somente os casos da planilha atual
+                 - NÃO ACUMULA, NÃO DUPLICA ENTRE IMPORTAÇÕES
+           */
           projectsData = projectsData.map(p => {
             const key = normalizeLabel((p.name || '').toString().trim());
 
@@ -719,24 +722,27 @@
             }
 
             const fromSheet = labelsMap ? Array.from(labelsMap.values()) : [];
-            const existing = Array.isArray(p.useCases) ? p.useCases : [];
 
-            const mergedMap = new Map();
-            existing.concat(fromSheet).forEach(label => {
+            // dedupe só dentro da própria planilha
+            const dedupMap = new Map();
+            fromSheet.forEach(label => {
               if (typeof label === 'string') {
                 const raw = label.trim();
                 if (!raw) return;
                 const norm = normalizeLabel(raw);
-                if (!mergedMap.has(norm)) mergedMap.set(norm, raw);
+                if (!dedupMap.has(norm)) dedupMap.set(norm, raw);
               }
             });
 
-            return { ...p, useCases: Array.from(mergedMap.values()) };
+            return {
+              ...p,
+              useCases: Array.from(dedupMap.values())  // SOBRESCREVE – não soma com o que já tinha
+            };
           });
 
           persistProjectsData();
           render();
-          console.log('[Taxa Adoção Projetos] Casos de uso carregados + persistência.');
+          console.log('[Taxa Adoção Projetos] Casos de uso carregados (sem acumular, sem duplicar entre imports).');
         } catch(err){
           console.error('Erro ao processar planilha:', err);
           alert('Não foi possível ler a planilha. Verifique se existe coluna de Projeto e Caso(s) de Uso.');
@@ -753,7 +759,6 @@
       e.target.value = '';
     });
 
-    // Atalho Ctrl+U para anexar planilha (input oculto)
     document.addEventListener('keydown', (e)=>{
       if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey && e.key.toLowerCase() === 'u') {
         e.preventDefault();
