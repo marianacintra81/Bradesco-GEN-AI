@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Taxa de Adoção por Projeto — GenAI Bradesco</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <!-- SheetJS (XLSX) para exportação -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
   <style>
     :root{
       --bg-primary:#0c0e14;
@@ -28,19 +28,26 @@
       background:var(--bg-primary);
       color:var(--text-primary);
       line-height:1.55;
-      padding:24px;
+      padding:16px;
       background-image:
         radial-gradient(circle at 10% 20%,rgba(0,51,160,.15) 0, rgba(0,51,160,0) 70%),
         radial-gradient(circle at 90% 80%,rgba(204,0,0,.15) 0, rgba(204,0,0,0) 70%);
+      overflow-x:hidden; /* garante: sem scroll horizontal na página */
     }
-    .container{max-width:1200px;margin:0 auto}
+
+    .container{
+      width:100%;
+      max-width:none;
+      margin:0 auto;
+      overflow-x:hidden; /* sem scroll horizontal */
+    }
+
     .header{ text-align:center; margin-bottom:20px }
     .header h1{
       font-size:28px;font-weight:800;margin-bottom:6px;
       background:var(--mixed-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
     }
 
-    /* Botão Voltar */
     .back-button{
       position:fixed; top:20px; left:20px;
       width:50px; height:50px; border-radius:50%;
@@ -54,16 +61,17 @@
     .back-button svg{ width:20px; height:20px; display:block }
 
     .card{
+      width:100%;
       background:var(--bg-card);
       border:1px solid rgba(255,255,255,.08);
       border-radius:16px;
       box-shadow:var(--card-shadow);
       padding:16px;
       transition:background .2s ease,border-color .2s ease;
+      overflow:hidden; /* <<< remove barra horizontal */
     }
     .card:hover{ background:var(--bg-card-hover); border-color:rgba(255,255,255,.12) }
 
-    /* ======== TOOLBAR ======== */
     .toolbar{
       display:flex;
       align-items:center;
@@ -91,7 +99,6 @@
     .dot{width:12px;height:12px;border-radius:3px;margin-right:6px;display:inline-block}
     .legend-top span{font-size:12px;color:var(--text-secondary)}
 
-    /* Botão Exportar */
     .export-btn{
       display:inline-flex; align-items:center; gap:8px;
       padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14);
@@ -104,17 +111,38 @@
     .export-btn:hover{ transform:translateY(-1px); box-shadow:0 20px 40px rgba(0,0,0,.4); opacity:.95 }
     .export-btn svg{ width:16px; height:16px; display:block }
 
-    /* GRID (sem coluna Wave) */
+    /* >>> SEM SCROLL HORIZONTAL: grade responsiva usando minmax/fr, última coluna cresce e quebra linha */
     .grid-cols{
-      grid-template-columns: 280px 220px 120px 120px 140px 220px;
+      grid-template-columns:
+        minmax(220px, 1.2fr)  /* Projeto */
+        minmax(180px, 1fr)    /* Taxa */
+        minmax(92px, 0.55fr)  /* Interações */
+        minmax(92px, 0.55fr)  /* Média */
+        minmax(110px, 0.65fr) /* Usuários */
+        minmax(180px, 1fr)    /* Perfis */
+        minmax(260px, 1.6fr); /* Casos de Uso */
     }
-    .rows-wrap{display:flex;flex-direction:column;gap:10px}
+
+    .rows-wrap{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      overflow:hidden;   /* sem scroll */
+      width:100%;
+      min-width:0;       /* crucial p/ permitir "encolher" ao invés de criar overflow */
+    }
+
     .row{
       display:grid; align-items:center; gap:12px;
       background:var(--bg-secondary);
       border:1px solid rgba(255,255,255,.06);
       border-radius:12px; padding:12px;
+      overflow:hidden;
+      width:100%;
+      min-width:0;
     }
+    .row > *{ min-width:0; } /* evita overflow por conteúdo */
+
     .row--header{
       background:transparent;
       border:1px dashed rgba(255,255,255,.12);
@@ -125,18 +153,19 @@
       font-size:12px; font-weight:800; letter-spacing:.3px;
       text-transform:uppercase; color:var(--text-secondary);
       display:flex; align-items:center; gap:6px; cursor:pointer;
+      min-width:0;
     }
     .sort-caret{font-size:10px; opacity:.8}
 
     .name{
       font-weight:600; font-size:14px;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
 
-    /* Barra de adoção + rótulo central */
     .bar-wrap{
       position:relative; width:100%; height:12px;
       border-radius:8px; background:rgba(255,255,255,.10); overflow:hidden;
+      min-width:0;
     }
     .bar{ height:100%; border-radius:8px; width:0 }
     .bar-label{
@@ -145,24 +174,54 @@
       white-space:nowrap; color:#000; background:rgba(255,255,255,.90);
     }
 
-    .k{ display:flex;flex-direction:column;align-items:center; gap:2px }
-    .k .v{ font-weight:700; font-size:14px }
-    .k .l{ font-size:10px; color:var(--text-secondary) }
+    .k{ display:flex;flex-direction:column;align-items:center; gap:2px; min-width:0 }
+    .k .v{ font-weight:700; font-size:14px; white-space:nowrap }
+    .k .l{ font-size:10px; color:var(--text-secondary); white-space:nowrap }
 
     .profiles{
       font-size:12px; line-height:1.35; color:#fff;
       display:flex; flex-wrap:wrap; gap:6px;
+      align-items:flex-start;
+      min-width:0;
     }
+
     .tag{
       border:1px solid rgba(255,255,255,.15);
       background:rgba(255,255,255,.05);
-      padding:2px 8px; border-radius:999px; font-weight:600; font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:10px;
+      max-width:100%;
+      min-width:0;
     }
 
-    /* Responsividade */
-    @media (max-width: 1100px){
-      .grid-cols{ grid-template-columns: 240px 200px 110px 110px 130px 200px; }
+    /* >>> Casos de Uso: quebrar em ATÉ 2 LINHAS e não "estourar" layout */
+    .usecases .tag{
+      border-radius:12px;
+      white-space:normal;    /* permite quebra */
+      overflow:hidden;       /* corta excesso */
+      text-overflow:ellipsis;
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;  /* exatamente 2 linhas */
+      line-height:1.25;
+      max-width:100%;
     }
+
+    @media (max-width: 1100px){
+      .grid-cols{
+        grid-template-columns:
+          minmax(200px, 1.2fr)
+          minmax(160px, 1fr)
+          minmax(90px, 0.6fr)
+          minmax(90px, 0.6fr)
+          minmax(100px, 0.7fr)
+          minmax(160px, 1fr)
+          minmax(220px, 1.6fr);
+      }
+    }
+
     @media (max-width: 920px){
       .toolbar{ gap:12px }
       .legend-top{ justify-content:flex-start }
@@ -170,13 +229,14 @@
       .row--header{ display:none }
       .bar-wrap{ height:10px }
       .k{ align-items:flex-start }
-      .profiles{ gap:4px }
+      .profiles{ gap:6px }
+      .tag{ max-width:100%; }
+      .usecases .tag{ -webkit-line-clamp:2; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Botão Voltar -->
   <a class="back-button" href="https://marianacintra81.github.io/Bradesco-GEN-AI/Comparativo%20de%20Implantacoes.html" aria-label="Voltar">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path d="M15.5 19a1 1 0 0 1-.7-.29l-6-6a1 1 0 0 1 0-1.42l6-6a1 1 0 1 1 1.4 1.42L10.91 12l5.29 5.29A1 1 0 0 1 15.5 19z" fill="currentColor"/>
@@ -189,7 +249,6 @@
     </div>
 
     <div class="card" style="margin-bottom:14px;">
-      <!-- TOOLBAR: filtros à esquerda, legenda à direita + botão de exportação -->
       <div class="toolbar">
         <div class="filters-left" role="group" aria-label="Filtros">
           <label class="filter-label" for="sortBy">Ordenar por:</label>
@@ -217,7 +276,6 @@
           <div><span class="dot" style="background:#0033A0"></span><span>80–89% de adoção</span></div>
           <div><span class="dot" style="background:#cc0000"></span><span>&lt; 80% de adoção</span></div>
 
-          <!-- Botão Exportar Excel -->
           <button id="exportExcel" class="export-btn" title="Exportar dados para Excel">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 20h14a1 1 0 0 0 1-1v-6h-2v5H6v-5H4v6a1 1 0 0 0 1 1zm7-3 5-5h-3V4h-4v8H7l5 5z" fill="currentColor"/>
@@ -228,7 +286,6 @@
       </div>
 
       <div class="rows-wrap">
-        <!-- Cabeçalho clicável -->
         <div class="row row--header grid-cols" role="row">
           <div data-col="name"               aria-sort="none">Projeto <span class="sort-caret">↕</span></div>
           <div data-col="adoptionRate"       aria-sort="descending">Taxa de Adoção <span class="sort-caret">↓</span></div>
@@ -236,66 +293,91 @@
           <div data-col="avg"                aria-sort="none">Média <span class="sort-caret">↕</span></div>
           <div data-col="totalUsers"         aria-sort="none">Usuários <span class="sort-caret">↕</span></div>
           <div>Perfis Treinados</div>
+          <div>Casos de Uso</div>
         </div>
 
-        <!-- Linhas dinâmicas -->
         <div id="rows"></div>
       </div>
     </div>
   </div>
 
-  <script>
-    // ==== DADOS (média = totalInteractions ÷ totalUsers) ====
-    const projects = [
-      { name:'Plataforma de segurança Safer', totalUsers:39, activeUsers:38, adoptionRate:97.4, totalInteractions:1902, wave:'Piloto', profiles:['DEV','QA','Scrum Master','SRE'] },
-      { name:'Open Finance', totalUsers:5, activeUsers:5, adoptionRate:100.0, totalInteractions:756, wave:'Piloto', profiles:['QA'] },
-      { name:'Reabilitação Financeira', totalUsers:46, activeUsers:37, adoptionRate:80.4, totalInteractions:1087, wave:'Wave 2', profiles:['QA','DEV','Scrum Master','Analista de Negócios'] },
-      { name:'Plataforma A3C', totalUsers:21, activeUsers:19, adoptionRate:90.5, totalInteractions:881, wave:'Wave 1', profiles:['QA','Scrum Master','DEV'] },
-      { name:'BRAIN', totalUsers:28, activeUsers:27, totalInteractions:1614, adoptionRate:96.4, wave:'Wave 2', profiles:['QA'] },
-      { name:'Contadoria', totalUsers:17, activeUsers:14, adoptionRate:82.4, totalInteractions:822, wave:'Wave 3', profiles:['Analista de Negócios','QA','Scrum Master','DEV','Analista de Dados'] },
-      { name:'CRM', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:413, wave:'Wave 2', profiles:['QA'] },
-     { name:'Consignado', totalUsers:12, activeUsers:11, adoptionRate:91.7, totalInteractions:442, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'Massificado', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:325, wave:'Wave 2', profiles:['QA','Scrum Master'] },
-      { name:'ATACADO', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:298, wave:'Wave 3', profiles:['QA'] },
-      { name:'Sala Core', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:274, wave:'Wave 2', profiles:['QA','Scrum Master'] },
-      { name:'Abertura de Contas', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:233, wave:'Wave 3', profiles:['QA','Scrum Master'] },
-      { name:'Soluçoes PJ', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:318, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'Transformação', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:244, wave:'Piloto', profiles:['Analista de Negócios','QA','DEV','Scrum Master'] },
-      { name:'Investimentos', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:167, wave:'Piloto', profiles:['QA'] },
-      { name:'Bradesco Global Solutions', totalUsers:8, activeUsers:7, adoptionRate:87.5, totalInteractions:195, wave:'Wave 1', profiles:['QA','DEV','Scrum Master'] },
-      { name:'Pessoa Fisica', totalUsers:12, activeUsers:10, adoptionRate:83.3, totalInteractions:179, wave:'Wave 4', profiles:['DEV','Scrum Master'] },
-      { name:'CONSIGNADO - E-Social', totalUsers:10, activeUsers:9, adoptionRate:90.0, totalInteractions:169, wave:'Wave 3', profiles:['QA'] },
-      { name:'Cluster Soluções de Pagamento e Conciliação', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:118, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'CONSIGNADO - Pleito de Priorização INSS', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:39, wave:'Wave 3', profiles:['QA'] },
-      { name:'BSPI', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:149, wave:'Wave 3', profiles:['DEV','Scrum Master','QA'] },
-      { name:'PIX-CPF', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:93, wave:'Wave 2', profiles:['QA'] },
-      { name:'SCAP', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:72, wave:'Wave 2', profiles:['QA'] },
-      { name:'INTERNACIONAL E CÂMBIO', totalUsers:6, activeUsers:6, adoptionRate:100.0, totalInteractions:79, wave:'Wave 3', profiles:['QA','Scrum Master'] },
+  <input type="file" id="hiddenSheetInput" accept=".xlsx,.xls,.csv" style="display:none" />
 
-      { name:'Plataforma Atendimento', totalUsers:6, activeUsers:4, adoptionRate:66.7, totalInteractions:29, wave:'Wave 1', profiles:['QA'] },
-      { name:'PROJETO PT-W50594', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:54, wave:'Wave 3', profiles:['Scrum Master'] },
-      { name:'PIX-CPJ', totalUsers:4, activeUsers:4, adoptionRate:100.0, totalInteractions:55, wave:'Wave 2', profiles:['QA'] },
-      { name:'CONSÓRCIO | Consorcio', totalUsers:4, activeUsers:4, adoptionRate:100.0, totalInteractions:41, wave:'Wave 3', profiles:['QA'] },
-      { name:'Site Gestor', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:26, wave:'Wave 3', profiles:['Scrum Master'] },
-    
-      { name:'Consignado - Portabilidade', totalUsers:3, activeUsers:2, adoptionRate:66.7, totalInteractions:69, wave:'Wave 4', profiles:['DEV','Scrum Master'] },
-      { name:'MBPF', totalUsers:4, activeUsers:3, adoptionRate:75.0, totalInteractions:37, wave:'Wave 3', profiles:['DEV','Scrum Master','QA'] },
-      { name:'PDPJ', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:38, wave:'Wave 3', profiles:['DEV','Scrum Master'] },
-      { name:'Internet Banking', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:35, wave:'Piloto', profiles:['QA'] },
-      { name:'CONSIGNADO - Mktplace Consignado', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:24, wave:'Wave 3', profiles:['QA'] },
-      { name:'Tesouraria', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:53, wave:'Wave 2', profiles:['QA','Scrum Master'] },
-      { name:'VATINTR', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:17, wave:'Wave 3', profiles:['QA'] },
-  
-      { name:'PEPF', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:12, wave:'Wave 4', profiles:['QA'] },
-      { name:'MBPJ', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:5, wave:'Wave 4', profiles:['DEV','Scrum Master'] },
-      { name:'Tribo Canais Assistidos', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:4, wave:'Wave 3', profiles:['Scrum Master'] },
-  
-      { name:'AFLUENTES', totalUsers:3, activeUsers:1, adoptionRate:33.3, totalInteractions:16, wave:'Wave 3', profiles:['QA'] },
-      { name:'Agora Trader', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:1, wave:'Wave 4', profiles:['QA'] },
-      { name:'CNPJ Alfanumérico', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:1, wave:'Wave 4', profiles:['Analista de Dados'] },
-      { name:'Tribo Contas e Tarifas', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:80, wave:'Wave 3', profiles:['Scrum Master'] },
- 
+  <script>
+    const baseProjects = [
+      { name:'Plataforma de segurança Safer', totalUsers:39, activeUsers:38, adoptionRate:97.4, totalInteractions:1902, wave:'Piloto', profiles:['DEV','QA','Scrum Master','SRE'], useCases:[] },
+      { name:'Open Finance', totalUsers:5, activeUsers:5, adoptionRate:100.0, totalInteractions:756, wave:'Piloto', profiles:['QA'], useCases:[] },
+      { name:'Reabilitação Financeira', totalUsers:46, activeUsers:37, adoptionRate:80.4, totalInteractions:1087, wave:'Wave 2', profiles:['QA','DEV','Scrum Master','Analista de Negócios'], useCases:[] },
+      { name:'Plataforma A3C', totalUsers:21, activeUsers:19, adoptionRate:90.5, totalInteractions:881, wave:'Wave 1', profiles:['QA','Scrum Master','DEV'], useCases:[] },
+      { name:'BRAIN', totalUsers:28, activeUsers:27, totalInteractions:1614, adoptionRate:96.4, wave:'Wave 2', profiles:['QA'], useCases:[] },
+      { name:'Contadoria', totalUsers:17, activeUsers:14, adoptionRate:82.4, totalInteractions:822, wave:'Wave 3', profiles:['Analista de Negócios','QA','Scrum Master','DEV','Analista de Dados'], useCases:[] },
+      { name:'CRM', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:413, wave:'Wave 2', profiles:['QA'], useCases:[] },
+      { name:'Consignado', totalUsers:12, activeUsers:11, adoptionRate:91.7, totalInteractions:442, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
+      { name:'Massificado', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:325, wave:'Wave 2', profiles:['QA','Scrum Master'], useCases:[] },
+      { name:'ATACADO', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:298, wave:'Wave 3', profiles:['QA'], useCases:[] },
+      { name:'Sala Core', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:274, wave:'Wave 2', profiles:['QA','Scrum Master'], useCases:[] },
+      { name:'Abertura de Contas', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:233, wave:'Wave 3', profiles:['QA','Scrum Master'], useCases:[] },
+      { name:'Soluçoes PJ', totalUsers:9, activeUsers:9, adoptionRate:100.0, totalInteractions:318, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
+      { name:'Transformação', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:244, wave:'Piloto', profiles:['Analista de Negócios','QA','DEV','Scrum Master'], useCases:[] },
+      { name:'Investimentos', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:167, wave:'Piloto', profiles:['QA'], useCases:[] },
+      { name:'Bradesco Global Solutions', totalUsers:8, activeUsers:7, adoptionRate:87.5, totalInteractions:195, wave:'Wave 1', profiles:['QA','DEV','Scrum Master'], useCases:[] },
+      { name:'Pessoa Fisica', totalUsers:12, activeUsers:10, adoptionRate:83.3, totalInteractions:179, wave:'Wave 4', profiles:['DEV','Scrum Master'], useCases:[] },
+      { name:'CONSIGNADO - E-Social', totalUsers:10, activeUsers:9, adoptionRate:90.0, totalInteractions:169, wave:'Wave 3', profiles:['QA'], useCases:[] },
+      { name:'Cluster Soluções de Pagamento e Conciliação', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:118, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
+      { name:'CONSIGNADO - Pleito de Priorização INSS', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:39, wave:'Wave 3', profiles:['QA'], useCases:[] },
+      { name:'BSPI', totalUsers:8, activeUsers:8, adoptionRate:100.0, totalInteractions:149, wave:'Wave 3', profiles:['DEV','Scrum Master','QA'], useCases:[] },
+      { name:'PIX-CPF', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:93, wave:'Wave 2', profiles:['QA'], useCases:[] },
+      { name:'SCAP', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:72, wave:'Wave 2', profiles:['QA'], useCases:[] },
+      { name:'INTERNACIONAL E CÂMBIO', totalUsers:6, activeUsers:6, adoptionRate:100.0, totalInteractions:79, wave:'Wave 3', profiles:['QA','Scrum Master'], useCases:[] },
+      { name:'Plataforma Atendimento', totalUsers:6, activeUsers:4, adoptionRate:66.7, totalInteractions:29, wave:'Wave 1', profiles:['QA'], useCases:[] },
+      { name:'PROJETO PT-W50594', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:54, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
+      { name:'PIX-CPJ', totalUsers:4, activeUsers:4, adoptionRate:100.0, totalInteractions:55, wave:'Wave 2', profiles:['QA'], useCases:[] },
+      { name:'CONSÓRCIO | Consorcio', totalUsers:4, activeUsers:4, adoptionRate:100.0, totalInteractions:41, wave:'Wave 3', profiles:['QA'], useCases:[] },
+      { name:'Site Gestor', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:26, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
+      { name:'Consignado - Portabilidade', totalUsers:3, activeUsers:2, adoptionRate:66.7, totalInteractions:69, wave:'Wave 4', profiles:['DEV','Scrum Master'], useCases:[] },
+      { name:'MBPF', totalUsers:4, activeUsers:3, adoptionRate:75.0, totalInteractions:37, wave:'Wave 3', profiles:['DEV','Scrum Master','QA'], useCases:[] },
+      { name:'PDPJ', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:38, wave:'Wave 3', profiles:['DEV','Scrum Master'], useCases:[] },
+      { name:'Internet Banking', totalUsers:2, activeUsers:2, adoptionRate:100.0, totalInteractions:35, wave:'Piloto', profiles:['QA'], useCases:[] },
+      { name:'CONSIGNADO - Mktplace Consignado', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:24, wave:'Wave 3', profiles:['QA'], useCases:[] },
+      { name:'Tesouraria', totalUsers:3, activeUsers:3, adoptionRate:100.0, totalInteractions:53, wave:'Wave 2', profiles:['QA','Scrum Master'], useCases:[] },
+      { name:'VATINTR', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:17, wave:'Wave 3', profiles:['QA'], useCases:[] },
+      { name:'PEPF', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:12, wave:'Wave 4', profiles:['QA'], useCases:[] },
+      { name:'MBPJ', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:5, wave:'Wave 4', profiles:['DEV','Scrum Master'], useCases:[] },
+      { name:'Tribo Canais Assistidos', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:4, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
+      { name:'AFLUENTES', totalUsers:3, activeUsers:1, adoptionRate:33.3, totalInteractions:16, wave:'Wave 3', profiles:['QA'], useCases:[] },
+      { name:'Agora Trader', totalUsers:2, activeUsers:1, adoptionRate:50.0, totalInteractions:1, wave:'Wave 4', profiles:['QA'], useCases:[] },
+      { name:'CNPJ Alfanumérico', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:1, wave:'Wave 4', profiles:['Analista de Dados'], useCases:[] },
+      { name:'Tribo Contas e Tarifas', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:80, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
     ];
+
+    let projectsData = baseProjects.slice();
+
+    /* =======================
+       PERSISTÊNCIA (localStorage)
+       ======================= */
+    const STORAGE_KEY = 'genai_taxa_adocao_por_projeto__projectsData_v2';
+    function persistProjectsData(){
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(projectsData)); }
+      catch(e){ console.warn('[Persistência] Falha ao salvar:', e); }
+    }
+    function restoreProjectsData(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return false;
+        projectsData = parsed.map(p => ({
+          ...p,
+          profiles: Array.isArray(p.profiles) ? p.profiles : [],
+          useCases: Array.isArray(p.useCases) ? p.useCases : []
+        }));
+        return true;
+      }catch(e){
+        console.warn('[Persistência] Falha ao restaurar:', e);
+        return false;
+      }
+    }
+    restoreProjectsData();
 
     function colorByAdoption(rate){
       if (rate === 100) return '#00e5ff';
@@ -306,13 +388,15 @@
     function getProfilesText(p){
       return (Array.isArray(p.profiles) && p.profiles.length) ? p.profiles.join(', ') : '-';
     }
+    function getUseCasesText(p){
+      return (Array.isArray(p.useCases) && p.useCases.length) ? [...new Set(p.useCases)].join(', ') : '-';
+    }
     const avgOf = p => (p.totalUsers ? (p.totalInteractions / p.totalUsers) : 0);
 
     const rowsMountPoint = document.getElementById('rows');
     const sortBy = document.getElementById('sortBy');
     const waveFilter = document.getElementById('waveFilter');
 
-    // Estado de ordenação por clique no cabeçalho
     let headerSort = { col: 'adoptionRate', dir: 'desc' };
 
     function applySort(data){
@@ -337,10 +421,9 @@
       rowsMountPoint.innerHTML = '';
       const wave = waveFilter.value;
 
-      let data = projects.slice();
+      let data = projectsData.slice();
       if (wave !== 'all') data = data.filter(p => p.wave === wave);
 
-      // se o select for usado, ele manda na coluna (desc)
       if (sortBy.dataset.userChanged === 'true') {
         headerSort.col =
           sortBy.value === 'adoption'     ? 'adoptionRate' :
@@ -356,13 +439,11 @@
         const row = document.createElement('div');
         row.className = 'row grid-cols';
 
-        // Projeto
         const name = document.createElement('div');
         name.className = 'name';
         name.title = p.name;
         name.textContent = p.name;
 
-        // Taxa de Adoção
         const barWrap = document.createElement('div');
         barWrap.className = 'bar-wrap';
         const bar = document.createElement('div');
@@ -376,23 +457,19 @@
         barWrap.appendChild(bar);
         barWrap.appendChild(label);
 
-        // Interações
         const kInter = document.createElement('div');
         kInter.className = 'k';
         kInter.innerHTML = `<div class="v">${(p.totalInteractions||0).toLocaleString('pt-BR')}</div><div class="l">Interações</div>`;
 
-        // Média (totalInteractions ÷ totalUsers)
         const kAvg = document.createElement('div');
         kAvg.className = 'k';
         const avg = avgOf(p);
         kAvg.innerHTML = `<div class="v">${avg.toFixed(1)}</div><div class="l">Média</div>`;
 
-        // Usuários
         const kUsers = document.createElement('div');
         kUsers.className = 'k';
         kUsers.innerHTML = `<div class="v">${p.activeUsers}/${p.totalUsers}</div><div class="l">Usuários</div>`;
 
-        // Perfis
         const profilesBox = document.createElement('div');
         profilesBox.className = 'profiles';
         const list = getProfilesText(p).split(',').map(s => s.trim()).filter(Boolean);
@@ -406,35 +483,46 @@
           });
         }
 
+        const useCasesBox = document.createElement('div');
+        useCasesBox.className = 'profiles usecases';
+        const useCasesList = Array.isArray(p.useCases) ? p.useCases : [];
+        if (useCasesList.length === 0) {
+          const t = document.createElement('span'); t.className = 'tag'; t.textContent = '-';
+          useCasesBox.appendChild(t);
+        } else {
+          const uniqueUseCases = [...new Set(useCasesList)];
+          uniqueUseCases.forEach(useCase=>{
+            const t = document.createElement('span'); t.className = 'tag'; t.textContent = useCase;
+            useCasesBox.appendChild(t);
+          });
+        }
+
         row.appendChild(name);
         row.appendChild(barWrap);
         row.appendChild(kInter);
         row.appendChild(kAvg);
         row.appendChild(kUsers);
         row.appendChild(profilesBox);
+        row.appendChild(useCasesBox);
 
         rowsMountPoint.appendChild(row);
       });
 
-      // reset da flag do select
       sortBy.dataset.userChanged = 'false';
     }
 
-    // Selects
     sortBy.addEventListener('change', () => {
       sortBy.dataset.userChanged = 'true';
       render();
     });
     waveFilter.addEventListener('change', render);
 
-    // Clique nos títulos do grid
     document.querySelectorAll('.row--header div[data-col]').forEach(el=>{
       el.addEventListener('click', ()=>{
         const col = el.getAttribute('data-col');
         headerSort.dir = (headerSort.col === col && headerSort.dir === 'desc') ? 'asc' : 'desc';
         headerSort.col = col;
 
-        // UI da setinha
         document.querySelectorAll('.row--header div[data-col]').forEach(h=>{
           const caret = h.querySelector(' .sort-caret');
           if (!caret) return;
@@ -447,22 +535,18 @@
           }
         });
 
-        // Quando a ordenação é por cabeçalho, ignorar preferência do select
         sortBy.dataset.userChanged = 'false';
         render();
       });
     });
 
-    // --------- EXPORTAÇÃO PARA EXCEL ---------
     function getCurrentDataView(){
       const wave = waveFilter.value;
-      let data = projects.slice();
+      let data = projectsData.slice();
       if (wave !== 'all') data = data.filter(p => p.wave === wave);
-          // respeita ordenação atual
       data = applySort(data);
 
-      // Mapeia para linhas de exportação
-      const rows = data.map(p => {
+      return data.map(p => {
         const avg = avgOf(p);
         return {
           'Projeto': p.name,
@@ -472,10 +556,10 @@
           'Taxa de Adoção (%)': Number((p.adoptionRate ?? 0).toFixed(1)),
           'Interações': p.totalInteractions,
           'Média por Usuário': Number(avg.toFixed(1)),
-          'Perfis Treinados': getProfilesText(p)
+          'Perfis Treinados': getProfilesText(p),
+          'Casos de Uso': getUseCasesText(p)
         };
       });
-      return rows;
     }
 
     function getSummary(rows){
@@ -501,13 +585,11 @@
       const rows = getCurrentDataView();
       const wb = XLSX.utils.book_new();
 
-      // Aba Projetos
       const wsProjects = XLSX.utils.json_to_sheet(rows, {header: [
-        'Projeto','Wave','Usuários Totais','Usuários Ativos','Taxa de Adoção (%)','Interações','Média por Usuário','Perfis Treinados'
+        'Projeto','Wave','Usuários Totais','Usuários Ativos','Taxa de Adoção (%)','Interações','Média por Usuário','Perfis Treinados','Casos de Uso'
       ]});
       XLSX.utils.book_append_sheet(wb, wsProjects, 'Projetos');
 
-      // Aba Resumo
       const resumo = getSummary(rows);
       const wsResumo = XLSX.utils.aoa_to_sheet(resumo);
       XLSX.utils.book_append_sheet(wb, wsResumo, 'Resumo');
@@ -518,13 +600,170 @@
 
       XLSX.writeFile(wb, fileName);
     }
-
     document.getElementById('exportExcel').addEventListener('click', exportToExcel);
 
-    // Render inicial
+    /* =======================
+       IMPORTAÇÃO ROBUSTA (coluna H / variações de nome)
+       ======================= */
+    function normalizeLabel(str){
+      return String(str ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g,'')
+        .toLowerCase()
+        .trim();
+    }
+    function normalizeKey(str){ return normalizeLabel(str).replace(/\s+/g,''); }
+
+    function findKey(allKeys, candidates){
+      const candNorm = candidates.map(c => normalizeKey(c));
+      for (const k of allKeys){
+        const nk = normalizeKey(k);
+        if (candNorm.includes(nk)) return k;
+      }
+      for (const k of allKeys){
+        const nk = normalizeKey(k);
+        for (const c of candNorm){
+          if (nk.includes(c) || c.includes(nk)) return k;
+        }
+      }
+      return null;
+    }
+
+    function detectSchema(rows){
+      const keysSet = new Set();
+      rows.slice(0, 80).forEach(r => {
+        if (!r) return;
+        Object.keys(r).forEach(k => keysSet.add(k));
+      });
+      const keys = Array.from(keysSet);
+
+      const projKey = findKey(keys, ['Projeto','Nome do Projeto','Nome Projeto','Project']);
+      const cuKey   = findKey(keys, ['Caso de Uso','Casos de Uso','Use Case','UseCase','Case de Uso','CasodeUso','CasoUso']);
+      const cu2Key  = findKey(keys, ['CasoDeUsoNome','Nome do Caso de Uso','Caso de Uso Nome','Use Case Name','UseCaseName']);
+
+      return { projKey, cuKey, cu2Key };
+    }
+
+    function aggregateUseCasesFromSheet(rows, schema){
+      const projMap = new Map();
+      const { projKey, cuKey, cu2Key } = schema;
+
+      rows.forEach(row => {
+        const projName = projKey ? row[projKey] : null;
+        if (!projName) return;
+
+        const rawProj = projName.toString().trim();
+        if (!rawProj) return;
+
+        const keyProjNorm = normalizeLabel(rawProj);
+
+        let labelsMap = projMap.get(keyProjNorm);
+        if (!labelsMap) {
+          labelsMap = new Map();
+          projMap.set(keyProjNorm, labelsMap);
+        }
+
+        const cu1 = cuKey ? row[cuKey] : null;
+        const cu2 = cu2Key ? row[cu2Key] : null;
+
+        [cu1, cu2].forEach(v => {
+          if (typeof v === 'string') {
+            const raw = v.trim();
+            if (!raw) return;
+            const norm = normalizeLabel(raw);
+            if (!labelsMap.has(norm)) labelsMap.set(norm, raw);
+          }
+        });
+      });
+
+      return projMap;
+    }
+
+    function handleSheetFile(file){
+      if (!file) return;
+      const reader = new FileReader();
+
+      reader.onload = function(e){
+        try{
+          const data = new Uint8Array(e.target.result);
+          const wb = XLSX.read(data, { type:'array' });
+
+          const sheetName = wb.SheetNames[0];
+          const sheet = wb.Sheets[sheetName];
+          const rows = XLSX.utils.sheet_to_json(sheet, { defval: null });
+
+          const schema = detectSchema(rows);
+          if (!schema.projKey){
+            alert('Não encontrei a coluna de Projeto na planilha (ex.: "Projeto"). Verifique o cabeçalho.');
+            return;
+          }
+          if (!schema.cuKey && !schema.cu2Key){
+            alert('Não encontrei a coluna de Caso de Uso (ex.: "Caso de Uso" / "Casos de Uso"). Verifique o cabeçalho (coluna H).');
+            return;
+          }
+
+          const useCasesByProject = aggregateUseCasesFromSheet(rows, schema);
+          if (!useCasesByProject.size) {
+            alert('Não foram encontrados casos de uso preenchidos na planilha.');
+            return;
+          }
+
+          projectsData = projectsData.map(p => {
+            const key = normalizeLabel((p.name || '').toString().trim());
+
+            let labelsMap = useCasesByProject.get(key);
+            if (!labelsMap) {
+              for (const [k, v] of useCasesByProject.entries()) {
+                if (k.includes(key) || key.includes(k)) { labelsMap = v; break; }
+              }
+            }
+
+            const fromSheet = labelsMap ? Array.from(labelsMap.values()) : [];
+            const existing = Array.isArray(p.useCases) ? p.useCases : [];
+
+            const mergedMap = new Map();
+            existing.concat(fromSheet).forEach(label => {
+              if (typeof label === 'string') {
+                const raw = label.trim();
+                if (!raw) return;
+                const norm = normalizeLabel(raw);
+                if (!mergedMap.has(norm)) mergedMap.set(norm, raw);
+              }
+            });
+
+            return { ...p, useCases: Array.from(mergedMap.values()) };
+          });
+
+          persistProjectsData();
+          render();
+          console.log('[Taxa Adoção Projetos] Casos de uso carregados + persistência.');
+        } catch(err){
+          console.error('Erro ao processar planilha:', err);
+          alert('Não foi possível ler a planilha. Verifique se existe coluna de Projeto e Caso(s) de Uso.');
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+
+    const hiddenInput = document.getElementById('hiddenSheetInput');
+    hiddenInput.addEventListener('change', (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if (file) handleSheetFile(file);
+      e.target.value = '';
+    });
+
+    // Atalho Ctrl+U para anexar planilha (input oculto)
+    document.addEventListener('keydown', (e)=>{
+      if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey && e.key.toLowerCase() === 'u') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+        hiddenInput.click();
+      }
+    }, true);
+
     render();
   </script>
 </body>
 </html>
-
-      
