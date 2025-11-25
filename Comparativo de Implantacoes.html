@@ -397,6 +397,8 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      const STORAGE_KEY = 'genai_dashboard_metrics_v1';
+
       // ===== Config global Chart.js para estabilidade =====
       Chart.register(ChartDataLabels);
       Chart.defaults.color = '#ffffff';
@@ -405,35 +407,35 @@
       Chart.defaults.maintainAspectRatio = false;
       Chart.defaults.animation = { duration: 0 };
 
-      // --- KPIs iniciais (valores da planilha consolidada) ---
-      const totals = {
+      // --- KPIs iniciais (fallback fixo, caso não haja nada salvo) ---
+      const totalsFallback = {
         projetos: 49,
         profissionais: 351,
         ativos: 310,
         semInteracao: 41,
         totalInteracoes: 13464
       };
-      const adocaoPct = (totals.ativos / totals.profissionais) * 100;
-      const mediaGlobal = totals.ativos ? (totals.totalInteracoes / totals.ativos) : 0;
+      const adocaoPctFallback = (totalsFallback.ativos / totalsFallback.profissionais) * 100;
+      const mediaGlobalFallback = totalsFallback.ativos ? (totalsFallback.totalInteracoes / totalsFallback.ativos) : 0;
 
-      // Preenche KPIs (estado inicial)
-      document.getElementById('k_proj_total').textContent = totals.projetos;
-      document.getElementById('k_total').textContent = totals.profissionais;
-      document.getElementById('k_ativos').textContent = totals.ativos;
+      // Preenche KPIs com o fallback (se houver dados salvos, eles vão sobrescrever em seguida)
+      document.getElementById('k_proj_total').textContent = totalsFallback.projetos;
+      document.getElementById('k_total').textContent = totalsFallback.profissionais;
+      document.getElementById('k_ativos').textContent = totalsFallback.ativos;
       document.getElementById('k_adocao').textContent =
-        adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
-      document.getElementById('k_sem').textContent = totals.semInteracao;
+        adocaoPctFallback.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+      document.getElementById('k_sem').textContent = totalsFallback.semInteracao;
       document.getElementById('k_sem_pct').textContent =
-        ((totals.semInteracao / totals.profissionais) * 100)
+        ((totalsFallback.semInteracao / totalsFallback.profissionais) * 100)
           .toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
       document.getElementById('k_taxa_v').textContent =
-        adocaoPct.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+        adocaoPctFallback.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
       document.getElementById('k_taxa_desc').textContent =
-        `${totals.ativos} de ${totals.profissionais} usuários ativos`;
+        `${totalsFallback.ativos} de ${totalsFallback.profissionais} usuários ativos`;
       document.getElementById('k_inter').textContent =
-        totals.totalInteracoes.toLocaleString('pt-BR');
+        totalsFallback.totalInteracoes.toLocaleString('pt-BR');
       document.getElementById('k_media_global').textContent =
-        `Média: ${mediaGlobal.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
+        `Média: ${mediaGlobalFallback.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
 
       // Helper: manter gráficos responsivos sem "pulos"
       const resizeCanvases = () => {
@@ -464,7 +466,7 @@
         { month: "Novembro", interactions: 2518 }
       ];
 
-      // >>> NOVA DISTRIBUIÇÃO POR PERFIL (barras aumentadas) <<<
+      // Distribuição por perfil - fallback inicial
       const profileInteractionsInitial = [
         { profile: 'QA',                   interactions: 7000, users: 176 },
         { profile: 'Scrum Master',         interactions: 4200, users: 93  },
@@ -477,6 +479,28 @@
 
       // Variável global para armazenar a referência ao gráfico de barras
       let interactionsByProfileChart;
+
+      // Funções de persistência
+      function saveMetricsToStorage(metrics) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(metrics));
+        } catch (e) {
+          console.warn('Não foi possível salvar métricas no localStorage:', e);
+        }
+      }
+
+      function loadMetricsFromStorage() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed.profissionais !== 'number') return null;
+          return parsed;
+        } catch (e) {
+          console.warn('Não foi possível ler métricas do localStorage:', e);
+          return null;
+        }
+      }
 
       // Render cards de perfis (ordenados por usuários)
       function renderProfilesCards(profileList) {
@@ -507,6 +531,8 @@
         `;
         grid.innerHTML = ordered.map(item).join('');
       }
+
+      // Fallback inicial de perfis
       renderProfilesCards(profileInteractionsInitial);
 
       // ===== GRÁFICO: Interações por Mês (linha) =====
@@ -524,7 +550,7 @@
               label: 'Interações Mensais',
               data: values,
               borderColor: 'rgba(123, 104, 238, 1)',
-               backgroundColor: 'rgba(123, 104, 238, 0.2)',
+              backgroundColor: 'rgba(123, 104, 238, 0.2)',
               tension: 0.3,
               pointRadius: 4,
               pointHoverRadius: 5,
@@ -536,7 +562,7 @@
                 align: 'top',
                 offset: 4,
                 formatter: v => v.toLocaleString('pt-BR'),
-                font: { weight: 'bold', size: 16 }  // Aumentado de 9 para 16
+                font: { weight: 'bold', size: 16 }
               }
             }]
           },
@@ -582,12 +608,10 @@
           '#8888ff'
         ].slice(0, values.length);
 
-        // Se o gráfico já existe, destrua-o para criar um novo
         if (interactionsByProfileChart) {
           interactionsByProfileChart.destroy();
         }
 
-        // Criar o novo gráfico
         interactionsByProfileChart = new Chart(document.getElementById('interactionsByProfile'), {
           type: 'bar',
           data: {
@@ -603,12 +627,12 @@
               barPercentage: 0.65,
               maxBarThickness: 24,
               datalabels: {
-                color: '#fff', 
-                anchor: 'end', 
-                align: 'end', 
+                color: '#fff',
+                anchor: 'end',
+                align: 'end',
                 offset: 3,
                 formatter: v => v.toLocaleString('pt-BR'),
-                font: { weight: 'bold', size: 14 }  // Aumentado de 9 para 14
+                font: { weight: 'bold', size: 14 }
               }
             }]
           },
@@ -635,7 +659,8 @@
             scales: {
               x: { grid: { display: false } },
               y: {
-                beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                beginAtZero: true,
+                grid: { color: 'rgba(255, 255, 255, 0.1)' },
                 max: Math.ceil(Math.max(...values) * 1.1 / 1000) * 1000 || undefined,
                 ticks: { stepSize: 1000 }
               }
@@ -645,7 +670,7 @@
         resizeCanvases();
       }
 
-      // Inicializar o gráfico de barras com dados iniciais
+      // Fallback inicial do gráfico de barras
       renderInteractionsByProfile(profileInteractionsInitial);
 
       // ===== LÓGICA DO RECURSO OCULTO (Ctrl + U) =====
@@ -750,6 +775,7 @@
       function applyMetricsToDashboard(m) {
         if (!m || !m.profissionais) return;
 
+        // KPIs gerais
         document.getElementById('k_proj_total').textContent = m.projetos;
         document.getElementById('k_total').textContent = m.profissionais;
         document.getElementById('k_ativos').textContent = m.ativos;
@@ -769,12 +795,15 @@
           `Média: ${m.mediaAtivo.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} por usuário ativo`;
 
         // Atualiza os cards de perfil com base na nova planilha
-        renderProfilesCards(m.profiles);
-        
-        // Atualiza o gráfico de barras com os novos dados
-        renderInteractionsByProfile(m.profiles);
+        if (Array.isArray(m.profiles) && m.profiles.length) {
+          renderProfilesCards(m.profiles);
+          renderInteractionsByProfile(m.profiles);
+        }
 
-        console.log('[GenAI Dashboard] Planilha carregada e KPIs recalculados a partir do Excel.');
+        // Persiste no navegador
+        saveMetricsToStorage(m);
+
+        console.log('[GenAI Dashboard] KPIs aplicados e métricas persistidas no localStorage.');
       }
 
       function handleSheetFile(file) {
@@ -816,6 +845,15 @@
           hiddenInput.click();
         }
       });
+
+      // ===== AO CARREGAR A PÁGINA, TENTAR REAPLICAR MÉTRICAS SALVAS =====
+      const persistedMetrics = loadMetricsFromStorage();
+      if (persistedMetrics) {
+        applyMetricsToDashboard(persistedMetrics);
+      } else {
+        // se não há nada salvo, manter fallback de perfis
+        renderInteractionsByProfile(profileInteractionsInitial);
+      }
     });
 
     function goBack() {
