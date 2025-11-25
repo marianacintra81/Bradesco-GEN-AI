@@ -252,7 +252,7 @@
         <small>Treinados</small>
       </div>
 
-      <div class="kpi kpi--ativos">
+       <div class="kpi kpi--ativos">
         <div class="kpi-head"><div class="chip"><i class="fas fa-user-check"></i></div><h4>Usuários ativos</h4></div>
         <div class="v" id="k_ativos">—</div>
         <small><strong id="k_adocao">—</strong> de adoção</small>
@@ -475,6 +475,9 @@
       ];
       // (soma = 13.464, consistente com o KPI de Total de Interações)
 
+      // Variável global para armazenar a referência ao gráfico de barras
+      let interactionsByProfileChart;
+
       // Render cards de perfis (ordenados por usuários)
       function renderProfilesCards(profileList) {
         const grid = document.getElementById('profilesGrid');
@@ -521,19 +524,19 @@
               label: 'Interações Mensais',
               data: values,
               borderColor: 'rgba(123, 104, 238, 1)',
-              backgroundColor: 'rgba(123, 104, 238, 0.2)',
+               backgroundColor: 'rgba(123, 104, 238, 0.2)',
               tension: 0.3,
               pointRadius: 4,
               pointHoverRadius: 5,
               pointHitRadius: 8,
               fill: false,
               datalabels: {
-                 color: '#fff',
-  anchor: 'end',
-  align: 'top',
-  offset: 4,
-  formatter: v => v.toLocaleString('pt-BR'),
-  font: { weight: 'bold', size: 16 }  // Aumentado de 9 para 12 e mantido bold
+                color: '#fff',
+                anchor: 'end',
+                align: 'top',
+                offset: 4,
+                formatter: v => v.toLocaleString('pt-BR'),
+                font: { weight: 'bold', size: 16 }  // Aumentado de 9 para 16
               }
             }]
           },
@@ -564,8 +567,8 @@
       })();
 
       // ===== GRÁFICO: Interações por Perfil (barras) =====
-      (function renderInteractionsByProfile() {
-        const sorted = [...profileInteractionsInitial].sort((a,b) => b.interactions - a.interactions);
+      function renderInteractionsByProfile(profileData) {
+        const sorted = [...profileData].sort((a,b) => b.interactions - a.interactions);
         const labels = sorted.map(item => item.profile);
         const values = sorted.map(item => item.interactions);
 
@@ -579,7 +582,13 @@
           '#8888ff'
         ].slice(0, values.length);
 
-        new Chart(document.getElementById('interactionsByProfile'), {
+        // Se o gráfico já existe, destrua-o para criar um novo
+        if (interactionsByProfileChart) {
+          interactionsByProfileChart.destroy();
+        }
+
+        // Criar o novo gráfico
+        interactionsByProfileChart = new Chart(document.getElementById('interactionsByProfile'), {
           type: 'bar',
           data: {
             labels,
@@ -594,12 +603,12 @@
               barPercentage: 0.65,
               maxBarThickness: 24,
               datalabels: {
-              color: '#fff', 
-  anchor: 'end', 
-  align: 'end', 
-  offset: 3,
-  formatter: v => v.toLocaleString('pt-BR'),
-  font: { weight: 'bold', size: 14 }  // Aumentado de 9 para 12 e mantido bold
+                color: '#fff', 
+                anchor: 'end', 
+                align: 'end', 
+                offset: 3,
+                formatter: v => v.toLocaleString('pt-BR'),
+                font: { weight: 'bold', size: 14 }  // Aumentado de 9 para 14
               }
             }]
           },
@@ -634,7 +643,10 @@
           }
         });
         resizeCanvases();
-      })();
+      }
+
+      // Inicializar o gráfico de barras com dados iniciais
+      renderInteractionsByProfile(profileInteractionsInitial);
 
       // ===== LÓGICA DO RECURSO OCULTO (Ctrl + U) =====
 
@@ -758,6 +770,9 @@
 
         // Atualiza os cards de perfil com base na nova planilha
         renderProfilesCards(m.profiles);
+        
+        // Atualiza o gráfico de barras com os novos dados
+        renderInteractionsByProfile(m.profiles);
 
         console.log('[GenAI Dashboard] Planilha carregada e KPIs recalculados a partir do Excel.');
       }
