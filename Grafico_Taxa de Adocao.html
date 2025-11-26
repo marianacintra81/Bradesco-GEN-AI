@@ -36,7 +36,6 @@
     }
 
     .container{width:100%;max-width:none;margin:0 auto;overflow-x:hidden}
-
     .header{ text-align:center; margin-bottom:20px }
     .header h1{
       font-size:28px;font-weight:800;margin-bottom:6px;
@@ -343,17 +342,11 @@
       { name:'Tribo Contas e Tarifas', totalUsers:1, activeUsers:1, adoptionRate:100.0, totalInteractions:80, wave:'Wave 3', profiles:['Scrum Master'], useCases:[] },
     ];
 
-    // Cópia inicial
     let projectsData = baseProjects.map(p => ({...p, profiles:[...(p.profiles||[])], useCases:[...(p.useCases||[])] }));
-
-    /* =======================
-       IMPORTAÇÃO + DEDUPE (SEM PROJETOS “FUZY”)
-       Requisito: não pode “unir” projetos por nomes parecidos (evita casos iguais com casos diferentes).
-       Portanto: match de projeto = EXATO por chave normalizada.
-       ======================= */
 
     function normalizeLabel(str){
       return String(str ?? '')
+        .replace(/[\u200B-\u200D\uFEFF]/g,'')      // remove espaços invisíveis
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g,'')
         .toLowerCase()
@@ -361,35 +354,41 @@
     }
     function normalizeKey(str){ return normalizeLabel(str).replace(/\s+/g,''); }
 
-    // Dedupe forte: mesmo nome (ignorando acentos/caixa/espaços) = 1 por projeto
+    // Split de célula com múltiplos casos: vírgula, ;, |, quebra de linha
+    function explodeUseCaseTokens(value){
+      if (value == null) return [];
+      // Se vier número, boolean etc: ignora
+      const s = String(value).replace(/[\u200B-\u200D\uFEFF]/g,'').trim();
+      if (!s) return [];
+      // separadores comuns em planilha: vírgula, ponto e vírgula, pipe, newline, tab
+      return s
+        .split(/[,;|\n\r\t]+/g)
+        .map(x => x.trim().replace(/\s+/g,' '))
+        .filter(Boolean);
+    }
+
     function dedupeLabelsByNorm(list){
-      const m = new Map(); // norm -> raw escolhido
+      const m = new Map(); // norm -> raw
       (Array.isArray(list) ? list : []).forEach(v => {
         if (typeof v !== 'string') return;
-        const raw = v.trim().replace(/\s+/g, ' ');
+        const raw = v.trim().replace(/\s+/g,' ');
         if (!raw) return;
         const norm = normalizeLabel(raw);
         if (!norm) return;
 
-        // regra de escolha: mantém o mais “descritivo” (maior)
-        if (!m.has(norm)) {
-          m.set(norm, raw);
-        } else {
+        if (!m.has(norm)) m.set(norm, raw);
+        else {
           const prev = m.get(norm);
-          if ((String(raw).length || 0) > (String(prev).length || 0)) m.set(norm, raw);
+          if ((raw.length || 0) > (String(prev).length || 0)) m.set(norm, raw);
         }
       });
       return Array.from(m.values());
     }
 
-    /* =======================
-       PERSISTÊNCIA (localStorage)
-       ======================= */
-    const STORAGE_KEY = 'genai_taxa_adocao_por_projeto__projectsData_v3';
+    const STORAGE_KEY = 'genai_taxa_adocao_por_projeto__projectsData_v4';
 
     function persistProjectsData(){
       try{
-        // garante que sempre salva “limpo”
         const payload = projectsData.map(p => ({
           ...p,
           profiles: Array.isArray(p.profiles) ? p.profiles : [],
@@ -414,7 +413,6 @@
           useCases: dedupeLabelsByNorm(p.useCases)
         }));
 
-        // regrava já higienizado (corrige duplicações antigas)
         persistProjectsData();
         return true;
       }catch(e){
@@ -451,26 +449,10 @@
 
       const cmp = {
         name: (a,b)=> a.name.localeCompare(b.name) * dir,
-        adoptionRate: (a,b)=> {
-          const av = Number(a.adoptionRate)||0, bv = Number(b.adoptionRate)||0;
-          if (av === bv) return a.name.localeCompare(b.name)*dir;
-          return (av - bv) * dir;
-        },
-        totalInteractions: (a,b)=> {
-          const av = Number(a.totalInteractions)||0, bv = Number(b.totalInteractions)||0;
-          if (av === bv) return a.name.localeCompare(b.name)*dir;
-          return (av - bv) * dir;
-        },
-        avg: (a,b)=> {
-          const av = avgOf(a), bv = avgOf(b);
-          if (av === bv) return a.name.localeCompare(b.name)*dir;
-          return (av - bv) * dir;
-        },
-        totalUsers: (a,b)=> {
-          const av = Number(a.totalUsers)||0, bv = Number(b.totalUsers)||0;
-          if (av === bv) return a.name.localeCompare(b.name)*dir;
-          return (av - bv) * dir;
-        },
+        adoptionRate: (a,b)=> ((Number(a.adoptionRate)||0) - (Number(b.adoptionRate)||0)) * dir || a.name.localeCompare(b.name)*dir,
+        totalInteractions: (a,b)=> ((Number(a.totalInteractions)||0) - (Number(b.totalInteractions)||0)) * dir || a.name.localeCompare(b.name)*dir,
+        avg: (a,b)=> (avgOf(a) - avgOf(b)) * dir || a.name.localeCompare(b.name)*dir,
+        totalUsers: (a,b)=> ((Number(a.totalUsers)||0) - (Number(b.totalUsers)||0)) * dir || a.name.localeCompare(b.name)*dir,
       }[key];
 
       return data.sort(cmp);
@@ -544,8 +526,8 @@
 
         const useCasesBox = document.createElement('div');
         useCasesBox.className = 'profiles usecases';
-
         const useCasesList = dedupeLabelsByNorm(p.useCases);
+
         if (useCasesList.length === 0) {
           const t = document.createElement('span'); t.className = 'tag'; t.textContent = '-';
           useCasesBox.appendChild(t);
@@ -662,12 +644,10 @@
     document.getElementById('exportExcel').addEventListener('click', exportToExcel);
 
     /* =======================
-       IMPORTAÇÃO ROBUSTA (Projetos + Casos de Uso)
-       Regras:
-       - Extrair de: "Caso de Uso" e "CasoDeUsoNome" (ou variações) e "Caso de Uso Treinado" (variações).
-       - Se cu1 == cu2 (mesmo nome normalizado), manter só 1.
-       - NÃO misturar projetos por similaridade: só match EXATO por nome normalizado.
-       - Ao importar de novo (Ctrl+U), NÃO acumular: substitui os casos de uso do projeto pela nova leitura.
+       IMPORTAÇÃO
+       - Split dos casos de uso na célula
+       - Substitui (limpa) a lista anterior por projeto
+       - Match de projeto: EXATO (normalizado)
        ======================= */
 
     function findKey(allKeys, candidates){
@@ -676,7 +656,6 @@
         const nk = normalizeKey(k);
         if (candNorm.includes(nk)) return k;
       }
-      // fallback “contém”, apenas para CABEÇALHO (seguro)
       for (const k of allKeys){
         const nk = normalizeKey(k);
         for (const c of candNorm){
@@ -696,14 +675,14 @@
 
       const projKey = findKey(keys, ['Projeto','Nome do Projeto','Nome Projeto','Project']);
       const cuKey   = findKey(keys, ['Caso de Uso','Casos de Uso','Use Case','UseCase','Case de Uso','CasodeUso','CasoUso']);
-      const cu2Key  = findKey(keys, ['CasoDeUsoNome','Caso de Uso Nome','Nome do Caso de Uso','Use Case Name','UseCaseName','Caso de usonome']);
+      const cu2Key  = findKey(keys, ['CasoDeUsoNome','Caso de Uso Nome','Nome do Caso de Uso','Use Case Name','UseCaseName']);
       const cu3Key  = findKey(keys, ['Caso de Uso Treinado','Casos de Uso Treinados','Use Case Trained','UseCaseTrained','Treinado','Treinados']);
 
       return { projKey, cuKey, cu2Key, cu3Key };
     }
 
     function aggregateUseCasesFromSheet(rows, schema){
-      const projMap = new Map(); // projNorm -> Map(useCaseNorm -> raw)
+      const projMap = new Map(); // projNorm -> Map(useNorm -> raw)
       const { projKey, cuKey, cu2Key, cu3Key } = schema;
 
       rows.forEach(row => {
@@ -721,26 +700,25 @@
           projMap.set(projNorm, labelsMap);
         }
 
-        const candidates = [
+        const fields = [
           cuKey  ? row[cuKey]  : null,
           cu2Key ? row[cu2Key] : null,
           cu3Key ? row[cu3Key] : null,
         ];
 
-        candidates.forEach(v => {
-          if (typeof v !== 'string') return;
-          const raw = v.trim().replace(/\s+/g, ' ');
-          if (!raw) return;
-          const norm = normalizeLabel(raw);
-          if (!norm) return;
+        fields.forEach(val => {
+          // Aqui é o ponto-chave: explode "Cenários de teste, Ponto de função" em 2 tokens.
+          const tokens = explodeUseCaseTokens(val);
+          tokens.forEach(raw => {
+            const norm = normalizeLabel(raw);
+            if (!norm) return;
 
-          // regra de escolha: mantém o mais “descritivo”
-          if (!labelsMap.has(norm)) {
-            labelsMap.set(norm, raw);
-          } else {
-            const prev = labelsMap.get(norm);
-            if ((String(raw).length || 0) > (String(prev).length || 0)) labelsMap.set(norm, raw);
-          }
+            if (!labelsMap.has(norm)) labelsMap.set(norm, raw);
+            else {
+              const prev = labelsMap.get(norm);
+              if ((raw.length || 0) > (String(prev).length || 0)) labelsMap.set(norm, raw);
+            }
+          });
         });
       });
 
@@ -748,7 +726,7 @@
     }
 
     function applyUseCasesToProjects(useCasesByProject){
-      // substitui (não acumula) e deduplica
+      // Substitui sempre: se não vier nada na planilha, fica []
       projectsData = projectsData.map(p => {
         const projNorm = normalizeLabel(String(p.name || '').trim().replace(/\s+/g,' '));
         const labelsMap = useCasesByProject.get(projNorm);
@@ -758,7 +736,7 @@
 
       persistProjectsData();
       render();
-      console.log('[Taxa Adoção Projetos] Casos de uso aplicados (substituição) + persistência.');
+      console.log('[Taxa Adoção Projetos] Import OK: substituição + split + dedupe.');
     }
 
     function handleSheetFile(file){
@@ -790,8 +768,6 @@
             return;
           }
 
-          // Regra: NÃO misturar projetos parecidos.
-          // Se a planilha tiver um projeto não cadastrado no baseProjects, ele será ignorado (não cria projeto novo).
           applyUseCasesToProjects(useCasesByProject);
         } catch(err){
           console.error('Erro ao processar planilha:', err);
@@ -809,7 +785,7 @@
       e.target.value = '';
     });
 
-    // Ctrl+U para anexar planilha (pode ser usado quantas vezes precisar)
+    // Ctrl+U para anexar planilha (quantas vezes precisar)
     document.addEventListener('keydown', (e)=>{
       if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey && e.key.toLowerCase() === 'u') {
         e.preventDefault();
