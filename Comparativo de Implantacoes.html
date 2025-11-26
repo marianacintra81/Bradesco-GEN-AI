@@ -394,8 +394,8 @@
       // =========================
       // FIXOS MANUAIS (editar "na mão")
       // =========================
-      const FIXED_ADOPTION_GENERAL_PCT = 92.00; // <-- edite aqui (ex: 92.00)
-      const FIXED_W4_ADOPTION_PCT      = 68.9;  // <-- edite aqui (ex: 68.9)
+      const FIXED_ADOPTION_GENERAL_PCT = 92; // <-- edite aqui (ex: 92.)
+      const FIXED_W4_ADOPTION_PCT      = 78.9;  // <-- edite aqui (ex: 68.9)
       const FIXED_W4_TAG_TEXT          = '71 de 103 ativos'; // <-- edite aqui
 
       // =========================
@@ -429,7 +429,7 @@
       function applyFixedAdoptionRates() {
         const general = Number(FIXED_ADOPTION_GENERAL_PCT);
         if (Number.isFinite(general)) {
-          const generalTxt = general.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%';
+          const generalTxt = general.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + '%';
           const elK = document.getElementById('k_adocao');
           const elV = document.getElementById('k_taxa_v');
           if (elK) elK.textContent = generalTxt;
