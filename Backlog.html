@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title> Backlog de Iniciativas GenAI</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backlog de Iniciativas GenAI</title>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Cores principais */
+            --primary-color: #4e7cff;
+            --secondary-color: #6e42c1;
+            --tertiary-color: #ff6b6b;
+            --quaternary-color: #38b2ac;
+            --angular-color: #dd0031;
+            
+            /* Cores de fundo para cards */
+            --card1-bg: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+            --card2-bg: linear-gradient(135deg, #f5f0ff 0%, #ede6ff 100%);
+            --card3-bg: linear-gradient(135deg, #f0fffa 0%, #e6fff7 100%);
+            --card4-bg: linear-gradient(135deg, #fff0f0 0%, #ffe6e6 100%);
+            --card5-bg: linear-gradient(135deg, #fff0f5 0%, #ffe6eb 100%);
+            
+            /* Cores de borda para cards */
+            --card1-border: #4e7cff;
+            --card2-border: #6e42c1;
+            --card3-border: #38b2ac;
+            --card4-border: #ff6b6b;
+            --card5-border: #dd0031;
+            
+            /* Cores de ícones */
+            --icon1-color: #4e7cff;
+            --icon2-color: #6e42c1;
+            --icon3-color: #38b2ac;
+            --icon4-color: #ff6b6b;
+            --icon5-color: #dd0031;
+            
+            /* Outras variáveis */
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
+            --medium-text: #555;
+            --light-text: #777;
+            --border-radius: 12px;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121A38;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .header-content {
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--medium-text);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .decorative-line {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 0 auto 30px;
+            border-radius: 2px;
+        }
+        
+        .backlog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .backlog-card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .backlog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Estilos específicos para cada card */
+        .card-1 {
+            background: var(--card1-bg);
+            border-left: 5px solid var(--card1-border);
+        }
+        
+        .card-1 .card-icon {
+            color: var(--icon1-color);
+            background-color: rgba(78, 124, 255, 0.1);
+        }
+        
+        .card-1 .project-tag {
+            background-color: rgba(78, 124, 255, 0.1);
+            color: var(--icon1-color);
+        }
+        
+        .card-2 {
+            background: var(--card2-bg);
+            border-left: 5px solid var(--card2-border);
+        }
+        
+        .card-2 .card-icon {
+            color: var(--icon2-color);
+            background-color: rgba(110, 66, 193, 0.1);
+        }
+        
+        .card-2 .project-tag {
+            background-color: rgba(110, 66, 193, 0.1);
+            color: var(--icon2-color);
+        }
+        
+        .card-3 {
+            background: var(--card3-bg);
+            border-left: 5px solid var(--card3-border);
+        }
+        
+        .card-3 .card-icon {
+            color: var(--icon3-color);
+            background-color: rgba(56, 178, 172, 0.1);
+        }
+        
+        .card-3 .project-tag {
+            background-color: rgba(56, 178, 172, 0.1);
+            color: var(--icon3-color);
+        }
+        
+        .card-4 {
+            background: var(--card4-bg);
+            border-left: 5px solid var(--card4-border);
+        }
+        
+        .card-4 .card-icon {
+            color: var(--icon4-color);
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+        
+        .card-4 .project-tag {
+            background-color: rgba(255, 107, 107, 0.1);
+            color: var(--icon4-color);
+        }
+        
+        .card-5 {
+            background: var(--card5-bg);
+            border-left: 5px solid var(--card5-border);
+        }
+        
+        .card-5 .card-icon {
+            color: var(--icon5-color);
+            background-color: rgba(221, 0, 49, 0.1);
+        }
+        
+        .card-5 .project-tag {
+            background-color: rgba(221, 0, 49, 0.1);
+            color: var(--icon5-color);
+        }
+        
+        .card-header {
+            padding: 25px 25px 15px;
+            position: relative;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-icon {
+            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .card-body {
+            padding: 0 25px 25px;
+        }
+        
+        .card-description {
+            color: var(--medium-text);
+            font-size: 0.95rem;
+        }
+        
+        .project-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .tool-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 10px;
+            background-color: rgba(78, 124, 255, 0.1);
+            vertical-align: middle;
+            height: 24px;
+        }
+        
+        .tool-tag img {
+            height: 18px;
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        .github-tag {
+            background-color: rgba(110, 66, 193, 0.1);
+        }
+        
+        .promptx-tag {
+            background-color: rgba(78, 124, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #FFFFFF;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        
+        @media (max-width: 992px) {
+            .backlog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .backlog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-robot" style="margin-right: 15px;"></i> Backlog de Iniciativas GenAI</h1>
+            </div>
+            <div class="decorative-line"></div>
+        </header>
+        
+        <section>
+            <h2 class="section-title">Backlog</h2>
+            
+            <div class="backlog-grid">
+                <!-- Card 1 -->
+                <div class="backlog-card card-1 animate-fade-in delay-100">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            Agente de Testes Automatizados Frontend
+                            <span class="tool-tag github-tag">
+                                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-tag">Projeto: Contadoria</div>
+                        <p class="card-description">
+                            Framework para criação e execução de testes automatizados de frontend, potencializado por IA. Oferece suporte a múltiplas linguagens e frameworks, acelerando o desenvolvimento de testes robustos.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 - Agente para Squads Híbridas -->
+                <div class="backlog-card card-2 animate-fade-in delay-200">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            Agente para Squads Híbridas
+                            <span class="tool-tag promptx-tag">
+                                <img src="./Picture4.png" alt="PromptX Logo" style="width: auto; height: 18px; object-fit: contain;">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-tag">Projeto: Contadoria</div>
+                        <p class="card-description">
+                            Agente especializado para trabalhar em squads híbridas (humanos e agentes) no Bradesco.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="backlog-card card-3 animate-fade-in delay-300">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            Agente de Documentação baseado em Procedures
+                            <span class="tool-tag promptx-tag">
+                                <img src="./Picture4.png" alt="PromptX Logo" style="width: auto; height: 18px; object-fit: contain;">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-tag">Projeto: Plataforma Safer</div>
+                        <p class="card-description">
+                            Agente para geração automática de documentos através de procedures, extraindo metadados e regras de negócio para criar documentação técnica precisa e atualizada.
+                        </p>
+                             </div>
+                </div>
+                
+                <!-- Card 4 - Agente COBOL -->
+                <div class="backlog-card card-4 animate-fade-in delay-400">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fas fa-file-code"></i>
+                            </div>
+                            Agente COBOL
+                            <span class="tool-tag promptx-tag">
+                                <img src="./Picture4.png" alt="PromptX Logo" style="width: auto; height: 18px; object-fit: contain;">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-tag">Projeto: Plataforma Safer</div>
+                        <p class="card-description">
+                            Agente especializado para analisar mais de 350 arquivos COBOL e gerar documentação funcional e técnica completa, facilitando a manutenção e compreensão de sistemas legados.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 5 - Agente Code Review Angular -->
+                <div class="backlog-card card-5 animate-fade-in delay-500">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon">
+                                <i class="fab fa-angular"></i>
+                            </div>
+                            Agente Code Review Angular
+                            <span class="tool-tag github-tag">
+                                <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-tag">Projeto: Contadoria</div>
+                        <p class="card-description">
+                            Agente especializado em revisão de código para projetos Angular, verificando padrões arquiteturais, boas práticas e otimizações de performance. Identifica problemas comuns e sugere melhorias seguindo as diretrizes oficiais do framework.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Script para animar os elementos quando entrarem na viewport
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate-fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+               element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
