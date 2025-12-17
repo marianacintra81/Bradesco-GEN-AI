@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Roadmap Estratégico 2026 | GEN AI</title>
-    
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -44,13 +33,15 @@
             color: var(--text-light);
             line-height: 1.6;
             width: 100%;
-            height: 100vh;
-            overflow: hidden;
+            /* Removido height: 100vh para permitir rolagem */
+            /* Alterado para permitir rolagem */
+            overflow-y: auto;
+            min-height: 100vh;
         }
         
         .container {
             width: 100%;
-            height: 100%;
+            /* Removido height: 100% para permitir expansão */
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
@@ -119,10 +110,12 @@
             justify-content: space-between;
             margin-bottom: 1.5rem;
             gap: 1rem;
+            flex-wrap: wrap; /* Permitir quebra em telas menores */
         }
         
         .pillar {
             flex: 1;
+            min-width: 200px; /* Largura mínima para evitar compressão excessiva */
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             padding: 1rem;
@@ -130,6 +123,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            margin-bottom: 0.5rem; /* Espaço para quando quebrar em telas menores */
         }
         
         .pillar:hover {
@@ -186,10 +180,10 @@
         }
         
         .timeline {
-            flex: 1;
             display: flex;
             position: relative;
             margin-top: 1rem;
+            flex-wrap: wrap; /* Permitir quebra em telas menores */
         }
         
         .timeline-line {
@@ -204,9 +198,11 @@
         
         .quarter {
             flex: 1;
+            min-width: 250px; /* Largura mínima para evitar compressão excessiva */
             position: relative;
             z-index: 2;
             padding: 0 0.5rem;
+            margin-bottom: 2rem; /* Espaço para quando quebrar em telas menores */
         }
         
         .quarter-marker {
@@ -265,7 +261,8 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             padding: 1rem;
-            height: calc(100% - 100px); /* Ajustado para acomodar o título mais abaixo */
+            /* Altura mínima em vez de fixa */
+            min-height: 300px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
@@ -402,6 +399,7 @@
             font-size: 0.9rem;
             opacity: 0.7;
             font-style: italic;
+            padding-bottom: 1rem;
         }
         
         .footer span {
@@ -409,21 +407,50 @@
             font-weight: 600;
         }
         
+        /* Adicionando estilos para métricas */
+        .metrics-badge {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 0.3rem 0.6rem;
+            margin-top: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .quarter:nth-child(1) .metrics-badge {
+            border: 1px solid var(--bradesco-red);
+        }
+        
+        .quarter:nth-child(2) .metrics-badge {
+            border: 1px solid var(--accent1);
+        }
+        
+        .quarter:nth-child(3) .metrics-badge {
+            border: 1px solid var(--accent3);
+        }
+        
+        .quarter:nth-child(4) .metrics-badge {
+            border: 1px solid var(--accent4);
+        }
+        
         @media (max-width: 1200px) {
-            body {
-                overflow: auto;
-            }
-            
-            .strategic-pillars, .timeline {
-                flex-direction: column;
-            }
-            
-            .pillar, .quarter {
-                margin-bottom: 1rem;
-            }
-            
             .timeline-line {
                 display: none;
+            }
+            
+            .quarter {
+                flex: 1 1 45%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .pillar {
+                flex: 1 1 100%;
+            }
+            
+            .quarter {
+                flex: 1 1 100%;
             }
         }
     </style>
@@ -432,13 +459,11 @@
     <div class="container">
         <header>
             <div class="title-container">
-                <div class="logo">
+                 <div class="logo">
                     <img src="./Picture4.png" alt="Logo Bradesco">
                 </div>
                 <h1>Roadmap Estratégico 2026 | GEN AI</h1>
             </div>
-            <p class="subtitle">Transformação Digital com Inteligência Artificial Generativa</p>
-            <p class="tagline">Impulsionando a inovação e eficiência no Bradesco através da IA Generativa</p>
         </header>
         
         <div class="roadmap-container">
@@ -456,18 +481,18 @@
                         <i class="fas fa-user-shield"></i>
                     </div>
                     <div class="pillar-title">Experiência Personalizada</div>
-                    <div class="pillar-desc">Relacionamento único e seguro com cada cliente</div>
+                    <div class="pillar-desc">Relacionamento único e seguro </div>
                 </div>
-                 <div class="pillar">
+                
+                <div class="pillar">
                     <div class="pillar-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="pillar-title">Eficiência Operacional</div>
                     <div class="pillar-desc">Otimização de processos e redução de custos</div>
                 </div>
-              
                 
-                    <div class="pillar">
+                <div class="pillar">
                     <div class="pillar-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -485,10 +510,10 @@
                     <div class="quarter-content">
                         <div class="quarter-theme">Fundação e Capacitação</div>
                         <ul class="initiatives">
-                           <li class="initiative">Academia GenAI: Capacitação massiva de colaboradores em IA generativa</li>
-                            <li class="initiative">Agente de Code Review Java: Assistente que analisa código em tempo real, identifica vulnerabilidades de segurança, sugere otimizações de performance e garante conformidade com padrões do Bradesco.</li>
-                            <li class="initiative">Academia GenAI: Capacitação massiva de colaboradores em IA generativa</li>
-                            <li class="initiative">Análise Preditiva de Crédito: Modelos avançados para avaliação de risco</li>
+                             <li class="initiative">Academia GenAI: Capacitação de colaboradores em IA generativa</li>
+                            <li class="initiative">Plugin Capgemini AI - Squads Híbridas</li>
+                            <li class="initiative">Agente de Code Review</li>
+                            <li class="initiative">Agente de Testes Automatizados</li>
                         </ul>
                         <div class="key-results">
                             <div class="key-results-title">Resultados-chave</div>
@@ -498,8 +523,11 @@
                             </div>
                             <div class="key-result">
                                 <i class="fas fa-arrow-up"></i>
-                                5.000 colaboradores capacitados em GenAI
+                                1.300 colaboradores capacitados em GenAI
                             </div>
+                        </div>
+                        <div class="metrics-badge">
+                            <i class="fas fa-chart-bar"></i> 44 Projetos | 90% Adoção | 30.000+ Interações
                         </div>
                     </div>
                 </div>
@@ -510,21 +538,21 @@
                     <div class="quarter-content">
                         <div class="quarter-theme">Expansão e Personalização</div>
                         <ul class="initiatives">
-                            <li class="initiative">Consultor Financeiro GenAI: Recomendações personalizadas de investimentos</li>
-                            <li class="initiative">Documentação Inteligente: Automação de contratos e documentos legais</li>
-                            <li class="initiative">Detecção Avançada de Fraudes: Sistema preditivo baseado em padrões comportamentais</li>
-                            <li class="initiative">Jornada Digital Personalizada: Experiência omnichannel adaptativa</li>
+                            <li class="initiative">Em definição</li>
                         </ul>
                         <div class="key-results">
                             <div class="key-results-title">Resultados-chave</div>
                             <div class="key-result">
                                 <i class="fas fa-arrow-up"></i>
-                                Aumento de 25% na conversão de ofertas
+                                Em definição
                             </div>
                             <div class="key-result">
-                                <i class="fas fa-arrow-down"></i>
-                                Redução de 40% em fraudes detectadas
+                                <i class="fas fa-arrow-up"></i>
+                                Em definição
                             </div>
+                        </div>
+                        <div class="metrics-badge">
+                            <i class="fas fa-chart-bar"></i> Em definição
                         </div>
                     </div>
                 </div>
@@ -535,21 +563,21 @@
                     <div class="quarter-content">
                         <div class="quarter-theme">Otimização e Escala</div>
                         <ul class="initiatives">
-                            <li class="initiative">Bradesco GenOps: Plataforma de operações autônomas para TI</li>
-                            <li class="initiative">Análise de Sentimento em Tempo Real: Monitoramento da satisfação do cliente</li>
-                            <li class="initiative">Marketplace GenAI: Ecossistema de soluções financeiras com parceiros</li>
-                            <li class="initiative">Automação Inteligente de Backoffice: Redução de processos manuais</li>
+                            <li class="initiative">Em definição</li>
                         </ul>
                         <div class="key-results">
                             <div class="key-results-title">Resultados-chave</div>
                             <div class="key-result">
                                 <i class="fas fa-arrow-up"></i>
-                                Eficiência operacional aumentada em 35%
+                                Em definição
                             </div>
                             <div class="key-result">
                                 <i class="fas fa-arrow-up"></i>
-                                NPS elevado em 20 pontos
+                                Em definição
                             </div>
+                        </div>
+                        <div class="metrics-badge">
+                            <i class="fas fa-chart-bar"></i> Em definição
                         </div>
                     </div>
                 </div>
@@ -560,28 +588,29 @@
                     <div class="quarter-content">
                         <div class="quarter-theme">Consolidação e Inovação</div>
                         <ul class="initiatives">
-                            <li class="initiative">Bradesco Metaverso Financeiro: Experiências imersivas de atendimento</li>
-                            <li class="initiative">Agentes Autônomos Multimodais: Assistentes especializados por segmento</li>
-                            <li class="initiative">Plataforma de Inovação Aberta: Co-criação com startups e fintechs</li>
-                            <li class="initiative">Digital Twin para Agências: Simulação e otimização de operações físicas</li>
+                            <li class="initiative">Em definição</li>
                         </ul>
                         <div class="key-results">
                             <div class="key-results-title">Resultados-chave</div>
                             <div class="key-result">
                                 <i class="fas fa-arrow-up"></i>
-                                ROI de 300% em iniciativas GenAI
+                                Em definição
                             </div>
                             <div class="key-result">
-                                <i class="fas fa-trophy"></i>
-                                Liderança em inovação no setor financeiro
+                                <i class="fas fa-arrow-up"></i>
+                                Em definição
                             </div>
+                        </div>
+                        <div class="metrics-badge">
+                            <i class="fas fa-chart-bar"></i> Em definição
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-
+        <div class="footer">
+            "Transformando o futuro financeiro do Brasil com <span>Inteligência Artificial Generativa</span>"
         </div>
     </div>
     
@@ -622,8 +651,4 @@
         });
     </script>
 </body>
-</html>
-    
-  </body>
-  
 </html>
