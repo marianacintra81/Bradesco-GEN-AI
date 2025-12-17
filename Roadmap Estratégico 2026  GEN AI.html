@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Roadmap Estratégico 2026 | GEN AI</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Estratégico 2026 | GEN AI Bradesco</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #121A38;
+            --secondary: #D71921; /* Vermelho Bradesco */
+            --accent1: #4A86FF;
+            --accent2: #FFD166;
+            --accent3: #06D6A0;
+            --accent4: #9B5DE5;
+            --light: #F8F9FA;
+            --dark: #121A38;
+            --text-light: #FFFFFF;
+            --bradesco-red: #D71921;
+            --bradesco-blue: #1E3F66;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--bradesco-red), var(--accent1), var(--accent4));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: var(--accent2);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        .roadmap-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .strategic-pillars {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+        
+        .pillar {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .pillar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .pillar:nth-child(1) {
+            border-top: 3px solid var(--bradesco-red);
+        }
+        
+        .pillar:nth-child(2) {
+            border-top: 3px solid var(--accent1);
+        }
+        
+        .pillar:nth-child(3) {
+            border-top: 3px solid var(--accent3);
+        }
+        
+        .pillar:nth-child(4) {
+            border-top: 3px solid var(--accent4);
+        }
+        
+        .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pillar:nth-child(1) .pillar-icon {
+            color: var(--bradesco-red);
+        }
+        
+        .pillar:nth-child(2) .pillar-icon {
+            color: var(--accent1);
+        }
+        
+        .pillar:nth-child(3) .pillar-icon {
+            color: var(--accent3);
+        }
+        
+        .pillar:nth-child(4) .pillar-icon {
+            color: var(--accent4);
+        }
+        
+        .pillar-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pillar-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .timeline {
+            flex: 1;
+            display: flex;
+            position: relative;
+            margin-top: 1rem;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--bradesco-red), var(--accent1), var(--accent3), var(--accent4));
+            z-index: 1;
+        }
+        
+        .quarter {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            padding: 0 0.5rem;
+        }
+        
+        .quarter-marker {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            position: relative;
+            z-index: 3;
+            border: 2px solid var(--text-light);
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .quarter:nth-child(1) .quarter-marker {
+            background-color: var(--bradesco-red);
+        }
+        
+        .quarter:nth-child(2) .quarter-marker {
+            background-color: var(--accent1);
+        }
+        
+        .quarter:nth-child(3) .quarter-marker {
+            background-color: var(--accent3);
+        }
+        
+        .quarter:nth-child(4) .quarter-marker {
+            background-color: var(--accent4);
+        }
+        
+        .quarter-title {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            /* Aumentado o espaço entre a linha do tempo e o título do trimestre */
+            margin-top: 1.5rem;
+        }
+        
+        .quarter:nth-child(1) .quarter-title {
+            color: var(--bradesco-red);
+        }
+        
+        .quarter:nth-child(2) .quarter-title {
+            color: var(--accent1);
+        }
+        
+        .quarter:nth-child(3) .quarter-title {
+            color: var(--accent3);
+        }
+        
+        .quarter:nth-child(4) .quarter-title {
+            color: var(--accent4);
+        }
+        
+        .quarter-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            height: calc(100% - 100px); /* Ajustado para acomodar o título mais abaixo */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .quarter:nth-child(1) .quarter-content {
+            border-left: 3px solid var(--bradesco-red);
+        }
+        
+        .quarter:nth-child(2) .quarter-content {
+            border-left: 3px solid var(--accent1);
+        }
+        
+        .quarter:nth-child(3) .quarter-content {
+            border-left: 3px solid var(--accent3);
+        }
+        
+        .quarter:nth-child(4) .quarter-content {
+            border-left: 3px solid var(--accent4);
+        }
+        
+        .quarter-theme {
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .initiatives {
+            list-style-type: none;
+            flex: 1;
+        }
+        
+        .initiative {
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .initiative:last-child {
+            margin-bottom: 0;
+        }
+        
+        .quarter:nth-child(1) .initiative:before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--bradesco-red);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        .quarter:nth-child(2) .initiative:before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--accent1);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        .quarter:nth-child(3) .initiative:before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--accent3);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        .quarter:nth-child(4) .initiative:before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--accent4);
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        .key-results {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.7rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+        
+        .key-results-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+        }
+        
+        .key-result {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.3rem;
+        }
+        
+        .key-result:last-child {
+            margin-bottom: 0;
+        }
+        
+        .key-result i {
+            margin-right: 0.4rem;
+            font-size: 0.7rem;
+        }
+        
+        .quarter:nth-child(1) .key-result i {
+            color: var(--bradesco-red);
+        }
+        
+        .quarter:nth-child(2) .key-result i {
+            color: var(--accent1);
+        }
+        
+        .quarter:nth-child(3) .key-result i {
+            color: var(--accent3);
+        }
+        
+        .quarter:nth-child(4) .key-result i {
+            color: var(--accent4);
+        }
+        
+        .footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        .footer span {
+            color: var(--bradesco-red);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1200px) {
+            body {
+                overflow: auto;
+            }
+            
+            .strategic-pillars, .timeline {
+                flex-direction: column;
+            }
+            
+            .pillar, .quarter {
+                margin-bottom: 1rem;
+            }
+            
+            .timeline-line {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="title-container">
+                <div class="logo">
+                    <img src="./Picture4.png" alt="Logo Bradesco">
+                </div>
+                <h1>Roadmap Estratégico 2026 | GEN AI</h1>
+            </div>
+            <p class="subtitle">Transformação Digital com Inteligência Artificial Generativa</p>
+            <p class="tagline">Impulsionando a inovação e eficiência no Bradesco através da IA Generativa</p>
+        </header>
+        
+        <div class="roadmap-container">
+            <div class="strategic-pillars">
+                <div class="pillar">
+                    <div class="pillar-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="pillar-title">Inovação Acelerada</div>
+                    <div class="pillar-desc">Transformar ideias em soluções com velocidade e precisão</div>
+                </div>
+                
+                <div class="pillar">
+                    <div class="pillar-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="pillar-title">Experiência Personalizada</div>
+                    <div class="pillar-desc">Relacionamento único e seguro com cada cliente</div>
+                </div>
+                 <div class="pillar">
+                    <div class="pillar-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="pillar-title">Eficiência Operacional</div>
+                    <div class="pillar-desc">Otimização de processos e redução de custos</div>
+                </div>
+              
+                
+                    <div class="pillar">
+                    <div class="pillar-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="pillar-title">Segurança Avançada</div>
+                    <div class="pillar-desc">Proteção de dados e conformidade regulatória</div>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="quarter">
+                    <div class="quarter-marker"></div>
+                    <div class="quarter-title">Q1 2026</div>
+                    <div class="quarter-content">
+                        <div class="quarter-theme">Fundação e Capacitação</div>
+                        <ul class="initiatives">
+                           <li class="initiative">Academia GenAI: Capacitação massiva de colaboradores em IA generativa</li>
+                            <li class="initiative">Agente de Code Review Java: Assistente que analisa código em tempo real, identifica vulnerabilidades de segurança, sugere otimizações de performance e garante conformidade com padrões do Bradesco.</li>
+                            <li class="initiative">Academia GenAI: Capacitação massiva de colaboradores em IA generativa</li>
+                            <li class="initiative">Análise Preditiva de Crédito: Modelos avançados para avaliação de risco</li>
+                        </ul>
+                        <div class="key-results">
+                            <div class="key-results-title">Resultados-chave</div>
+                            <div class="key-result">
+                                <i class="fas fa-arrow-up"></i>
+                                Redução de 30% no tempo de desenvolvimento
+                            </div>
+                            <div class="key-result">
+                                <i class="fas fa-arrow-up"></i>
+                                5.000 colaboradores capacitados em GenAI
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quarter">
+                    <div class="quarter-marker"></div>
+                    <div class="quarter-title">Q2 2026</div>
+                    <div class="quarter-content">
+                        <div class="quarter-theme">Expansão e Personalização</div>
+                        <ul class="initiatives">
+                            <li class="initiative">Consultor Financeiro GenAI: Recomendações personalizadas de investimentos</li>
+                            <li class="initiative">Documentação Inteligente: Automação de contratos e documentos legais</li>
+                            <li class="initiative">Detecção Avançada de Fraudes: Sistema preditivo baseado em padrões comportamentais</li>
+                            <li class="initiative">Jornada Digital Personalizada: Experiência omnichannel adaptativa</li>
+                        </ul>
+                        <div class="key-results">
+                            <div class="key-results-title">Resultados-chave</div>
+                            <div class="key-result">
+                                <i class="fas fa-arrow-up"></i>
+                                Aumento de 25% na conversão de ofertas
+                            </div>
+                            <div class="key-result">
+                                <i class="fas fa-arrow-down"></i>
+                                Redução de 40% em fraudes detectadas
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quarter">
+                    <div class="quarter-marker"></div>
+                    <div class="quarter-title">Q3 2026</div>
+                    <div class="quarter-content">
+                        <div class="quarter-theme">Otimização e Escala</div>
+                        <ul class="initiatives">
+                            <li class="initiative">Bradesco GenOps: Plataforma de operações autônomas para TI</li>
+                            <li class="initiative">Análise de Sentimento em Tempo Real: Monitoramento da satisfação do cliente</li>
+                            <li class="initiative">Marketplace GenAI: Ecossistema de soluções financeiras com parceiros</li>
+                            <li class="initiative">Automação Inteligente de Backoffice: Redução de processos manuais</li>
+                        </ul>
+                        <div class="key-results">
+                            <div class="key-results-title">Resultados-chave</div>
+                            <div class="key-result">
+                                <i class="fas fa-arrow-up"></i>
+                                Eficiência operacional aumentada em 35%
+                            </div>
+                            <div class="key-result">
+                                <i class="fas fa-arrow-up"></i>
+                                NPS elevado em 20 pontos
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quarter">
+                    <div class="quarter-marker"></div>
+                    <div class="quarter-title">Q4 2026</div>
+                    <div class="quarter-content">
+                        <div class="quarter-theme">Consolidação e Inovação</div>
+                        <ul class="initiatives">
+                            <li class="initiative">Bradesco Metaverso Financeiro: Experiências imersivas de atendimento</li>
+                            <li class="initiative">Agentes Autônomos Multimodais: Assistentes especializados por segmento</li>
+                            <li class="initiative">Plataforma de Inovação Aberta: Co-criação com startups e fintechs</li>
+                            <li class="initiative">Digital Twin para Agências: Simulação e otimização de operações físicas</li>
+                        </ul>
+                        <div class="key-results">
+                            <div class="key-results-title">Resultados-chave</div>
+                            <div class="key-result">
+                                <i class="fas fa-arrow-up"></i>
+                                ROI de 300% em iniciativas GenAI
+                            </div>
+                            <div class="key-result">
+                                <i class="fas fa-trophy"></i>
+                                Liderança em inovação no setor financeiro
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pillars = document.querySelectorAll('.pillar');
+            const quarters = document.querySelectorAll('.quarter');
+            
+            // Animação para os pilares
+            pillars.forEach((pillar, index) => {
+                setTimeout(() => {
+                    pillar.style.opacity = '0';
+                    pillar.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        pillar.style.transition = 'all 0.5s ease';
+                        pillar.style.opacity = '1';
+                        pillar.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+            
+            // Animação para os quarters
+            setTimeout(() => {
+                quarters.forEach((quarter, index) => {
+                    setTimeout(() => {
+                        quarter.style.opacity = '0';
+                        quarter.style.transform = 'translateY(20px)';
+                        
+                        setTimeout(() => {
+                            quarter.style.transition = 'all 0.5s ease';
+                            quarter.style.opacity = '1';
+                            quarter.style.transform = 'translateY(0)';
+                        }, 100);
+                    }, index * 200);
+                });
+            }, pillars.length * 200 + 200);
+        });
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
