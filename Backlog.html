@@ -18,18 +18,12 @@
             --angular-color: #dd0031;
             
             /* Cores de fundo para cards */
-            --card1-bg: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
-            --card2-bg: linear-gradient(135deg, #f5f0ff 0%, #ede6ff 100%);
-            --card3-bg: linear-gradient(135deg, #f0fffa 0%, #e6fff7 100%);
-            --card4-bg: linear-gradient(135deg, #fff0f0 0%, #ffe6e6 100%);
-            --card5-bg: linear-gradient(135deg, #fff0f5 0%, #ffe6eb 100%);
+            --card-blue-bg: #77BDFF;
+            --card-gray-bg: #A6A6A6;
             
             /* Cores de borda para cards */
-            --card1-border: #4e7cff;
-            --card2-border: #6e42c1;
-            --card3-border: #38b2ac;
-            --card4-border: #ff6b6b;
-            --card5-border: #dd0031;
+            --card-blue-border: #4e7cff;
+            --card-gray-border: #777777;
             
             /* Outras variáveis */
             --light-bg: #f8f9fa;
@@ -113,53 +107,63 @@
         
         /* Estilos específicos para cada card */
         .card-1 {
-            background: var(--card1-bg);
-            border-left: 5px solid var(--card1-border);
+            background: var(--card-blue-bg);
+            border-left: 5px solid var(--card-blue-border);
         }
         
         .card-1 .project-tag {
-            background-color: rgba(78, 124, 255, 0.1);
-            color: var(--card1-border);
+            background-color: rgba(78, 124, 255, 0.2);
+            color: #333;
         }
         
         .card-2 {
-            background: var(--card2-bg);
-            border-left: 5px solid var(--card2-border);
+            background: var(--card-blue-bg);
+            border-left: 5px solid var(--card-blue-border);
         }
         
         .card-2 .project-tag {
-            background-color: rgba(110, 66, 193, 0.1);
-            color: var(--card2-border);
+            background-color: rgba(78, 124, 255, 0.2);
+            color: #333;
         }
         
         .card-3 {
-            background: var(--card3-bg);
-            border-left: 5px solid var(--card3-border);
+            background: var(--card-gray-bg);
+            border-left: 5px solid var(--card-gray-border);
         }
         
         .card-3 .project-tag {
-            background-color: rgba(56, 178, 172, 0.1);
-            color: var(--card3-border);
+            background-color: rgba(119, 119, 119, 0.2);
+            color: #333;
         }
         
         .card-4 {
-            background: var(--card4-bg);
-            border-left: 5px solid var(--card4-border);
+            background: var(--card-gray-bg);
+            border-left: 5px solid var(--card-gray-border);
         }
         
         .card-4 .project-tag {
-            background-color: rgba(255, 107, 107, 0.1);
-            color: var(--card4-border);
+            background-color: rgba(119, 119, 119, 0.2);
+            color: #333;
         }
         
         .card-5 {
-            background: var(--card5-bg);
-            border-left: 5px solid var(--card5-border);
+            background: var(--card-gray-bg);
+            border-left: 5px solid var(--card-gray-border);
         }
         
         .card-5 .project-tag {
-            background-color: rgba(221, 0, 49, 0.1);
-            color: var(--card5-border);
+            background-color: rgba(119, 119, 119, 0.2);
+            color: #333;
+        }
+        
+        .card-6 {
+            background: var(--card-gray-bg);
+            border-left: 5px solid var(--card-gray-border);
+        }
+        
+        .card-6 .project-tag {
+            background-color: rgba(119, 119, 119, 0.2);
+            color: #333;
         }
         
         .card-header {
@@ -242,6 +246,7 @@
         .delay-300 { animation-delay: 0.3s; }
         .delay-400 { animation-delay: 0.4s; }
         .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
         
         @media (max-width: 1200px) {
             .backlog-grid {
@@ -283,7 +288,7 @@
      
             
             <div class="backlog-grid">
-                <!-- Card 1 -->
+                <!-- Card 1 - Agente de Testes Automatizados Frontend (Azul #77BDFF) -->
                 <div class="backlog-card card-1 animate-fade-in delay-100">
                     <div class="card-header">
                         <div class="card-title">
@@ -299,7 +304,7 @@
                     </div>
                 </div>
                 
-                <!-- Card 2 - Multiagente para Squads Híbridas -->
+                <!-- Card 2 - Multiagente para Squads Híbridas (Azul #77BDFF) -->
                 <div class="backlog-card card-2 animate-fade-in delay-200">
                     <div class="card-header">
                         <div class="card-title">
@@ -315,8 +320,24 @@
                     </div>
                 </div>
                 
-                <!-- Card 3 - Agente Code Review Angular (trocado de posição) -->
-                <div class="backlog-card card-5 animate-fade-in delay-300">
+                <!-- Novo Card - Treinamento GitHub Copilot para DEV MainFrame (Cinza #A6A6A6) -->
+                <div class="backlog-card card-6 animate-fade-in delay-300">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Treinamento GitHub Copilot para DEV MainFrame
+                            <img src="https://github.githubassets.com/images/modules/site/copilot/copilot.png" alt="GitHub Copilot Logo" class="tool-img">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-tag">Plataforma Safer</div>
+                        <p class="card-description">
+                            Programa de treinamento especializado para desenvolvedores MainFrame utilizarem GitHub Copilot.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 - Agente Code Review Angular (Cinza #A6A6A6) -->
+                <div class="backlog-card card-5 animate-fade-in delay-400">
                     <div class="card-header">
                         <div class="card-title">
                             Agente Code Review Angular
@@ -331,8 +352,8 @@
                     </div>
                 </div>
                 
-                <!-- Card 4 - Agente COBOL -->
-                <div class="backlog-card card-4 animate-fade-in delay-400">
+                <!-- Card 4 - Agente COBOL (Cinza #A6A6A6) -->
+                <div class="backlog-card card-4 animate-fade-in delay-500">
                     <div class="card-header">
                         <div class="card-title">
                             Agente COBOL
@@ -347,8 +368,8 @@
                     </div>
                 </div>
                 
-                <!-- Card 5 - Agente de Documentação (trocado de posição) -->
-                <div class="backlog-card card-3 animate-fade-in delay-500">
+                <!-- Card 5 - Agente de Documentação (Cinza #A6A6A6) -->
+                <div class="backlog-card card-3 animate-fade-in delay-600">
                     <div class="card-header">
                         <div class="card-title">
                             Agente de Documentação baseado em Procedures
@@ -381,7 +402,7 @@
             }, { threshold: 0.1 });
             
             animatedElements.forEach(element => {
-               element.style.opacity = '0';
+                    element.style.opacity = '0';
                 element.style.transform = 'translateY(20px)';
                 element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
                 observer.observe(element);
